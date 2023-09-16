@@ -1,0 +1,105 @@
+/* ------------------------------------ */
+/*                 CSS                  */
+/*         Add your styles here         */
+/* ------------------------------------ */
+
+.mobile-pf2e #ui-left,
+.mobile-pf2e #ui-middle {
+  display: none;
+}
+
+.mobile-pf2e #chat-form textarea {
+  width: calc(100% - 5rem);
+}
+
+.mobile-pf2e .send-button {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 5rem;
+  height: 100%;
+  border: none;
+  border-radius: 3px;
+  background: var(--glass-bg) none;
+  box-shadow: var(--glassy);
+  transition:
+    text-shadow 0.15s ease-in-out,
+    background-color 0.15s ease-in-out,
+    border 0.15s ease-in-out,
+    color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out,
+    backdrop-filter 0.15s ease-in-out,
+    border-radius 0.15s;
+  text-shadow: 0 0 3px black;
+  color: var(--color-text-light-heading);
+  font-size: 4rem;
+}
+
+.mobile-pf2e .actor.sheet .crb-style {
+  grid-template-columns: initial !important;
+  grid-template-areas: 'header ' 'nav    ' 'content' !important;
+}
+
+.mobile-pf2e #sidebar-tabs {
+  font-size: 2em;
+}
+
+.mobile-pf2e .actor.sheet.character .crb-style header.char-header .char-level .exp-data {
+  padding: initial !important;
+}
+
+.mobile-pf2e .actor.sheet.character .crb-style header.char-header .char-level {
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+}
+
+.mobile-pf2e .navigation-title,
+.mobile-pf2e .manage-tabs,
+.mobile-pf2e .attribute .details-label,
+.mobile-pf2e .pc_deity img.symbol {
+  display: none !important;
+}
+
+.mobile-pf2e .tab:not(.inventory, .actions) {
+  margin-left: 0 !important;
+}
+
+.mobile-pf2e .app.sheet.actor.character {
+  width: 100%;
+  height: 100%;
+}
+
+.mobile-pf2e .skills-list {
+  column-gap: 4px !important;
+  row-gap: 12px;
+}
+
+.mobile-pf2e .app.sheet.actor.character .window-resizable-handle,
+.mobile-pf2e .popout-module-button,
+.mobile-pf2e .pathmuncher-open,
+.mobile-pf2e .configure-token,
+.mobile-pf2e .configure-creature,
+.mobile-pf2e .send-to-taskbar,
+.mobile-pf2e .configure-theatre,
+.mobile-pf2e .console-print,
+.mobile-pf2e .document-id-link,
+.mobile-pf2e .document-image-link {
+  display: none;
+}
+
+.mobile-pf2e
+  .actor.sheet.character
+  .crb-style
+  .sheet-body
+  .sheet-content
+  .tab.character
+  .character-details
+  .pc_deity
+  .input
+  h3 {
+  margin-left: 0.5em !important;
+}
+
+.mobile-pf2e .actor.sheet.character .crb-style .sheet-body .sheet-content .tab.character .character-details {
+  grid-template-columns: 120px 130px 1fr !important;
+}
