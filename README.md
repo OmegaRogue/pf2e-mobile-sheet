@@ -12,6 +12,8 @@ Make the PF2e Player Character sheet work on mobile
 
 After installing the module, for using this module, I recommend you use Chrome and install foundry as a progressive web app by using "add to home screen".
 
+For the best experience, disable the canvas on mobile clients (you may need to put your device into landscape to be able to use the settings menu, this will be fixed in a later version)
+
 ## Development
 
 ### Prerequisites

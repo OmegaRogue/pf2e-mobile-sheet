@@ -27,7 +27,6 @@ function getDebug() {
 // Initialize module
 Hooks.once('init', async () => {
   log(true, 'pf2e-mobile-sheet | Initializing pf2e-mobile-sheet');
-  game.settings.set('core', 'noCanvas', true);
   // Assign custom classes and constants here
 
   // Register custom module settings
@@ -39,13 +38,13 @@ Hooks.once('init', async () => {
   // Register custom sheets (if any)
 });
 
-//const isMobile = navigator.userAgentData.mobile;
+const isMobile = navigator.userAgentData.mobile;
 Hooks.once('init', async function () {
   // if (!isMobile) return;
 });
 
 Hooks.once('ready', async function () {
-  // if (!isMobile && !getDebug()) return;
+  if (!isMobile && !getDebug()) return;
   const body = $('body');
   body.addClass('mobile-pf2e');
   if (game.modules.get('pathfinder-ui')?.active) body.addClass('pf2e-ui');
@@ -65,7 +64,7 @@ Hooks.on('renderChatLog', async function () {
 });
 
 Hooks.on('renderCharacterSheetPF2e', (_, html) => {
-  // if (!isMobile && !getDebug()) return;
+  if (!isMobile && !getDebug()) return;
   html.css('width', '100%');
   html.css('height', '100%');
   html.css('top', 0);
