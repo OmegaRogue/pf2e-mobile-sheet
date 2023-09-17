@@ -76,7 +76,9 @@ jobs:
           url: https://github.com/${{ github.repository }}
           manifest: https://github.com/${{ github.repository }}/releases/latest/download/${{ env.package_type }}.json
           download: https://github.com/${{ github.repository }}/releases/download/${{ github.event.release.tag_name }}/${{ env.package_type }}.zip
-
+      - name: Remove Hot Reload flags
+        run: |
+          cat src/${{ env.package_type }}.json | jq 'del(.flags.hotReload)' > src/${{ env.package_type }}.json
       - name: Build
         run: yarn build
 
