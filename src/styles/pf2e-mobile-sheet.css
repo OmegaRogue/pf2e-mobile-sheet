@@ -8,20 +8,21 @@
   display: none;
 }
 
+.mobile-pf2e #ui-right,
+.mobile-pf2e #ui-right #sidebar {
+  width: 100%;
+}
+
 .mobile-pf2e #chat-form textarea {
   width: calc(100% - 5rem);
 }
 
 .mobile-pf2e .send-button {
   position: absolute;
-  top: 0px;
-  right: 0px;
+  top: 0;
+  right: 0;
   width: 5rem;
   height: 100%;
-  border: none;
-  border-radius: 3px;
-  background: var(--glass-bg) none;
-  box-shadow: var(--glassy);
   transition:
     text-shadow 0.15s ease-in-out,
     background-color 0.15s ease-in-out,
@@ -33,6 +34,9 @@
   text-shadow: 0 0 3px black;
   color: var(--color-text-light-heading);
   font-size: 4rem;
+  border: none;
+  border-radius: var(--border-radius);
+  background-color: var(--glass-bg-light);
 }
 
 .mobile-pf2e .actor.sheet .crb-style {
@@ -83,23 +87,20 @@
 .mobile-pf2e .configure-theatre,
 .mobile-pf2e .console-print,
 .mobile-pf2e .document-id-link,
-.mobile-pf2e .document-image-link {
-  display: none;
+.mobile-pf2e .document-image-link,
+.mobile-pf2e .simple-calendar,
+.mobile-pf2e #tokenbar {
+  display: none !important;
 }
 
-.mobile-pf2e
-  .actor.sheet.character
-  .crb-style
-  .sheet-body
-  .sheet-content
-  .tab.character
-  .character-details
-  .pc_deity
-  .input
-  h3 {
+.mobile-pf2e .actor.sheet.character .crb-style .tab.character .character-details .pc_deity h3 {
   margin-left: 0.5em !important;
 }
 
 .mobile-pf2e .actor.sheet.character .crb-style .sheet-body .sheet-content .tab.character .character-details {
   grid-template-columns: 120px 130px 1fr !important;
+}
+
+.actor.sheet.character:not(.dorako-ui.dark-theme) .sheet-content .tab.sidebar {
+  background-color: var(--primary);
 }

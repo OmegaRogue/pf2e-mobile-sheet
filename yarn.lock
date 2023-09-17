@@ -1459,8 +1459,8 @@ for-own@^1.0.0:
     for-in "^1.0.1"
 
 "foundry-pf2e@github:foundryvtt/pf2e":
-  version "5.5.1"
-  resolved "https://codeload.github.com/foundryvtt/pf2e/tar.gz/bbe60d316dbb8e3b0381656ed39b5e5509a436e2"
+  version "5.5.2"
+  resolved "https://codeload.github.com/foundryvtt/pf2e/tar.gz/e7eacf1f8b82fd7bcba0fe84e6254bae19c6c865"
   dependencies:
     "@codemirror/autocomplete" "^6.9.0"
     "@codemirror/lang-json" "^6.0.1"

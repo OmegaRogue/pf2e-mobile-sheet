@@ -6,11 +6,11 @@ SPDX-License-Identifier: MIT
 
 # pf2e-mobile-sheet
 
-Please add your description here.
+Make the PF2e Player Character sheet work on mobile
 
 ## Installation
 
-Please add your installation instructions here.
+After installing the module, for using this module, I recommend you use Chrome and install foundry as a progressive web app by using "add to home screen".
 
 ## Development
 

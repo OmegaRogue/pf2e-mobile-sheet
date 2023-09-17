@@ -1,22 +1,6 @@
-// SPDX-FileCopyrightText: 2022 Johannes Loher
-//
-// SPDX-License-Identifier: MIT
-
-/**
- * This is your JavaScript entry file for Foundry VTT.
- * Register custom settings, sheets, and constants using the Foundry API.
- * Change this heading to be more descriptive to your module, or remove it.
- * Author: [your name]
- * Content License: [copyright and-or license] If using an existing system
- * 					you may want to put a (link to a) license or copyright
- * 					notice here (e.g. the OGL).
- * Software License: [your license] Put your desired license here, which
- * 					 determines how others may use and modify your module.
- */
-
-// Import JavaScript modules
 import { registerSettings } from './settings.js';
 import { preloadTemplates } from './preloadTemplates.js';
+// import { SettingsMenuPF2e as game } from "foundry-pf2e/src/module/system/settings/menu.js";
 
 const MODULE_ID = 'pf2e-mobile-sheet';
 
@@ -43,7 +27,7 @@ function getDebug() {
 // Initialize module
 Hooks.once('init', async () => {
   log(true, 'pf2e-mobile-sheet | Initializing pf2e-mobile-sheet');
-
+  game.settings.set('core', 'noCanvas', true);
   // Assign custom classes and constants here
 
   // Register custom module settings
@@ -55,28 +39,20 @@ Hooks.once('init', async () => {
   // Register custom sheets (if any)
 });
 
-const isMobile = navigator.userAgentData.mobile;
+//const isMobile = navigator.userAgentData.mobile;
 Hooks.once('init', async function () {
-  if (!isMobile) return;
-  const styleSheet = document.createElement('style');
-  styleSheet.innerText = `
-.mobile-pf2e #ui-right #sidebar {
-  width: ${window.innerWidth}px;
-}`;
-  document.head.appendChild(styleSheet);
+  // if (!isMobile) return;
 });
 
 Hooks.once('ready', async function () {
-  if (!isMobile && !getDebug()) return;
+  // if (!isMobile && !getDebug()) return;
   $('body').addClass('mobile-pf2e');
   $('.taskbar-workspaces, .taskbar-docking-container, .taskbar, .simple-calendar').remove();
   $('#ui-bottom, tokenbar').remove();
 });
 Hooks.on('renderChatLog', async function () {
-  if (!isMobile && !getDebug()) return;
-  const sendButton = $(
-    `<div class="dorako-ui"><button type="button" class="send-button"><i class="fas fa-paper-plane"/></button></div>`,
-  );
+  // if (!isMobile && !getDebug()) return;
+  const sendButton = $(`<button type="button" class="button send-button"><i class="fas fa-paper-plane"/></button>`);
   sendButton.on('click', () => {
     document
       .querySelector('#chat-message')
@@ -87,9 +63,9 @@ Hooks.on('renderChatLog', async function () {
 });
 
 Hooks.on('renderCharacterSheetPF2e', (_, html) => {
-  if (!isMobile && !getDebug()) return;
-  html.css('width', '');
-  html.css('height', '');
+  // if (!isMobile && !getDebug()) return;
+  html.css('width', '100%');
+  html.css('height', '100%');
   html.css('top', 0);
   html.css('left', 0);
   html.find('.skills-list h6').text('Mods');
@@ -107,17 +83,19 @@ Hooks.on('renderCharacterSheetPF2e', (_, html) => {
   combatRanks.eq(4).text('Leg');
 
   const sidebarTabButton = $(
-    `<a class="item" id="sidebar-tab" data-tab="sidebar" title="Sidebar"><i class="fa-solid fa-address-card"></i></a>`,
+    `<a class="item" id="sidebar-tab" data-tab="sidebar" title="Sidebar"><i class="fa-solid fa-bars"></i></a>`,
   );
   const afterButton = html.find('.sheet-navigation .navigation-title');
   if (html.find('.sheet-navigation #sidebar-tab').length === 0) sidebarTabButton.insertAfter(afterButton);
   const sidebarTab = $(`<div class="tab sidebar" data-group="primary" data-tab="sidebar"/>`);
   const aside = html.find('aside');
   aside.css('background-image', 'none');
+  aside.find('.logo').remove();
   aside.detach().appendTo(sidebarTab);
   if (html.find('.sheet-content .tab.sidebar').length === 0) html.find('.sheet-content').append(sidebarTab);
 });
 
 Hooks.once('devModeReady', async ({ registerPackageDebugFlag }) => {
   await registerPackageDebugFlag(MODULE_ID);
+  getDebug();
 });

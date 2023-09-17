@@ -6,7 +6,8 @@
     {
       "name": "OmegaRogue",
       "email": "omegarogue@omegavoid.codes",
-      "discord": "omegarogue9344"
+      "discord": "omegarogue9344",
+      "url": "https://omegavoid.codes"
     }
   ],
   "url": "This is auto replaced",
@@ -29,12 +30,21 @@
     }
   ],
   "relationships": {
-    "systems": [],
-    "requires": [],
-    "conflicts": []
+    "systems": [
+      {
+        "id": "pf2e",
+        "type": "system"
+      }
+    ]
   },
   "socket": false,
   "manifest": "This is auto replaced",
   "download": "This is auto replaced",
-  "library": false
+  "library": false,
+  "flags": {
+    "hotReload": {
+      "extensions": ["css", "html", "hbs", "json", "js", "js.map"],
+      "paths": ["system/templates", "css", "lang/en.json", "module", "styles"]
+    }
+  }
 }

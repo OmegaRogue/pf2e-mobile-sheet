@@ -14,6 +14,9 @@
       "email": "omegarogue@omegavoid.codes"
     }
   ],
+  "bugs": {
+    "url": "https://github.com/OmegaRogue/pf2e-mobile-sheet/issues"
+  },
   "type": "module",
   "scripts": {
     "build": "gulp build",
@@ -33,6 +36,8 @@
     "eslint": "^8.49.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
+    "foundry-pf2e": "github:foundryvtt/pf2e",
+    "foundryvtt-devMode": "github:League-of-Foundry-Developers/foundryvtt-devMode",
     "fs-extra": "^11.1.1",
     "gulp": "^4.0.2",
     "gulp-sourcemaps": "^3.0.0",
@@ -42,9 +47,7 @@
     "rollup": "2",
     "vinyl-buffer": "^1.0.1",
     "vinyl-source-stream": "^2.0.0",
-    "yargs": "^17.7.2",
-    "foundryvtt-devMode": "github:League-of-Foundry-Developers/foundryvtt-devMode",
-    "foundry-pf2e": "github:foundryvtt/pf2e"
+    "yargs": "^17.7.2"
   },
   "lint-staged": {
     "*.(js|cjs|mjs)": "eslint --fix",
