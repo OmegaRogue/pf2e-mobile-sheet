@@ -46,7 +46,9 @@ Hooks.once('init', async function () {
 
 Hooks.once('ready', async function () {
   // if (!isMobile && !getDebug()) return;
-  $('body').addClass('mobile-pf2e');
+  const body = $('body');
+  body.addClass('mobile-pf2e');
+  if (game.modules.get('pathfinder-ui')?.active) body.addClass('pf2e-ui');
   $('.taskbar-workspaces, .taskbar-docking-container, .taskbar, .simple-calendar').remove();
   $('#ui-bottom, tokenbar').remove();
 });

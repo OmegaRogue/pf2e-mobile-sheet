@@ -101,6 +101,11 @@
   grid-template-columns: 120px 130px 1fr !important;
 }
 
-.actor.sheet.character:not(.dorako-ui.dark-theme) .sheet-content .tab.sidebar {
+.mobile-pf2e .actor.sheet.character:not(.dark-theme) .sheet-content .tab.sidebar {
   background-color: var(--primary);
+}
+
+.mobile-pf2e.pf2e-ui #sidebar-tabs > .item {
+  height: 2em !important;
+  flex-basis: 2em !important;
 }
