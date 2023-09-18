@@ -4,31 +4,32 @@
 // SPDX-License-Identifier: MIT
 
 module.exports = {
-  parserOptions: {
-    ecmaVersion: 2020,
-    extraFileExtensions: ['.cjs', '.mjs'],
-    sourceType: 'module',
-  },
+	parserOptions: {
+		ecmaVersion: 2020,
+		extraFileExtensions: [".cjs", ".mjs"],
+		sourceType: "module",
+	},
 
-  env: {
-    browser: true,
-    jquery: true,
-  },
+	env: {
+		browser: true,
+		jquery: true,
+	},
 
-  extends: ['eslint:recommended', '@typhonjs-fvtt/eslint-config-foundry.js/0.8.0', 'plugin:prettier/recommended'],
+	extends: ["eslint:recommended", "@typhonjs-fvtt/eslint-config-foundry.js/0.8.0", "plugin:prettier/recommended"],
 
-  plugins: [],
+	plugins: [],
 
-  rules: {
-    // Specify any specific ESLint rules.
-  },
+	rules: {
+		// Specify any specific ESLint rules.
+		indent: ["error", "tab"],
+	},
 
-  overrides: [
-    {
-      files: ['./*.js', './*.cjs', './*.mjs'],
-      env: {
-        node: true,
-      },
-    },
-  ],
+	overrides: [
+		{
+			files: ["./*.js", "./*.cjs", "./*.mjs"],
+			env: {
+				node: true,
+			},
+		},
+	],
 };

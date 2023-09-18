@@ -3,14 +3,14 @@
 //
 // SPDX-License-Identifier: MIT
 
-import { nodeResolve } from '@rollup/plugin-node-resolve';
+import { nodeResolve } from "@rollup/plugin-node-resolve";
 
 export default () => ({
-  input: 'src/module/pf2e-mobile-sheet.js',
-  output: {
-    dir: 'dist/module',
-    format: 'es',
-    sourcemap: true,
-  },
-  plugins: [nodeResolve()],
+	input: "src/module/pf2e-mobile-sheet.js",
+	output: {
+		dir: "dist/module",
+		format: "es",
+		sourcemap: true,
+	},
+	plugins: [nodeResolve()],
 });
