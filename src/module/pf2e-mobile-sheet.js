@@ -50,9 +50,14 @@ Hooks.once('ready', async function () {
   if (game.modules.get('pathfinder-ui')?.active) body.addClass('pf2e-ui');
   $('.taskbar-workspaces, .taskbar-docking-container, .taskbar, .simple-calendar').remove();
   $('#ui-bottom, tokenbar').remove();
+  const collapseButton = $('#sidebar .collapse > i');
+  collapseButton.removeClass('fa-caret-left');
+  collapseButton.removeClass('fa-caret-right');
+  collapseButton.addClass('fa-bars');
+  $('#sidebar > nav#sidebar-tabs > a.collapse').prependTo($('#sidebar-tabs'));
 });
 Hooks.on('renderChatLog', async function () {
-  // if (!isMobile && !getDebug()) return;
+  if (!isMobile && !getDebug()) return;
   const sendButton = $(`<button type="button" class="button send-button"><i class="fas fa-paper-plane"/></button>`);
   sendButton.on('click', () => {
     document
@@ -63,12 +68,38 @@ Hooks.on('renderChatLog', async function () {
   log(false, 'Add Send Button');
 });
 
+async function dragEndFullscreenWindow() {
+  const wind = $('.fullscreen-window');
+  wind.css('width', '');
+  wind.css('height', '');
+  wind.css('top', '');
+  wind.css('left', '');
+}
+
+async function renderFullscreenWindow(app, html) {
+  if (!isMobile && !getDebug()) return;
+  if (!html.hasClass('window-app') || html.hasClass('dialog')) {
+    log(false, app.id, html.classList);
+    return;
+  }
+  html.addClass('fullscreen-window');
+  html.css('width', '');
+  html.css('height', '');
+  html.css('top', '');
+  html.css('left', '');
+  const header = html.find('header');
+  header.removeClass('draggable');
+  header.removeClass('resizable');
+}
+
+Hooks.on('renderActorSheet', renderFullscreenWindow);
+Hooks.on('renderApplication', renderFullscreenWindow);
+Hooks.on('dragEndActorSheet', dragEndFullscreenWindow);
+Hooks.on('dragEndApplication', dragEndFullscreenWindow);
+Hooks.on('setAppScaleEvent', dragEndFullscreenWindow);
+
 Hooks.on('renderCharacterSheetPF2e', (_, html) => {
   if (!isMobile && !getDebug()) return;
-  html.css('width', '100%');
-  html.css('height', '100%');
-  html.css('top', 0);
-  html.css('left', 0);
   html.find('.skills-list h6').text('Mods');
   const profRanks = html.find('.skills-list select').children();
   profRanks.eq(0).text('Untr');
@@ -99,4 +130,16 @@ Hooks.on('renderCharacterSheetPF2e', (_, html) => {
 Hooks.once('devModeReady', async ({ registerPackageDebugFlag }) => {
   await registerPackageDebugFlag(MODULE_ID);
   getDebug();
+});
+
+Hooks.on('collapseSidebar', (_, collapsed) => {
+  const sidebar = $('#sidebar');
+  const collapseButton = sidebar.find('.collapse > i');
+  if (collapsed) {
+    collapseButton.removeClass('fa-caret-left');
+    //collapseButton.addClass('fa-caret-left');
+  } else {
+    collapseButton.removeClass('fa-caret-right');
+    //collapseButton.addClass('fa-caret-left');
+  }
 });
