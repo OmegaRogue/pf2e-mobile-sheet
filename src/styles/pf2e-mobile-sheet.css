@@ -153,7 +153,42 @@
   flex-direction: initial;
 }
 
-.mobile-pf2e .sheet.journal-entry {
+.mobile-pf2e .sheet.journal-entry,
+.mobile-pf2e .pf2e.actor {
   min-width: unset;
   min-height: unset;
+}
+
+.mobile-pf2e .npc .npc-sheet .top-sections {
+  flex-direction: column;
+}
+.mobile-pf2e .mseCharacterName {
+  flex-basis: 100%;
+}
+.mobile-pf2e .npc .npc-sheet .npc-sheet-header .name {
+  flex-wrap: wrap;
+}
+
+.mobile-pf2e .sheet.pf2e.actor.npc.dark-theme form .sheet-tabs {
+  flex-wrap: wrap;
+  height: auto;
+}
+
+.mobile-pf2e #compendium-browser > section.window-content > .content-box > section.content > .tab.browser.active > div {
+  grid-template-columns: auto auto;
+}
+
+.mobile-pf2e #compendium-browser > section.window-content > .content-box .control-area {
+  min-width: unset;
+  width: unset;
+}
+
+.mobile-pf2e #compendium-browser > section.window-content > .content-box .filtercontainer div.title,
+.mobile-pf2e #compendium-browser > section.window-content > .content-box .sortcontainer div.title {
+  height: unset;
+  flex-direction: column;
+}
+
+.mobile-pf2e #compendium-browser > section.window-content > .content-box .list-buttons {
+  display: none;
 }
