@@ -42,6 +42,7 @@
 
 .mobile-pf2e .dorako-ui .send-button {
 	border: unset;
+	border-radius: var(--border-radius);
 }
 
 .mobile-pf2e.chatcommander-active .send-button {
