@@ -3,6 +3,10 @@
 /*         Add your styles here         */
 /* ------------------------------------ */
 
+* {
+	--send-button-gap: 0.5em;
+}
+
 .mobile-pf2e #ui-left,
 .mobile-pf2e #ui-middle {
 	display: none;
@@ -15,12 +19,12 @@
 }
 
 .mobile-pf2e #chat-form textarea {
-	width: calc(100% - 5rem);
+	width: calc(100% - calc(4em + var(--send-button-gap)));
 }
 
 .mobile-pf2e .send-button {
 	right: 0;
-	width: 5rem;
+	width: 2em;
 	transition:
 		text-shadow 0.15s ease-in-out,
 		background-color 0.15s ease-in-out,
@@ -34,6 +38,9 @@
 	color: var(--color-text-light-heading);
 	font-size: 2em;
 	background-color: var(--glass-bg-light);
+}
+
+.mobile-pf2e .dorako-ui .send-button {
 	border: unset;
 }
 
@@ -46,6 +53,16 @@
 .mobile-pf2e:not(.chatcommander-active) .send-button {
 	top: -2em;
 	height: unset;
+	flex-basis: auto;
+}
+
+.mobile-pf2e #chat-message {
+	flex-basis: auto;
+}
+
+.mobile-pf2e #mobile-chat-row {
+	flex-wrap: nowrap;
+	gap: var(--send-button-gap);
 }
 
 .mobile-pf2e .actor.sheet .crb-style {
@@ -138,7 +155,7 @@
 	transform: rotate(-90deg);
 }
 
-.mobile-pf2e .dorako-resize {
+.mobile-pf2e #sidebar > .dorako-resize {
 	display: none;
 }
 
