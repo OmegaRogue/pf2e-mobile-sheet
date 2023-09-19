@@ -21,7 +21,7 @@ module.exports = {
 
 	rules: {
 		// Specify any specific ESLint rules.
-		indent: ["error", "tab"],
+		indent: ["error", "tab", { SwitchCase: 1 }],
 	},
 
 	overrides: [

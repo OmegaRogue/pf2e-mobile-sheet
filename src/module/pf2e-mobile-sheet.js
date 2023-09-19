@@ -1,8 +1,6 @@
 import { registerSettings } from "./settings.js";
 import { preloadTemplates } from "./preloadTemplates.js";
-// import { SettingsMenuPF2e as game } from "foundry-pf2e/src/module/system/settings/menu.js";
-
-const MODULE_ID = "pf2e-mobile-sheet";
+import { id as MODULE_ID } from "../module.json";
 
 function getDebug() {
 	return game.modules.get("_dev-mode")?.api?.getPackageDebugValue(MODULE_ID);
@@ -27,7 +25,18 @@ function log(force, ...args) {
 const isMobile = window.navigator.userAgent.includes("Mobile");
 
 function checkMobile() {
-	return (isMobile && !game.settings.get("pf2e-mobile-sheet", "force-desktop")) || getDebug();
+	if (getDebug()) {
+		return true;
+	}
+	switch (game.settings.get(MODULE_ID, "mobile-mode")) {
+		case "off":
+			return false;
+		case "on":
+			return true;
+		case "auto":
+		default:
+			return isMobile;
+	}
 }
 
 // Initialize module
@@ -86,6 +95,8 @@ async function dragEndFullscreenWindow() {
 	wind.css("left", "");
 }
 
+$(window).on("resize", dragEndFullscreenWindow);
+
 async function renderFullscreenWindow(app, html) {
 	if (!checkMobile()) return;
 	if (!html.hasClass("window-app") || html.hasClass("dialog")) {
@@ -102,11 +113,22 @@ async function renderFullscreenWindow(app, html) {
 	header.removeClass("resizable");
 }
 
+// document.querySelector("#combat-tracker > li.combatant.actor.directory-item.flexrow.hidden-name.gm-draggable > div.token-name.flexcol > h4 > span.name")
+
 Hooks.on("renderActorSheet", renderFullscreenWindow);
 Hooks.on("renderApplication", renderFullscreenWindow);
 Hooks.on("dragEndActorSheet", dragEndFullscreenWindow);
 Hooks.on("dragEndApplication", dragEndFullscreenWindow);
 Hooks.on("setAppScaleEvent", dragEndFullscreenWindow);
+
+// Hooks.on("changeSidebarTab", () => {
+// 	//
+// });
+//
+// Hooks.on("refreshToken", (token) => {
+// 	token;
+// 	//
+// });
 
 Hooks.on("renderCharacterSheetPF2e", (_, html) => {
 	if (!checkMobile()) return;

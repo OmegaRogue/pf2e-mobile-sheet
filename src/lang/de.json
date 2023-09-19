@@ -1,13 +1,18 @@
 {
 	"pf2e-mobile-sheet": {
 		"settings": {
-			"force-desktop": {
-				"name": "Erzwinge Benutzung vom Desktop-Layout",
-				"hint": "Erzwinge das Desktop-Layout, selbst wenn man auf einem mobilen Gerät ist, nützlich für Tablets oder ähnliches mit großem Bildschirm bis richtiges Responsive Design implementiert ist."
+			"mobile-mode": {
+				"name": "Handy-Modus",
+				"hint": "Erlaubt es, den Handy-Modus manuell an und auszuschalten"
 			},
-			"force-send-button": {
-				"name": "Zeige den Nachricht Senden Knopf immer",
-				"hint": "Zeige den Senden Knopf auch auf Desktop"
+			"send-button": {
+				"name": "Senden-Knopf anzeigen",
+				"hint": "Erlaubt es, den Senden-Knopf manuell ein/auszublenden"
+			},
+			"toggle": {
+				"on": "An",
+				"off": "Aus",
+				"auto": "Auto"
 			}
 		},
 		"sidebar-tab": "Seitenleiste"

@@ -1,13 +1,18 @@
 {
 	"pf2e-mobile-sheet": {
 		"settings": {
-			"force-desktop": {
-				"name": "Force Desktop Layout",
-				"hint": "Force Desktop Layout even when on mobile (useful on tablets until responsive design is implemented)"
+			"mobile-mode": {
+				"name": "Mobile Mode",
+				"hint": "Allows overriding the detected device type"
 			},
-			"force-send-button": {
-				"name": "Force Show Send Button",
-				"hint": "Show Message Send Button even when on Desktop"
+			"send-button": {
+				"name": "Show Send Button",
+				"hint": "Allows overriding the visibility of the send button"
+			},
+			"toggle": {
+				"on": "On",
+				"off": "Off",
+				"auto": "Auto"
 			}
 		},
 		"sidebar-tab": "Sidebar"
