@@ -4,13 +4,17 @@ import { preloadTemplates } from "./preloadTemplates.js";
 
 const MODULE_ID = "pf2e-mobile-sheet";
 
+function getDebug() {
+	return game.modules.get("_dev-mode")?.api?.getPackageDebugValue(MODULE_ID);
+}
+
 /**
  * @param {boolean} force
  * @param {*} args
  */
 function log(force, ...args) {
 	try {
-		const isDebugging = game.modules.get("_dev-mode")?.api?.getPackageDebugValue(MODULE_ID);
+		const isDebugging = getDebug();
 
 		if (force || isDebugging) {
 			console.log(MODULE_ID, "|", ...args);
@@ -20,8 +24,10 @@ function log(force, ...args) {
 	}
 }
 
-function getDebug() {
-	return game.modules.get("_dev-mode")?.api?.getPackageDebugValue(MODULE_ID);
+const isMobile = window.navigator.userAgent.includes("Mobile");
+
+function checkMobile() {
+	return (isMobile && !game.settings.get("pf2e-mobile-sheet", "force-desktop")) || getDebug();
 }
 
 // Initialize module
@@ -38,13 +44,8 @@ Hooks.once("init", async () => {
 	// Register custom sheets (if any)
 });
 
-const isMobile = navigator.userAgentData.mobile;
-Hooks.once("init", async function () {
-	// if (!isMobile) return;
-});
-
 Hooks.once("ready", async function () {
-	if (!isMobile && !getDebug()) return;
+	if (!checkMobile()) return;
 	const body = $("body");
 	body.addClass("mobile-pf2e");
 	if (game.modules.get("pathfinder-ui")?.active) body.addClass("pf2e-ui");
@@ -58,7 +59,7 @@ Hooks.once("ready", async function () {
 	$("#sidebar > nav#sidebar-tabs > a.collapse").prependTo($("#sidebar-tabs"));
 });
 Hooks.on("renderChatLog", async function () {
-	if (!isMobile && !getDebug()) return;
+	if (!checkMobile()) return;
 	const sendButton = $(`<button type="button" class="button send-button"><i class="fas fa-paper-plane"/></button>`);
 	sendButton.on("click", () => {
 		document
@@ -77,6 +78,7 @@ Hooks.on("renderChatLog", async function () {
 });
 
 async function dragEndFullscreenWindow() {
+	if (!checkMobile()) return;
 	const wind = $(".fullscreen-window");
 	wind.css("width", "");
 	wind.css("height", "");
@@ -85,7 +87,7 @@ async function dragEndFullscreenWindow() {
 }
 
 async function renderFullscreenWindow(app, html) {
-	if (!isMobile && !getDebug()) return;
+	if (!checkMobile()) return;
 	if (!html.hasClass("window-app") || html.hasClass("dialog")) {
 		log(false, app.id, html.classList);
 		return;
@@ -107,23 +109,12 @@ Hooks.on("dragEndApplication", dragEndFullscreenWindow);
 Hooks.on("setAppScaleEvent", dragEndFullscreenWindow);
 
 Hooks.on("renderCharacterSheetPF2e", (_, html) => {
-	if (!isMobile && !getDebug()) return;
-	html.find(".skills-list h6").text("Mods");
-	const profRanks = html.find(".skills-list select").children();
-	profRanks.eq(0).text("Untr");
-	profRanks.eq(1).text("Train");
-	profRanks.eq(2).text("Exp");
-	profRanks.eq(3).text("Mstr");
-	profRanks.eq(4).text("Leg");
-	const combatRanks = html.find(".combat-list select").children();
-	combatRanks.eq(0).text("Untr");
-	combatRanks.eq(1).text("Train");
-	combatRanks.eq(2).text("Exp");
-	combatRanks.eq(3).text("Mstr");
-	combatRanks.eq(4).text("Leg");
+	if (!checkMobile()) return;
 
 	const sidebarTabButton = $(
-		`<a class="item" id="sidebar-tab" data-tab="sidebar" title="Sidebar"><i class="fa-solid fa-bars"></i></a>`,
+		`<a class="item" id="sidebar-tab" data-tab="sidebar" title="${game.i18n.localize(
+			"pf2e-mobile-sheet.sidebar-tab",
+		)}"><i class="fa-solid fa-bars"></i></a>`,
 	);
 	const afterButton = html.find(".sheet-navigation .navigation-title");
 	if (html.find(".sheet-navigation #sidebar-tab").length === 0) sidebarTabButton.insertAfter(afterButton);
@@ -141,6 +132,7 @@ Hooks.once("devModeReady", async ({ registerPackageDebugFlag }) => {
 });
 
 Hooks.on("collapseSidebar", (_, collapsed) => {
+	if (!checkMobile()) return;
 	const sidebar = $("#sidebar");
 	const collapseButton = sidebar.find(".collapse > i");
 	if (collapsed) {

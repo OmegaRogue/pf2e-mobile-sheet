@@ -1,0 +1,23 @@
+{
+	"pf2e-mobile-sheet": {
+		"settings": {
+			"force-desktop": {
+				"name": "Erzwinge Benutzung vom Desktop-Layout",
+				"hint": "Erzwinge das Desktop-Layout, selbst wenn man auf einem mobilen Gerät ist, nützlich für Tablets oder ähnliches mit großem Bildschirm bis richtiges Responsive Design implementiert ist."
+			},
+			"force-send-button": {
+				"name": "Zeige den Nachricht Senden Knopf immer",
+				"hint": "Zeige den Senden Knopf auch auf Desktop"
+			}
+		},
+		"sidebar-tab": "Seitenleiste"
+	},
+	"PF2E": {
+		"ProficiencyLevel0": "Unge",
+		"ProficiencyLevel1": "Geüb",
+		"ProficiencyLevel2": "Exp",
+		"ProficiencyLevel3": "Mstr",
+		"ProficiencyLevel4": "Leg",
+		"ModifiersTitle": "Mod"
+	}
+}

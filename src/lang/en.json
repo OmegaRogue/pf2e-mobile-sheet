@@ -1,1 +1,23 @@
-{}
+{
+	"pf2e-mobile-sheet": {
+		"settings": {
+			"force-desktop": {
+				"name": "Force Desktop Layout",
+				"hint": "Force Desktop Layout even when on mobile (useful on tablets until responsive design is implemented)"
+			},
+			"force-send-button": {
+				"name": "Force Show Send Button",
+				"hint": "Show Message Send Button even when on Desktop"
+			}
+		},
+		"sidebar-tab": "Sidebar"
+	},
+	"PF2E": {
+		"ProficiencyLevel0": "Untr",
+		"ProficiencyLevel1": "Train",
+		"ProficiencyLevel2": "Exp",
+		"ProficiencyLevel3": "Mstr",
+		"ProficiencyLevel4": "Leg",
+		"ModifiersTitle": "Mods"
+	}
+}
