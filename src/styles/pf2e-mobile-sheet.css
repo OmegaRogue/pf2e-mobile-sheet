@@ -187,6 +187,10 @@
 	min-height: unset;
 }
 
+.mobile-pf2e #client-settings .categories .scrollable {
+	overflow: unset;
+}
+
 .mobile-pf2e .npc .npc-sheet .top-sections {
 	flex-direction: column;
 }

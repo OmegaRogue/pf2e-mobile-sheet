@@ -130,6 +130,14 @@ Hooks.on("setAppScaleEvent", dragEndFullscreenWindow);
 // 	//
 // });
 
+Hooks.on("renderSettingsConfig", (_, html) => {
+	if (!checkMobile()) return;
+	const sidebar = html.find("div:not(#mps-view-group).flexrow");
+	if (sidebar.length === 1) {
+		sidebar.removeClass("flexrow");
+		sidebar.addClass("flexcol");
+	}
+});
 Hooks.on("renderCharacterSheetPF2e", (_, html) => {
 	if (!checkMobile()) return;
 
