@@ -191,6 +191,28 @@
 	overflow: unset;
 }
 
+.mobile-pf2e #client-settings div:not(#mps-view-group).flexcol {
+	overflow: hidden auto;
+}
+
+.mobile-pf2e #client-settings .window-content {
+	overflow: hidden;
+}
+
+.mobile-pf2e #client-settings footer {
+	position: sticky;
+	bottom: 0;
+	width: inherit;
+	max-width: inherit;
+	flex-grow: 0;
+	padding: 1rem;
+}
+
+.mobile-pf2e #client-settings footer button {
+	height: 2rem;
+	flex-basis: max-content;
+}
+
 .mobile-pf2e .npc .npc-sheet .top-sections {
 	flex-direction: column;
 }

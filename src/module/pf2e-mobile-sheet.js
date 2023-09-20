@@ -137,6 +137,12 @@ Hooks.on("renderSettingsConfig", (_, html) => {
 		sidebar.removeClass("flexrow");
 		sidebar.addClass("flexcol");
 	}
+	const footer = html.find(".categories footer");
+	if (footer.length === 1) {
+		html.find(".reset-all").prependTo(footer);
+		footer.addClass("flexrow");
+		footer.appendTo(footer.parents(".window-content"));
+	}
 });
 Hooks.on("renderCharacterSheetPF2e", (_, html) => {
 	if (!checkMobile()) return;
