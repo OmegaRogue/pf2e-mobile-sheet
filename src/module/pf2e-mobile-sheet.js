@@ -132,16 +132,25 @@ Hooks.on("setAppScaleEvent", dragEndFullscreenWindow);
 
 Hooks.on("renderSettingsConfig", (_, html) => {
 	if (!checkMobile()) return;
-	const sidebar = html.find("div:not(#mps-view-group).flexrow");
-	if (sidebar.length === 1) {
-		sidebar.removeClass("flexrow");
-		sidebar.addClass("flexcol");
+	const content = html.find("div:not(#mps-view-group).flexrow");
+	const sidebar = html.find("aside.sidebar");
+	const form = html.find(".categories");
+	const footer = form.find("footer");
+	const scrollable = form.find(".scrollable");
+	if (content.length === 1) {
+		content.removeClass("flexrow");
+		content.addClass("flexcol");
 	}
-	const footer = html.find(".categories footer");
+	if (sidebar.length === 1) {
+		scrollable.prepend(sidebar);
+	}
 	if (footer.length === 1) {
 		html.find(".reset-all").prependTo(footer);
 		footer.addClass("flexrow");
-		footer.appendTo(footer.parents(".window-content"));
+		footer.appendTo(footer.parents("form.categories"));
+		const submitButton = footer.find("button[type=submit]");
+		submitButton.type("button");
+		submitButton.click(() => form.submit());
 	}
 });
 Hooks.on("renderCharacterSheetPF2e", (_, html) => {

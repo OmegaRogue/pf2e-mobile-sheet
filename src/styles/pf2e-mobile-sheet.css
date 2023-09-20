@@ -187,10 +187,6 @@
 	min-height: unset;
 }
 
-.mobile-pf2e #client-settings .categories .scrollable {
-	overflow: unset;
-}
-
 .mobile-pf2e #client-settings div:not(#mps-view-group).flexcol {
 	overflow: hidden auto;
 }
@@ -199,13 +195,17 @@
 	overflow: hidden;
 }
 
+.mobile-pf2e #client-settings .sidebar {
+	padding-left: 3rem;
+	padding-right: 3rem;
+}
+
 .mobile-pf2e #client-settings footer {
 	position: sticky;
 	bottom: 0;
 	width: inherit;
 	max-width: inherit;
 	flex-grow: 0;
-	padding: 1rem;
 }
 
 .mobile-pf2e #client-settings footer button {
@@ -279,4 +279,8 @@
 }
 .mobile-pf2e .sheet.party .content {
 	overflow: unset;
+}
+
+#combat .combatant .distance {
+	padding: 0 0.3em;
 }
