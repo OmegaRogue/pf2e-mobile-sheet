@@ -222,3 +222,35 @@
 .mobile-pf2e #compendium-browser > section.window-content > .content-box .list-buttons {
 	display: none;
 }
+
+.mobile-pf2e .sheet.party [data-tab="overview"] .member {
+	height: unset;
+	padding-right: 0.2em;
+}
+.mobile-pf2e .sheet.party [data-tab="overview"] .member .main-stats {
+	gap: 0.3rem;
+}
+
+.mobile-pf2e .sheet.party [data-tab="overview"] .member .main-stats .value {
+	padding: 0 !important;
+	max-width: unset !important;
+}
+
+.mobile-pf2e .sheet.party [data-tab="overview"] .member .name a {
+	max-width: 10em;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+.mobile-pf2e .sheet.party .tab.active {
+	flex-direction: column;
+	overflow: hidden scroll;
+}
+
+.mobile-pf2e .sheet.party .sidebar {
+	width: unset;
+	overflow: unset;
+}
+.mobile-pf2e .sheet.party .content {
+	overflow: unset;
+}
