@@ -197,6 +197,11 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
+"@pixi/math@^7.3.0":
+  version "7.3.0"
+  resolved "https://registry.yarnpkg.com/@pixi/math/-/math-7.3.0.tgz#1f1b5e1e106a00ef5927ae169e244180844a7088"
+  integrity sha512-3gM1MffXlDM8bFNl+D1ndq4W1Gn7quRvxbAZ9RUp7Zvoqcud/0c/VcxngM2st+IXeFf8htlKxytkotMKk5gQxA==
+
 "@pkgr/utils@^2.3.1":
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/@pkgr/utils/-/utils-2.4.2.tgz#9e638bbe9a6a6f165580dc943f138fd3309a2cbc"

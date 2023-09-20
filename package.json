@@ -30,9 +30,9 @@
 		"postinstall": "husky install"
 	},
 	"devDependencies": {
+		"@rollup/plugin-json": "^6.0.0",
 		"@rollup/plugin-node-resolve": "^15.2.1",
 		"@rollup/stream": "^3.0.0",
-		"@rollup/plugin-json": "^6.0.0",
 		"@typhonjs-fvtt/eslint-config-foundry.js": "^0.8.0",
 		"eslint": "^8.49.0",
 		"eslint-config-prettier": "^9.0.0",
@@ -53,5 +53,8 @@
 	"lint-staged": {
 		"*.(js|cjs|mjs)": "eslint --fix",
 		"*.(json|yml|css)": "prettier --write"
+	},
+	"dependencies": {
+		"@pixi/math": "^7.3.0"
 	}
 }
