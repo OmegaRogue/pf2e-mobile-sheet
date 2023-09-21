@@ -1,50 +1,50 @@
 {
-  "id": "pf2e-mobile-sheet",
-  "title": "PF2e Mobile Sheet",
-  "description": "Makes the PF2e character sheet work on phones",
-  "authors": [
-    {
-      "name": "OmegaRogue",
-      "email": "omegarogue@omegavoid.codes",
-      "discord": "omegarogue9344",
-      "url": "https://omegavoid.codes"
-    }
-  ],
-  "url": "This is auto replaced",
-  "license": "MIT",
-  "readme": "https://github.com/OmegaRogue/pf2e-mobile-sheet",
-  "version": "This is auto replaced",
-  "compatibility": {
-    "minimum": "11",
-    "verified": "11"
-  },
-  "scripts": [],
-  "esmodules": ["module/pf2e-mobile-sheet.js"],
-  "styles": ["styles/pf2e-mobile-sheet.css"],
-  "packs": [],
-  "languages": [
-    {
-      "lang": "en",
-      "name": "English",
-      "path": "lang/en.json"
-    }
-  ],
-  "relationships": {
-    "systems": [
-      {
-        "id": "pf2e",
-        "type": "system"
-      }
-    ]
-  },
-  "socket": false,
-  "manifest": "This is auto replaced",
-  "download": "This is auto replaced",
-  "library": false,
-  "flags": {
-    "hotReload": {
-      "extensions": ["css", "html", "hbs", "json", "js", "js.map"],
-      "paths": ["system/templates", "css", "lang/en.json", "module", "styles"]
-    }
-  }
+	"id": "pf2e-mobile-sheet",
+	"title": "PF2e Mobile Sheet",
+	"description": "Makes the PF2e character sheet work on phones",
+	"authors": [
+		{
+			"name": "OmegaRogue",
+			"email": "omegarogue@omegavoid.codes",
+			"discord": "omegarogue9344",
+			"url": "https://omegavoid.codes"
+		}
+	],
+	"url": "This is auto replaced",
+	"license": "MIT",
+	"readme": "https://github.com/OmegaRogue/pf2e-mobile-sheet",
+	"version": "This is auto replaced",
+	"compatibility": {
+		"minimum": "11",
+		"verified": "11"
+	},
+	"scripts": [],
+	"esmodules": ["module/pf2e-mobile-sheet.js"],
+	"styles": ["styles/pf2e-mobile-sheet.css"],
+	"packs": [],
+	"languages": [
+		{
+			"lang": "en",
+			"name": "English",
+			"path": "lang/en.json"
+		}
+	],
+	"relationships": {
+		"systems": [
+			{
+				"id": "pf2e",
+				"type": "system"
+			}
+		]
+	},
+	"socket": true,
+	"manifest": "This is auto replaced",
+	"download": "This is auto replaced",
+	"library": false,
+	"flags": {
+		"hotReload": {
+			"extensions": ["css", "html", "hbs", "json", "js", "js.map"],
+			"paths": ["system/templates", "css", "lang/en.json", "module", "styles"]
+		}
+	}
 }

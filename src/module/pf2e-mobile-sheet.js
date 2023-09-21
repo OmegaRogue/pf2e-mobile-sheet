@@ -1,6 +1,9 @@
 import { registerSettings } from "./settings.js";
 import { preloadTemplates } from "./preloadTemplates.js";
 import { id as MODULE_ID } from "../module.json";
+import * as math from "@pixi/math";
+
+export let socket;
 
 function getDebug() {
 	return game.modules.get("_dev-mode")?.api?.getPackageDebugValue(MODULE_ID);
@@ -10,7 +13,7 @@ function getDebug() {
  * @param {boolean} force
  * @param {*} args
  */
-function log(force, ...args) {
+export function log(force, ...args) {
 	try {
 		const isDebugging = getDebug();
 
@@ -21,6 +24,75 @@ function log(force, ...args) {
 		/* empty */
 	}
 }
+
+/**
+ *
+ * @param {string }sourceId
+ * @param {string }targetId
+ * @returns {Promise<number>}
+ */
+async function getDistance(sourceId, targetId) {
+	return canvas.grid.measureDistance(canvas.tokens.get(sourceId).center, canvas.tokens.get(targetId).center, {
+		gridSpaces: true,
+	});
+}
+
+/**
+ * @param {string} tokenDocumentId
+ * @param {string} userSourceId
+ * @param {boolean|boolean} releaseOthers
+ */
+async function socketTarget(tokenDocumentId, userSourceId, releaseOthers) {
+	const user = game.users.get(userSourceId);
+	/**
+	 * @var {Token} token
+	 */
+	const token = canvas.tokens.get(tokenDocumentId);
+	let doTarget = true;
+	if (user.targets.find((t) => t.id === tokenDocumentId)) doTarget = false;
+	token.setTarget(doTarget, { user: user, releaseOthers: releaseOthers });
+}
+
+/**
+ * @param {string} tokenDocumentId
+ */
+async function socketPing(tokenDocumentId) {
+	const token = canvas.tokens.get(tokenDocumentId);
+	if (!token.visible) return ui.notifications.warn(game.i18n.localize("COMBAT.PingInvisibleToken"));
+	return canvas.ping(token.center);
+}
+
+/**
+ *
+ * @param {string} userId
+ * @param {string} tokenId
+ * @returns {Promise<boolean>}
+ */
+async function checkTargets(userId, tokenId) {
+	const user = game.users.get(userId);
+	return user.targets.find((t) => t.id === tokenId) !== undefined;
+}
+
+/**
+ *
+ * @param {string} userId
+ * @returns {Promise<Set<string>>}
+ */
+async function getTargets(userId) {
+	const user = game.users.get(userId);
+	return user.targets.map((value) => value.id);
+}
+
+Hooks.once("socketlib.ready", () => {
+	// eslint-disable-next-line no-undef
+	socket = socketlib.registerModule(MODULE_ID);
+	socket.register("targetToken", socketTarget);
+	socket.register("pingToken", socketPing);
+	socket.register("remoteLog", log);
+	socket.register("distance", getDistance);
+	socket.register("checkTargets", checkTargets);
+	socket.register("getTargets", getTargets);
+});
 
 const isMobile = window.navigator.userAgent.includes("Mobile");
 
@@ -97,6 +169,11 @@ async function dragEndFullscreenWindow() {
 
 $(window).on("resize", dragEndFullscreenWindow);
 
+/**
+ * @param {Application} app
+ * @param {jQuery} html
+ * @returns {Promise<void>}
+ */
 async function renderFullscreenWindow(app, html) {
 	if (!checkMobile()) return;
 	if (!html.hasClass("window-app") || html.hasClass("dialog")) {
@@ -121,17 +198,80 @@ Hooks.on("dragEndActorSheet", dragEndFullscreenWindow);
 Hooks.on("dragEndApplication", dragEndFullscreenWindow);
 Hooks.on("setAppScaleEvent", dragEndFullscreenWindow);
 
-// Hooks.on("changeSidebarTab", () => {
-// 	//
-// });
-//
-// Hooks.on("refreshToken", (token) => {
-// 	token;
-// 	//
-// });
+const headings = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
+
+/**
+ * @param {CollectionValue<foundry.abstract.EmbeddedCollection<Combatant>>} combatants
+ */
+async function updateCombatTracker(combatants) {
+	const scene = game.scenes.active;
+	const grid = scene.grid;
+	const origin = scene.tokens.find((t) => t.isOwner) || scene.tokens.get(game.user.character.id);
+	for (const combatant of combatants) {
+		let dist = 0;
+		let isTargeted = false;
+		const target = scene.tokens.get(combatant.tokenId);
+		if (canvas.grid !== undefined) {
+			dist = canvas.grid.measureDistance(origin.center, target.center, { gridSpaces: true });
+			isTargeted = game.user.targets.find((t) => t.id === target.id) !== undefined;
+		} else {
+			dist = await socket.executeAsGM(getDistance, origin.id, target.id);
+			isTargeted = await socket.executeAsGM(checkTargets, game.user.id, origin.id);
+		}
+		const combatantDisplay = $(`#combat-tracker li[data-combatant-id=${combatant.id}]`);
+		const controls = combatantDisplay.find(".combatant-controls");
+		// let targetIndicator = combatantDisplay.find(".users-targeting");
+		if (controls.find("[data-control=toggleTarget]").length === 0) {
+			const targetButton = $(
+				`<a class="combatant-control" data-control="toggleTarget" data-tooltip="COMBAT.ToggleTargeting" aria-describedby="tooltip"><i class="fa-duotone fa-location-crosshairs fa-fw"></i></a>`,
+			);
+			targetButton.on("click", async () => {
+				await socket.executeAsGM(socketTarget, target.id, game.user.id, false);
+				isTargeted = !isTargeted;
+				if (isTargeted) {
+					targetButton.addClass("active");
+					// $(
+					// 	`<i class="fa-duotone fa-location-crosshairs fa-fw" style="color: ${game.user.color};"></i>`,
+					// ).appendTo(targetIndicator);
+				} else {
+					targetButton.removeClass("active");
+					// targetIndicator.children().remove();
+				}
+			});
+			targetButton.insertBefore(controls.find(".token-effects"));
+		}
+		if (controls.find("[data-control=pingCombatant]").length === 0) {
+			const pingButton = $(
+				`<a class="combatant-control" aria-label="${game.i18n.localize(
+					"COMBAT.PingCombatant",
+				)}" role="button" data-tooltip="COMBAT.PingCombatant" data-control="pingCombatant"><i class="fa-solid fa-fw fa-signal-stream"></i></a>`,
+			);
+			pingButton.on("click", async () => socket.executeAsGM(socketPing, target.id));
+			pingButton.insertBefore(controls.find(".token-effects"));
+		}
+
+		if (combatantDisplay.find(".distance").length === 0) {
+			$(`<span class="distance"></span>`).insertAfter(combatantDisplay.find("h4 .name"));
+		}
+		const ray = new Ray(origin.center, target.center);
+		const angle = ray.angle * math.RAD_TO_DEG;
+		const headingAngle = Math.round(angle / (360 / headings.length) + 4);
+		const heading = headings[((headingAngle % headings.length) + headings.length) % headings.length];
+		combatantDisplay.find(".distance").text(`[${dist}${grid.units} ${heading}]`);
+	}
+}
+
+Hooks.on("changeSidebarTab", (tab) => {
+	if (tab.appId !== 24) return;
+	updateCombatTracker(tab.viewed.turns);
+});
+
+Hooks.on("refreshToken", () => {
+	updateCombatTracker(game.combat.turns);
+});
 
 Hooks.on("renderSettingsConfig", (_, html) => {
-	//if (!checkMobile()) return;
+	if (!checkMobile()) return;
 	const content = html.find("div:not(#mps-view-group).flexrow");
 	if (content.length === 1) {
 		content.removeClass("flexrow");
@@ -145,7 +285,6 @@ Hooks.on("renderSettingsConfig", (_, html) => {
 	sidebar.appendTo(scrollable);
 	form.appendTo(scrollable);
 	const footer = form.find("footer");
-	log(true, footer);
 	if (footer.length === 1) {
 		html.find(".reset-all").prependTo(footer);
 		footer.addClass("flexrow");

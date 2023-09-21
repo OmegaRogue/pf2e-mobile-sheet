@@ -39,6 +39,7 @@
 		"eslint-plugin-prettier": "^5.0.0",
 		"foundry-pf2e": "github:foundryvtt/pf2e",
 		"foundryvtt-devMode": "github:League-of-Foundry-Developers/foundryvtt-devMode",
+		"foundryvtt-socketlib": "github:manuelVo/foundryvtt-socketlib",
 		"fs-extra": "^11.1.1",
 		"gulp": "^4.0.2",
 		"gulp-sourcemaps": "^3.0.0",

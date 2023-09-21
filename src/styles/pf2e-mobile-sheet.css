@@ -3,7 +3,7 @@
 /*         Add your styles here         */
 /* ------------------------------------ */
 
-* {
+root {
 	--send-button-gap: 0.5em;
 }
 
@@ -187,19 +187,19 @@
 	min-height: unset;
 }
 
-#client-settings div:not(#mps-view-group).flexcol {
+.mobile-pf2e #client-settings div:not(#mps-view-group).flexcol {
 }
 
-#client-settings .window-content {
+.mobile-pf2e #client-settings .window-content {
 	overflow: hidden;
 }
 
-#client-settings .sidebar {
+.mobile-pf2e #client-settings .sidebar {
 	padding-left: 3rem;
 	padding-right: 3rem;
 }
 
-#client-settings footer {
+.mobile-pf2e #client-settings footer {
 	position: sticky;
 	bottom: 0;
 	width: inherit;
@@ -207,18 +207,22 @@
 	flex-grow: 0;
 }
 
-#client-settings .scrollable {
+.mobile-pf2e #client-settings .scrollable {
 	overflow: hidden auto;
 }
 
-#client-settings form {
+.mobile-pf2e #client-settings form {
 	padding-left: 1em;
 	padding-right: 1em;
 }
 
-#client-settings footer button {
+.mobile-pf2e #client-settings footer button {
 	height: 2rem;
 	flex-basis: max-content;
+}
+
+.mobile-pf2e #hurry-up {
+	display: none;
 }
 
 .mobile-pf2e .npc .npc-sheet .top-sections {
@@ -261,6 +265,7 @@
 	height: unset;
 	padding-right: 0.2em;
 }
+
 .mobile-pf2e .sheet.party [data-tab="overview"] .member .main-stats {
 	gap: 0.3rem;
 }
@@ -285,6 +290,7 @@
 	width: unset;
 	overflow: unset;
 }
+
 .mobile-pf2e .sheet.party .content {
 	overflow: unset;
 }

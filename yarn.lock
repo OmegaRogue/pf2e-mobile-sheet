@@ -1488,6 +1488,10 @@ for-own@^1.0.0:
   version "1.13.0"
   resolved "https://codeload.github.com/League-of-Foundry-Developers/foundryvtt-devMode/tar.gz/fad1da4cb1c73db3c8b882139ceba525044c6846"
 
+"foundryvtt-socketlib@github:manuelVo/foundryvtt-socketlib":
+  version "0.0.0"
+  resolved "https://codeload.github.com/manuelVo/foundryvtt-socketlib/tar.gz/c80346917ea2769743bc2607e044957026a34c39"
+
 fragment-cache@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/fragment-cache/-/fragment-cache-0.2.1.tgz#4290fad27f13e89be7f33799c6bc5a0abfff0d19"
