@@ -187,20 +187,19 @@
 	min-height: unset;
 }
 
-.mobile-pf2e #client-settings div:not(#mps-view-group).flexcol {
-	overflow: hidden auto;
+#client-settings div:not(#mps-view-group).flexcol {
 }
 
-.mobile-pf2e #client-settings .window-content {
+#client-settings .window-content {
 	overflow: hidden;
 }
 
-.mobile-pf2e #client-settings .sidebar {
+#client-settings .sidebar {
 	padding-left: 3rem;
 	padding-right: 3rem;
 }
 
-.mobile-pf2e #client-settings footer {
+#client-settings footer {
 	position: sticky;
 	bottom: 0;
 	width: inherit;
@@ -208,7 +207,16 @@
 	flex-grow: 0;
 }
 
-.mobile-pf2e #client-settings footer button {
+#client-settings .scrollable {
+	overflow: hidden auto;
+}
+
+#client-settings form {
+	padding-left: 1em;
+	padding-right: 1em;
+}
+
+#client-settings footer button {
 	height: 2rem;
 	flex-basis: max-content;
 }

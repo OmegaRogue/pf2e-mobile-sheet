@@ -131,25 +131,27 @@ Hooks.on("setAppScaleEvent", dragEndFullscreenWindow);
 // });
 
 Hooks.on("renderSettingsConfig", (_, html) => {
-	if (!checkMobile()) return;
+	//if (!checkMobile()) return;
 	const content = html.find("div:not(#mps-view-group).flexrow");
-	const sidebar = html.find("aside.sidebar");
-	const form = html.find(".categories");
-	const footer = form.find("footer");
-	const scrollable = form.find(".scrollable");
 	if (content.length === 1) {
 		content.removeClass("flexrow");
 		content.addClass("flexcol");
 	}
-	if (sidebar.length === 1) {
-		scrollable.prepend(sidebar);
-	}
+	const scrollable = html.find(".scrollable");
+	scrollable.appendTo(content);
+	const form = html.find(".categories");
+	scrollable.children().appendTo(form);
+	const sidebar = html.find("aside.sidebar");
+	sidebar.appendTo(scrollable);
+	form.appendTo(scrollable);
+	const footer = form.find("footer");
+	log(true, footer);
 	if (footer.length === 1) {
 		html.find(".reset-all").prependTo(footer);
 		footer.addClass("flexrow");
-		footer.appendTo(footer.parents("form.categories"));
+		footer.appendTo(content);
 		const submitButton = footer.find("button[type=submit]");
-		submitButton.type("button");
+		submitButton.removeAttr("type").attr("type", "button");
 		submitButton.click(() => form.submit());
 	}
 });
