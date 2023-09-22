@@ -117,7 +117,6 @@ jobs:
                   token: ${{ secrets.GITHUB_TOKEN }}
                   artifacts: "./dist/${{ env.package_type }}.json, ./${{ env.package_type }}.zip"
                   body: ${{ github.event.release.body }}
-                  omitPrereleaseDuringUpdate: true
             - name: Publish Module to FoundryVTT Website
               uses: Varriount/fvtt-autopublish@latest
               with:
