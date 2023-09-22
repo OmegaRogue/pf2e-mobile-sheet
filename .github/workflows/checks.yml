@@ -5,61 +5,61 @@
 name: Checks
 
 on:
-  - push
-  - pull_request
+    - push
+    - pull_request
 
 env:
-  node_version: 16
+    node_version: 18
 
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    lint:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
 
-      - name: Install node
-        uses: actions/setup-node@v2
-        with:
-          node-version: ${{ env.node_version }}
+            - name: Install node
+              uses: actions/setup-node@v3
+              with:
+                  node-version: ${{ env.node_version }}
 
-      - name: Cache Node.js modules
-        uses: actions/cache@v2
-        with:
-          path: .yarn/cache
-          key: ${{ runner.OS }}-node-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.OS }}-node-
-            ${{ runner.OS }}-
+            - name: Cache Node.js modules
+              uses: actions/cache@v3
+              with:
+                  path: .yarn/cache
+                  key: ${{ runner.OS }}-node-${{ hashFiles('**/yarn.lock') }}
+                  restore-keys: |
+                      ${{ runner.OS }}-node-
+                      ${{ runner.OS }}-
 
-      - name: Install dependencies
-        run: yarn install --immutable
+            - name: Install dependencies
+              run: yarn install --immutable
 
-      - name: Lint
-        run: yarn lint
+            - name: Lint
+              run: yarn lint
 
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
 
-      - name: Install node
-        uses: actions/setup-node@v2
-        with:
-          node-version: ${{ env.node_version }}
+            - name: Install node
+              uses: actions/setup-node@v3
+              with:
+                  node-version: ${{ env.node_version }}
 
-      - name: Cache Node.js modules
-        uses: actions/cache@v2
-        with:
-          path: .yarn/cache
-          key: ${{ runner.OS }}-node-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.OS }}-node-
-            ${{ runner.OS }}-
+            - name: Cache Node.js modules
+              uses: actions/cache@v3
+              with:
+                  path: .yarn/cache
+                  key: ${{ runner.OS }}-node-${{ hashFiles('**/yarn.lock') }}
+                  restore-keys: |
+                      ${{ runner.OS }}-node-
+                      ${{ runner.OS }}-
 
-      - name: Install dependencies
-        run: yarn install --immutable
+            - name: Install dependencies
+              run: yarn install --immutable
 
-      - name: Build
-        run: yarn build
+            - name: Build
+              run: yarn build

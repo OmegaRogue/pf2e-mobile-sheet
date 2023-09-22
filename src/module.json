@@ -27,6 +27,11 @@
 			"lang": "en",
 			"name": "English",
 			"path": "lang/en.json"
+		},
+		{
+			"lang": "de",
+			"name": "German",
+			"path": "lang/de.json"
 		}
 	],
 	"relationships": {
@@ -40,6 +45,8 @@
 	"socket": true,
 	"manifest": "This is auto replaced",
 	"download": "This is auto replaced",
+	"bugs": "https://github.com/OmegaRogue/pf2e-mobile-sheet/issues",
+	"changelog": "This is auto replaced",
 	"library": false,
 	"flags": {
 		"hotReload": {

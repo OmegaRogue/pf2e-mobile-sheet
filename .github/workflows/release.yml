@@ -5,114 +5,124 @@
 name: Release
 
 on:
-  release:
-    types: [published]
+    release:
+        types: [published]
 
 env:
-  package_type: module
-  node_version: 16
+    package_type: module
+    node_version: 18
 
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    lint:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
 
-      - name: Install node
-        uses: actions/setup-node@v2
-        with:
-          node-version: ${{ env.node_version }}
+            - name: Install node
+              uses: actions/setup-node@v3
+              with:
+                  node-version: ${{ env.node_version }}
 
-      - name: Cache Node.js modules
-        uses: actions/cache@v2
-        with:
-          path: .yarn/cache
-          key: ${{ runner.OS }}-node-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.OS }}-node-
-            ${{ runner.OS }}-
+            - name: Cache Node.js modules
+              uses: actions/cache@v3
+              with:
+                  path: .yarn/cache
+                  key: ${{ runner.OS }}-node-${{ hashFiles('**/yarn.lock') }}
+                  restore-keys: |
+                      ${{ runner.OS }}-node-
+                      ${{ runner.OS }}-
 
-      - name: Install dependencies
-        run: yarn install --immutable
+            - name: Install dependencies
+              run: yarn install --immutable
 
-      - name: Lint
-        run: yarn lint
+            - name: Lint
+              run: yarn lint
 
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
 
-      - name: Install node
-        uses: actions/setup-node@v2
-        with:
-          node-version: ${{ env.node_version }}
+            - name: Install node
+              uses: actions/setup-node@v3
+              with:
+                  node-version: ${{ env.node_version }}
 
-      - name: Cache Node.js modules
-        uses: actions/cache@v2
-        with:
-          path: .yarn/cache
-          key: ${{ runner.OS }}-node-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.OS }}-node-
-            ${{ runner.OS }}-
+            - name: Cache Node.js modules
+              uses: actions/cache@v3
+              with:
+                  path: .yarn/cache
+                  key: ${{ runner.OS }}-node-${{ hashFiles('**/yarn.lock') }}
+                  restore-keys: |
+                      ${{ runner.OS }}-node-
+                      ${{ runner.OS }}-
 
-      - name: Install dependencies
-        run: yarn install --immutable
+            - name: Install dependencies
+              run: yarn install --immutable
 
-      - name: Extract tag version number
-        id: get_version
-        uses: battila7/get-version-action@v2
+            - name: Extract tag version number
+              id: get_version
+              uses: battila7/get-version-action@v2
 
-      - name: Substitute Manifest and Download Links For Versioned Ones
-        id: sub_manifest_link_version
-        uses: microsoft/variable-substitution@v1
-        with:
-          files: 'src/${{ env.package_type }}.json'
-        env:
-          version: ${{ steps.get_version.outputs.version-without-v }}
-          url: https://github.com/${{ github.repository }}
-          manifest: https://github.com/${{ github.repository }}/releases/latest/download/${{ env.package_type }}.json
-          download: https://github.com/${{ github.repository }}/releases/download/${{ github.event.release.tag_name }}/${{ env.package_type }}.zip
-      - name: Remove Hot Reload flags
-        run: |
-          cat src/module.json | jq 'del(.flags.hotReload)' > src/module2.json && mv -f src/module2.json src/module.json
-      - name: Build
-        run: yarn build
+            - name: Substitute Manifest and Download Links For Versioned Ones
+              id: sub_manifest_link_version
+              uses: microsoft/variable-substitution@v1
+              with:
+                  files: "src/${{ env.package_type }}.json"
+              env:
+                  version: ${{ steps.get_version.outputs.version-without-v }}
+                  url: https://github.com/${{ github.repository }}
+                  manifest: https://github.com/${{ github.repository }}/releases/latest/download/${{ env.package_type }}.json
+                  download: https://github.com/${{ github.repository }}/releases/download/${{ github.event.release.tag_name }}/${{ env.package_type }}.zip
+                  changelog: https://github.com/${{ github.repository }}/releases/tag/${{ github.event.release.tag_name }}
+            - name: Remove Hot Reload flags
+              run: |
+                  cat src/module.json | jq 'del(.flags.hotReload)' > src/module2.json && mv -f src/module2.json src/module.json
+            - name: Build
+              run: yarn build
 
-      - name: Archive production artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: dist
-          path: dist
+            - name: Archive production artifacts
+              uses: actions/upload-artifact@v2
+              with:
+                  name: dist
+                  path: dist
 
-  publish:
-    needs:
-      - lint
-      - build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    publish:
+        needs:
+            - lint
+            - build
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
 
-      - name: Download production artifacts for publication
-        uses: actions/download-artifact@v2
-        with:
-          name: dist
-          path: dist
+            - name: Download production artifacts for publication
+              uses: actions/download-artifact@v2
+              with:
+                  name: dist
+                  path: dist
 
-      - name: Create zip file
-        working-directory: ./dist
-        run: zip -r ../${{ env.package_type }}.zip .
+            - name: Create zip file
+              working-directory: ./dist
+              run: zip -r ../${{ env.package_type }}.zip .
 
-      - name: Create release
-        id: create_version_release
-        uses: ncipollo/release-action@v1
-        with:
-          allowUpdates: true
-          name: ${{ github.event.release.name }}
-          token: ${{ secrets.GITHUB_TOKEN }}
-          artifacts: './dist/${{ env.package_type }}.json, ./${{ env.package_type }}.zip'
-          body: ${{ github.event.release.body }}
+            - name: Create release
+              id: create_version_release
+              uses: ncipollo/release-action@v1
+              with:
+                  allowUpdates: true
+                  name: ${{ github.event.release.name }}
+                  token: ${{ secrets.GITHUB_TOKEN }}
+                  artifacts: "./dist/${{ env.package_type }}.json, ./${{ env.package_type }}.zip"
+                  body: ${{ github.event.release.body }}
+                  omitPrereleaseDuringUpdate: true
+            - name: Publish Module to FoundryVTT Website
+              uses: Varriount/fvtt-autopublish@latest
+              with:
+                  username: ${{ secrets.FOUNDRY_ADMIN_USERNAME }}
+                  password: ${{ secrets.FOUNDRY_ADMIN_PASSWORD }}
+                  module-id: pf2e-mobile-sheet
+                  manifest-url: https://github.com/OmegaRogue/pf2e-mobile-sheet/releases/latest/download/module.json
+                  manifest-file: ${{ env.MANIFEST_FILE_PATH }}
