@@ -17,13 +17,7 @@
 	},
 	"ignorePatterns": ["dist/"],
 	"rules": {
-		"indent": [
-			"error",
-			"tab",
-			{
-				"SwitchCase": 1
-			}
-		],
+		"indent": ["error", "tab", { "SwitchCase": 1 }],
 		"eqeqeq": ["error", "always"],
 		"import/named": "off",
 		"import/no-default-export": "error",
@@ -35,7 +29,7 @@
 				"allowForLoopAfterthoughts": true
 			}
 		],
-		"spaced-comment": "error",
+		//		"spaced-comment": "error",
 		"@typescript-eslint/await-thenable": "error",
 		"@typescript-eslint/ban-ts-comment": "off",
 		//Just, nope. Not worth it.

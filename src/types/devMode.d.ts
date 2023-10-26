@@ -1,10 +1,8 @@
 import { Module } from "../../types/types/foundry/client/core/packages.js";
+import { DevMode } from "devMode";
 
-
-declare module "DevMode" {
-	export class DevMode extends DevModeProps {}
-
-	interface DevModeProps {
+declare module "devMode" {
+	export class DevMode {
 		API: APIProps;
 		LogLevel: LogLevelEnum;
 		MODULE_ID: string;
@@ -25,11 +23,11 @@ declare module "DevMode" {
 		setCompatibilityWarnings(): void;
 	}
 
-	export interface APIProps {
+	export type APIProps = {
 		getPackageDebugValue: (packageName, kind?: string) => any;
 		runPerformanceTest: any;
 		registerPackageDebugFlag: (packageName, kind: string, options) => any;
-	}
+	};
 
 	export enum LogLevelEnum {
 		NONE = 0,
@@ -39,15 +37,18 @@ declare module "DevMode" {
 		WARN = 4,
 		ALL = 5,
 	}
-	export interface SettingsProps {
-		[key: string]: string;
-	}
 
-	export interface TemplateProps {
+	export type SettingsProps = {
 		[key: string]: string;
-	}
+	};
 
-	export interface DevModeModule extends Module {
+	export type TemplateProps = {
+		[key: string]: string;
+	};
+}
+
+declare global {
+	class DevModeModule extends Module {
 		api: DevMode;
 	}
 }

@@ -21,15 +21,14 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
 			renderChunk: {
 				order: "post",
 				async handler(code, chunk) {
-					return chunk.fileName.endsWith(".mjs")
-						? esbuild.transform(code, {
-							keepNames: true,
-							minifyIdentifiers: false,
-							minifySyntax: true,
-							minifyWhitespace: true,
-							sourcemap: true,
-						})
-						: code;
+					const opts = {
+						keepNames: true,
+						minifyIdentifiers: false,
+						minifySyntax: true,
+						minifyWhitespace: true,
+						sourcemap: true,
+					};
+					return chunk.fileName.endsWith(".mjs") ? esbuild.transform(code, opts) : code;
 				},
 			},
 		});
@@ -62,7 +61,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
 						});
 					}
 				},
-			}
+			},
 		);
 	}
 

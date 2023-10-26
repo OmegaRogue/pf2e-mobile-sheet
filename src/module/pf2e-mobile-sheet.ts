@@ -2,19 +2,21 @@ import { registerSettings } from "./settings.ts";
 import { preloadTemplates } from "./preloadTemplates.ts";
 import { id as MODULE_ID } from "../../static/module.json";
 import * as math from "@pixi/math";
-export let socket;
+import { EncounterTrackerPF2e } from "@module/apps/sidebar/encounter-tracker.js";
+import { CombatantPF2e } from "@module/encounter/combatant.js";
+import { EncounterPF2e } from "@module/encounter/document.js";
+import { TokenDocumentPF2e } from "@scene/token-document/document.js";
+import { ScenePF2e } from "@scene/document.js";
+
+export let socket: SocketlibSocket;
 
 function getDebug() {
-	const devMode: Module | undefined = game.modules.get("_dev-mode");
-	devMode as DevModeModule;
-	return devMode?.api?.getPackageDebugValue(MODULE_ID);
+	const devMode = game.modules.get("_dev-mode");
+	if (!(devMode instanceof DevModeModule)) return;
+	return devMode.api.getPackageDebugValue(MODULE_ID);
 }
 
-/**
- * @param {boolean} force
- * @param {*} args
- */
-export function log(force, ...args) {
+export function log(force: boolean, ...args: any[]) {
 	try {
 		const isDebugging = getDebug();
 
@@ -26,78 +28,60 @@ export function log(force, ...args) {
 	}
 }
 
-/**
- *
- * @param {string }sourceId
- * @param {string }targetId
- * @returns {Promise<number>}
- */
-async function getDistance(sourceId, targetId) {
-	return canvas.grid.measureDistance(canvas.tokens.get(sourceId).center, canvas.tokens.get(targetId).center, {
+async function getDistance(sourceId: string, targetId: string): Promise<number> {
+	return canvas.grid.measureDistance(canvas.tokens.get(sourceId)?.center, canvas.tokens.get(targetId)?.center, {
 		gridSpaces: true,
 	});
 }
 
-/**
- * @param {string} tokenDocumentId
- * @param {string} userSourceId
- * @param {boolean} releaseOthers
- */
-async function socketTarget(tokenDocumentId, userSourceId, releaseOthers) {
+async function socketTarget(tokenDocumentId: string, userSourceId: string, releaseOthers: boolean) {
 	const user = game.users.get(userSourceId);
 	/**
 	 * @var {Token} token
 	 */
 	const token = canvas.tokens.get(tokenDocumentId);
 	let doTarget = true;
-	if (user.targets.find((t) => t.id === tokenDocumentId)) doTarget = false;
-	token.setTarget(doTarget, { user: user, releaseOthers: releaseOthers });
+	if (user?.targets.find((t) => t.id === tokenDocumentId)) doTarget = false;
+	token?.setTarget(doTarget, { user: user, releaseOthers: releaseOthers });
 }
 
 /**
  * Set this Token as an active target for the current game User
- * @param {string} tokenId
- * @param {boolean} targeted       Is the Token now targeted?
- * @param {Object} opts
- * @param {string} [opts.userId]           Assign the token as a target for a specific User
- * @param {boolean} [opts.releaseOthers]  Release other active targets for the same player?
- * @param {boolean} [opts.groupSelection] Is this target being set as part of a group selection workflow?
- * @returns {void}
+ * @param tokenId
+ * @param targeted       Is the Token now targeted?
+ * @param userId           Assign the token as a target for a specific User
+ * @param releaseOthers  Release other active targets for the same player?
+ * @param groupSelection Is this target being set as part of a group selection workflow?
  */
-async function socketSetTarget(tokenId, targeted, opts) {
+async function socketSetTarget(
+	tokenId: string,
+	userId: string,
+	targeted?: boolean,
+	releaseOthers?: boolean,
+	groupSelection?: boolean,
+) {
 	const token = canvas.tokens.get(tokenId);
-
-
+	const user = game.users.get(userId);
+	token?.setTarget(targeted, { user, releaseOthers, groupSelection });
 }
 
-/**
- * @param {string} tokenDocumentId
- */
-async function socketPing(tokenDocumentId) {
+async function socketPing(tokenDocumentId: string): Promise<boolean> {
 	const token = canvas.tokens.get(tokenDocumentId);
-	if (!token.visible) return ui.notifications.warn(game.i18n.localize("COMBAT.PingInvisibleToken"));
+	if (!token?.isVisible) {
+		ui.notifications.warn(game.i18n.localize("COMBAT.PingInvisibleToken"));
+		return false;
+	}
 	return canvas.ping(token.center);
 }
 
-/**
- *
- * @param {string} userId
- * @param {string} tokenId
- * @returns {Promise<boolean>}
- */
-async function checkTargets(userId, tokenId) {
+async function checkTargets(userId: string, tokenId: string): Promise<boolean> {
 	const user = game.users.get(userId);
-	return user.targets.find((t) => t.id === tokenId) !== undefined;
+	return user?.targets.find((t) => t.id === tokenId) !== undefined;
 }
 
-/**
- *
- * @param {string} userId
- * @returns {Promise<Set<string>>}
- */
-async function getTargets(userId) {
+async function getTargets(userId: string): Promise<Set<string> | undefined> {
 	const user = game.users.get(userId);
-	return user.targets.map((value) => value.id);
+	return user?.targets.map((value) => value.id);
 }
 
 Hooks.once("socketlib.ready", () => {
@@ -109,11 +93,12 @@ Hooks.once("socketlib.ready", () => {
 	socket.register("distance", getDistance);
 	socket.register("checkTargets", checkTargets);
 	socket.register("getTargets", getTargets);
+	socket.register("setTarget", socketSetTarget);
 });
 
 const isMobile = window.navigator.userAgent.includes("Mobile");
 
-function checkMobile() {
+function checkMobile(): boolean {
 	if (getDebug()) {
 		return true;
 	}
@@ -142,7 +127,7 @@ Hooks.once("init", async () => {
 	// Register custom sheets (if any)
 });
 
-Hooks.once("ready", async function () {
+Hooks.once("ready", async () => {
 	if (!checkMobile()) return;
 	const body = $("body");
 	body.addClass("mobile-pf2e");
@@ -156,13 +141,16 @@ Hooks.once("ready", async function () {
 	collapseButton.addClass("fa-bars");
 	$("#sidebar > nav#sidebar-tabs > a.collapse").prependTo($("#sidebar-tabs"));
 });
-Hooks.on("renderChatLog", async function () {
+Hooks.on("renderChatLog", async () => {
 	if (!checkMobile()) return;
 	const sendButton = $(`<button type="button" class="button send-button"><i class="fas fa-paper-plane"/></button>`);
 	sendButton.on("click", () => {
-		document
-			.querySelector("#chat-message")
-			.dispatchEvent(new KeyboardEvent("keydown", { key: "Enter", code: "Enter" }));
+		document?.querySelector("#chat-message")?.dispatchEvent(
+			new KeyboardEvent("keydown", {
+				key: "Enter",
+				code: "Enter",
+			}),
+		);
 	});
 	if (game.modules.get("_chatcommands")?.active) {
 		sendButton.appendTo("#chat-form");
@@ -186,12 +174,7 @@ async function dragEndFullscreenWindow() {
 
 $(window).on("resize", dragEndFullscreenWindow);
 
-/**
- * @param {Application} app
- * @param {jQuery} html
- * @returns {Promise<void>}
- */
-async function renderFullscreenWindow(app, html) {
+async function renderFullscreenWindow(app: Application, html: JQuery): Promise<void> {
 	if (!checkMobile()) return;
 	if (!html.hasClass("window-app") || html.hasClass("dialog")) {
 		log(false, app.id, html.classList);
@@ -217,23 +200,26 @@ Hooks.on("setAppScaleEvent", dragEndFullscreenWindow);
 
 const headings = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
 
-/**
- * @param {CollectionValue<foundry.abstract.EmbeddedCollection<Combatant>>} combatants
- */
-async function updateCombatTracker(combatants) {
+async function updateCombatTracker(
+	combatants: CombatantPF2e<EncounterPF2e, TokenDocumentPF2e<ScenePF2e | null> | null>[],
+) {
 	const scene = game.scenes.active;
+	if (!scene) return;
 	const grid = scene.grid;
+	if (!game.user.character) return;
 	const origin = scene.tokens.find((t) => t.isOwner) || scene.tokens.get(game.user.character.id);
+	if (!origin) return;
 	for (const combatant of combatants) {
 		let dist = 0;
 		let isTargeted = false;
-		const target = scene.tokens.get(combatant.tokenId);
+		const target = scene.tokens.get(combatant.tokenId ?? "");
+		if (!target) return;
 		if (canvas.grid !== undefined) {
 			dist = canvas.grid.measureDistance(origin.center, target.center, { gridSpaces: true });
 			isTargeted = game.user.targets.find((t) => t.id === target.id) !== undefined;
 		} else {
-			dist = await socket.executeAsGM(getDistance, origin.id, target.id);
-			isTargeted = await socket.executeAsGM(checkTargets, game.user.id, origin.id);
+			dist = (await socket.executeAsGM(getDistance, origin.id, target.id)) as number;
+			isTargeted = (await socket.executeAsGM(checkTargets, game.user.id, origin.id)) as boolean;
 		}
 		const combatantDisplay = $(`#combat-tracker li[data-combatant-id=${combatant.id}]`);
 		const controls = combatantDisplay.find(".combatant-controls");
@@ -278,16 +264,18 @@ async function updateCombatTracker(combatants) {
 	}
 }
 
-Hooks.on("changeSidebarTab", (tab) => {
+Hooks.on("changeSidebarTab", async (tab: SidebarTab) => {
 	if (tab.appId !== 24) return;
-	updateCombatTracker(tab.viewed.turns);
+	if (!(tab instanceof EncounterTrackerPF2e)) return;
+	await updateCombatTracker(tab.viewed.turns);
 });
 
-Hooks.on("refreshToken", () => {
-	updateCombatTracker(game.combat.turns);
+Hooks.on("refreshToken", async () => {
+	if (!game.combat?.turns) return;
+	await updateCombatTracker(game.combat?.turns);
 });
 
-Hooks.on("renderSettingsConfig", (_, html) => {
+Hooks.on("renderSettingsConfig", (_app: Application, html: JQuery) => {
 	if (!checkMobile()) return;
 	const content = html.find("div:not(#mps-view-group).flexrow");
 	if (content.length === 1) {
@@ -308,10 +296,10 @@ Hooks.on("renderSettingsConfig", (_, html) => {
 		footer.appendTo(content);
 		const submitButton = footer.find("button[type=submit]");
 		submitButton.removeAttr("type").attr("type", "button");
-		submitButton.click(() => form.submit());
+		submitButton.on("click", () => form.trigger("submit"));
 	}
 });
-Hooks.on("renderCharacterSheetPF2e", (_, html) => {
+Hooks.on("renderCharacterSheetPF2e", (_app: Application, html: JQuery) => {
 	if (!checkMobile()) return;
 
 	const sidebarTabButton = $(
@@ -334,15 +322,15 @@ Hooks.once("devModeReady", async ({ registerPackageDebugFlag }) => {
 	getDebug();
 });
 
-Hooks.on("collapseSidebar", (_, collapsed) => {
+Hooks.on("collapseSidebar", (_, collapsed: boolean) => {
 	if (!checkMobile()) return;
 	const sidebar = $("#sidebar");
 	const collapseButton = sidebar.find(".collapse > i");
 	if (collapsed) {
 		collapseButton.removeClass("fa-caret-left");
-		//collapseButton.addClass('fa-caret-left');
+		// collapseButton.addClass('fa-caret-left');
 	} else {
 		collapseButton.removeClass("fa-caret-right");
-		//collapseButton.addClass('fa-caret-left');
+		// collapseButton.addClass('fa-caret-left');
 	}
 });

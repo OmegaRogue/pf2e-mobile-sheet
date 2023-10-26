@@ -1,18 +1,19 @@
 {
 	"compilerOptions": {
-		//    "allowSyntheticDefaultImports": true, //Do I need this?
+		"allowSyntheticDefaultImports": true, //Do I need this?
 		"allowImportingTsExtensions": true,
 		"allowUnusedLabels": false,
 		"baseUrl": ".",
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
-		"lib": ["dom", "dom.iterable", "esnext"],
+		"lib": ["esnext", "dom", "dom.iterable"],
 		"module": "nodenext",
 		"moduleResolution": "nodenext",
 		"noEmit": true,
 		"noFallthroughCasesInSwitch": true,
 		"noImplicitOverride": true,
 		"noImplicitReturns": true,
+		"noImplicitAny": false,
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"outDir": "dist",
@@ -39,7 +40,7 @@
 		"strictFunctionTypes": false,
 		"strictNullChecks": true,
 		"strictPropertyInitialization": true,
-		"target": "es2022",
+		"target": "ES2022",
 		"typeRoots": ["node_modules/@types", "types/types/foundry", "./src/types"],
 		"types": ["jquery", "node", "tooltipster"],
 		"useDefineForClassFields": true

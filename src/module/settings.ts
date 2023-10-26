@@ -1,6 +1,6 @@
 import { id as MODULE_ID } from "../../static/module.json";
 
-const debouncedReload = foundry.utils.debounce(() => window.location.reload(), 100);
+const debouncedReload = globalThis.foundry.utils.debounce(() => window.location.reload(), 100);
 
 export function registerSettings() {
 	game.settings.register(MODULE_ID, "mobile-mode", {
