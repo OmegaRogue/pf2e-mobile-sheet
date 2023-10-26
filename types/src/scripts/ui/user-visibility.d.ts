@@ -1,0 +1,13 @@
+import { ChatMessagePF2e } from "@module/chat-message/index.ts";
+declare class UserVisibilityPF2e {
+    /** Edits HTML live based on permission settings. Used to hide certain blocks and values */
+    static process(html: HTMLElement, options?: ProcessOptions): void;
+    static processMessageSender(message: ChatMessagePF2e, html: HTMLElement): void;
+}
+declare const USER_VISIBILITIES: Set<"all" | "owner" | "gm" | "none">;
+type UserVisibility = SetElement<typeof USER_VISIBILITIES>;
+interface ProcessOptions {
+    document?: ClientDocument | null;
+    message?: ChatMessagePF2e | null;
+}
+export { USER_VISIBILITIES, type UserVisibility, UserVisibilityPF2e };

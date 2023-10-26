@@ -1,0 +1,50 @@
+{
+	"compilerOptions": {
+		//    "allowSyntheticDefaultImports": true, //Do I need this?
+		"allowImportingTsExtensions": true,
+		"allowUnusedLabels": false,
+		"baseUrl": ".",
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"lib": ["dom", "dom.iterable", "esnext"],
+		"module": "nodenext",
+		"moduleResolution": "nodenext",
+		"noEmit": true,
+		"noFallthroughCasesInSwitch": true,
+		"noImplicitOverride": true,
+		"noImplicitReturns": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"outDir": "dist",
+		"paths": {
+			"@actor": ["types/src/module/actor/index.js"],
+			"@actor/*": ["types/src/module/actor/*"],
+			"@item": ["types/src/module/item/index.js"],
+			"@item/*": ["types/src/module/item/*"],
+			"@module/*": ["types/src/module/*"],
+			"@scene": ["types/src/module/scene/index.js"],
+			"@scene/*": ["types/src/module/scene/*"],
+			"@scripts/*": ["types/src/scripts/*"],
+			"@system/*": ["types/src/module/system/*"],
+			"@util": ["types/src/util/index.js"],
+			"@util/*": ["types/src/util/*"],
+			"*": ["src/types/*.d.ts"]
+		},
+		"removeComments": false,
+		"resolveJsonModule": true,
+		"rootDir": ".",
+		"skipLibCheck": true,
+		"sourceMap": true,
+		"strictBindCallApply": true,
+		"strictFunctionTypes": false,
+		"strictNullChecks": true,
+		"strictPropertyInitialization": true,
+		"target": "es2022",
+		"typeRoots": ["node_modules/@types", "types/types/foundry", "./src/types"],
+		"types": ["jquery", "node", "tooltipster"],
+		"useDefineForClassFields": true
+	},
+	"watchOptions": {
+		"excludeDirectories": ["packs/data/", "static/packs/"]
+	}
+}
