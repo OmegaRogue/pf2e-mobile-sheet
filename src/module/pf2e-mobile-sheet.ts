@@ -2,7 +2,7 @@ import { registerSettings } from "./settings.ts";
 import { preloadTemplates } from "./preloadTemplates.ts";
 import { id as MODULE_ID } from "../../static/module.json";
 import * as math from "@pixi/math";
-import { EncounterTrackerPF2e } from "@module/apps/sidebar/encounter-tracker.js";
+import type { EncounterTrackerPF2e } from "@module/apps/sidebar/index.ts";
 import { CombatantPF2e } from "@module/encounter/combatant.js";
 import { EncounterPF2e } from "@module/encounter/document.js";
 import { TokenDocumentPF2e } from "@scene/token-document/document.js";
@@ -265,8 +265,7 @@ async function updateCombatTracker(
 
 Hooks.on("changeSidebarTab", async (tab: SidebarTab) => {
 	if (tab.appId !== 24) return;
-	if (!(tab instanceof EncounterTrackerPF2e)) return;
-	await updateCombatTracker(tab.viewed.turns);
+	await updateCombatTracker((tab as EncounterTrackerPF2e<EncounterPF2e>).viewed.turns);
 });
 
 Hooks.on("refreshToken", async () => {

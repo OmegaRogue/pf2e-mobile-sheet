@@ -29,7 +29,6 @@
 			"@system/*": ["types/src/module/system/*"],
 			"@util": ["types/src/util/index.js"],
 			"@util/*": ["types/src/util/*"]
-			//			"*": ["src/types/*.d.ts"]
 		},
 		"removeComments": false,
 		"resolveJsonModule": true,
@@ -43,7 +42,8 @@
 		"target": "ES2022",
 		"typeRoots": ["node_modules/@types", "types/types/foundry", "src/types"],
 		"types": ["jquery", "node", "tooltipster"],
-		"useDefineForClassFields": true
+		"useDefineForClassFields": true,
+		"allowJs": true
 	},
 	"watchOptions": {
 		"excludeDirectories": ["packs/data/", "static/packs/"]
