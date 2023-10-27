@@ -1,13 +1,13 @@
 {
 	"compilerOptions": {
-		"allowSyntheticDefaultImports": true, //Do I need this?
+		//"allowSyntheticDefaultImports": true, //Do I need this?
 		"allowImportingTsExtensions": true,
 		"allowUnusedLabels": false,
 		"baseUrl": ".",
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
 		"lib": ["esnext", "dom", "dom.iterable"],
-		"module": "nodenext",
+		"module": "NodeNext",
 		"moduleResolution": "nodenext",
 		"noEmit": true,
 		"noFallthroughCasesInSwitch": true,
@@ -28,8 +28,8 @@
 			"@scripts/*": ["types/src/scripts/*"],
 			"@system/*": ["types/src/module/system/*"],
 			"@util": ["types/src/util/index.js"],
-			"@util/*": ["types/src/util/*"],
-			"*": ["src/types/*.d.ts"]
+			"@util/*": ["types/src/util/*"]
+			//			"*": ["src/types/*.d.ts"]
 		},
 		"removeComments": false,
 		"resolveJsonModule": true,
@@ -41,7 +41,7 @@
 		"strictNullChecks": true,
 		"strictPropertyInitialization": true,
 		"target": "ES2022",
-		"typeRoots": ["node_modules/@types", "types/types/foundry", "./src/types"],
+		"typeRoots": ["node_modules/@types", "types/types/foundry", "src/types"],
 		"types": ["jquery", "node", "tooltipster"],
 		"useDefineForClassFields": true
 	},

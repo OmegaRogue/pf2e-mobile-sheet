@@ -1,5 +1,26 @@
-# SPDX-FileCopyrightText: 2022 Johannes Loher
-#
-# SPDX-License-Identifier: MIT
+# IDE
+.idea/
+.vs/
+*.iml
+/.vscode
+static/assets/icons/\!dox/
+/node_modules/
+.DS_Store
+**.env
+npm-debug.log
+coverage/
+debug/
+docs/
+node_modules/
+dist/
 
-dist
+#Foundry bundle
+foundry.js
+#Pathfinder bundle (take from non-minified build)
+main.bundle.js
+
+#This project
+foundryconfig.json
+.eslintrc.js
+vite.config.ts
+types/

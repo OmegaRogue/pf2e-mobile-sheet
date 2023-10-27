@@ -56,7 +56,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
 							context.server.ws.send({
 								type: "custom",
 								event: "template-update",
-								data: { path: `modules/xdy-pf2e-workbench/${basePath}` },
+								data: { path: `modules/pf2e-mobile-sheet/${basePath}` },
 							});
 						});
 					}

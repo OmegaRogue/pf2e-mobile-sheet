@@ -174,10 +174,9 @@ async function dragEndFullscreenWindow() {
 
 $(window).on("resize", dragEndFullscreenWindow);
 
-async function renderFullscreenWindow(app: Application, html: JQuery): Promise<void> {
+async function renderFullscreenWindow(_app: Application, html: JQuery): Promise<void> {
 	if (!checkMobile()) return;
 	if (!html.hasClass("window-app") || html.hasClass("dialog")) {
-		log(false, app.id, html.classList);
 		return;
 	}
 	html.addClass("fullscreen-window");
@@ -313,7 +312,7 @@ Hooks.on("renderCharacterSheetPF2e", (_app: Application, html: JQuery) => {
 	const aside = html.find("aside");
 	aside.css("background-image", "none");
 	aside.find(".logo").remove();
-	aside.detach().appendTo(sidebarTab);
+	sidebarTab.append(aside.detach());
 	if (html.find(".sheet-content .tab.sidebar").length === 0) html.find(".sheet-content").append(sidebarTab);
 });
 

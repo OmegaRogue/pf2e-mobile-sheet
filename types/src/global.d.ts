@@ -38,7 +38,7 @@ import type Peggy from "peggy";
 import type EnJSON from "static/lang/en.json";
 interface GamePF2e extends Game<ActorPF2e<null>, ActorsPF2e<ActorPF2e<null>>, ChatMessagePF2e, EncounterPF2e, ItemPF2e<null>, MacroPF2e, ScenePF2e, UserPF2e> {
     pf2e: {
-		actions: Record<string, Function>;
+        actions: Record<string, Function>;
         compendiumBrowser: CompendiumBrowser;
         licenseViewer: LicenseViewer;
         worldClock: WorldClock;
