@@ -11,3 +11,4 @@ gen:
 	cp -r ${foundrypf2eloc}/dist/types/* .
 	cp -r ${foundrypf2eloc}/types/foundry types
 	cp ${foundrypf2eloc}/static/lang/*.json .
+	patch -p1 -i "type-additions.patch"
