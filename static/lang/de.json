@@ -13,16 +13,18 @@
 				"on": "An",
 				"off": "Aus",
 				"auto": "Auto"
+			},
+			"close-button-text": {
+				"name": "Fenster Schließen Text entfernen",
+				"hint": "Entfernt den Text des 'Fenster Schließen' Knopfes"
 			}
 		},
-		"sidebar-tab": "Seitenleiste"
-	},
-	"PF2E": {
-		"ProficiencyLevel0": "Unge",
-		"ProficiencyLevel1": "Geüb",
-		"ProficiencyLevel2": "Exp",
-		"ProficiencyLevel3": "Mstr",
-		"ProficiencyLevel4": "Leg",
-		"ModifiersTitle": "Mod"
+		"sidebar-tab": "Seitenleiste",
+		"ProficiencyLevel0Short": "Unge",
+		"ProficiencyLevel1Short": "Geüb",
+		"ProficiencyLevel2Short": "Exp",
+		"ProficiencyLevel3Short": "Mstr",
+		"ProficiencyLevel4Short": "Leg",
+		"ModifiersTitleShort": "Mod"
 	}
 }

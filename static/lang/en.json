@@ -13,16 +13,18 @@
 				"on": "On",
 				"off": "Off",
 				"auto": "Auto"
+			},
+			"close-button-text": {
+				"name": "Remove Close Button Text",
+				"hint": "Removes the 'Close' Text on the close window button."
 			}
 		},
-		"sidebar-tab": "Sidebar"
-	},
-	"PF2E": {
-		"ProficiencyLevel0": "Untr",
-		"ProficiencyLevel1": "Train",
-		"ProficiencyLevel2": "Exp",
-		"ProficiencyLevel3": "Mstr",
-		"ProficiencyLevel4": "Leg",
-		"ModifiersTitle": "Mods"
+		"sidebar-tab": "Sidebar",
+		"ProficiencyLevel0Short": "Untr",
+		"ProficiencyLevel1Short": "Train",
+		"ProficiencyLevel2Short": "Exp",
+		"ProficiencyLevel3Short": "Mstr",
+		"ProficiencyLevel4Short": "Leg",
+		"ModifiersTitleShort": "Mods"
 	}
 }

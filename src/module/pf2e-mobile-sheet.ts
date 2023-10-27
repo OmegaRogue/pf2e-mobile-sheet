@@ -8,6 +8,8 @@ import { EncounterPF2e } from "@module/encounter/document.js";
 import { TokenDocumentPF2e } from "@scene/token-document/document.js";
 import { ScenePF2e } from "@scene/document.js";
 
+const i18nLoc = game.i18n.localize;
+
 export let socket: SocketlibSocket;
 
 function getDebug() {
@@ -68,7 +70,7 @@ async function socketSetTarget(
 async function socketPing(tokenDocumentId: string): Promise<boolean> {
 	const token = canvas.tokens.get(tokenDocumentId);
 	if (!token?.isVisible) {
-		ui.notifications.warn(game.i18n.localize("COMBAT.PingInvisibleToken"));
+		ui.notifications.warn(i18nLoc("COMBAT.PingInvisibleToken"));
 		return false;
 	}
 	return canvas.ping(token.center);
@@ -113,6 +115,18 @@ function checkMobile(): boolean {
 	}
 }
 
+function checkMobileWithOverride(settingId: string): boolean {
+	switch (game.settings.get(MODULE_ID, settingId)) {
+		case "on":
+			return true;
+		case "off":
+			return false;
+		case "auto":
+		default:
+			return checkMobile();
+	}
+}
+
 // Initialize module
 Hooks.once("init", async () => {
 	log(true, "pf2e-mobile-sheet | Initializing pf2e-mobile-sheet");
@@ -142,7 +156,7 @@ Hooks.once("ready", async () => {
 	$("#sidebar > nav#sidebar-tabs > a.collapse").prependTo($("#sidebar-tabs"));
 });
 Hooks.on("renderChatLog", async () => {
-	if (!checkMobile()) return;
+	if (!checkMobileWithOverride("send-button")) return;
 	const sendButton = $(`<button type="button" class="button send-button"><i class="fas fa-paper-plane"/></button>`);
 	sendButton.on("click", () => {
 		document?.querySelector("#chat-message")?.dispatchEvent(
@@ -175,16 +189,21 @@ async function dragEndFullscreenWindow() {
 $(window).on("resize", dragEndFullscreenWindow);
 
 async function renderFullscreenWindow(_app: Application, html: JQuery): Promise<void> {
+	if (checkMobileWithOverride("close-button-text")) {
+		const closeButton = html.find(".header-button.control.close");
+		closeButton.text("");
+	}
 	if (!checkMobile()) return;
 	if (!html.hasClass("window-app") || html.hasClass("dialog")) {
 		return;
 	}
 	html.addClass("fullscreen-window");
+	html.removeClass("");
 	html.css("width", "");
 	html.css("height", "");
 	html.css("top", "");
 	html.css("left", "");
-	const header = html.find("header");
+	const header = html.find("header") as JQuery<HTMLElement>;
 	header.removeClass("draggable");
 	header.removeClass("resizable");
 }
@@ -244,7 +263,7 @@ async function updateCombatTracker(
 		}
 		if (controls.find("[data-control=pingCombatant]").length === 0) {
 			const pingButton = $(
-				`<a class="combatant-control" aria-label="${game.i18n.localize(
+				`<a class="combatant-control" aria-label="${i18nLoc(
 					"COMBAT.PingCombatant",
 				)}" role="button" data-tooltip="COMBAT.PingCombatant" data-control="pingCombatant"><i class="fa-solid fa-fw fa-signal-stream"></i></a>`,
 			);
@@ -300,8 +319,14 @@ Hooks.on("renderSettingsConfig", (_app: Application, html: JQuery) => {
 Hooks.on("renderCharacterSheetPF2e", (_app: Application, html: JQuery) => {
 	if (!checkMobile()) return;
 
+	html.find(".skills-list h6").text(i18nLoc(`pf2e-mobile-sheet.ModifiersTitleShort`));
+	const profRanks = html.find(".skills-list select").children();
+	for (let i = 0; i < 5; i++) profRanks.eq(0).text(i18nLoc(`pf2e-mobile-sheet.ProficiencyLevel${i}Short`));
+	const combatRanks = html.find(".combat-list select").children();
+	for (let i = 0; i < 5; i++) combatRanks.eq(0).text(i18nLoc(`pf2e-mobile-sheet.ProficiencyLevel${i}Short`));
+
 	const sidebarTabButton = $(
-		`<a class="item" id="sidebar-tab" data-tab="sidebar" title="${game.i18n.localize(
+		`<a class="item" id="sidebar-tab" data-tab="sidebar" title="${i18nLoc(
 			"pf2e-mobile-sheet.sidebar-tab",
 		)}"><i class="fa-solid fa-bars"></i></a>`,
 	);
