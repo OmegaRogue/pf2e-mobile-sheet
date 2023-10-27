@@ -19,7 +19,7 @@
 		"verified": "11"
 	},
 	"scripts": [],
-	"esmodules": ["module/pf2e-mobile-sheet.js"],
+	"esmodules": ["vendor.mjs", "pf2e-mobile-sheet.mjs"],
 	"styles": ["styles/pf2e-mobile-sheet.css"],
 	"packs": [],
 	"languages": [
