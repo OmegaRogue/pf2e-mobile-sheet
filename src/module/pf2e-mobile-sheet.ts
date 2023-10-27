@@ -36,7 +36,7 @@ async function getDistance(sourceId: string, targetId: string): Promise<number> 
 	});
 }
 
-async function socketTarget(tokenDocumentId: string, userSourceId: string, releaseOthers: boolean) {
+async function socketTarget(tokenDocumentId: string, userSourceId: string, releaseOthers: boolean): Promise<void> {
 	const user = game.users.get(userSourceId);
 	/**
 	 * @var {Token} token
@@ -61,7 +61,7 @@ async function socketSetTarget(
 	targeted?: boolean,
 	releaseOthers?: boolean,
 	groupSelection?: boolean,
-) {
+): Promise<void> {
 	const token = canvas.tokens.get(tokenId);
 	const user = game.users.get(userId);
 	token?.setTarget(targeted, { user, releaseOthers, groupSelection });
@@ -91,7 +91,7 @@ Hooks.once("socketlib.ready", () => {
 	socket = socketlib.registerModule(MODULE_ID);
 	socket.register("targetToken", socketTarget);
 	socket.register("pingToken", socketPing);
-	socket.register("remoteLog", log);
+	socket.register("log", log);
 	socket.register("distance", getDistance);
 	socket.register("checkTargets", checkTargets);
 	socket.register("getTargets", getTargets);
@@ -236,8 +236,8 @@ async function updateCombatTracker(
 			dist = canvas.grid.measureDistance(origin.center, target.center, { gridSpaces: true });
 			isTargeted = game.user.targets.find((t) => t.id === target.id) !== undefined;
 		} else {
-			dist = (await socket.executeAsGM(getDistance, origin.id, target.id)) as number;
-			isTargeted = (await socket.executeAsGM(checkTargets, game.user.id, origin.id)) as boolean;
+			dist = await socket.executeAsGM("distance", origin.id, target.id);
+			isTargeted = await socket.executeAsGM("checkTargets", game.user.id, origin.id);
 		}
 		const combatantDisplay = $(`#combat-tracker li[data-combatant-id=${combatant.id}]`);
 		const controls = combatantDisplay.find(".combatant-controls");
@@ -247,7 +247,7 @@ async function updateCombatTracker(
 				`<a class="combatant-control" data-control="toggleTarget" data-tooltip="COMBAT.ToggleTargeting" aria-describedby="tooltip"><i class="fa-duotone fa-location-crosshairs fa-fw"></i></a>`,
 			);
 			targetButton.on("click", async () => {
-				await socket.executeAsGM(socketTarget, target.id, game.user.id, false);
+				await socket.executeAsGM("targetToken", target.id, game.user.id, false);
 				isTargeted = !isTargeted;
 				if (isTargeted) {
 					targetButton.addClass("active");
@@ -267,7 +267,7 @@ async function updateCombatTracker(
 					"COMBAT.PingCombatant",
 				)}" role="button" data-tooltip="COMBAT.PingCombatant" data-control="pingCombatant"><i class="fa-solid fa-fw fa-signal-stream"></i></a>`,
 			);
-			pingButton.on("click", async () => socket.executeAsGM(socketPing, target.id));
+			pingButton.on("click", async () => socket.executeAsGM("pingToken", target.id));
 			pingButton.insertBefore(controls.find(".token-effects"));
 		}
 
