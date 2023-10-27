@@ -1,4 +1,4 @@
-import { ItemPF2e } from "@item/base.ts";
+import { ItemPF2e } from "@item";
 import { type RuleElementPF2e, type RuleElementSource } from "@module/rules/index.ts";
 import { RuleElementSchema } from "@module/rules/rule-element/data.ts";
 import type { LaxSchemaField } from "@system/schema-data-fields.ts";

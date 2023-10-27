@@ -5,8 +5,8 @@ declare const ALIGNMENT_DAMAGE_TYPES: readonly ["chaotic", "lawful", "good", "ev
 /** A set of mutually exclusive damage categories */
 declare const DAMAGE_CATEGORIES_UNIQUE: Set<"precision" | "splash" | "persistent">;
 /** All damage modifications that only affect IWR (like materials) */
-declare const MATERIAL_DAMAGE_EFFECTS: Set<"adamantine" | "darkwood" | "mithral" | "orichalcum" | "silver" | "warpglass" | "cold-iron" | "sisterstone-dusk" | "sisterstone-scarlet">;
-declare const DAMAGE_CATEGORIES: Set<"adamantine" | "darkwood" | "energy" | "mithral" | "orichalcum" | "physical" | "silver" | "warpglass" | "precision" | "splash" | "cold-iron" | "sisterstone-dusk" | "sisterstone-scarlet" | "persistent" | "alignment">;
+declare const MATERIAL_DAMAGE_EFFECTS: Set<"adamantine" | "darkwood" | "mithral" | "orichalcum" | "silver" | "cold-iron" | "sisterstone-dusk" | "sisterstone-scarlet" | "warpglass">;
+declare const DAMAGE_CATEGORIES: Set<"adamantine" | "darkwood" | "energy" | "mithral" | "orichalcum" | "physical" | "silver" | "precision" | "splash" | "cold-iron" | "sisterstone-dusk" | "sisterstone-scarlet" | "warpglass" | "persistent" | "alignment">;
 /** The standard damage die sizes */
 declare const DAMAGE_DIE_FACES_TUPLE: readonly ["d4", "d6", "d8", "d10", "d12"];
 declare const DAMAGE_DIE_FACES: Set<"d10" | "d12" | "d4" | "d6" | "d8">;

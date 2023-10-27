@@ -251,7 +251,8 @@
 				},
 				"SpellPreparation": {
 					"Hint": "To prepare a spell, drag one from this list to a slot on the actor sheet.",
-					"HintFlexible": "To prepare a spell, enable it here. To prepare a cantrip, drag one from this list to a slot on the actor sheet. ",
+					"HintFlexible": "To prepare a spell, enable it here. To prepare a cantrip, drag one from this list to a slot on the actor sheet.",
+					"Search": "Search Spells",
 					"Title": "{actor}: Spell Preparation"
 				},
 				"Spellcasting": {
@@ -353,19 +354,20 @@
 			},
 			"Party": {
 				"BlankSlate": "This party doesn't have any members. Drag a creature from the actor sidebar to get started.",
-				"SkillSavePrompt": {
+				"CheckPrompt": {
 					"AdjustDifficulty": "Adjust Difficulty",
 					"ChooseLores": "Choose Lores",
 					"ChooseSaves": "Choose Saves",
-					"ChooseSkills": "Choose Skills",
+					"ChooseSkills": "Choose Skills/Perception",
 					"LevelDC": "Level-Based DC",
 					"Post": "Generate Prompt",
 					"PromptTitle": "Prompt Title",
 					"SecretCheck": "Secret Check",
 					"SetDC": "Set DC",
 					"SimpleDC": "Simple DC",
-					"Title": "Generate Skill/Save Prompt",
-					"TitleShort": "Skill/Save Prompt"
+					"SkillsPerception": "Skills/Perception",
+					"Title": "Generate Check Prompt",
+					"TitleShort": "Check Prompt"
 				},
 				"Coin": "Coin",
 				"ClearActivities": {
@@ -849,6 +851,7 @@
 		"ConditionTypeImmobilized": "Immobilized",
 		"ConditionTypeIndifferent": "Indifferent",
 		"ConditionTypeInvisible": "Invisible",
+		"ConditionTypeMalevolence": "Malevolence",
 		"ConditionTypeObserved": "Observed",
 		"ConditionTypeOffGuard": "Off-Guard",
 		"ConditionTypeParalyzed": "Paralyzed",
@@ -1019,6 +1022,7 @@
 				},
 				"Type": {
 					"abjuration": "abjuration",
+					"abysium": "abysium",
 					"adamantine": "adamantine",
 					"all-damage": "all damage",
 					"area-damage": "area damage",
@@ -1041,6 +1045,7 @@
 					"death-effects": "death effects",
 					"disease": "disease",
 					"divination": "divination",
+					"djezet": "djezet",
 					"doomed": "doomed",
 					"drained": "drained",
 					"emotion": "emotion",
@@ -1061,6 +1066,7 @@
 					"illusion": "illusion",
 					"immobilized": "immobilized",
 					"inhaled": "inhaled",
+					"inubrix": "inubrix",
 					"light": "light",
 					"magic": "magic",
 					"magical": "magical",
@@ -1071,6 +1077,7 @@
 					"non-magical": "non-magical",
 					"nonlethal": "nonlethal",
 					"nonlethal-attacks": "nonlethal attacks",
+					"noqual": "noqual",
 					"object-immunities": "object immunities",
 					"off-guard": "off-guard",
 					"olfactory": "olfactory",
@@ -1089,6 +1096,7 @@
 					"salt": "salt",
 					"salt-water": "salt water",
 					"scrying": "scrying",
+					"siccatite": "siccatite",
 					"sickened": "sickened",
 					"silver": "silver",
 					"sleep": "sleep",
@@ -1110,7 +1118,6 @@
 					"vorpal-adamantine": "vorpal adamantine",
 					"vorpal-fear": "vorpal fear",
 					"vulnerable-to-sunlight": "vulnerable to sunlight",
-					"warpglass": "warpglass",
 					"water": "water",
 					"weapons": "weapons",
 					"weapons-shedding-bright-light": "weapons shedding bright light",
@@ -1424,7 +1431,7 @@
 		"GenderPronoun": "Gender/Pronouns",
 		"GenderPronounTitle": "Your gender/pronouns",
 		"GeneralFeatLevels": "General Feat Levels",
-		"GreaterWeaponSpecialization": " Greater Weapon Specialization",
+		"GreaterWeaponSpecialization": "Greater Weapon Specialization",
 		"HardnessLabel": "Hardness",
 		"HazardDescriptionLabel": "Description",
 		"HazardDescriptionTitle": "This explains what the hazard looks like and might include special rules",
@@ -1654,7 +1661,7 @@
 						"Label": "Abomination"
 					},
 					"Air": {
-						"Description": "You can control winds and the weather. ",
+						"Description": "You can control winds and the weather.",
 						"Label": "Air"
 					},
 					"AirApocryphal": {
@@ -1957,10 +1964,12 @@
 					"Hint": "Almost all deities have a single favored weapon, but a few have both a favored weapon and unarmed attack.",
 					"Label": "Favored Weapon(s)"
 				},
-				"FollowerAlignments": "Follower Alignments"
+				"FollowerAlignments": "Follower Alignments",
+				"Spellcasting": "Spellcasting"
 			},
 			"Effect": {
 				"Expiry": {
+					"EndOfRound": "End of Round",
 					"EndOfTurn": "End of Turn",
 					"ExpiresOn": "Expires On",
 					"StartOfTurn": "Start of Turn"
@@ -2012,7 +2021,7 @@
 				"Warning": {
 					"InvalidCategory": "Cannot add feat \"{item}\" to {category}: feat type is invalid.",
 					"TakenAfterLevel1": "{item} must be taken at level 1, but {actor} is at level {actorLevel}.",
-					"TakenMoreThanMax": "{item} may only be {maxTakable} times, but {actor} has selected it {timesTaken} times.",
+					"TakenMoreThanMax": "{item} may only be taken {maxTakable} times, but {actor} has selected it {timesTaken} times.",
 					"TakenMoreThanOnce": "{item} may only be taken once, but {actor} has selected it an additional time."
 				}
 			},
@@ -2157,6 +2166,7 @@
 					"Clear": "Clear Placed Templates",
 					"Place": "Place {size}-{unit} {shape}"
 				},
+				"Rank": "Rank",
 				"Variants": {
 					"DeleteDialogText": "Are you sure you want to delete '{variantName}'?",
 					"DeleteDialogTitle": "Delete Spell Variant",
@@ -2438,7 +2448,8 @@
 				"Off": "OFF",
 				"On": "ON"
 			},
-			"Plural": "Macros"
+			"Plural": "Macros",
+			"NoCompendiumItem": "A macro cannot be created from a compendium item that isn't an effect or condition."
 		},
 		"MacroActionNoActionError": "This action no longer exists!",
 		"MacroActionNoActorError": "This actor no longer exists!",
@@ -2777,6 +2788,17 @@
 		"PropertyRuneLabel2": "Property Rune (2nd)",
 		"PropertyRuneLabel3": "Property Rune (3rd)",
 		"PropertyRuneLabel4": "Property Rune (4th)",
+		"Publication": {
+			"Authors": "Author(s)",
+			"Label": "Publication",
+			"License": {
+				"Label": "License",
+				"OGL": "OGL",
+				"ORC": "ORC"
+			},
+			"Remaster": "Remaster?",
+			"Title": "Title"
+		},
 		"QuantityLabel": "Quantity",
 		"QuantityShortLabel": "Qty.",
 		"RangePenalty": "Range Penalty",
@@ -2992,7 +3014,7 @@
 				},
 				"Name": "Homebrew Elements",
 				"SpellTraits": {
-					"Hint": " Traits that can be applied to any spell (e.g., Cursebound, Healing)",
+					"Hint": "Traits that can be applied to any spell (e.g., Cursebound, Healing)",
 					"Name": "Spell Traits"
 				},
 				"Tabs": {
@@ -3104,7 +3126,7 @@
 				"AutomaticBonus": {
 					"Choices": {
 						"ABPFundamentalPotency": "ABP: Allow Property Runes",
-						"ABPRulesAsWritten": "ABP: Disallow Property Runes ",
+						"ABPRulesAsWritten": "ABP: Disallow Property Runes",
 						"noABP": "Do not use ABP"
 					},
 					"Hint": "Reload Required: Support for Automatic Bonus Progression variant rules, except skills/apex ability.",
@@ -3501,6 +3523,10 @@
 		"Token": {
 			"Appearance": "Appearance",
 			"Flanking": "Flanking",
+			"SecretDisposition": {
+				"Label": "Secret Disposition",
+				"Hint": "Activate the \"secret\" disposition, which displays a purple border for owners and no border or cursor change for all others."
+			},
 			"Size": {
 				"Dimensions": "Dimensions",
 				"Label": "Size",
@@ -3821,7 +3847,7 @@
 		"TraitDescriptionFighter": "This indicates abilities from the fighter class.",
 		"TraitDescriptionFigurehead": "While many ships are adorned with decorative carvings, daring crews sometimes procure magical figureheads for their vessels.",
 		"TraitDescriptionFinesse": "You can use your Dexterity modifier instead of your Strength modifier on attack rolls using this melee weapon. You still use your Strength modifier when calculating damage.",
-		"TraitDescriptionFinisher": " Finishers are spectacular finishing moves. You can use a finisher only if you have panache, and you lose your panache immediately after performing a finisher. Once you use a finisher, you can't use actions that have the attack trait for the rest of your turn. Some finisher actions also grant an effect on a failure. If your finisher succeeds, you can choose to apply the failure effect instead.",
+		"TraitDescriptionFinisher": "Finishers are spectacular finishing moves. You can use a finisher only if you have panache, and you lose your panache immediately after performing a finisher. Once you use a finisher, you can't use actions that have the attack trait for the rest of your turn. Some finisher actions also grant an effect on a failure. If your finisher succeeds, you can choose to apply the failure effect instead.",
 		"TraitDescriptionFinite": "Planes with this trait consist of a limited amount of space.",
 		"TraitDescriptionFire": "Effects with the fire trait deal fire damage or either conjure or manipulate fire. Those that manipulate fire have no effect in an area without fire. Creatures with this trait consist primarily of fire or have a magical connection to that element.",
 		"TraitDescriptionFleshwarp": "A humanoid transformed so completely by outside forces that they are now a unique ancestry.",
@@ -4658,8 +4684,8 @@
 			},
 			"errorTargetToken": "Select at least one valid token.",
 			"noDamageInfoForOutcome": "No damage information for outcome {outcome}.",
-			"shiftModifyDamageLabel": "Adjust Damage/Healing",
-			"shiftModifyDamageTitle": "Adjust the rolled damage/healing"
+			"shiftModifyDamageLabel": "Amount",
+			"shiftModifyDamageTitle": "Adjust Damage/Healing"
 		},
 		"UUID": {
 			"Label": "UUID",
@@ -5728,19 +5754,19 @@
 			"GiveMessage": "{giver} gives {quantity} × {item} to {recipient}.",
 			"GiveSubtitle": "Give item",
 			"HiddenWhenEmpty": {
-				"Hint": "Hide this actor's token(s) when its inventory is empty",
-				"Label": "Hidden when empty"
+				"Hint": "Hide this actor's token(s) when its inventory is empty.",
+				"Label": "Hidden When Empty"
 			},
 			"InsufficientCurrencyError": "Insufficient currency for purchase by {buyer}",
 			"InsufficientFundsMessage": "{buyer} reaches for their coins but comes up short!",
 			"LootDescription": "Allows for distribution of coins across players",
 			"LootLabel": "Loot",
 			"LootMessage": "{looter} loots {quantity} × {item} off {corpse}.",
-			"LootNPCsLabel": "Loot selected tokens",
+			"LootNPCsLabel": "Loot Selected Tokens",
 			"LootNPCsPopupHeader": "Choose tokens to loot from",
 			"LootNamePlaceholder": "Loot",
 			"LootSubtitle": "Loot item",
-			"MerchantDescription": "Allows players to purchase items directly from the sheet.",
+			"MerchantDescription": "Allows players to purchase items directly from the sheet",
 			"MerchantLabel": "Merchant",
 			"MoveLoot": "Move Items",
 			"MoveLootMessage": "How many items do you wish to move?",

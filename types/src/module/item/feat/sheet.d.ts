@@ -3,7 +3,7 @@
 /// <reference types="tooltipster" />
 import { SelfEffectReference } from "@item/ability/index.ts";
 import { FeatPF2e } from "@item/feat/document.ts";
-import { ItemSheetDataPF2e, ItemSheetPF2e } from "@item/sheet/index.ts";
+import { ItemSheetDataPF2e, ItemSheetPF2e } from "@item/base/sheet/index.ts";
 declare class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
     static get defaultOptions(): DocumentSheetOptions;
     get validTraits(): Record<string, string>;

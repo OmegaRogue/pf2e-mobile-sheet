@@ -1,4 +1,4 @@
-import { BaseItemSourcePF2e, ItemFlagsPF2e, ItemSystemData, ItemSystemSource, ItemTraitsNoRarity } from "@item/data/base.ts";
+import { BaseItemSourcePF2e, ItemFlagsPF2e, ItemSystemData, ItemSystemSource, ItemTraitsNoRarity } from "@item/base/data/system.ts";
 import { WeaponMaterialData } from "@item/weapon/data.ts";
 import { DamageType } from "@system/damage/types.ts";
 type MeleeSource = BaseItemSourcePF2e<"melee", MeleeSystemSource> & {

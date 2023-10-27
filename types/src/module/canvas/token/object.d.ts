@@ -66,6 +66,8 @@ declare class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e>
         reach?: number;
         ignoreFlankable?: boolean;
     }): TokenPF2e[];
+    /** Reposition aura textures after this token has moved. */
+    protected _applyRenderFlags(flags: Record<string, boolean>): void;
     /** Draw auras and flanking highlight lines if certain conditions are met */
     protected _refreshVisibility(): void;
     /**

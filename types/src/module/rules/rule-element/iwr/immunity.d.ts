@@ -1,7 +1,7 @@
 import { Immunity } from "@actor/data/iwr.ts";
 import { ImmunityType } from "@actor/types.ts";
 import type { StrictArrayField } from "@system/schema-data-fields.ts";
-import { IWRRuleElement, IWRRuleSchema, type IWRExceptionField, IWRException } from "./base.ts";
+import { IWRException, IWRExceptionField, IWRRuleElement, IWRRuleSchema } from "./base.ts";
 /** @category RuleElement */
 declare class ImmunityRuleElement extends IWRRuleElement<ImmunityRuleSchema> {
     /** Immunities don't take values */

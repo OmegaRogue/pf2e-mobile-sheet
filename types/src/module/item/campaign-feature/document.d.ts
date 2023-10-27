@@ -1,7 +1,7 @@
 import { ActorPF2e, PartyPF2e } from "@actor";
 import { FeatGroup } from "@actor/character/feats.ts";
 import { ItemPF2e } from "@item";
-import { ActionCost, Frequency } from "@item/data/base.ts";
+import { ActionCost, Frequency } from "@item/base/data/index.ts";
 import { UserPF2e } from "@module/user/index.ts";
 import { CampaignFeatureSource, CampaignFeatureSystemData } from "./data.ts";
 import { BehaviorType, KingmakerCategory, KingmakerTrait } from "./types.ts";

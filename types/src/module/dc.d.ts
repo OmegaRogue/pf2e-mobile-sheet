@@ -1,4 +1,4 @@
-import { ProficiencyRank } from "@item/data/index.ts";
+import { ProficiencyRank } from "@item/base/data/index.ts";
 import { Rarity } from "./data.ts";
 /**
  * Implementation of Difficulty Classes https://2e.aonprd.com/Rules.aspx?ID=552

@@ -6,7 +6,7 @@ import { FeatGroup } from "@actor/character/feats.ts";
 import { ActorSheetPF2e } from "@actor/sheet/base.ts";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
 import { ItemPF2e, type CampaignFeaturePF2e } from "@item";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { ValueAndMax } from "@module/data.ts";
 import { SheetOption, SheetOptions } from "@module/sheet/helpers.ts";

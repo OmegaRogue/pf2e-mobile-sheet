@@ -1,6 +1,6 @@
 import { SlugField } from "@system/schema-data-fields.ts";
 import type { StringField } from "types/foundry/common/data/fields.d.ts";
-import { RuleElementPF2e, RuleElementSchema } from "../index.js";
+import { RuleElementPF2e, RuleElementSchema } from "../index.ts";
 /** Remember a token for later referencing */
 declare class TokenMarkRuleElement extends RuleElementPF2e<TokenMarkSchema> {
     #private;

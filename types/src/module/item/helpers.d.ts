@@ -1,5 +1,5 @@
 import { ActorPF2e } from "@actor";
-import { ItemType } from "./data/index.ts";
+import { ItemType } from "./base/data/index.ts";
 import { PhysicalItemPF2e } from "./physical/document.ts";
 import { ItemInstances } from "./types.ts";
 /** Determine in a type-safe way whether an `ItemPF2e` or `ItemSourcePF2e` is among certain types */

@@ -1,6 +1,6 @@
 import { type ActorPF2e } from "@actor";
 import { ItemPF2e, type ContainerPF2e } from "@item";
-import { ItemSummaryData, PhysicalItemSource, TraitChatData } from "@item/data/index.ts";
+import { ItemSummaryData, PhysicalItemSource, TraitChatData } from "@item/base/data/index.ts";
 import { Rarity, Size } from "@module/data.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import { Bulk } from "./bulk.ts";

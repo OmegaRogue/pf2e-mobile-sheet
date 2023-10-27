@@ -12,6 +12,8 @@ declare class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
     constructor(source: RollOptionSource, options: RuleElementOptions);
     static defineSchema(): RollOptionSchema;
     static validateJoint(source: SourceFromSchema<RollOptionSchema>): void;
+    /** Process this rule element during item pre-creation to inform subsequent choice sets. */
+    preCreate(): Promise<void>;
     onApplyActiveEffects(): void;
     beforePrepareData(): void;
     afterPrepareData(): void;

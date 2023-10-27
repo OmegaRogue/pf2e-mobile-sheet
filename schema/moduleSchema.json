@@ -1,0 +1,423 @@
+{
+	"$id": "module.json",
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"title": "FoundryVTT module.json",
+	"type": "object",
+	"required": ["id", "title", "description", "version"],
+	"properties": {
+		"id": {
+			"description": "Choose a unique package identifier. This should be an all lower-case string with no special characters. This name must align with the name of the parent directory within which you create the package.",
+			"examples": ["my-package-name"],
+			"title": "Package ID",
+			"type": "string"
+		},
+		"title": {
+			"description": "Provide a human readable title for the package which is displayed as the visible name in the Foundry VTT setup menu and elsewhere.",
+			"examples": ["A Module ...", "A System ..."],
+			"title": "Title",
+			"type": "string"
+		},
+		"description": {
+			"description": "This field can contain a more lengthy description of the module. This text can be used to describe the functionality, list contact information, provide recommendations to contributors or testers, or any other information you feel is important to provide. This field can contain HTML to structure and style your text.",
+			"title": "Package Description",
+			"type": "string"
+		},
+		"version": {
+			"description": "The package version number can be a number or a string which denotes the version of your package. We recommend using semantic versioning but this is not strictly required. When making changes to your package, incrementing the version number in your manifest file is used to signal to users that an update is available.",
+			"errorMessage": "should be a string or number",
+			"examples": ["1.0.0"],
+			"oneOf": [
+				{
+					"type": "string"
+				},
+				{
+					"type": "number"
+				}
+			],
+			"title": "Version"
+		},
+		"compatibility": {
+			"title": "Foundry Compatibility",
+			"description": "The compatibility field is an object key for capturing the sub-fields which defines the limits of your module's compatibility based on Foundry Virtual Tabletop version.",
+			"$ref": "#/$defs/compatibility"
+		},
+		"esmodules": {
+			"description": "In addition to including traditional JavaScript script files, you may also include JS files which use the newer ES module specification. These files are identified separately in the manifest so they may be correctly loaded as an ES module rather than a script.",
+			"items": {
+				"description": "An ES module file path relative to the root directory of the manifest.",
+				"examples": ["index.js"],
+				"title": "ES Module File",
+				"type": "string"
+			},
+			"title": "ES Modules",
+			"type": "array"
+		},
+		"scripts": {
+			"description": "An array of JavaScript file paths included whenever this package is enabled. Each listed script path should be relative to the package root directory. All scripts which exist will be automatically included in the game session and loaded in their listed order.",
+			"items": {
+				"description": "JavaScript file path; should be relative to the package root directory.",
+				"examples": ["ascript.js"],
+				"title": "Script Entry",
+				"type": "string"
+			},
+			"title": "Scripts",
+			"type": "array"
+		},
+		"styles": {
+			"description": "You can designate CSS files which are included in the game session whenever this package is enabled. Each listed stylesheet file path should be relative to the system root directory. All stylesheets which exist will be automatically included in the game session and loaded in their listed order.",
+			"items": {
+				"description": "CSS file path; should be relative to the system root directory.",
+				"examples": ["styles.css"],
+				"title": "Style Entry",
+				"type": "string"
+			},
+			"title": "Styles",
+			"type": "array"
+		},
+		"packs": {
+			"items": {
+				"required": ["module", "name", "label", "path", "entity"],
+				"properties": {
+					"system": {
+						"description": "A system ID or array of system IDs which are required in order to use this module. For example, specifying \"system\": \"dnd5e\" will only allow the module to be used by Worlds which are running the dnd5e game system.",
+						"examples": ["dnd5e"],
+						"oneOf": [
+							{
+								"type": "string"
+							},
+							{
+								"items": {
+									"type": "string"
+								},
+								"type": "array"
+							}
+						],
+						"title": "Pack System",
+						"errorMessage": "should be a string or array of strings"
+					},
+					"entity": {
+						"description": "Each compendium pack must designate a specific Entity type that it contains.",
+						"examples": ["Actor", "Item", "Scene", "JournalEntry", "Macro", "RollTable", "Playlist"],
+						"title": "Pack Entity",
+						"type": "string"
+					},
+					"label": {
+						"description": "The compendium pack label - this should be a human readable string label which is displayed in the Compendium sidebar in-game.",
+						"examples": ["Pack Title"],
+						"title": "Pack Label",
+						"type": "string"
+					},
+					"module": {
+						"description": "The module attribute of each compendium pack designates which content module provided the pack. If coming from a system this field can be excluded or list the system name.",
+						"examples": ["module-name", "system-name"],
+						"title": "Pack Module",
+						"type": "string"
+					},
+					"name": {
+						"description": "The compendium pack name - this should be a unique lower-case string with no special characters.",
+						"examples": ["pack-name"],
+						"title": "Pack Name",
+						"type": "string"
+					},
+					"path": {
+						"description": "The path for each compendium pack should designate a database file with the .db extension.",
+						"examples": ["./packs/pack-name.db"],
+						"title": "Pack Path",
+						"type": "string"
+					}
+				},
+				"description": "An object defining a single compendium pack.",
+				"title": "Pack",
+				"type": "object"
+			},
+			"description": "An array of objects that define all compendium packs.",
+			"title": "Packs",
+			"type": "array"
+		},
+		"packFolders": {
+			"description": "Compendium Packs can also be organized into Folders in the Compendium tab of the sidebar. You can define what Folders they should be in by default in the module.json.",
+			"title": "Compendium Pack Folders",
+			"type": "array",
+			"items": {
+				"$ref": "#/$defs/compendiumFolder"
+			}
+		},
+		"authors": {
+			"description": "Instead of listing a single author name you may also provide an array of authors, each of which is an object that can contain the keys: 'name', 'email', and 'url'.",
+			"items": {
+				"title": "Author Entry",
+				"type": "object",
+				"properties": {
+					"email": {
+						"description": "An email address.",
+						"examples": ["admin@foundryvtt.com"],
+						"title": "Author Email",
+						"type": "string"
+					},
+					"name": {
+						"description": "An author name.",
+						"examples": ["Atropos"],
+						"title": "Author Name",
+						"type": "string"
+					},
+					"url": {
+						"description": "An URL for the author.",
+						"examples": ["https://foundryvtt.com"],
+						"title": "Author URL",
+						"type": "string"
+					},
+					"discord": {
+						"description": "A Discord Username for the author.",
+						"examples": ["omegarogue9344"],
+						"title": "Author Discord Username",
+						"type": "string"
+					}
+				},
+				"required": ["name"]
+			},
+			"title": "Authors",
+			"type": "array"
+		},
+		"bugs": {
+			"description": "A publicly accessible URL where issues, suggestions, and bug reports may be filed.",
+			"title": "Bugs URL",
+			"type": "string"
+		},
+		"changelog": {
+			"description": "A publicly accessible URL where update and release notes about the package may be found.",
+			"title": "Changelog URL",
+			"type": "string"
+		},
+		"relationships": {
+			"type": "object",
+			"title": "Module Relationships",
+			"description": "Modules can require other modules, systems, or worlds be installed to allow their use. If a module has been installed with dependencies, but its dependencies are missing, it cannot be enabled.",
+			"properties": {
+				"systems": {
+					"type": "array",
+					"items": {
+						"$ref": "#/$defs/relationship"
+					}
+				},
+				"requires": {
+					"type": "array",
+					"items": {
+						"$ref": "#/$defs/relationship"
+					}
+				}
+			}
+		},
+		"languages": {
+			"description": "The package may designate an array of languages specifications that it supports by default. Each element in the languages array is an object which defines the language tag, label, and path to its localization file.",
+			"items": {
+				"properties": {
+					"lang": {
+						"description": "A language code in lower-case letters, for example 'en' for English. See: https://en.wikipedia.org/wiki/List_of_ISO_639-2_codes",
+						"examples": ["en"],
+						"title": "Language Code",
+						"type": "string"
+					},
+					"name": {
+						"description": "The formal and readable name for the language.",
+						"examples": ["English"],
+						"title": "Language Name",
+						"type": "string"
+					},
+					"path": {
+						"description": "A file path relative to the root directory of the manifest where localization strings are provided in JSON format.",
+						"examples": ["lang/en.json"],
+						"title": "Language Path",
+						"type": "string"
+					}
+				},
+				"required": ["lang", "name", "path"],
+				"title": "Language Entry",
+				"type": "object"
+			},
+			"title": "Languages",
+			"type": "array"
+		},
+		"system": {
+			"description": "A system ID or array of system IDs which are required in order to use this module. For example, specifying \"system\": \"dnd5e\" will only allow the module to be used by Worlds which are running the dnd5e game system.",
+			"examples": ["dnd5e"],
+			"oneOf": [
+				{
+					"type": "string"
+				},
+				{
+					"items": {
+						"type": "string"
+					},
+					"type": "array"
+				}
+			],
+			"title": "System",
+			"errorMessage": "should be a string or array of strings"
+		},
+		"socket": {
+			"description": "A package may request a specialized socket namespace to be provided allowing data messages to be passed between connected clients. If set to true, a socket event will be handled by the server with the event name `module.{name}` or `system.{name}` depending on your package type. This event name relays arbitrary data packets between the sending client and all other connected clients.",
+			"examples": [true],
+			"title": "Socket",
+			"type": "boolean"
+		},
+		"library": {
+			"description": "The library field is a boolean that indicates whether the package is a library intended for other packages to depend on and consume. This field should be true if your package does not present any user-facing features, but rather provides functionality for other packages to utilize and rely upon. Packages with this field set to true may be hidden from third party package lists to avoid confusing users",
+			"examples": [true],
+			"title": "Library",
+			"type": "boolean"
+		},
+		"url": {
+			"description": "A public URL that links to the repository or documentation pages for the package. This link is displayed to users allowing them to find more information about your package. If your package is hosted in version control like GitHub or GitLab, linking to the repository in this field is a good choice.",
+			"examples": ["https://github.com/my-user-or-org/my-package"],
+			"title": "URL",
+			"type": "string"
+		},
+		"download": {
+			"description": "A public URL that provides a zip archive of the package for the manifest version which points to it. The archive at this URL is retrieved during the installation or update process.",
+			"title": "Download URL",
+			"type": "string"
+		},
+		"license": {
+			"description": "A path to a license file relative to the root directory of the manifest or a publicly accessible URL which contains the software license that applies to this package.\n\n",
+			"examples": ["LICENSE"],
+			"title": "License",
+			"type": "string"
+		},
+		"readme": {
+			"description": "A path to a readme file relative to the root package folder or a publicly accessible URL which contains instructions or information about the package.",
+			"examples": ["README.md", "https://github.com/my-user-or-org/my-package/blob/main/README.md"],
+			"title": "Read Me",
+			"type": "string"
+		},
+		"manifest": {
+			"description": "A stable URL that describes the latest release version of your manifest file.",
+			"examples": ["https://someaddress.com/module.json"],
+			"title": "Manifest",
+			"type": "string"
+		},
+		"media": {
+			"type": "array",
+			"title": "Media",
+			"description": "An array of objects composed of a type, url, and thumbnail that can contain art that Foundry uses in places like the Setup screen for a Package's background image.",
+			"items": {
+				"title": "Media Entry",
+				"type": "object",
+				"properties": {
+					"type": {
+						"type": "string"
+					},
+					"url": {
+						"type": "string"
+					},
+					"thumbnail": {
+						"type": "string"
+					}
+				}
+			}
+		}
+	},
+	"$defs": {
+		"compendiumFolder": {
+			"title": "Compendium Folder",
+			"type": "object",
+			"properties": {
+				"name": {
+					"title": "Folder Name",
+					"description": "The name of the Folder.",
+					"type": "string"
+				},
+				"sorting": {
+					"title": "Folder Sorting",
+					"description": "How to sort the given Packs. Using m will sort it manually and a will sort alphabetically.",
+					"type": "string",
+					"examples": ["a", "m"]
+				},
+				"packs": {
+					"title": "Folder Packs",
+					"description": "The Packs from this Module that should be in this Folder.",
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"color": {
+					"title": "Folder Color",
+					"description": "The color of the Folder.",
+					"type": "string",
+					"examples": ["#ff0000"]
+				},
+				"folders": {
+					"title": "Subfolders",
+					"description": "An array of Folder objects with the same fields that should be within the parent Folder.",
+					"type": "array",
+					"items": {
+						"$ref": "#/$defs/compendiumFolder"
+					}
+				}
+			}
+		},
+		"compatibility": {
+			"type": "object",
+			"properties": {
+				"minimum": {
+					"title": "Minimum Version",
+					"description": "The module will not function for versions earlier than this.",
+					"oneOf": [
+						{
+							"type": "string"
+						},
+						{
+							"type": "number"
+						}
+					],
+					"examples": [10, "10"]
+				},
+				"verified": {
+					"title": "Verified Version",
+					"description": "The module has been verified to be compatible up to this version.",
+					"oneOf": [
+						{
+							"type": "string"
+						},
+						{
+							"type": "number"
+						}
+					],
+					"examples": [11, "11"]
+				},
+				"maximum": {
+					"title": "Maximum Version",
+					"description": "    The module will not function for newer versions than this.",
+					"oneOf": [
+						{
+							"type": "string"
+						},
+						{
+							"type": "number"
+						}
+					],
+					"examples": [11, "11"]
+				}
+			}
+		},
+		"relationship": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "string"
+				},
+				"type": {
+					"type": "string"
+				},
+				"manifest": {
+					"type": "string"
+				},
+				"compatibility": {
+					"title": "Dependency Compatibility",
+					"description": "The compatibility of a dependency can be defined, ensuring that the dependency will not be installed if it does not meet the defined requirements.",
+					"$ref": "#/$defs/compatibility"
+				}
+			}
+		}
+	}
+}

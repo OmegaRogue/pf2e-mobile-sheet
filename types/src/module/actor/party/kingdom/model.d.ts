@@ -1,7 +1,7 @@
 import { FeatGroup } from "@actor/character/feats.ts";
 import { RawModifier } from "@actor/modifiers.ts";
 import { CampaignFeaturePF2e } from "@item";
-import { ItemType } from "@item/data/index.ts";
+import { ItemType } from "@item/base/data/index.ts";
 import { Statistic } from "@system/statistic/index.ts";
 import type { PartyPF2e } from "../document.ts";
 import { PartyCampaign } from "../types.ts";

@@ -142,7 +142,6 @@ declare const RUNE_DATA: {
     weapon: {
         property: {
             vorpal: WeaponPropertyRuneData<"vorpal">;
-            speed: WeaponPropertyRuneData<"speed">;
             anarchic: WeaponPropertyRuneData<"anarchic">;
             ancestralEchoing: WeaponPropertyRuneData<"ancestralEchoing">;
             anchoring: WeaponPropertyRuneData<"anchoring">;
@@ -209,6 +208,7 @@ declare const RUNE_DATA: {
             serrating: WeaponPropertyRuneData<"serrating">;
             shifting: WeaponPropertyRuneData<"shifting">;
             shock: WeaponPropertyRuneData<"shock">;
+            speed: WeaponPropertyRuneData<"speed">;
             spellStoring: WeaponPropertyRuneData<"spellStoring">;
             swarming: WeaponPropertyRuneData<"swarming">;
             thundering: WeaponPropertyRuneData<"thundering">;

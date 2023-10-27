@@ -1,5 +1,5 @@
 import { ActorSourcePF2e } from "@actor/data/index.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { MigrationBase } from "../base.ts";
 /** Move data in `CharacterSystemSource#martial` to `#proficiencies`. */
 export declare class Migration870MartialToProficiencies extends MigrationBase {

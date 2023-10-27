@@ -1,7 +1,7 @@
-import { MacroSchema } from "types/foundry/common/documents/macro.js";
+import type { MacroSource } from "types/foundry/common/documents/macro.d.ts";
 import { MigrationBase } from "../base.ts";
-/** Migrate rollActionMacro function paramas to an object */
+/** Migrate rollActionMacro function parameters to an object */
 export declare class Migration871MigrateRollActionMacroParams extends MigrationBase {
     static version: number;
-    updateMacro(source: SourceFromSchema<MacroSchema>): Promise<void>;
+    updateMacro(source: MacroSource): Promise<void>;
 }

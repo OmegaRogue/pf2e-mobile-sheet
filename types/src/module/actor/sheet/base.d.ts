@@ -21,7 +21,7 @@ declare abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShe
     itemRenderer: ItemSummaryRenderer<TActor>;
     /** Can non-owning users loot items from this sheet? */
     get isLootSheet(): boolean;
-    getData(options?: ActorSheetOptions): Promise<ActorSheetDataPF2e<TActor>>;
+    getData(options?: Partial<ActorSheetOptions>): Promise<ActorSheetDataPF2e<TActor>>;
     protected prepareInventory(): SheetInventory;
     protected prepareInventoryItem(item: PhysicalItemPF2e): InventoryItem;
     protected static coinsToSheetData(coins: Coins): CoinageSummary;

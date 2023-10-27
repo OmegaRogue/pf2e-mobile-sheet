@@ -1,6 +1,6 @@
 import { AttributeString } from "@actor/types.ts";
 import { ActionTrait } from "@item/ability/types.ts";
-import { ItemSystemData, ItemSystemSource, ItemTraitsNoRarity } from "@item/data/base.ts";
+import { ItemSystemData, ItemSystemSource, ItemTraitsNoRarity } from "@item/base/data/system.ts";
 import { MagicTradition, SpellTrait } from "@item/spell/index.ts";
 import type { CheckRoll } from "@system/check/index.ts";
 interface AbstractEffectSystemSource extends ItemSystemSource {
@@ -81,10 +81,10 @@ interface EffectAuraData {
 type EffectBadgeSource = EffectBadgeCounterSource | EffectBadgeValueSource | EffectBadgeFormulaSource;
 type EffectBadge = EffectBadgeCounter | EffectBadgeValue | EffectBadgeFormula;
 type TimeUnit = "rounds" | "minutes" | "hours" | "days";
-type EffectExpiryType = "turn-start" | "turn-end";
+type EffectExpiryType = "turn-start" | "turn-end" | "round-end";
 interface DurationData {
     value: number;
     unit: TimeUnit | "unlimited" | "encounter";
     expiry: EffectExpiryType | null;
 }
-export type { AbstractEffectSystemData, AbstractEffectSystemSource, DurationData, EffectAuraData, EffectBadge, EffectBadgeFormulaSource, EffectBadgeSource, EffectBadgeValueSource, EffectContextData, EffectExpiryType, EffectTrait, EffectTraits, TimeUnit, };
+export type { AbstractEffectSystemData, AbstractEffectSystemSource, DurationData, EffectAuraData, EffectBadge, EffectBadgeCounter, EffectBadgeFormulaSource, EffectBadgeSource, EffectBadgeValueSource, EffectContextData, EffectExpiryType, EffectTrait, EffectTraits, TimeUnit, };

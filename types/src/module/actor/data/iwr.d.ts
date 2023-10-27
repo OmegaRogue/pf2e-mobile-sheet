@@ -36,9 +36,8 @@ type IWRDisplayData<TType extends IWRType> = Pick<IWR<TType>, "type" | "exceptio
 declare class Immunity extends IWR<ImmunityType> implements ImmunitySource {
     protected readonly typeLabels: {
         acid: string;
-        adamantine: string;
         air: string;
-        "area-damage": string;
+        "area-damage": string; /** A label for a custom IWR */
         auditory: string;
         bleed: string;
         blinded: string;
@@ -46,7 +45,6 @@ declare class Immunity extends IWR<ImmunityType> implements ImmunitySource {
         chaotic: string;
         clumsy: string;
         cold: string;
-        "cold-iron": string;
         confused: string;
         conjuration: string;
         controlled: string;
@@ -87,14 +85,12 @@ declare class Immunity extends IWR<ImmunityType> implements ImmunitySource {
         mental: string;
         metal: string;
         "misfortune-effects": string;
-        mithral: string;
         necromancy: string;
         "non-magical": string;
         "nonlethal-attacks": string;
         "object-immunities": string;
         "off-guard": string;
         olfactory: string;
-        orichalcum: string;
         paralyzed: string;
         "persistent-damage": string;
         petrified: string;
@@ -111,7 +107,6 @@ declare class Immunity extends IWR<ImmunityType> implements ImmunitySource {
         "salt-water": string;
         scrying: string;
         sickened: string;
-        silver: string;
         slashing: string;
         sleep: string;
         slowed: string;
@@ -132,6 +127,16 @@ declare class Immunity extends IWR<ImmunityType> implements ImmunitySource {
         water: string;
         wood: string;
         wounded: string;
+        abysium: string;
+        adamantine: string;
+        djezet: string;
+        inubrix: string;
+        mithral: string;
+        noqual: string;
+        orichalcum: string;
+        siccatite: string;
+        silver: string;
+        "cold-iron": string;
     };
     /** No value on immunities, so the full label is the same as the application label */
     get label(): string;
@@ -144,7 +149,6 @@ type ImmunitySource = IWRSource<ImmunityType>;
 declare class Weakness extends IWR<WeaknessType> implements WeaknessSource {
     protected readonly typeLabels: {
         acid: string;
-        adamantine: string;
         air: string;
         "area-damage": string;
         "arrow-vulnerability": string;
@@ -153,10 +157,8 @@ declare class Weakness extends IWR<WeaknessType> implements WeaknessSource {
         bludgeoning: string;
         chaotic: string;
         cold: string;
-        "cold-iron": string;
         "critical-hits": string;
         custom: string;
-        darkwood: string;
         earth: string;
         electricity: string;
         emotion: string;
@@ -172,10 +174,8 @@ declare class Weakness extends IWR<WeaknessType> implements WeaknessSource {
         magical: string;
         mental: string;
         metal: string;
-        mithral: string;
         "non-magical": string;
         "nonlethal-attacks": string;
-        orichalcum: string;
         physical: string;
         piercing: string;
         plant: string;
@@ -184,7 +184,6 @@ declare class Weakness extends IWR<WeaknessType> implements WeaknessSource {
         radiation: string;
         salt: string;
         "salt-water": string;
-        silver: string;
         slashing: string;
         sonic: string;
         spells: string;
@@ -197,11 +196,21 @@ declare class Weakness extends IWR<WeaknessType> implements WeaknessSource {
         vorpal: string;
         "vorpal-fear": string;
         "vulnerable-to-sunlight": string;
-        warpglass: string;
         water: string;
         weapons: string;
         "weapons-shedding-bright-light": string;
         wood: string;
+        abysium: string;
+        adamantine: string;
+        darkwood: string;
+        djezet: string;
+        inubrix: string;
+        mithral: string;
+        noqual: string;
+        orichalcum: string;
+        siccatite: string;
+        silver: string;
+        "cold-iron": string;
     };
     value: number;
     constructor(data: IWRConstructorData<WeaknessType> & {
@@ -217,7 +226,6 @@ interface WeaknessSource extends IWRSource<WeaknessType> {
 declare class Resistance extends IWR<ResistanceType> implements ResistanceSource {
     protected readonly typeLabels: {
         acid: string;
-        adamantine: string;
         air: string;
         "all-damage": string;
         "area-damage": string;
@@ -225,11 +233,9 @@ declare class Resistance extends IWR<ResistanceType> implements ResistanceSource
         bludgeoning: string;
         chaotic: string;
         cold: string;
-        "cold-iron": string;
         "critical-hits": string;
         custom: string;
         "damage-from-spells": string;
-        darkwood: string;
         earth: string;
         electricity: string;
         energy: string;
@@ -243,11 +249,9 @@ declare class Resistance extends IWR<ResistanceType> implements ResistanceSource
         magical: string;
         mental: string;
         metal: string;
-        mithral: string;
         "non-magical": string;
         nonlethal: string;
         "nonlethal-attacks": string;
-        orichalcum: string;
         physical: string;
         piercing: string;
         plant: string;
@@ -257,7 +261,6 @@ declare class Resistance extends IWR<ResistanceType> implements ResistanceSource
         radiation: string;
         salt: string;
         "salt-water": string;
-        silver: string;
         slashing: string;
         sonic: string;
         spells: string;
@@ -267,11 +270,21 @@ declare class Resistance extends IWR<ResistanceType> implements ResistanceSource
         void: string;
         vorpal: string;
         "vorpal-adamantine": string;
-        warpglass: string;
         water: string;
         weapons: string;
         "weapons-shedding-bright-light": string;
         wood: string;
+        abysium: string;
+        adamantine: string;
+        darkwood: string;
+        djezet: string;
+        inubrix: string;
+        mithral: string;
+        noqual: string;
+        orichalcum: string;
+        siccatite: string;
+        silver: string;
+        "cold-iron": string;
     };
     value: number;
     readonly doubleVs: IWRException<ResistanceType>[];

@@ -2,7 +2,7 @@ import type { ActorPF2e } from "@actor";
 import { ActorType } from "@actor/data/index.ts";
 import type { CheckModifier, DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
 import { ItemPF2e, type WeaponPF2e } from "@item";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";
 import { CheckRoll, CheckRollContext } from "@system/check/index.ts";
 import { LaxSchemaField } from "@system/schema-data-fields.ts";
@@ -171,7 +171,9 @@ declare namespace RuleElementPF2e {
         /** The source of the rule in `itemSource`'s `system.rules` array */
         ruleSource: T;
         /** All items pending creation in a `ItemPF2e.createDocuments` call */
-        pendingItems: PreCreate<ItemSourcePF2e>[];
+        pendingItems: ItemSourcePF2e[];
+        /** Items temporarily constructed from pending item source */
+        tempItems: ItemPF2e<ActorPF2e>[];
         /** The context object from the `ItemPF2e.createDocuments` call */
         context: DocumentModificationContext<ActorPF2e | null>;
         /** Whether this preCreate run is from a pre-update reevaluation */
@@ -198,6 +200,7 @@ interface ResolveValueParams {
 }
 type RuleElementOptions = {
     parent: ItemPF2e<ActorPF2e>;
+    strict?: boolean;
     /** If created from an item, the index in the source data */
     sourceIndex?: number;
     /** If data validation fails for any reason, do not emit console warnings */

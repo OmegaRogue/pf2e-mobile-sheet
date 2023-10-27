@@ -1,5 +1,5 @@
 import { CreaturePF2e, type CharacterPF2e } from "@actor";
-import { ItemType } from "@item/data/index.ts";
+import { ItemType } from "@item/base/data/index.ts";
 import type { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
 import type { RuleElementPF2e } from "@module/rules/index.ts";
 import type { TokenDocumentPF2e } from "@scene/index.ts";

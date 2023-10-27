@@ -1,5 +1,5 @@
 import { ItemPF2e } from "@item";
-import type { ItemSourcePF2e, ItemType } from "@item/data/index.ts";
+import type { ItemSourcePF2e, ItemType } from "@item/base/data/index.ts";
 import type { DamageType } from "@system/damage/types.ts";
 import { SlugField, StrictNumberField } from "@system/schema-data-fields.ts";
 import type { DataField, DataFieldOptions, NumberField, StringField } from "types/foundry/common/data/fields.d.ts";
@@ -80,7 +80,7 @@ declare const ITEM_ALTERATION_VALIDATORS: {
     "material-type": ItemAlterationValidator<{
         itemType: StringField<"armor" | "consumable" | "book" | "backpack" | "equipment" | "treasure" | "weapon", ItemType, true, false, false>;
         mode: StringField<"override", "override" | "upgrade" | "add" | "remove" | "multiply" | "subtract" | "downgrade", true, false, false>;
-        value: StringField<"adamantine" | "darkwood" | "mithral" | "orichalcum" | "silver" | "warpglass" | "abysium" | "cold-iron" | "djezet" | "dragonhide" | "grisantian-pelt" | "inubrix" | "keep-stone" | "noqual" | "peachwood" | "siccatite" | "sisterstone" | "sisterstone-dusk" | "sisterstone-scarlet" | "sovereign-steel", unknown, true, false, boolean>;
+        value: StringField<"abysium" | "adamantine" | "darkwood" | "djezet" | "inubrix" | "mithral" | "noqual" | "orichalcum" | "siccatite" | "silver" | "cold-iron" | "dragonhide" | "grisantian-pelt" | "keep-stone" | "peachwood" | "sisterstone" | "sisterstone-dusk" | "sisterstone-scarlet" | "sovereign-steel" | "warpglass", unknown, true, false, boolean>;
     }>;
     "pd-recovery-dc": ItemAlterationValidator<{
         itemType: StringField<"condition", ItemType, true, false, false>;

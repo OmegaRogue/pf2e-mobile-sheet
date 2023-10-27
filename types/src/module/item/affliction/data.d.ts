@@ -1,7 +1,7 @@
 import { SaveType } from "@actor/types.ts";
 import { AbstractEffectSystemData, AbstractEffectSystemSource, DurationData, EffectAuraData, EffectContextData, EffectTraits, TimeUnit } from "@item/abstract-effect/index.ts";
+import { BaseItemSourcePF2e, ItemFlagsPF2e } from "@item/base/data/system.ts";
 import { ConditionSlug } from "@item/condition/index.ts";
-import { BaseItemSourcePF2e, ItemFlagsPF2e } from "@item/data/base.ts";
 import { DamageCategoryUnique, DamageType } from "@system/damage/index.ts";
 type AfflictionSource = BaseItemSourcePF2e<"affliction", AfflictionSystemSource> & {
     flags: DeepPartial<AfflictionFlags>;
@@ -58,4 +58,4 @@ interface AfflictionEffectData {
     uuid: ItemUUID;
 }
 type AfflictionExpiryType = "turn-end";
-export type { AfflictionExpiryType, AfflictionConditionData, AfflictionDamage, AfflictionFlags, AfflictionOnset, AfflictionSource, AfflictionStageData, AfflictionSystemData, };
+export type { AfflictionConditionData, AfflictionDamage, AfflictionExpiryType, AfflictionFlags, AfflictionOnset, AfflictionSource, AfflictionStageData, AfflictionSystemData, AfflictionSystemSource, };

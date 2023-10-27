@@ -1,6 +1,6 @@
 import { ActorType } from "@actor/data/index.ts";
-import { ItemGrantDeleteAction } from "@item/data/base.ts";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemGrantDeleteAction } from "@item/base/data/system.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "../index.ts";
 import { GrantItemSchema } from "./schema.ts";
 declare class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
@@ -26,7 +26,7 @@ declare class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
         delete: string[];
     }>;
     /** Add an in-memory-only condition to the actor */
-    beforePrepareData(): void;
+    onApplyActiveEffects(): void;
 }
 interface GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema>, ModelPropsFromSchema<GrantItemSchema> {
 }

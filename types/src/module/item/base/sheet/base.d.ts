@@ -16,7 +16,7 @@ declare class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     protected onTagSelector(anchor: HTMLAnchorElement): void;
     /** Get NPC attack effect options */
     protected getAttackEffectOptions(): Record<string, string>;
-    activateEditor(name: string, options?: Partial<TinyMCE.EditorOptions>, initialContent?: string): Promise<TinyMCE.Editor>;
+    activateEditor(name: string, options?: EditorCreateOptions, initialContent?: string): Promise<TinyMCE.Editor | ProseMirror.EditorView>;
     close(options?: {
         force?: boolean;
     }): Promise<void>;

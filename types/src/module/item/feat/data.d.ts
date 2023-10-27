@@ -1,6 +1,6 @@
 import { AttributeString } from "@actor/types.ts";
 import { SelfEffectReference, SelfEffectReferenceSource } from "@item/ability/index.ts";
-import { ActionType, BaseItemSourcePF2e, Frequency, FrequencySource, ItemSystemSource, ItemTraits } from "@item/data/base.ts";
+import { ActionType, BaseItemSourcePF2e, Frequency, FrequencySource, ItemSystemSource, ItemTraits } from "@item/base/data/system.ts";
 import { OneToThree } from "@module/data.ts";
 import { FeatOrFeatureCategory, FeatTrait } from "./types.ts";
 type FeatSource = BaseItemSourcePF2e<"feat", FeatSystemSource>;

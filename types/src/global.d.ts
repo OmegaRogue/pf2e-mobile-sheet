@@ -25,7 +25,7 @@ import type { AmbientLightDocumentPF2e, MeasuredTemplateDocumentPF2e, ScenePF2e,
 import type { ActorDeltaPF2e } from "@scene/token-document/actor-delta.ts";
 import type { PF2ECONFIG, StatusEffectIconTheme } from "@scripts/config/index.ts";
 import type { DicePF2e } from "@scripts/dice.ts";
-import type { calculateXP, editPersistent, launchTravelSheet, perceptionForSelected, rollActionMacro, rollItemMacro, skillSavePrompt, stealthForSelected, xpFromEncounter } from "@scripts/macros/index.ts";
+import type { calculateXP, checkPrompt, editPersistent, launchTravelSheet, perceptionForSelected, rollActionMacro, rollItemMacro, stealthForSelected, xpFromEncounter } from "@scripts/macros/index.ts";
 import type { remigrate } from "@scripts/system/remigrate.ts";
 import type { CheckPF2e } from "@system/check/index.ts";
 import type { ConditionManager } from "@system/conditions/manager.ts";
@@ -48,10 +48,10 @@ interface GamePF2e extends Game<ActorPF2e<null>, ActorsPF2e<ActorPF2e<null>>, Ch
         rollItemMacro: typeof rollItemMacro;
         gm: {
             calculateXP: typeof calculateXP;
+            checkPrompt: typeof checkPrompt;
             editPersistent: typeof editPersistent;
             launchTravelSheet: typeof launchTravelSheet;
             perceptionForSelected: typeof perceptionForSelected;
-            skillSavePrompt: typeof skillSavePrompt;
             stealthForSelected: typeof stealthForSelected;
             xpFromEncounter: typeof xpFromEncounter;
         };

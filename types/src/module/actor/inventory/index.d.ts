@@ -1,6 +1,6 @@
 import { ActorPF2e } from "@actor";
 import { KitPF2e, PhysicalItemPF2e } from "@item";
-import { ItemSourcePF2e } from "@item/data/index.ts";
+import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { Coins } from "@item/physical/data.ts";
 import { CoinsPF2e } from "@item/physical/helpers.ts";
 import { DelegatedCollection } from "@util";

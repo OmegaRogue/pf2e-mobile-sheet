@@ -20,6 +20,8 @@ declare class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElemen
     };
     static PHASES: readonly ["applyAEs", "beforeDerived", "afterDerived", "beforeRoll"];
     static validateJoint(data: SourceFromSchema<AELikeSchema>): void;
+    /** Process this rule element during item pre-creation to inform subsequent choice sets. */
+    preCreate(): Promise<void>;
     /** Apply the modifications immediately after proper ActiveEffects are applied */
     onApplyActiveEffects(): void;
     /** Apply the modifications near the beginning of the actor's derived-data preparation */
@@ -28,7 +30,6 @@ declare class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElemen
     afterPrepareData(): void;
     /** Apply the modifications prior to a Check (roll) */
     beforeRoll(_domains: string[], rollOptions: Set<string>): void;
-    protected applyAELike(rollOptions?: Set<string>): void;
     static getNewValue<TCurrent>(mode: AELikeChangeMode, current: TCurrent, change: TCurrent extends (infer TValue)[] ? TValue : TCurrent, merge?: boolean): (TCurrent extends (infer TValue)[] ? TValue : TCurrent) | DataModelValidationFailure;
 }
 interface AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TSchema>, ModelPropsFromSchema<AELikeSchema> {

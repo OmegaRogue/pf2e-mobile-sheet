@@ -1,5 +1,5 @@
 import { AttributeString } from "@actor/types.ts";
-import { ItemFlagsPF2e } from "@item/data/base.ts";
+import { ItemFlagsPF2e } from "@item/base/data/system.ts";
 import { BasePhysicalItemSource, Investable, ItemMaterialData, PhysicalItemTraits, PhysicalSystemData, PhysicalSystemSource, PreciousMaterialGrade, UsageDetails } from "@item/physical/index.ts";
 import { OneToFour, ZeroToFour, ZeroToThree } from "@module/data.ts";
 import { DamageDieSize, DamageType } from "@system/damage/index.ts";
@@ -18,6 +18,8 @@ type WeaponFlags = ItemFlagsPF2e & {
          * modifier, and damage will also not be recalculated.
          */
         fixedAttack?: number | null;
+        /** A logging of this weapon's attack item bonus, whatever the source (rune, bomb innate item bonus, etc.) */
+        attackItemBonus: number;
     };
 };
 interface WeaponTraitsSource extends PhysicalItemTraits<WeaponTrait> {

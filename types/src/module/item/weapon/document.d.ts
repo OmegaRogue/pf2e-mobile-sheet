@@ -1,7 +1,7 @@
 import { ActorPF2e } from "@actor";
 import { AttributeString } from "@actor/types.ts";
 import { ConsumablePF2e, MeleePF2e, PhysicalItemPF2e } from "@item";
-import { ItemSummaryData } from "@item/data/index.ts";
+import { ItemSummaryData } from "@item/base/data/index.ts";
 import { IdentificationStatus, MystifiedData } from "@item/physical/index.ts";
 import { RangeData } from "@item/types.ts";
 import { UserPF2e } from "@module/user/index.ts";

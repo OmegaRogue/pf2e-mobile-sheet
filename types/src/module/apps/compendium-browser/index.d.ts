@@ -2,7 +2,7 @@
 /// <reference types="jquery" resolution-mode="require"/>
 /// <reference types="tooltipster" />
 import { ActionCategory, ActionTrait } from "@item/ability/index.ts";
-import { ActionType } from "@item/data/base.ts";
+import { ActionType } from "@item/base/data/index.ts";
 import { BaseSpellcastingEntry } from "@item/spellcasting-entry/index.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import { BrowserTabs, PackInfo, SourceInfo, TabData, TabName } from "./data.ts";

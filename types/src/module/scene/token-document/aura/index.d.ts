@@ -1,5 +1,5 @@
 import { AuraAppearanceData, AuraData, AuraEffectData } from "@actor/types.ts";
-import { ItemTrait } from "@item/data/base.ts";
+import { ItemTrait } from "@item/base/data/system.ts";
 import { EffectAreaSquare } from "@module/canvas/effect-area-square.ts";
 import type { ScenePF2e, TokenDocumentPF2e } from "@scene";
 import type { TokenAuraData } from "./types.ts";
@@ -23,7 +23,7 @@ declare class TokenAura implements TokenAuraData {
     get squares(): EffectAreaSquare[];
     /** Does this aura overlap with (at least part of) a token? */
     containsToken(token: TokenDocumentPF2e): boolean;
-    /** Notify tokens' actors if they are inside an aura in this collection */
+    /** Notify tokens' actors if they are inside this aura. */
     notifyActors(): Promise<void>;
 }
 interface TokenAuraParams extends Omit<AuraData, "effects" | "traits"> {

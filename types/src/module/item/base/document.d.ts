@@ -5,11 +5,10 @@ import { ChatMessagePF2e } from "@module/chat-message/document.ts";
 import { RuleElementOptions, RuleElementPF2e } from "@module/rules/index.ts";
 import { UserPF2e } from "@module/user/document.ts";
 import { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
-import { ItemFlagsPF2e, ItemSystemData } from "./data/base.ts";
-import { ItemSourcePF2e, ItemSummaryData, ItemType, TraitChatData } from "./data/index.ts";
-import { PhysicalItemPF2e } from "./physical/document.ts";
+import type { PhysicalItemPF2e } from "../physical/document.ts";
 import { ItemSheetPF2e } from "./sheet/base.ts";
-import { ItemInstances } from "./types.ts";
+import { ItemInstances } from "../types.ts";
+import type { ItemFlagsPF2e, ItemSourcePF2e, ItemSummaryData, ItemSystemData, ItemType, TraitChatData } from "./data/index.ts";
 /** The basic `Item` subclass for the system */
 declare class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item<TParent> {
     static getDefaultArtwork(itemData: foundry.documents.ItemSource): {
@@ -107,7 +106,7 @@ interface ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
     /** Optional data-preparation callback executed after rule-element synthetics are prepared */
     onPrepareSynthetics?(this: ItemPF2e<ActorPF2e>): void;
     /** Returns items that should also be added when this item is created */
-    createGrantedItems(options?: object): Promise<ItemPF2e[]>;
+    createGrantedItems?(options?: object): Promise<ItemPF2e[]>;
     /** Returns items that should also be deleted should this item be deleted */
     getLinkedItems?(): ItemPF2e<ActorPF2e>[];
 }

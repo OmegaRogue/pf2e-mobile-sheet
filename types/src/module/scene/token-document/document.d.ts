@@ -17,6 +17,7 @@ declare class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | n
     hasStatusEffect(statusId: string): boolean;
     /** Filter trackable attributes for relevance and avoidance of circular references */
     static getTrackedAttributes(data?: Record<string, unknown>, _path?: string[]): TrackedAttributesDescription;
+    static getTrackedAttributeChoices(attributes: TrackedAttributesDescription): TrackedAttributesDescription;
     /** This should be in Foundry core, but ... */
     get scene(): this["parent"];
     /** Is this token emitting light with a negative value */

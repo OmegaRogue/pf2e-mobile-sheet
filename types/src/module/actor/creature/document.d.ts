@@ -5,7 +5,7 @@ import { CreatureSource } from "@actor/data/index.ts";
 import { StatisticModifier } from "@actor/modifiers.ts";
 import { MovementType, SaveType, SkillLongForm } from "@actor/types.ts";
 import { ArmorPF2e, ItemPF2e, type PhysicalItemPF2e } from "@item";
-import { ItemType } from "@item/data/index.ts";
+import { ItemType } from "@item/base/data/index.ts";
 import { ItemCarryType } from "@item/physical/data.ts";
 import type { ActiveEffectPF2e } from "@module/active-effect.ts";
 import { Rarity } from "@module/data.ts";

@@ -7,7 +7,7 @@ import { StatisticModifier } from "@actor/modifiers.ts";
 import { AttributeString, MovementType, RollContext, RollContextParams } from "@actor/types.ts";
 import type { AncestryPF2e, BackgroundPF2e, ClassPF2e, DeityPF2e, FeatPF2e, HeritagePF2e } from "@item";
 import { ItemPF2e, WeaponPF2e } from "@item";
-import { ItemType } from "@item/data/index.ts";
+import { ItemType } from "@item/base/data/index.ts";
 import { MagicTradition } from "@item/spell/types.ts";
 import { ZeroToTwo } from "@module/data.ts";
 import { UserPF2e } from "@module/user/document.ts";
