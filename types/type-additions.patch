@@ -255,3 +255,23 @@ index e69de29..e1cf635 100644
 +     */
 +    some(test: (value: T, index: number, set: Set<T>) => unknown): boolean;
 +}
+===================================================================
+diff --git a/types/foundry/client/core/hooks.d.ts b/types/foundry/client/core/hooks.d.ts
+--- a/types/foundry/client/core/hooks.d.ts	(revision b265d4c6d120193abe61c9b0b61f2e7af47fb13f)
++++ b/types/foundry/client/core/hooks.d.ts	(date 1698592741600)
+@@ -6,6 +6,7 @@
+     // Sequence of hooks called on world load
+     type HookParamsInit = HookParameters<"init", never>;
+     type HookParamsSetup = HookParameters<"setup", never>;
++    type HookParamsI18nInit = HookParameters<"i18nInit", never>;
+     type HookParamsCanvasInit = HookParameters<"canvasInit", [DrawnCanvas]>;
+     type HookParamsCanvasReady = HookParameters<"canvasReady", [DrawnCanvas]>;
+     type HookParamsReady = HookParameters<"ready", never>;
+@@ -60,6 +61,7 @@
+         static on(...args: HookParamsSetup): number;
+         static on(...args: HookParamsInit): number;
+         static on(...args: HookParamsReady): number;
++        static on(...args: HookParamsI18nInit): number;
+         static on(...args: HookParamsCanvasInit): number;
+         static on(...args: HookParamsCanvasReady): number;
+         static on(...args: HookParamsClose<CombatTrackerConfig, "CombatTrackerConfig">): number;

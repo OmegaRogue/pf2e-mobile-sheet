@@ -1471,10 +1471,6 @@ form-data@^4.0.0:
 "foundry-types@file:types/types/foundry":
   version "4.4.2"
 
-"foundryvtt-devMode@github:League-of-Foundry-Developers/foundryvtt-devMode":
-  version "1.13.0"
-  resolved "https://codeload.github.com/League-of-Foundry-Developers/foundryvtt-devMode/tar.gz/fad1da4cb1c73db3c8b882139ceba525044c6846"
-
 "foundryvtt-socketlib@github:manuelVo/foundryvtt-socketlib":
   version "0.0.0"
   resolved "https://codeload.github.com/manuelVo/foundryvtt-socketlib/tar.gz/c80346917ea2769743bc2607e044957026a34c39"

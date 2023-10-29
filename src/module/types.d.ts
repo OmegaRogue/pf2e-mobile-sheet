@@ -8,6 +8,8 @@ declare global {
 		get(module: MODULE_ID, setting: "send-button"): "on" | "off" | "auto";
 
 		get(module: MODULE_ID, setting: "close-button-text"): "on" | "off" | "auto";
+
+		get(module: MODULE_ID, setting: "share-targets"): boolean;
 	}
 	interface SocketlibSocket {
 		executeAsGM(handler: "distance", sourceId: string, targetId: string): Promise<number>;
