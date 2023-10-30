@@ -79,7 +79,13 @@ $(window).on("resize", dragEndFullscreenWindow);
 async function renderFullscreenWindow(_app: Application, html: JQuery): Promise<void> {
 	if (checkMobileWithOverride("close-button-text")) {
 		const closeButton = html.find(".header-button.control.close");
-		closeButton.text("");
+		closeButton
+			.contents()
+			.filter(function () {
+				return this.nodeType === 3;
+			})
+			.last()
+			.replaceWith("");
 	}
 	if (!checkMobile()) return;
 	if (!html.hasClass("window-app") || html.hasClass("dialog")) {
