@@ -10,7 +10,7 @@ declare class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     #private;
     static get defaultOptions(): DocumentSheetOptions;
     get editingRuleElement(): RuleElementSource | null;
-    get validTraits(): Record<string, string> | null;
+    protected get validTraits(): Record<string, string> | null;
     /** An alternative to super.getData() for subclasses that don't need this class's `getData` */
     getData(options?: Partial<DocumentSheetOptions>): Promise<ItemSheetDataPF2e<TItem>>;
     protected onTagSelector(anchor: HTMLAnchorElement): void;
@@ -26,7 +26,7 @@ declare class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     protected _getHeaderButtons(): ApplicationHeaderButton[];
     protected _canDragDrop(_selector: string): boolean;
     /** Tagify sets an empty input field to "" instead of "[]", which later causes the JSON parse to throw an error */
-    protected _onSubmit(event: Event, { updateData, preventClose, preventRender }?: OnSubmitFormOptions): Promise<Record<string, unknown>>;
+    protected _onSubmit(event: Event, { updateData, preventClose, preventRender }?: OnSubmitFormOptions): Promise<Record<string, unknown> | false>;
     protected _updateObject(event: Event, formData: Record<string, unknown>): Promise<void>;
     /** Overriden _render to maintain focus on tagify elements */
     protected _render(force?: boolean, options?: RenderOptions): Promise<void>;

@@ -20,7 +20,10 @@ declare const DamageCategorization: {
     readonly toDamageTypes: (category: string) => Set<string>;
 };
 /** Apply damage dice overrides and upgrades to a non-weapon's damage formula */
-declare function applyDamageDiceOverrides(base: BaseDamageData[], dice: DamageDicePF2e[]): void;
+declare function applyDamageDiceOverrides(baseEntries: BaseDamageData[], dice: DamageDicePF2e[], options?: {
+    critical?: boolean;
+    maxIncreases?: number;
+}): void;
 /**
  * Given a DamageRoll, reverts it into base damage data to allow adding modifiers and damage dice.
  * Throws an exception if it cannot be parsed

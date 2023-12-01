@@ -63,8 +63,6 @@ interface NPCDetailsSource extends CreatureDetailsSource {
     level: {
         value: number;
     };
-    /** The type of this creature (such as 'undead') */
-    creatureType: string;
     /** A very brief description */
     blurb: string;
     /** The in-depth description and any other public notes */

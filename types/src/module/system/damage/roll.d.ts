@@ -3,7 +3,7 @@ import { DamageRollFlag } from "@module/chat-message/index.ts";
 import type { UserPF2e } from "@module/user/index.ts";
 import { DegreeOfSuccessIndex } from "@system/degree-of-success.ts";
 import { RollDataPF2e } from "@system/rolls.ts";
-import type Peggy from "peggy";
+import Peggy from "peggy";
 import { InstancePool } from "./terms.ts";
 import { DamageCategory, DamageTemplate, DamageType, MaterialDamageEffect } from "./types.ts";
 declare abstract class AbstractDamageRoll extends Roll {
@@ -33,9 +33,15 @@ declare class DamageRoll extends AbstractDamageRoll {
     static validate(formula: string): boolean;
     /** Identify each "DiceTerm" raw object with a non-abstract subclass name */
     static classifyDice(data: RollTermData): void;
+    get pool(): InstancePool | null;
     get formula(): string;
     get instances(): DamageInstance[];
-    get materials(): MaterialDamageEffect[];
+    /**
+     * Damage roll rules more-or-less also applying to healing rolls and can be both or even include components of
+     * either.
+     */
+    get kinds(): Set<"damage" | "healing">;
+    get materials(): Set<MaterialDamageEffect>;
     /** Return an Array of the individual DiceTerm instances contained within this Roll. */
     get dice(): DiceTerm[];
     get minimumValue(): number;
@@ -57,9 +63,10 @@ interface DamageRoll extends AbstractDamageRoll {
 }
 declare class DamageInstance extends AbstractDamageRoll {
     #private;
+    kinds: Set<"damage" | "healing">;
     type: DamageType;
     persistent: boolean;
-    materials: MaterialDamageEffect[];
+    materials: Set<MaterialDamageEffect>;
     constructor(formula: string, data?: {}, options?: DamageInstanceData);
     static parse(formula: string, data: Record<string, unknown>): RollTerm[];
     static fromData<TRoll extends Roll>(this: ConstructorOf<TRoll>, data: RollJSON): TRoll;
@@ -75,7 +82,7 @@ declare class DamageInstance extends AbstractDamageRoll {
     get iconClass(): string | null;
     /** Return 0 for persistent damage */
     protected _evaluateTotal(): number;
-    render(): Promise<string>;
+    render({ tooltips }?: InstanceRenderOptions): Promise<string>;
     get dice(): DiceTerm[];
     /** Get the head term of this instance */
     get head(): RollTerm;
@@ -92,6 +99,10 @@ declare class DamageInstance extends AbstractDamageRoll {
 }
 interface DamageInstance extends AbstractDamageRoll {
     options: DamageInstanceData;
+}
+interface InstanceRenderOptions extends RollRenderOptions {
+    /** Whether to attach tooltips to the damage type icons */
+    tooltips?: boolean;
 }
 type CriticalDoublingRule = "double-damage" | "double-dice";
 interface AbstractDamageRollData extends RollOptions {

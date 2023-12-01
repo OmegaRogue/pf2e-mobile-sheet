@@ -8,8 +8,11 @@ interface ContainerSystemSource extends Investable<PhysicalSystemSource> {
     bulkCapacity: {
         value: string | null;
     };
+    negateBulk: {
+        value: string;
+    };
     collapsed: boolean;
 }
-interface ContainerSystemData extends Omit<ContainerSystemSource, "hp" | "identification" | "price" | "temporary" | "usage">, Omit<Investable<PhysicalSystemData>, "traits"> {
+interface ContainerSystemData extends Omit<ContainerSystemSource, "hp" | "identification" | "material" | "price" | "temporary" | "usage">, Omit<Investable<PhysicalSystemData>, "traits"> {
 }
 export type { ContainerSource, ContainerSystemData };

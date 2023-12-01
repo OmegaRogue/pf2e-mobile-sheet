@@ -143,7 +143,6 @@ declare global {
 
         /* -------------------------------------------- */
         /*  Properties and Attributes                   */
-
         /* -------------------------------------------- */
 
         /** A flag for whether the game Canvas is initialized and ready for drawing. */
@@ -187,7 +186,6 @@ declare global {
 
         /* -------------------------------------------- */
         /*  Initialization                              */
-
         /* -------------------------------------------- */
 
         /**
@@ -199,7 +197,6 @@ declare global {
 
         /* -------------------------------------------- */
         /*  Rendering                                   */
-
         /* -------------------------------------------- */
 
         /**
@@ -253,7 +250,6 @@ declare global {
 
         /* -------------------------------------------- */
         /*  Methods                                     */
-
         /* -------------------------------------------- */
 
         /** Activate framerate tracking by adding an HTML element to the display and refreshing it every frame. */

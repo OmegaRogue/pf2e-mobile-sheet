@@ -9,6 +9,7 @@ type DamageCategoryUnique = SetElement<typeof DAMAGE_CATEGORIES_UNIQUE>;
 type DamageCategory = keyof typeof CONFIG.PF2E.damageCategories;
 type DamageDieSize = SetElement<typeof DAMAGE_DIE_FACES>;
 type DamageType = SetElement<typeof DAMAGE_TYPES>;
+type DamageKind = "damage" | "healing";
 type MaterialDamageEffect = keyof typeof CONFIG.PF2E.materialDamageEffects;
 /**
  * `null`: double on crit (includes most damage)
@@ -50,10 +51,13 @@ interface DamageFormulaData {
     base: BaseDamageData[];
     dice: DamageDicePF2e[];
     modifiers: ModifierPF2e[];
+    /** Maximum number of die increases. Weapons should be set to 1 */
+    maxIncreases?: number;
     ignoredResistances: {
         type: ResistanceType;
         max: number | null;
     }[];
+    kinds?: Set<DamageKind>;
 }
 interface ResolvedDamageFormulaData extends DamageFormulaData {
     formula: Record<DegreeOfSuccessString, string | null>;
@@ -82,7 +86,6 @@ interface WeaponBaseDamageData extends BaseDamageData {
 }
 interface BaseDamageTemplate {
     name: string;
-    traits: string[];
     materials: MaterialDamageEffect[];
     modifiers?: (ModifierPF2e | DamageDicePF2e)[];
 }
@@ -98,4 +101,4 @@ interface SpellDamageTemplate extends BaseDamageTemplate {
 type AfflictionDamageTemplate = SpellDamageTemplate;
 type SimpleDamageTemplate = SpellDamageTemplate;
 type DamageTemplate = WeaponDamageTemplate | SpellDamageTemplate | AfflictionDamageTemplate | SimpleDamageTemplate;
-export type { AfflictionDamageTemplate, BaseDamageData, CriticalInclusion, DamageCategory, DamageCategoryRenderData, DamageCategoryUnique, DamageDieSize, DamageFormulaData, DamagePartialTerm, DamageRollContext, DamageRollRenderData, DamageTemplate, DamageType, DamageTypeRenderData, MaterialDamageEffect, SimpleDamageTemplate, SpellDamageTemplate, WeaponBaseDamageData, WeaponDamageTemplate, };
+export type { AfflictionDamageTemplate, BaseDamageData, CriticalInclusion, DamageCategory, DamageCategoryRenderData, DamageCategoryUnique, DamageDieSize, DamageFormulaData, DamageKind, DamagePartialTerm, DamageRollContext, DamageRollRenderData, DamageTemplate, DamageType, DamageTypeRenderData, MaterialDamageEffect, SimpleDamageTemplate, SpellDamageTemplate, WeaponBaseDamageData, WeaponDamageTemplate, };

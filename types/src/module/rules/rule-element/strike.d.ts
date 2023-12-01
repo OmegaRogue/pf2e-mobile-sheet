@@ -4,6 +4,7 @@ import { AttributeString } from "@actor/types.ts";
 import { NPCAttackTrait } from "@item/melee/data.ts";
 import { BaseWeaponType, OtherWeaponTag, WeaponCategory, WeaponGroup } from "@item/weapon/types.ts";
 import { DamageDieSize, DamageType } from "@system/damage/index.ts";
+import { StrictBooleanField } from "@system/schema-data-fields.ts";
 import type { ArrayField, BooleanField, FilePathField, NumberField, SchemaField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { ResolvableValueField } from "./data.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
@@ -14,6 +15,7 @@ import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSour
 declare class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
     #private;
     protected static validActorTypes: ActorType[];
+    graspingAppendage: boolean;
     constructor(source: StrikeSource, options: RuleElementOptions);
     static defineSchema(): StrikeSchema;
     /** Allow shorthand `fist` StrikeRuleElement data to pass `DataModel` validation */
@@ -95,6 +97,8 @@ type StrikeSchema = RuleElementSchema & {
     options: ArrayField<StringField<string, string, true, false, false>, string[], string[], false, false, false>;
     /** Whether this was a request for a standard fist attack */
     fist: BooleanField<boolean, boolean, false, false, false>;
+    /** Whether the unarmed attack is a grasping appendage */
+    graspingAppendage: StrictBooleanField<false, false, false>;
 };
 interface StrikeSource extends RuleElementSource {
     img?: unknown;

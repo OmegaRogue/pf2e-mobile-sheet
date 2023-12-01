@@ -1,9 +1,10 @@
 import { SaveType } from "@actor/types.ts";
 import { EffectTrait } from "@item/abstract-effect/data.ts";
 import { DataUnionField, PredicateField, StrictArrayField, StrictBooleanField, StrictNumberField, StrictStringField } from "@system/schema-data-fields.ts";
-import type { AlphaField, ArrayField, BooleanField, ColorField, SchemaField } from "types/foundry/common/data/fields.d.ts";
+import type { AlphaField, ArrayField, BooleanField, ColorField, EmbeddedDataField, SchemaField } from "types/foundry/common/data/fields.d.ts";
 import { ResolvableValueField, RuleElementSchema, RuleValue } from "./data.ts";
 import { RuleElementOptions, RuleElementPF2e, RuleElementSource } from "./index.ts";
+import { ItemAlteration } from "./item-alteration/alteration.ts";
 /** A Pathfinder 2e aura, capable of transmitting effects and with a visual representation on the canvas */
 declare class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
     #private;
@@ -49,9 +50,14 @@ type AuraEffectSchema = {
         type: SaveType;
         dc: RuleValue;
     }, true, true, true>;
+    /** A predicating limiting whether the effect is transmitted to an actor */
     predicate: PredicateField<false, false, true>;
+    /** Whether to remove the effect from an actor immediately after its token exits the area */
     removeOnExit: StrictBooleanField<true, false, true>;
-    includesSelf: StrictBooleanField<false, false, false>;
+    /** Whether the effect is applied to the actor emitting the aura */
+    includesSelf: StrictBooleanField<false, false, true>;
+    /** An array of alterations to apply to the effect before transmitting it */
+    alterations: StrictArrayField<EmbeddedDataField<ItemAlteration>>;
 };
 type AuraAppearanceSchema = {
     /** Configuration of the border's color and alpha */

@@ -25,7 +25,7 @@ declare abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShe
     protected prepareInventory(): SheetInventory;
     protected prepareInventoryItem(item: PhysicalItemPF2e): InventoryItem;
     protected static coinsToSheetData(coins: Coins): CoinageSummary;
-    protected getStrikeFromDOM(button: HTMLElement): StrikeData | null;
+    protected getStrikeFromDOM(button: HTMLElement, readyOnly?: boolean): StrikeData | null;
     activateListeners($html: JQuery): void;
     /** DOM listeners for inventory panel */
     protected activateInventoryListeners(panel: HTMLElement | null): void;
@@ -64,7 +64,7 @@ declare abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShe
     /** Overriden _render to maintain focus on tagify elements */
     protected _render(force?: boolean, options?: ActorSheetRenderOptionsPF2e): Promise<void>;
     /** Tagify sets an empty input field to "" instead of "[]", which later causes the JSON parse to throw an error */
-    protected _onSubmit(event: Event, { updateData, preventClose, preventRender }?: OnSubmitFormOptions): Promise<Record<string, unknown>>;
+    protected _onSubmit(event: Event, { updateData, preventClose, preventRender }?: OnSubmitFormOptions): Promise<Record<string, unknown> | false>;
     protected _getSubmitData(updateData?: Record<string, unknown>): Record<string, unknown>;
 }
 interface ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActor, ItemPF2e> {

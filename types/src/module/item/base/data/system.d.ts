@@ -58,7 +58,7 @@ interface ItemGrantSource {
     onDelete?: ItemGrantDeleteAction;
 }
 type ItemGrantDeleteAction = "cascade" | "detach" | "restrict";
-interface ItemSystemSource {
+type ItemSystemSource = {
     level?: {
         value: number;
     };
@@ -67,9 +67,6 @@ interface ItemSystemSource {
         value: string;
     };
     traits: ItemTraits | ItemTraitsNoRarity | RarityTraitAndOtherTags | OtherTagsOnly;
-    options?: {
-        value: string[];
-    };
     rules: RuleElementSource[];
     slug: string | null;
     /** Information concerning the publication from which this item originates */
@@ -81,7 +78,7 @@ interface ItemSystemSource {
         version: number | null;
         lastMigration: object | null;
     }>;
-}
+};
 type ItemSystemData = ItemSystemSource;
 type FrequencyInterval = keyof ConfigPF2e["PF2E"]["frequencies"];
 interface FrequencySource {

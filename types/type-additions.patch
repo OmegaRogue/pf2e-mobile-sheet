@@ -1,7 +1,3 @@
-Index: types/foundry/client/pixi/canvas-layer/grid-layer.d.ts
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
 ===================================================================
 diff --git a/types/foundry/client/pixi/canvas-layer/grid-layer.d.ts b/types/foundry/client/pixi/canvas-layer/grid-layer.d.ts
 --- a/types/foundry/client/pixi/canvas-layer/grid-layer.d.ts	(revision b3dbabae86f862914df4b4404a6385c56918c34b)
@@ -45,55 +41,10 @@ diff --git a/types/foundry/client/pixi/canvas-layer/grid-layer.d.ts b/types/foun
  }
 
  interface GridLayerOptions extends CanvasLayerOptions {
-Index: types/foundry/client/pixi/board.d.ts
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
 ===================================================================
 diff --git a/types/foundry/client/pixi/board.d.ts b/types/foundry/client/pixi/board.d.ts
 --- a/types/foundry/client/pixi/board.d.ts	(revision b3dbabae86f862914df4b4404a6385c56918c34b)
 +++ b/types/foundry/client/pixi/board.d.ts	(revision db2c6a72df3cd4a1431aa39fd3c8ec6ce94a4d28)
-@@ -8,7 +8,7 @@
-             MeasuredTemplateDocument<TScene>
-         >,
-         TToken extends Token<TokenDocument<TScene>> = Token<TokenDocument<TScene>>,
--        TEffectsCanvasGroup extends EffectsCanvasGroup = EffectsCanvasGroup
-+        TEffectsCanvasGroup extends EffectsCanvasGroup = EffectsCanvasGroup,
-     > {
-         /** A perception manager interface for batching lighting, sight, and sound updates */
-         perception: PerceptionManager;
-@@ -143,6 +143,7 @@
-
-         /* -------------------------------------------- */
-         /*  Properties and Attributes                   */
-+
-         /* -------------------------------------------- */
-
-         /** A flag for whether the game Canvas is initialized and ready for drawing. */
-@@ -186,6 +187,7 @@
-
-         /* -------------------------------------------- */
-         /*  Initialization                              */
-+
-         /* -------------------------------------------- */
-
-         /**
-@@ -197,6 +199,7 @@
-
-         /* -------------------------------------------- */
-         /*  Rendering                                   */
-+
-         /* -------------------------------------------- */
-
-         /**
-@@ -250,6 +253,7 @@
-
-         /* -------------------------------------------- */
-         /*  Methods                                     */
-+
-         /* -------------------------------------------- */
-
-         /** Activate framerate tracking by adding an HTML element to the display and refreshing it every frame. */
 @@ -313,7 +317,7 @@
           * @param origin  Point to display Ping at
           * @param options Additional options to configure how the ping is drawn.
@@ -103,23 +54,6 @@ diff --git a/types/foundry/client/pixi/board.d.ts b/types/foundry/client/pixi/bo
 
          /**
           * Create a BlurFilter instance and register it to the array for updates when the zoom level changes.
-Index: types/foundry/client/game.d.ts
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
-===================================================================
-diff --git a/types/foundry/client/game.d.ts b/types/foundry/client/game.d.ts
---- a/types/foundry/client/game.d.ts	(revision b3dbabae86f862914df4b4404a6385c56918c34b)
-+++ b/types/foundry/client/game.d.ts	(revision db2c6a72df3cd4a1431aa39fd3c8ec6ce94a4d28)
-@@ -21,7 +21,7 @@
-         TItem extends Item<null>,
-         TMacro extends Macro,
-         TScene extends Scene,
--        TUser extends User<TActor>
-+        TUser extends User<TActor>,
-     > {
-         /**
-          * The named view which is currently active.
 ===================================================================
 diff --git a/types/foundry/common/primitives/set.d.ts b/types/foundry/common/primitives/set.d.ts
 index e69de29..e1cf635 100644

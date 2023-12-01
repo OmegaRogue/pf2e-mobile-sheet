@@ -1,12 +1,12 @@
 {
 	"compilerOptions": {
-		"allowSyntheticDefaultImports": true, //Do I need this?
+		//		"allowSyntheticDefaultImports": true, //Do I need this?
 		"allowImportingTsExtensions": true,
 		"allowUnusedLabels": false,
 		"baseUrl": ".",
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
-		"lib": ["esnext", "dom", "dom.iterable"],
+		"lib": ["dom", "dom.iterable", "esnext"],
 		"module": "NodeNext",
 		"moduleResolution": "nodenext",
 		"noEmit": true,
@@ -42,11 +42,11 @@
 		"strictFunctionTypes": false,
 		"strictNullChecks": true,
 		"strictPropertyInitialization": true,
-		"target": "ES2022",
+		"target": "es2022",
 		"typeRoots": ["node_modules/@types", "types/types/foundry"],
 		"types": ["jquery", "node", "tooltipster"],
-		"useDefineForClassFields": true,
-		"allowJs": true
+		"useDefineForClassFields": true
+		//		"allowJs": true
 	},
 	"watchOptions": {
 		"excludeDirectories": ["packs/data/", "static/packs/"]
