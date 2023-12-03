@@ -4,6 +4,94 @@
 }
 
 
+.sheet.actor {
+	&:not(.mobile) {
+		a#sidebar-tab {
+			display: none;
+		}
+	}
+
+	&.mobile {
+		.crb-style {
+			grid-template-columns: initial !important;
+			grid-template-areas: "header " "nav    " "content" !important;
+		}
+
+		&.character {
+			.crb-style {
+				aside {
+					background-image: none;
+
+					.logo {
+						display: none;
+					}
+				}
+				.pf-rank {
+					width: unset;
+				}
+
+				nav.sheet-navigation .panel-title {
+					width: unset;
+				}
+
+				.sheet-body .sheet-content .tab {
+					&.character {
+						.character-details {
+							.abcd {
+								grid-template-columns: repeat(2, 1fr);
+							}
+
+							.pc_deity h3 {
+								margin-left: 0.5em !important;
+							}
+						}
+					}
+					&:not(.inventory, .actions) {
+						//padding-right: 0;
+					}
+				}
+
+				header.char-header .char-level {
+					.exp-data {
+						padding: initial !important;
+					}
+
+					flex-wrap: wrap !important;
+					justify-content: center !important;
+				}
+			}
+
+			&:not(.dark-theme) .sheet-content .tab.sidebar {
+				background-color: var(--primary);
+			}
+		}
+
+		&.familiar {
+			:is(.familiar-sheet-header .header-content .details-section, .familiar-section .familiar-content) {
+				flex-direction: column;
+			}
+
+			.familiar-sheet-header .header-content {
+				.charname {
+					flex-wrap: wrap;
+
+					.charname-value {
+						flex-basis: auto;
+					}
+				}
+
+				.sub-header {
+					flex-direction: column;
+				}
+
+				.details-section .defenses-section {
+					flex-direction: initial;
+				}
+			}
+		}
+	}
+}
+
 .mobile-pf2e {
 	:is(#ui-left, #ui-middle) {
 		display: none;
@@ -63,68 +151,9 @@
 		display: none !important;
 	}
 
-	.tab:not(.inventory, .actions) {
-		margin-left: 0 !important;
-	}
-
 	.skills-list {
 		column-gap: 0.3em !important;
 		row-gap: 1em;
-	}
-
-	.sheet.actor {
-		.crb-style {
-			grid-template-columns: initial !important;
-			grid-template-areas: "header " "nav    " "content" !important;
-		}
-		&.character {
-			.crb-style {
-				.tab.character .character-details .pc_deity h3 {
-					margin-left: 0.5em !important;
-				}
-
-				.sheet-body .sheet-content .tab.character .character-details {
-					//grid-template-columns: 9em 10em 1fr;
-				}
-
-				header.char-header .char-level {
-					.exp-data {
-						padding: initial !important;
-					}
-
-					flex-wrap: wrap !important;
-					justify-content: center !important;
-				}
-			}
-
-			&:not(.dark-theme) .sheet-content .tab.sidebar {
-				background-color: var(--primary);
-			}
-		}
-
-		&.familiar {
-			:is(.familiar-sheet-header .header-content .details-section, .familiar-section .familiar-content) {
-				flex-direction: column;
-			}
-
-			.familiar-sheet-header .header-content {
-				.charname {
-					flex-wrap: wrap;
-
-					.charname-value {
-						flex-basis: auto;
-					}
-				}
-
-				.sub-header {
-					flex-direction: column;
-				}
-
-				.details-section .defenses-section {
-					flex-direction: initial;
-				}
-			}
-		}
 	}
 
 

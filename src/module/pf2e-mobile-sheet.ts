@@ -77,6 +77,73 @@ async function dragEndFullscreenWindow() {
 
 $(window).on("resize", dragEndFullscreenWindow);
 
+const characterSheetResizeObserver = new ResizeObserver((entries) => {
+	for (const entry of entries) {
+		const html = $(entry.target);
+		if (entry.contentRect.width < 800 && !entries[0].target.classList.contains("mobile")) {
+			log(false, "sidebar found", html.find("aside").length);
+			if (html.find(".sheet-navigation #sidebar-tab").length === 0) {
+				const sidebarTabButton = $(
+					`<a class="item" id="sidebar-tab" data-tab="sidebar" title="${game.i18n.localize(
+						"pf2e-mobile-sheet.sidebar-tab",
+					)}"><i class="fa-solid fa-bars"></i></a>`,
+				);
+				const afterButton = html.find(".sheet-navigation .panel-title");
+				sidebarTabButton.insertAfter(afterButton);
+			}
+
+			const aside = html.find("aside");
+
+			if (html.find(".sheet-content .tab.sidebar").length === 0) {
+				const sidebarTab = $(`<div class="tab sidebar" data-group="primary" data-tab="sidebar"/>`);
+				sidebarTab.append(aside.detach());
+				html.find(".sheet-content").append(sidebarTab);
+			} else {
+				html.find(".sheet-content .tab.sidebar").append(aside.detach());
+			}
+			entries[0].target.classList.add("mobile");
+
+			html.find(".proficiencies-list .skill-prof.button-group h6").text(
+				game.i18n.localize(`pf2e-mobile-sheet.ModifiersTitleShort`),
+			);
+			for (let i = 0; i < 5; i++) {
+				html.find(`.skill-proficiency.pf-rank option[value=${i}]`).text(
+					game.i18n.localize(`pf2e-mobile-sheet.ProficiencyLevel${i}Short`),
+				);
+			}
+			log(false, "mobile");
+			log(false, "sidebar found", html.find("aside").length);
+		} else if (entry.contentRect.width >= 800 && entries[0].target.classList.contains("mobile")) {
+			log(false, "sidebar found", html.find("aside").length);
+			entries[0].target.classList.remove("mobile");
+			html.find(".window-content form").prepend(html.find(".tab.sidebar aside").detach());
+			const sidebarTab = html.find(".tab.sidebar.active");
+			if (sidebarTab.length > 0) {
+				sidebarTab.removeClass("active");
+				html.find('a[data-tab="character"]')[0].click();
+			}
+			html.find(".proficiencies-list .skill-prof.button-group h6").text(
+				game.i18n.localize(`PF2E.ModifiersTitle`),
+			);
+			for (let i = 0; i < 5; i++) {
+				html.find(`.skill-proficiency.pf-rank option[value=${i}]`).text(
+					game.i18n.localize(`PF2E.ProficiencyLevel${i}`),
+				);
+			}
+			// const combatRanks = html.find(".combat-list select").children();
+			// for (let i = 0; i < 5; i++)
+			// 	combatRanks.eq(0).text(game.i18n.localize(`PF2E.ProficiencyLevel${i}Short`));
+
+			log(false, "no mobile");
+			log(false, "sidebar found", html.find("aside").length);
+		}
+	}
+});
+
+Hooks.on("closeCharacterSheetPF2e", (_app: Application, html: JQuery) => {
+	characterSheetResizeObserver.unobserve(html[0]);
+});
+
 async function renderFullscreenWindow(_app: Application, html: JQuery): Promise<void> {
 	if (checkMobileWithOverride("close-button-text")) {
 		const closeButton = html.find(".header-button.control.close");
@@ -212,28 +279,22 @@ Hooks.on("renderSettingsConfig", (_app: Application, html: JQuery) => {
 	}
 });
 Hooks.on("renderCharacterSheetPF2e", (_app: Application, html: JQuery) => {
-	if (!checkMobile()) return;
-
-	html.find(".skills-list h6").text(game.i18n.localize(`pf2e-mobile-sheet.ModifiersTitleShort`));
-	const profRanks = html.find(".skills-list select").children();
-	for (let i = 0; i < 5; i++) profRanks.eq(0).text(game.i18n.localize(`pf2e-mobile-sheet.ProficiencyLevel${i}Short`));
-	const combatRanks = html.find(".combat-list select").children();
-	for (let i = 0; i < 5; i++)
-		combatRanks.eq(0).text(game.i18n.localize(`pf2e-mobile-sheet.ProficiencyLevel${i}Short`));
-
-	const sidebarTabButton = $(
-		`<a class="item" id="sidebar-tab" data-tab="sidebar" title="${game.i18n.localize(
-			"pf2e-mobile-sheet.sidebar-tab",
-		)}"><i class="fa-solid fa-bars"></i></a>`,
-	);
-	const afterButton = html.find(".sheet-navigation .navigation-title");
-	if (html.find(".sheet-navigation #sidebar-tab").length === 0) sidebarTabButton.insertAfter(afterButton);
-	const sidebarTab = $(`<div class="tab sidebar" data-group="primary" data-tab="sidebar"/>`);
-	const aside = html.find("aside");
-	aside.css("background-image", "none");
-	aside.find(".logo").remove();
-	sidebarTab.append(aside.detach());
-	if (html.find(".sheet-content .tab.sidebar").length === 0) html.find(".sheet-content").append(sidebarTab);
+	characterSheetResizeObserver.observe(html[0]);
+	// if (!checkMobile()) return;
+	//
+	// const sidebarTabButton = $(
+	// 	`<a class="item" id="sidebar-tab" data-tab="sidebar" title="${game.i18n.localize(
+	// 		"pf2e-mobile-sheet.sidebar-tab",
+	// 	)}"><i class="fa-solid fa-bars"></i></a>`,
+	// );
+	// const afterButton = html.find(".sheet-navigation .navigation-title");
+	// if (html.find(".sheet-navigation #sidebar-tab").length === 0) sidebarTabButton.insertAfter(afterButton);
+	// const sidebarTab = $(`<div class="tab sidebar" data-group="primary" data-tab="sidebar"/>`);
+	// const aside = html.find("aside");
+	// aside.css("background-image", "none");
+	// aside.find(".logo").remove();
+	// sidebarTab.append(aside.detach());
+	// if (html.find(".sheet-content .tab.sidebar").length === 0) html.find(".sheet-content").append(sidebarTab);
 });
 
 Hooks.on("collapseSidebar", (_, collapsed: boolean) => {
