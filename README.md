@@ -49,7 +49,7 @@ yarn build
 ```
 or
 ```sh
-make build
+make
 ```
 
 Alternatively, you can run
@@ -87,7 +87,7 @@ yarn link
 ```
 or
 ```sh
-make link
+make install
 ```
 
 On Windows, creating symlinks requires administrator privileges, so
@@ -98,13 +98,21 @@ You can also link to multiple data folders by specifying multiple paths in the
 `dataPath` array.
 
 ### Regenerate types
-Usually, the types included in this repo are already the up to date types. If you still want to generate up to date types, run
+Usually, the types included in this repo are already the up to date types. If you still want to generate up to date types,
+first add an entry to the `foundryconfig.json` file:
+```json
+{
+	"dataPath": "/absolute/path/to/your/FoundryVTT/Data",
+	"pf2eRepoPath": "path/to/pf2e/system/repo"
+}
+```
+Next, run
 ```sh
-foundrypf2eloc=path/to/pf2e/system/repo make reposetup_types
+make reposetup_types
 ```
 to set up everything for the first time, and to update your types again later, run
 ```sh
-foundrypf2eloc=path/to/pf2e/system/repo make default_types
+make default_types
 ```
 
 ### Creating a release

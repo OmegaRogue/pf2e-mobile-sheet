@@ -1,0 +1,4 @@
+{
+	"dataPath": ["/absolute/path/to/your/FoundryVTT/Data"],
+	"pf2eRepoPath": "path/to/pf2e/system/repo"
+}
