@@ -225,7 +225,7 @@ Hooks.on("renderCharacterSheetPF2e", (_app: Application, html: JQuery) => {
 			"pf2e-mobile-sheet.sidebar-tab",
 		)}"><i class="fa-solid fa-bars"></i></a>`,
 	);
-	const afterButton = html.find(".sheet-navigation .navigation-title");
+	const afterButton = html.find(".sheet-navigation .panel-title");
 	if (html.find(".sheet-navigation #sidebar-tab").length === 0) sidebarTabButton.insertAfter(afterButton);
 	const sidebarTab = $(`<div class="tab sidebar" data-group="primary" data-tab="sidebar"/>`);
 	const aside = html.find("aside");
