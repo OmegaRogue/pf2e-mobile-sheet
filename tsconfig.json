@@ -28,10 +28,11 @@
 			"@scripts/*": ["types/src/scripts/*"],
 			"@system/*": ["types/src/module/system/*"],
 			"@util": ["types/src/util/index.js"],
-			"@util/*": ["types/src/util/*"]
+			"@util/*": ["types/src/util/*"],
 			//			"foundryvtt-devMode": ["src/types/devMode.js"],
 			//			"foundryvtt-devMode": ["src/types/devMode.js"],
 			//			"devMode": ["src/types/foundryvtt-devMode/devMode.js"]
+			"styles/*": ["src/styles/*"]
 		},
 		"removeComments": false,
 		"resolveJsonModule": true,

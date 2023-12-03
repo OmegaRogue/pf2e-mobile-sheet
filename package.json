@@ -39,6 +39,7 @@
 		"jsdom": "^22.1.0",
 		"lint-staged": "^14.0.1",
 		"prettier": "^3.0.3",
+		"sass": "^1.69.5",
 		"socket.io": "^4.7.2",
 		"socket.io-client": "^4.7.2",
 		"tsconfig-paths": "^4.2.0",
