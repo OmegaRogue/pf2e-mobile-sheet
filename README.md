@@ -1,13 +1,13 @@
-<!--
-SPDX-FileCopyrightText: 2022 Johannes Loher
-
-SPDX-License-Identifier: MIT
--->
-
 # pf2e-mobile-sheet
 
 Make the PF2e Player Character sheet work on mobile
 
+![Latest Release Download Count][1]
+[![Forge Installs][2]][3]
+[![Foundry Hub Endorsements][4]][5]
+[![Foundry Hub Comments][6]][5]
+![Foundry Core Compatible Version][7]
+![Repository License][8]
 ## Installation
 
 After installing the module, for using this module, I recommend you use Chrome and install foundry as a progressive web app by using "add to home screen".
@@ -19,11 +19,12 @@ For the best experience, disable the canvas on mobile clients (you may need to p
 ### Prerequisites
 
 In order to build this module, recent versions of `node` and `yarn` are
-required. Most likely, using `npm` also works, but only `yarn` is officially
+required. `GNU make` or a compatible program is recommended, as type generation is only set up to be done using Makefiles.
+Most likely, using `npm` also works, but only `yarn` is officially
 supported. We recommend using the latest lts version of `node`. If you use `nvm`
 to manage your `node` versions, you can simply run
 
-```
+```sh
 nvm install
 ```
 
@@ -31,22 +32,34 @@ in the project's root directory.
 
 You also need to install the project's dependencies. To do so, run
 
-```
+```sh
 yarn install
+```
+or
+```sh
+make install
 ```
 
 ### Building
 
 You can build the project by running
 
-```
+```sh
 yarn build
+```
+or
+```sh
+make build
 ```
 
 Alternatively, you can run
 
+```sh
+yarn build:dev
 ```
-yarn build:watch
+or
+```sh
+make build_dev
 ```
 
 to watch for changes and automatically build as necessary.
@@ -58,7 +71,7 @@ the built module to your local Foundry VTT installation's data folder. In
 order to do so, first add a file called `foundryconfig.json` to the project root
 with the following content:
 
-```
+```json
 {
   "dataPath": ["/absolute/path/to/your/FoundryVTT"]
 }
@@ -69,8 +82,12 @@ with the following content:
 
 Then run
 
+```sh
+yarn link
 ```
-yarn link-project
+or
+```sh
+make link
 ```
 
 On Windows, creating symlinks requires administrator privileges, so
@@ -79,6 +96,16 @@ it to work.
 
 You can also link to multiple data folders by specifying multiple paths in the
 `dataPath` array.
+
+### Regenerate types
+Usually, the types included in this repo are already the up to date types. If you still want to generate up to date types, run
+```sh
+foundrypf2eloc=path/to/pf2e/system/repo make reposetup_types
+```
+to set up everything for the first time, and to update your types again later, run
+```sh
+foundrypf2eloc=path/to/pf2e/system/repo make default_types
+```
 
 ### Creating a release
 
@@ -90,10 +117,17 @@ instructions given there.
 This project is being developed under the terms of the
 [LIMITED LICENSE AGREEMENT FOR MODULE DEVELOPMENT] for Foundry Virtual Tabletop.
 
-Please add your licensing information here. Add your chosen license as
-`LICENSE` file to the project root and mention it here.  If you don't know which
-license to choose, take a look at [Choose an open source license].
+This project is licensed under [GPL-3.0-or-later](COPYING.md).
 
 [League Basic JS Module Template]: https://github.com/League-of-Foundry-Developers/FoundryVTT-Module-Template
 [LIMITED LICENSE AGREEMENT FOR MODULE DEVELOPMENT]: https://foundryvtt.com/article/license/
 [Choose an open source license]: https://choosealicense.com/
+
+[1]: https://img.shields.io/github/downloads/OmegaRogue/pf2e-mobile-sheet/latest/module.zip
+[2]: https://img.shields.io/badge/dynamic/json?label=Forge%20Installs&query=package.installs&suffix=%25&url=https%3A%2F%2Fforge-vtt.com%2Fapi%2Fbazaar%2Fpackage%2Fpf2e-mobile-sheet&colorB=4aa94a
+[3]: https://forge-vtt.com/bazaar#package=pf2e-mobile-sheet
+[4]: https://img.shields.io/endpoint?logoColor=white&url=https%3A%2F%2Fwww.foundryvtt-hub.com%2Fwp-json%2Fhubapi%2Fv1%2Fpackage%2Fpf2e-mobile-sheet%2Fshield%2Fendorsements
+[5]: https://www.foundryvtt-hub.com/package/pf2e-mobile-sheet/
+[6]: https://img.shields.io/endpoint?logoColor=white&url=https%3A%2F%2Fwww.foundryvtt-hub.com%2Fwp-json%2Fhubapi%2Fv1%2Fpackage%2Fpf2e-mobile-sheet%2Fshield%2Fcomments
+[7]: https://img.shields.io/badge/dynamic/json.svg?url=https%3A%2F%2Fraw.githubusercontent.com%2FOmegaRogue%2Fpf2e-mobile-sheet%2Fmain%2Fstatic%2Fmodule.json&label=Foundry%20Version&query=$.compatibility.minimum&colorB=orange
+[8]: https://img.shields.io/github/license/OmegaRogue/pf2e-mobile-sheet
