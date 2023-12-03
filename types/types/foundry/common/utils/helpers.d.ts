@@ -59,7 +59,7 @@ export function duplicate<T>(original: T): T;
  */
 export function mergeObject<T extends object, U extends object = T>(
     original: T,
-    other?: U,
+    other?: U | undefined,
     options?: MergeObjectOptions,
     _d?: number,
 ): T & U;
@@ -283,6 +283,8 @@ export function logCompatibilityWarning(
         stack?: boolean;
     },
 ): void;
+
+export * from "./http.ts";
 
 declare global {
     interface MergeObjectOptions {

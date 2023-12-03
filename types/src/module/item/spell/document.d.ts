@@ -10,7 +10,7 @@ import { MeasuredTemplatePF2e } from "@module/canvas/index.ts";
 import { ChatMessagePF2e, ItemOriginFlag } from "@module/chat-message/index.ts";
 import { OneToTen, Rarity, ZeroToTwo } from "@module/data.ts";
 import type { UserPF2e } from "@module/user/index.ts";
-import { type TokenDocumentPF2e } from "@scene/index.ts";
+import type { TokenDocumentPF2e } from "@scene";
 import { CheckRoll } from "@system/check/index.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
 import { DamageKind, DamageRollContext, SpellDamageTemplate } from "@system/damage/types.ts";
@@ -32,6 +32,8 @@ declare class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> ext
     trickMagicEntry: TrickMagicItemEntry<NonNullable<TParent>> | null;
     overlays: SpellOverlayCollection;
     constructor(data: PreCreate<ItemSourcePF2e>, context?: SpellConstructionContext<TParent>);
+    /** The id of the override overlay that constitutes this variant */
+    get variantId(): string | null;
     /** The spell's "base" rank; that is, before heightening */
     get baseRank(): OneToTen;
     /** Legacy getter, though not yet deprecated */
@@ -84,8 +86,7 @@ declare class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> ext
         overlayIds?: string[];
     }): SpellPF2e<NonNullable<TParent>> | null;
     getHeightenLayers(rank?: number): SpellHeightenLayer[];
-    createTemplate(message?: ChatMessagePF2e): MeasuredTemplatePF2e;
-    placeTemplate(message?: ChatMessagePF2e): void;
+    placeTemplate(message?: ChatMessagePF2e): Promise<MeasuredTemplatePF2e>;
     prepareBaseData(): void;
     prepareSiblingData(this: SpellPF2e<ActorPF2e>): void;
     prepareActorData(): void;

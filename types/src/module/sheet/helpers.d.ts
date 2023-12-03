@@ -13,7 +13,18 @@ declare function createTagifyTraits(traits: Iterable<string>, { sourceTraits, re
  * This method is meant to be called in _getSubmitData().
  */
 declare function processTagifyInSubmitData(form: HTMLFormElement, data: Record<string, unknown>): void;
-declare function getAdjustment(value: number, reference: number): AdjustedValue;
+/**
+ * Get a CSS class for an adjusted value
+ * @param value A value from prepared/derived data
+ * @param base A value from base/source data
+ * @param options.better Which value is "better" in the context of the data: default is "higher"
+ **/
+declare function getAdjustment(value: number, base: number, { better }?: {
+    better?: "higher" | "lower";
+}): "adjusted-higher" | "adjusted-lower" | null;
+declare function getAdjustedValue(value: number, reference: number, options?: {
+    better?: "higher" | "lower";
+}): AdjustedValue;
 interface AdjustedValue {
     value: number;
     adjustedHigher: boolean;
@@ -42,5 +53,5 @@ interface TraitTagifyEntry {
     value: string;
     readonly: boolean;
 }
-export { createSheetOptions, createSheetTags, createTagifyTraits, getAdjustment, maintainFocusInRender, processTagifyInSubmitData, };
+export { createSheetOptions, createSheetTags, createTagifyTraits, getAdjustedValue, getAdjustment, maintainFocusInRender, processTagifyInSubmitData, };
 export type { AdjustedValue, SheetOption, SheetOptions, TraitTagifyEntry };
