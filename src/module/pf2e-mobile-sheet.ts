@@ -287,7 +287,6 @@ canvas.scene?.createEmbeddedDocuments("Note", [
 	},
 ]);
 
-
 Hooks.on("renderCharacterSheetPF2e", (_app: Application, html: JQuery) => {
 	characterSheetResizeObserver.observe(html[0]);
 	// if (!checkMobile()) return;
