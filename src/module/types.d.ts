@@ -42,16 +42,15 @@ declare global {
 
 	enum WRAPPER_TYPES {
 		"WRAPPER" = 1,
-		"MIXED"   = 2,
-		"OVERRIDE"= 3
+		"MIXED" = 2,
+		"OVERRIDE" = 3,
 	}
 
 	enum PERF_MODES {
-		"NORMAL"= 1,
-		"AUTO"= 2,
-		"FAST"= 3
+		"NORMAL" = 1,
+		"AUTO" = 2,
+		"FAST" = 3,
 	}
-
 
 	export class libWrapper {
 		// Properties
@@ -100,18 +99,18 @@ declare global {
 		static get InvalidWrapperChainError(): Error;
 
 		/* Undocumented on purpose, do not use */
-		static get onUnhandledError(): ((error: Error, prepend_stack: any = undefined) => void);
+		static get onUnhandledError(): (error: Error, prepend_stack: any = undefined) => void;
 
 		// Enums - First introduced in v1.9.0.0
 		static get WRAPPER(): WRAPPER_TYPES.WRAPPER;
 
-		static get MIXED(): WRAPPER_TYPES.MIXED
+		static get MIXED(): WRAPPER_TYPES.MIXED;
 
-		static get OVERRIDE(): WRAPPER_TYPES.OVERRIDE
+		static get OVERRIDE(): WRAPPER_TYPES.OVERRIDE;
 
-		static get PERF_NORMAL():PERF_MODES.NORMAL;
+		static get PERF_NORMAL(): PERF_MODES.NORMAL;
 
-		static get PERF_AUTO():PERF_MODES.AUTO;
+		static get PERF_AUTO(): PERF_MODES.AUTO;
 
 		static get PERF_FAST(): PERF_MODES.FAST;
 
@@ -228,7 +227,7 @@ declare global {
 				chain: boolean;
 				perf_mode: string;
 				bind: any[];
-			} = {}
+			} = {},
 		): number;
 
 		/**
@@ -287,7 +286,7 @@ declare global {
 			package_id: string,
 			ignore_ids: string | string[],
 			targets: string | string[],
-			options: { ignore_errors: boolean } = {}
+			options: { ignore_errors: boolean } = {},
 		);
 	}
 }
