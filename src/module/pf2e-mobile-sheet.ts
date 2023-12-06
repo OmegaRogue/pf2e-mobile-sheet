@@ -279,14 +279,6 @@ Hooks.on("renderSettingsConfig", (_app: Application, html: JQuery) => {
 	}
 });
 
-canvas.scene?.createEmbeddedDocuments("Note", [
-	{
-		entryId: "",
-		x: 0,
-		y: 0,
-	},
-]);
-
 Hooks.on("renderCharacterSheetPF2e", (_app: Application, html: JQuery) => {
 	characterSheetResizeObserver.observe(html[0]);
 	// if (!checkMobile()) return;
