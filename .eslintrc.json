@@ -18,7 +18,7 @@
 	},
 	"ignorePatterns": ["dist/"],
 	"rules": {
-		"indent": ["error", "tab", { "SwitchCase": 1 }],
+		"indent": ["warn", "tab", { "SwitchCase": 1 }],
 		"eqeqeq": ["error", "always"],
 		"import/named": "off",
 		//		"import/no-default-export": "error",

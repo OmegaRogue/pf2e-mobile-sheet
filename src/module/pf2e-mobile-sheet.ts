@@ -80,7 +80,7 @@ $(window).on("resize", dragEndFullscreenWindow);
 const characterSheetResizeObserver = new ResizeObserver((entries) => {
 	for (const entry of entries) {
 		const html = $(entry.target);
-		if (entry.contentRect.width < 800 && !entries[0].target.classList.contains("mobile")) {
+		if (entry.contentRect.width < 745 && !entries[0].target.classList.contains("mobile")) {
 			log(false, "sidebar found", html.find("aside").length);
 			if (html.find(".sheet-navigation #sidebar-tab").length === 0) {
 				const sidebarTabButton = $(
@@ -278,6 +278,16 @@ Hooks.on("renderSettingsConfig", (_app: Application, html: JQuery) => {
 		submitButton.on("click", () => form.trigger("submit"));
 	}
 });
+
+canvas.scene?.createEmbeddedDocuments("Note", [
+	{
+		entryId: "",
+		x: 0,
+		y: 0,
+	},
+]);
+
+
 Hooks.on("renderCharacterSheetPF2e", (_app: Application, html: JQuery) => {
 	characterSheetResizeObserver.observe(html[0]);
 	// if (!checkMobile()) return;
