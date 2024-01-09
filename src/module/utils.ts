@@ -22,7 +22,7 @@ const isMobile = window.navigator.userAgent.includes("Mobile");
 
 export function checkMobile(): boolean {
 	if (getDebug()) {
-		return true;
+		return false;
 	}
 	switch (game.settings.get(MODULE_ID, "mobile-mode")) {
 		case "off":

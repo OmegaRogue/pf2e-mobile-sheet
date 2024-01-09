@@ -19,25 +19,25 @@ declare global {
 
 		executeAsGM(handler: "checkTargets", userId: string, tokenId: string): Promise<boolean>;
 
-		executeAsGM(
-			handler: "targetToken",
-			tokenDocumentId: string,
-			userSourceId: string,
-			releaseOthers: boolean,
-		): Promise<void>;
+		// executeAsGM(
+		// 	handler: "targetToken",
+		// 	tokenDocumentId: string,
+		// 	userSourceId: string,
+		// 	releaseOthers: boolean,
+		// ): Promise<void>;
 
 		executeAsGM(handler: "pingToken", tokenDocumentId: string): Promise<boolean>;
 
 		executeAsGM(handler: "getTargets", userId: string): Promise<Set<string> | undefined>;
 
-		executeAsGM(
-			handler: "setTarget",
-			tokenId: string,
-			userId: string,
-			targeted?: boolean,
-			releaseOthers?: boolean,
-			groupSelection?: boolean,
-		): Promise<void>;
+		// executeAsGM(
+		// 	handler: "setTarget",
+		// 	tokenId: string,
+		// 	userId: string,
+		// 	targeted?: boolean,
+		// 	releaseOthers?: boolean,
+		// 	groupSelection?: boolean,
+		// ): Promise<void>;
 	}
 
 	enum WRAPPER_TYPES {

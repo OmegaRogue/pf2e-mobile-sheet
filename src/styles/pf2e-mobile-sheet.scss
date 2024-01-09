@@ -17,6 +17,14 @@
 			grid-template-areas: "header " "nav    " "content" !important;
 		}
 
+		&.actor.sheet {
+
+			nav.sheet-navigation {
+				flex-wrap: wrap;
+				height: unset;
+			}
+		}
+
 		&.character {
 			.crb-style {
 				aside {
@@ -26,12 +34,26 @@
 						display: none;
 					}
 				}
+
 				.pf-rank {
 					width: unset;
 				}
 
-				nav.sheet-navigation .panel-title {
-					width: unset;
+				nav.sheet-navigation {
+					.item {
+						font-size: 1.5em;
+						height: 2rem;
+						width: 2rem;
+
+						.action-glyph {
+							font-size: 1.5rem;
+						}
+					}
+
+					.panel-title {
+						display: none;
+						width: unset;
+					}
 				}
 
 				.sheet-body .sheet-content .tab {
@@ -39,13 +61,32 @@
 						.character-details {
 							.abcd {
 								grid-template-columns: repeat(2, 1fr);
+
+								.detail.deity {
+									grid-column: span 2;
+								}
 							}
 
-							.pc_deity h3 {
-								margin-left: 0.5em !important;
-							}
+
 						}
 					}
+
+					&.actions-panel {
+						.button-group {
+							flex-wrap: wrap !important;
+						}
+
+						button.tag.damage:after {
+							content: '(' attr(data-tooltip) ')';
+						}
+					}
+
+					&.proficiencies {
+						.proficiencies-list .button-group button {
+							width: unset !important;
+						}
+					}
+
 					&:not(.inventory, .actions) {
 						//padding-right: 0;
 					}
@@ -61,45 +102,91 @@
 				}
 			}
 
-			&:not(.dark-theme) .sheet-content .tab.sidebar {
+			&:not([data-color-scheme=dark]) .sheet-content .tab.sidebar {
 				background-color: var(--primary);
 			}
 		}
 
 		&.familiar {
-			:is(.familiar-sheet-header .header-content .details-section, .familiar-section .familiar-content) {
-				flex-direction: column;
-			}
-
-			.familiar-sheet-header .header-content {
-				.charname {
-					flex-wrap: wrap;
-
-					.charname-value {
-						flex-basis: auto;
-					}
-				}
+			.header-content {
+				overflow: hidden;
 
 				.sub-header {
 					flex-direction: column;
 				}
 
-				.details-section .defenses-section {
-					flex-direction: initial;
+				.details-section {
+					flex-direction: column;
 				}
+			}
+
+			.main-section {
+				flex-direction: column;
+				overflow: hidden scroll;
+
+				.skills-content {
+					width: unset;
+
+					.skills-list {
+						display: grid;
+						grid-template-columns: repeat(2, 1fr);
+					}
+				}
+
+				.main-container {
+					overflow: initial;
+				}
+			}
+		}
+
+		&.party {
+			[data-tab="overview"] .member {
+				height: unset;
+				padding-right: 0.2em;
+
+				.main-stats {
+					display: grid;
+					gap: 0.3rem;
+					grid-template-columns: repeat(3, 1fr);
+				}
+
+				.name a {
+					max-width: 10em;
+					overflow: hidden;
+					text-overflow: ellipsis;
+				}
+			}
+
+			.tab.active {
+				flex-direction: column;
+				overflow: hidden scroll;
+			}
+
+			.sidebar {
+				overflow: unset;
+				width: unset;
+			}
+
+			.content {
+				overflow: unset;
 			}
 		}
 	}
 }
 
 .mobile-pf2e {
+	.app {
+		margin: 0;
+	}
+
 	:is(#ui-left, #ui-middle) {
 		display: none;
 	}
 
 	:is(#ui-right, #ui-right #sidebar) {
-		width: 100%;
 		margin: 0;
+		padding: 0;
+		width: 100%;
 	}
 
 	#chat-form textarea {
@@ -267,42 +354,6 @@
 
 		.list-buttons {
 			display: none;
-		}
-	}
-
-	.sheet.party {
-		[data-tab="overview"] .member {
-			height: unset;
-			padding-right: 0.2em;
-
-			.main-stats {
-				gap: 0.3rem;
-
-				.value {
-					padding: 0 !important;
-					max-width: unset !important;
-				}
-			}
-
-			.name a {
-				max-width: 10em;
-				text-overflow: ellipsis;
-				overflow: hidden;
-			}
-		}
-
-		.tab.active {
-			flex-direction: column;
-			overflow: hidden scroll;
-		}
-
-		.sidebar {
-			width: unset;
-			overflow: unset;
-		}
-
-		.content {
-			overflow: unset;
 		}
 	}
 }

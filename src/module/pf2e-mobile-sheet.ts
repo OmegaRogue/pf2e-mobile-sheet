@@ -7,7 +7,6 @@ import { CombatantPF2e } from "@module/encounter/combatant.js";
 import { EncounterPF2e } from "@module/encounter/document.js";
 import { TokenDocumentPF2e } from "@scene/token-document/document.js";
 import { ScenePF2e } from "@scene/document.js";
-import { socket } from "./socketfuncs.ts";
 import { checkMobile, checkMobileWithOverride, getDebug, log } from "./utils.js";
 import "styles/pf2e-mobile-sheet.scss";
 
@@ -43,6 +42,7 @@ Hooks.once("ready", async () => {
 	collapseButton.removeClass("fa-caret-right");
 	collapseButton.addClass("fa-bars");
 	$("#sidebar > nav#sidebar-tabs > a.collapse").prependTo($("#sidebar-tabs"));
+	$("canvas#board").remove();
 });
 Hooks.on("renderChatLog", async () => {
 	if (!checkMobileWithOverride("send-button")) return;
@@ -76,9 +76,41 @@ async function dragEndFullscreenWindow() {
 }
 
 $(window).on("resize", dragEndFullscreenWindow);
-
+const partySheetResizeObserver = new ResizeObserver((entries) => {
+	for (const entry of entries) {
+		if (!entry.target.id.startsWith("PartySheetPF2e")) continue;
+		// log(true, entry.contentRect);
+		const html = $(entry.target);
+		if (entry.contentRect.width < 660 && !entries[0].target.classList.contains("mobile")) {
+			log(true, "mobile");
+			entries[0].target.classList.add("mobile");
+			html.find("");
+		} else if (entry.contentRect.width >= 660 && entries[0].target.classList.contains("mobile")) {
+			html.find("");
+			entries[0].target.classList.remove("mobile");
+			log(true, "not mobile");
+		}
+	}
+});
+const familiarSheetResizeObserver = new ResizeObserver((entries) => {
+	for (const entry of entries) {
+		if (!entry.target.id.startsWith("FamiliarSheetPF2e")) continue;
+		// log(true, entry.contentRect);
+		const html = $(entry.target);
+		if (entry.contentRect.width < 535 && !entries[0].target.classList.contains("mobile")) {
+			log(true, "mobile");
+			entries[0].target.classList.add("mobile");
+			html.find("");
+		} else if (entry.contentRect.width >= 535 && entries[0].target.classList.contains("mobile")) {
+			html.find("");
+			entries[0].target.classList.remove("mobile");
+			log(true, "not mobile");
+		}
+	}
+});
 const characterSheetResizeObserver = new ResizeObserver((entries) => {
 	for (const entry of entries) {
+		if (!entry.target.id.startsWith("CharacterSheetPF2e")) continue;
 		const html = $(entry.target);
 		if (entry.contentRect.width < 745 && !entries[0].target.classList.contains("mobile")) {
 			log(false, "sidebar found", html.find("aside").length);
@@ -103,7 +135,7 @@ const characterSheetResizeObserver = new ResizeObserver((entries) => {
 			}
 			entries[0].target.classList.add("mobile");
 
-			html.find(".proficiencies-list .skill-prof.button-group h6").text(
+			html.find(".proficiencies-list .button-group button").text(
 				game.i18n.localize(`pf2e-mobile-sheet.ModifiersTitleShort`),
 			);
 			for (let i = 0; i < 5; i++) {
@@ -111,10 +143,10 @@ const characterSheetResizeObserver = new ResizeObserver((entries) => {
 					game.i18n.localize(`pf2e-mobile-sheet.ProficiencyLevel${i}Short`),
 				);
 			}
-			log(false, "mobile");
+			log(false, "mobile", entry);
 			log(false, "sidebar found", html.find("aside").length);
-		} else if (entry.contentRect.width >= 800 && entries[0].target.classList.contains("mobile")) {
-			log(false, "sidebar found", html.find("aside").length);
+		} else if (entry.contentRect.width >= 745 && entries[0].target.classList.contains("mobile")) {
+			log(false, "sidebar found off", html.find("aside").length);
 			entries[0].target.classList.remove("mobile");
 			html.find(".window-content form").prepend(html.find(".tab.sidebar aside").detach());
 			const sidebarTab = html.find(".tab.sidebar.active");
@@ -122,9 +154,7 @@ const characterSheetResizeObserver = new ResizeObserver((entries) => {
 				sidebarTab.removeClass("active");
 				html.find('a[data-tab="character"]')[0].click();
 			}
-			html.find(".proficiencies-list .skill-prof.button-group h6").text(
-				game.i18n.localize(`PF2E.ModifiersTitle`),
-			);
+			html.find(".proficiencies-list .button-group button").text(game.i18n.localize(`PF2E.ModifiersTitle`));
 			for (let i = 0; i < 5; i++) {
 				html.find(`.skill-proficiency.pf-rank option[value=${i}]`).text(
 					game.i18n.localize(`PF2E.ProficiencyLevel${i}`),
@@ -142,6 +172,13 @@ const characterSheetResizeObserver = new ResizeObserver((entries) => {
 
 Hooks.on("closeCharacterSheetPF2e", (_app: Application, html: JQuery) => {
 	characterSheetResizeObserver.unobserve(html[0]);
+});
+
+Hooks.on("closeFamiliarSheetPF2e", (_app: Application, html: JQuery) => {
+	familiarSheetResizeObserver.unobserve(html[0]);
+});
+Hooks.on("closePartySheetPF2e", (_app: Application, html: JQuery) => {
+	partySheetResizeObserver.unobserve(html[0]);
 });
 
 async function renderFullscreenWindow(_app: Application, html: JQuery): Promise<void> {
@@ -191,47 +228,11 @@ async function updateCombatTracker(
 	if (!origin) return;
 	for (const combatant of combatants) {
 		let dist = 0;
-		let isTargeted = false;
 		const target = scene.tokens.get(combatant.tokenId ?? "");
 		if (!target) return;
-		if (canvas.grid !== undefined) {
-			dist = canvas.grid.measureDistance(origin.center, target.center, { gridSpaces: true });
-			isTargeted = game.user.targets.find((t) => t.id === target.id) !== undefined;
-		} else {
-			dist = await socket.executeAsGM("distance", origin.id, target.id);
-			isTargeted = await socket.executeAsGM("checkTargets", game.user.id, origin.id);
-		}
+		dist = canvas.grid.measureDistance(origin.center, target.center, { gridSpaces: true });
 		const combatantDisplay = $(`#combat-tracker li[data-combatant-id=${combatant.id}]`);
-		const controls = combatantDisplay.find(".combatant-controls");
 		// let targetIndicator = combatantDisplay.find(".users-targeting");
-		if (controls.find("[data-control=toggleTarget]").length === 0) {
-			const targetButton = $(
-				`<a class="combatant-control" data-control="toggleTarget" data-tooltip="COMBAT.ToggleTargeting" aria-describedby="tooltip"><i class="fa-duotone fa-location-crosshairs fa-fw"></i></a>`,
-			);
-			targetButton.on("click", async () => {
-				await socket.executeAsGM("targetToken", target.id, game.user.id, false);
-				isTargeted = !isTargeted;
-				if (isTargeted) {
-					targetButton.addClass("active");
-					// $(
-					// 	`<i class="fa-duotone fa-location-crosshairs fa-fw" style="color: ${game.user.color};"></i>`,
-					// ).appendTo(targetIndicator);
-				} else {
-					targetButton.removeClass("active");
-					// targetIndicator.children().remove();
-				}
-			});
-			targetButton.insertBefore(controls.find(".token-effects"));
-		}
-		if (controls.find("[data-control=pingCombatant]").length === 0) {
-			const pingButton = $(
-				`<a class="combatant-control" aria-label="${game.i18n.localize(
-					"COMBAT.PingCombatant",
-				)}" role="button" data-tooltip="COMBAT.PingCombatant" data-control="pingCombatant"><i class="fa-solid fa-fw fa-signal-stream"></i></a>`,
-			);
-			pingButton.on("click", async () => socket.executeAsGM("pingToken", target.id));
-			pingButton.insertBefore(controls.find(".token-effects"));
-		}
 
 		if (combatantDisplay.find(".distance").length === 0) {
 			$(`<span class="distance"></span>`).insertAfter(combatantDisplay.find("h4 .name"));
@@ -281,21 +282,33 @@ Hooks.on("renderSettingsConfig", (_app: Application, html: JQuery) => {
 
 Hooks.on("renderCharacterSheetPF2e", (_app: Application, html: JQuery) => {
 	characterSheetResizeObserver.observe(html[0]);
-	// if (!checkMobile()) return;
+	// if(html.hasClass("mobile")) {
+	// 	if (html.find(".sheet-navigation #sidebar-tab").length === 0) {
+	// 		const sidebarTabButton = $(
+	// 			`<a class="item" id="sidebar-tab" data-tab="sidebar" title="${game.i18n.localize(
+	// 				"pf2e-mobile-sheet.sidebar-tab",
+	// 			)}"><i class="fa-solid fa-bars"></i></a>`,
+	// 		);
+	// 		const afterButton = html.find(".sheet-navigation .panel-title");
+	// 		sidebarTabButton.insertAfter(afterButton);
+	// 	}
 	//
-	// const sidebarTabButton = $(
-	// 	`<a class="item" id="sidebar-tab" data-tab="sidebar" title="${game.i18n.localize(
-	// 		"pf2e-mobile-sheet.sidebar-tab",
-	// 	)}"><i class="fa-solid fa-bars"></i></a>`,
-	// );
-	// const afterButton = html.find(".sheet-navigation .navigation-title");
-	// if (html.find(".sheet-navigation #sidebar-tab").length === 0) sidebarTabButton.insertAfter(afterButton);
-	// const sidebarTab = $(`<div class="tab sidebar" data-group="primary" data-tab="sidebar"/>`);
-	// const aside = html.find("aside");
-	// aside.css("background-image", "none");
-	// aside.find(".logo").remove();
-	// sidebarTab.append(aside.detach());
-	// if (html.find(".sheet-content .tab.sidebar").length === 0) html.find(".sheet-content").append(sidebarTab);
+	// 	const aside = html.find("aside");
+	//
+	// 	if (html.find(".sheet-content .tab.sidebar").length === 0) {
+	// 		const sidebarTab = $(`<div class="tab sidebar" data-group="primary" data-tab="sidebar"/>`);
+	// 		sidebarTab.append(aside.detach());
+	// 		html.find(".sheet-content").append(sidebarTab);
+	// 	} else {
+	// 		html.find(".sheet-content .tab.sidebar").append(aside.detach());
+	// 	}
+	// }
+});
+Hooks.on("renderFamiliarSheetPF2e", (_app: Application, html: JQuery) => {
+	familiarSheetResizeObserver.observe(html[0]);
+});
+Hooks.on("renderPartySheetPF2e", (_app: Application, html: JQuery) => {
+	partySheetResizeObserver.observe(html[0]);
 });
 
 Hooks.on("collapseSidebar", (_, collapsed: boolean) => {
