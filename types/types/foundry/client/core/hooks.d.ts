@@ -37,9 +37,9 @@ declare global {
         ]
     >;
     type HookParamsRender<T extends Application, N extends string> = HookParameters<
-        `render${N}`,
-        [T, JQuery, ReturnType<T["getData"]>]
-    >;
+		`render${N}`,
+		[T, JQuery, Awaited<ReturnType<T["getData"]>>]
+	>;
     type HookParamsRenderChatMessage = HookParameters<
         "renderChatMessage",
         [ChatMessage, JQuery, foundry.documents.ChatMessageSource]

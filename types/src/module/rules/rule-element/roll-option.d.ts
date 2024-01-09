@@ -1,8 +1,8 @@
 import { DataUnionField, PredicateField, StrictBooleanField, StrictStringField } from "@system/schema-data-fields.ts";
 import type { ArrayField, BooleanField, SchemaField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { AELikeDataPrepPhase } from "./ae-like.ts";
-import { ResolvableValueField } from "./data.ts";
-import { RuleElementOptions, RuleElementPF2e, RuleElementSchema, RuleElementSource } from "./index.ts";
+import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
+import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
 /**
  * Set a roll option at a specificed domain
  * @category RuleElement
@@ -32,8 +32,9 @@ declare class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
     /** Remove the parent effect if configured so */
     afterRoll({ domains, rollOptions }: RuleElementPF2e.AfterRollParams): Promise<void>;
 }
-interface RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema>, ModelPropsFromSchema<RollOptionSchema> {
-    value: boolean | string;
+
+interface RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema>, ModelPropsFromRESchema<RollOptionSchema> {
+	value: boolean | string;
 }
 type RollOptionSchema = RuleElementSchema & {
     domain: StringField<string, string, true, false, true>;

@@ -426,21 +426,22 @@ declare global {
         static fromTerms<T extends Roll>(this: ConstructorOf<T>, terms: RollTerm[], options?: RollOptions): T;
     }
 
-    type RollOptions = {
-        [key: string]: unknown;
-        flavor?: string;
-    };
+	interface RollOptions {
+		flavor?: string;
 
-    interface RollJSON {
-        class: string;
-        options: Record<string, unknown>;
-        data?: RollOptions;
-        dice: DiceTerm[];
-        formula: string;
-        terms: RollTerm[] | RollTermData[];
-        total?: number;
-        evaluated: boolean;
-    }
+		[key: string]: JSONValue;
+	}
+
+	interface RollJSON {
+		class: string;
+		options: Record<string, unknown>;
+		data?: RollOptions;
+		dice: DiceTerm[];
+		formula: string;
+		terms: RollTerm[] | RollTermData[];
+		total?: number;
+		evaluated: boolean;
+	}
 
     interface RollRenderOptions {
         /** Flavor text to include */

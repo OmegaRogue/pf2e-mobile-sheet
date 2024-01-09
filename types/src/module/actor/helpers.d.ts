@@ -10,6 +10,8 @@ import { AuraEffectData, DamageRollContextParams } from "./types.ts";
  * Reset and rerender a provided list of actors. Omit argument to reset all world and synthetic actors
  * @param [actors] A list of actors to refresh: if none are provided, all world and synthetic actors are retrieved
  * @param [options] Render options for actor sheets and tokens
+ * @param [options.sheets=true] Render actor sheets
+ * @param [options.tokens=false] Redraw tokens
  */
 declare function resetActors(actors?: Iterable<ActorPF2e>, options?: ResetActorsRenderOptions): Promise<void>;
 interface ResetActorsRenderOptions {
@@ -38,7 +40,7 @@ interface MAPData {
 /** Create roll options pertaining to the active encounter and the actor's participant */
 declare function createEncounterRollOptions(actor: ActorPF2e): Record<string, boolean>;
 /** Whether flanking puts this actor off-guard */
-declare function isOffGuardFromFlanking(target: ActorPF2e, origin: ActorPF2e): boolean;
+declare function isOffGuardFromFlanking(target: ActorPF2e, origin: ActorPF2e, originRollOptions: string[]): boolean;
 declare function getStrikeAttackDomains(weapon: WeaponPF2e<ActorPF2e> | MeleePF2e<ActorPF2e>, proficiencyRank: ZeroToFour | null, baseRollOptions: string[] | Set<string>): string[];
 declare function getStrikeDamageDomains(weapon: WeaponPF2e<ActorPF2e> | MeleePF2e<ActorPF2e>, proficiencyRank: ZeroToFour | null): string[];
 /** Create a strike statistic from a melee item: for use by NPCs and Hazards */

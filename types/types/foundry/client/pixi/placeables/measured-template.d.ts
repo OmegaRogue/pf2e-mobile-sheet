@@ -1,131 +1,150 @@
 /**
- * A MeasuredTemplate is an implementation of PlaceableObject which represents an area of the canvas grid which is
- * covered by some effect.
- *
- * @example
- * MeasuredTemplate.create({
- *   t: "cone",
- *   user: game.user._id,
- *   x: 1000,
- *   y: 1000,
- *   direction: 0.45,
- *   angle: 63.13,
- *   distance: 30,
- *   borderColor: "#FF0000",
- *   fillColor: "#FF3366",
- *   texture: "tiles/fire.jpg"
- * });
+ * A type of Placeable Object which highlights an area of the grid as covered by some area of effect.
+ * @category - Canvas
+ * @see {@link MeasuredTemplateDocument}
+ * @see {@link TemplateLayer}
  */
 declare class MeasuredTemplate<
-    TDocument extends MeasuredTemplateDocument<Scene | null> = MeasuredTemplateDocument<Scene | null>,
+	TDocument extends MeasuredTemplateDocument<Scene | null> = MeasuredTemplateDocument<Scene | null>,
 > extends PlaceableObject<TDocument> {
-    /** The template shape used for testing point intersection */
-    shape: PIXI.Circle | PIXI.Ellipse | PIXI.Polygon | PIXI.Rectangle | PIXI.RoundedRectangle;
+	/** The template shape used for testing point intersection */
+	shape: PIXI.Circle | PIXI.Ellipse | PIXI.Polygon | PIXI.Rectangle | PIXI.RoundedRectangle;
 
-    /** The tiling texture used for this template, if any */
-    texture: PIXI.Texture | undefined;
+	/** The tiling texture used for this template, if any */
+	texture: PIXI.Texture | undefined;
 
-    /** The template graphics */
-    template: PIXI.Graphics;
+	/** The template graphics */
+	template: PIXI.Graphics;
 
-    /** The UI frame container which depicts Token metadata and status, displayed in the ControlsLayer. */
-    hud: ObjectHUD<this>;
+	/** The template control icon */
+	controlIcon: ControlIcon;
 
-    /** Internal property used to configure the control border thickness */
-    protected _borderThickness: number;
+	/** The measurement ruler label */
+	ruler: PreciseText;
 
-    static override embeddedName: "MeasuredTemplate";
+	/** Internal property used to configure the control border thickness */
+	protected _borderThickness: number;
 
-    /* -------------------------------------------- */
-    /*  Properties                                  */
-    /* -------------------------------------------- */
+	static override embeddedName: "MeasuredTemplate";
 
-    override get bounds(): PIXI.Rectangle;
+	static override RENDER_FLAGS: {
+		redraw: { propagate: ["refresh"] };
+		refresh: { propagate: ["refreshState", "refreshShape"]; alias: true };
+		refreshState: {};
+		refreshShape: { propagate: ["refreshPosition", "refreshGrid", "refreshText", "refreshTemplate"] };
+		refreshTemplate: {};
+		refreshPosition: { propagate: ["refreshGrid"] };
+		refreshGrid: {};
+		refreshText: {};
+	};
 
-    /** A convenience accessor for the border color as a numeric hex code */
-    get borderColor(): number;
+	/* -------------------------------------------- */
+	/*  Properties                                  */
+	/* -------------------------------------------- */
 
-    /** A convenience accessor for the fill color as a numeric hex code */
-    get fillColor(): number;
+	override get bounds(): PIXI.Rectangle;
 
-    /** A flag for whether the current User has full ownership over the MeasuredTemplate document. */
-    get owner(): boolean;
+	/** A convenience accessor for the border color as a numeric hex code */
+	get borderColor(): number;
 
-    /** Is this MeasuredTemplate currently visible on the Canvas? */
-    get isVisible(): boolean;
+	/** A convenience accessor for the fill color as a numeric hex code */
+	get fillColor(): number;
 
-    /** A unique identifier which is used to uniquely identify related objects like a template effect or grid highlight. */
-    get highlightId(): string;
+	/** A flag for whether the current User has full ownership over the MeasuredTemplate document. */
+	get owner(): boolean;
 
-    /* -------------------------------------------- */
-    /*  Rendering                                   */
-    /* -------------------------------------------- */
+	/** Is this MeasuredTemplate currently visible on the Canvas? */
+	get isVisible(): boolean;
 
-    protected _draw(): Promise<void>;
+	/** A unique identifier which is used to uniquely identify related objects like a template effect or grid highlight. */
+	get highlightId(): string;
 
-    override destroy(options?: boolean | PIXI.IDestroyOptions): void;
+	// Undocumented
+	ray?: Ray;
 
-    /** Draw the HUD container which provides an interface for managing this template */
-    protected _drawHUD(): ObjectHUD<this>;
+	/* -------------------------------------------- */
+	/*  Initial Drawing                             */
+	/* -------------------------------------------- */
 
-    /** Draw the ControlIcon for the MeasuredTemplate */
-    protected _drawControlIcon(): ControlIcon;
+	protected _draw(): Promise<void>;
 
-    /** Draw the Text label used for the MeasuredTemplate */
-    protected _drawRulerText(): PIXI.Text;
+	override _destroy(options?: boolean | PIXI.IDestroyOptions): void;
 
-    override refresh(): this;
+	/* -------------------------------------------- */
+	/*  Incremental Refresh                         */
 
-    protected override _refresh(options: object): void;
+	/* -------------------------------------------- */
 
-    /** Get a Circular area of effect given a radius of effect */
-    static getCircleShape(distance: number): PIXI.Circle;
+	protected override _applyRenderFlags(flags: { [K in keyof typeof MeasuredTemplate.RENDER_FLAGS]?: boolean }): void;
 
-    /** Get a Conical area of effect given a direction, angle, and distance */
-    static getConeShape(direction: number, angle: number, distance: number): PIXI.Polygon;
+	protected override _getTargetAlpha(): number;
 
-    /** Get a Rectangular area of effect given a width and height */
-    static getRectShape(direction: number, distance: number): PIXI.Rectangle;
+	/**
+	 * Compute the geometry for the template using its document data.
+	 * Subclasses can override this method to take control over how different shapes are rendered.
+	 */
+	protected _computeShape(): PIXI.Circle | PIXI.Rectangle | PIXI.Polygon;
 
-    /** Get a rotated Rectangular area of effect given a width, height, and direction */
-    static getRayShape(direction: number, distance: number, width: number): PIXI.Polygon;
+	/**
+	 * Refresh the display of the template outline and shape.
+	 * Subclasses may override this method to take control over how the template is visually rendered.
+	 */
+	protected _refreshTemplate(): void;
 
-    /** Draw the rotation control handle and assign event listeners */
-    protected _drawRotationHandle(radius: number): void;
+	/** Get a Circular area of effect given a radius of effect */
+	static getCircleShape(distance: number): PIXI.Circle;
 
-    /** Update the displayed ruler tooltip text */
-    protected _refreshRulerText(): void;
+	/** Get a Conical area of effect given a direction, angle, and distance */
+	static getConeShape(direction: number, angle: number, distance: number): PIXI.Polygon;
 
-    /** Highlight the grid squares which should be shown under the area of effect */
-    highlightGrid(): void;
+	/** Get a Rectangular area of effect given a width and height */
+	static getRectShape(direction: number, distance: number): PIXI.Rectangle;
 
-    /* -------------------------------------------- */
-    /*  Methods                                     */
-    /* -------------------------------------------- */
+	/** Get a rotated Rectangular area of effect given a width, height, and direction */
+	static getRayShape(direction: number, distance: number, width: number): PIXI.Polygon;
 
-    override rotate(angle: number, snap: number): Promise<TDocument | undefined>;
+	/** Draw the rotation control handle and assign event listeners */
+	protected _drawRotationHandle(radius: number): void;
 
-    /* -------------------------------------------- */
-    /*  Interactivity                               */
-    /* -------------------------------------------- */
+	/** Update the displayed ruler tooltip text */
+	protected _refreshRulerText(): void;
 
-    protected override _canControl(user: User, event?: PIXI.FederatedEvent): boolean;
+	/** Highlight the grid squares which should be shown under the area of effect */
+	highlightGrid(): void;
 
-    protected override _canConfigure(user: User, event?: PIXI.FederatedEvent): boolean;
+	/** Get the shape to highlight on a Scene which uses grid-less mode. */
+	protected _getGridHighlightShape(): PIXI.Polygon | PIXI.Circle | PIXI.Rectangle;
 
-    protected override _canView(user: User, event?: PIXI.FederatedEvent): boolean;
+	/** Get an array of points which define top-left grid spaces to highlight for square or hexagonal grids. */
+	protected _getGridHighlightPositions(): Point[];
 
-    /* -------------------------------------------- */
-    /*  Socket Listeners and Handlers               */
-    /* -------------------------------------------- */
+	/* -------------------------------------------- */
+	/*  Methods                                     */
+	/* -------------------------------------------- */
 
-    protected override _onUpdate(
-        changed: DeepPartial<TDocument["_source"]>,
-        options: DocumentModificationContext<TDocument["parent"]>,
-        userId: string,
-    ): void;
+	override rotate(angle: number, snap: number): Promise<TDocument | undefined>;
 
-    protected override _onDelete(options: DocumentModificationContext<TDocument["parent"]>, userId: string): void;
+	/* -------------------------------------------- */
+	/*  Interactivity                               */
+	/* -------------------------------------------- */
+
+	protected override _canControl(user: User, event?: PIXI.FederatedEvent): boolean;
+
+	protected override _canConfigure(user: User, event?: PIXI.FederatedEvent): boolean;
+
+	protected override _canView(user: User, event?: PIXI.FederatedEvent): boolean;
+
+	/* -------------------------------------------- */
+	/*  Socket Listeners and Handlers               */
+	/* -------------------------------------------- */
+
+	protected override _onUpdate(
+		changed: DeepPartial<TDocument["_source"]>,
+		options: DocumentModificationContext<TDocument["parent"]>,
+		userId: string,
+	): void;
+
+	protected override _onDelete(options: DocumentModificationContext<TDocument["parent"]>, userId: string): void;
 }
 
 declare interface MeasuredTemplate<

@@ -7,6 +7,7 @@ declare class TokenImageForm extends RuleElementForm<RuleElementSource, TokenIma
     activateListeners(html: HTMLElement): void;
 }
 interface TokenImageFormSheetData extends RuleElementFormSheetData<RuleElementSource, TokenImageRuleElement> {
-    scaleEnabled: boolean;
+	alphaEnabled: boolean;
+	scaleEnabled: boolean;
 }
 export { TokenImageForm };

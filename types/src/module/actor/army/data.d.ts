@@ -1,6 +1,6 @@
 import { ActorAttributes, ActorAttributesSource, ActorDetails, ActorDetailsSource, ActorHitPoints, ActorSystemData, ActorSystemSource, ActorTraitsData, ActorTraitsSource, BaseActorSourcePF2e, BaseHitPointsSource } from "@actor/data/base.ts";
-import { ActorSizePF2e } from "@actor/data/size.ts";
 import { ValueAndMax, ValueAndMaybeMax } from "@module/data.ts";
+import { PerceptionTraceData } from "@system/statistic/perception.ts";
 import { Alignment } from "./types.ts";
 import { ARMY_TYPES } from "./values.ts";
 type ArmySource = BaseActorSourcePF2e<"army", ArmySystemSource>;
@@ -33,7 +33,6 @@ interface ArmyArmorClass {
 interface ArmyTraitsSource extends Required<ActorTraitsSource<string>> {
     languages?: never;
     type: (typeof ARMY_TYPES)[number];
-    senses?: never;
     alignment: Alignment;
 }
 interface ArmyDetailsSource extends Required<ActorDetailsSource> {
@@ -42,25 +41,28 @@ interface ArmyDetailsSource extends Required<ActorDetailsSource> {
     description: string;
 }
 interface ArmySystemData extends Omit<ArmySystemSource, "attributes">, ActorSystemData {
-    attributes: ArmyAttributes;
-    traits: ArmyTraits;
-    details: ArmyDetails;
-    resources: ArmyResourcesData;
-    saves: ArmySystemSource["saves"] & {
-        strongSave: "maneuver" | "morale";
-    };
+	attributes: ArmyAttributes;
+	traits: ArmyTraits;
+	perception: Pick<PerceptionTraceData, "senses">;
+	details: ArmyDetails;
+	resources: ArmyResourcesData;
+	saves: ArmySystemSource["saves"] & {
+		strongSave: "maneuver" | "morale";
+	};
 }
 interface ArmyAttributesSource extends ActorAttributesSource {
-    perception?: never;
     immunities?: never;
     weaknesses?: never;
     resistances?: never;
     hp: ArmyHitPointsSource;
     ac: never;
 }
-interface ArmyAttributes extends Omit<ArmyAttributesSource, "immunities" | "weaknesses" | "resistances" | "perception">, ActorAttributes {
-    ac: never;
-    hp: ArmyHitPoints;
+
+interface ArmyAttributes
+	extends Omit<ArmyAttributesSource, "immunities" | "weaknesses" | "resistances">,
+		ActorAttributes {
+	ac: never;
+	hp: ArmyHitPoints;
 }
 interface ArmyHitPointsSource extends Required<BaseHitPointsSource> {
     /** Typically half the army's hit points, armies that can't be feared have a threshold of 0 instead */
@@ -78,9 +80,7 @@ interface ArmyResourcesSource {
 interface ArmyResourcesData extends ArmyResourcesSource {
     potions: ValueAndMax;
 }
-interface ArmyTraits extends ArmyTraitsSource, ActorTraitsData<string> {
-    size: ActorSizePF2e;
-}
-interface ArmyDetails extends ArmyDetailsSource, ActorDetails {
-}
+
+interface ArmyTraits extends Omit<ArmyTraitsSource, "size">, Required<ActorTraitsData<string>> {}
+interface ArmyDetails extends ArmyDetailsSource, ActorDetails {}
 export type { ArmySource, ArmySystemData };

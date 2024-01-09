@@ -13,20 +13,20 @@ interface BaseStatisticData {
 }
 /** Used to build the actual statistic object */
 interface StatisticData extends BaseStatisticData {
-    attribute?: AttributeString | null;
-    rank?: ZeroToFour | "untrained-level";
-    /** If the actor is proficient with this statistic (rather than deriving from rank) */
-    proficient?: boolean;
-    lore?: boolean;
-    check?: StatisticCheckData;
-    dc?: StatisticDifficultyClassData;
-    /** If given, filters all automatically acquired modifiers */
-    filter?: (m: ModifierPF2e) => boolean;
-    /**
-     * Any static roll options that should be added to the list of roll options.
-     * This does not include actor, rank, or basic item roll options.
-     */
-    rollOptions?: string[];
+	attribute?: AttributeString | null;
+	rank?: ZeroToFour;
+	/** If the actor is proficient with this statistic (rather than deriving from rank) */
+	proficient?: boolean;
+	lore?: boolean;
+	check?: StatisticCheckData;
+	dc?: StatisticDifficultyClassData;
+	/** If given, filters all automatically acquired modifiers */
+	filter?: (m: ModifierPF2e) => boolean;
+	/**
+	 * Any static roll options that should be added to the list of roll options.
+	 * This does not include actor, rank, or basic item roll options.
+	 */
+	rollOptions?: string[];
 }
 interface StatisticCheckData {
     type: CheckType;

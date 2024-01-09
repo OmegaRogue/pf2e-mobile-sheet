@@ -23,21 +23,21 @@ interface BracketedValue<T extends object | number | string = object | number | 
     brackets: Bracket<T>[];
 }
 type RuleElementSchema = {
-    key: StringField<string, string, true, false, false>;
-    /** An identifying slug for the rule element: its significance and restrictions are determined per RE type */
-    slug: SlugField;
-    /** A label for use by any rule element for display in an interface */
-    label: StringField<string, string, true, false, false>;
-    /** The place in order of application (ascending), among an actor's list of rule elements */
-    priority: NumberField<number, number, true, false, true>;
-    /** A test of whether the rules element is to be applied */
-    predicate: PredicateField;
-    /** Whether the rule element is ignored and deactivated */
-    ignored: BooleanField<boolean, boolean, false, false, true>;
-    /** Whether the rule element requires that the parent item (if physical) be equipped */
-    requiresEquipped: BooleanField<boolean, boolean, false, true, false>;
-    /** Whether the rule element requires that the parent item (if physical) be invested */
-    requiresInvestment: BooleanField<boolean, boolean, false, true, false>;
+	key: StringField<string, string, true, false, false>;
+	/** An identifying slug for the rule element: its significance and restrictions are determined per RE type */
+	slug: SlugField;
+	/** A label for use by any rule element for display in an interface */
+	label: StringField<string, string, false, false, false>;
+	/** The place in order of application (ascending), among an actor's list of rule elements */
+	priority: NumberField<number, number, true, false, true>;
+	/** A test of whether the rules element is to be applied */
+	predicate: PredicateField;
+	/** Whether the rule element is ignored and deactivated */
+	ignored: BooleanField<boolean, boolean, false, false, true>;
+	/** Whether the rule element requires that the parent item (if physical) be equipped */
+	requiresEquipped: BooleanField<boolean, boolean, false, true, false>;
+	/** Whether the rule element requires that the parent item (if physical) be invested */
+	requiresInvestment: BooleanField<boolean, boolean, false, true, false>;
 };
 declare class ResolvableValueField<TRequired extends boolean, TNullable extends boolean, THasInitial extends boolean = false> extends foundry.data.fields.DataField<RuleValue, RuleValue, TRequired, TNullable, THasInitial> {
     #private;
@@ -46,5 +46,7 @@ declare class ResolvableValueField<TRequired extends boolean, TNullable extends 
     protected _cast(value: unknown): unknown;
     protected _cleanType(value: RuleValue): RuleValue;
 }
+
+type ModelPropsFromRESchema<TSchema extends RuleElementSchema> = Omit<ModelPropsFromSchema<TSchema>, "label">;
 export { ResolvableValueField };
-export type { Bracket, BracketedValue, RuleElementSchema, RuleElementSource, RuleValue };
+export type { Bracket, BracketedValue, ModelPropsFromRESchema, RuleElementSchema, RuleElementSource, RuleValue };

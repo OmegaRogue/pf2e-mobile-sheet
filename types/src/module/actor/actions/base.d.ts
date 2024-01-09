@@ -1,5 +1,14 @@
 import { ChatMessagePF2e } from "@module/chat-message/document.ts";
-import { Action, ActionCost, ActionMessageOptions, ActionUseOptions, ActionVariant, ActionVariantUseOptions } from "./types.ts";
+import {
+	Action,
+	ActionCost,
+	ActionMessageOptions,
+	ActionSection,
+	ActionUseOptions,
+	ActionVariant,
+	ActionVariantUseOptions,
+} from "./types.ts";
+import type { ProficiencyRank } from "@item/base/data/index.ts";
 interface BaseActionVariantData {
     cost?: ActionCost;
     description?: string;
@@ -8,13 +17,15 @@ interface BaseActionVariantData {
     traits?: string[];
 }
 interface BaseActionData<ActionVariantDataType extends BaseActionVariantData = BaseActionVariantData> {
-    cost?: ActionCost;
-    description: string;
-    img?: string;
-    name: string;
-    slug?: string | null;
-    traits?: string[];
-    variants?: ActionVariantDataType | ActionVariantDataType[];
+	cost?: ActionCost;
+	description: string;
+	img?: string;
+	name: string;
+	sampleTasks?: Partial<Record<ProficiencyRank, string>>;
+	section?: ActionSection;
+	slug?: string | null;
+	traits?: string[];
+	variants?: ActionVariantDataType | ActionVariantDataType[];
 }
 declare abstract class BaseActionVariant implements ActionVariant {
     #private;
@@ -28,23 +39,25 @@ declare abstract class BaseActionVariant implements ActionVariant {
     toMessage(options?: Partial<ActionMessageOptions>): Promise<ChatMessagePF2e | undefined>;
     abstract use(options?: Partial<ActionVariantUseOptions>): Promise<unknown>;
 }
-declare abstract class BaseAction<TData extends BaseActionVariantData, TAction extends BaseActionVariant> implements Action {
-    #private;
-    readonly cost?: ActionCost;
-    readonly description?: string;
-    readonly img?: string;
-    readonly name: string;
-    readonly slug: string;
-    readonly traits: string[];
-    protected constructor(data: BaseActionData<TData>);
-    get glyph(): string;
-    get variants(): Collection<TAction>;
-    protected getDefaultVariant(options?: {
-        variant?: string;
-    }): Promise<TAction>;
-    toMessage(options?: Partial<ActionMessageOptions>): Promise<ChatMessagePF2e | undefined>;
-    use(options?: Partial<ActionUseOptions>): Promise<unknown>;
-    protected abstract toActionVariant(data?: TData): TAction;
+declare abstract class BaseAction<TData extends BaseActionVariantData, TAction extends BaseActionVariant>
+	implements Action
+{
+	#private;
+	readonly cost?: ActionCost;
+	readonly description?: string;
+	readonly img?: string;
+	readonly name: string;
+	readonly sampleTasks?: Partial<Record<ProficiencyRank, string>>;
+	readonly section?: ActionSection;
+	readonly slug: string;
+	readonly traits: string[];
+	protected constructor(data: BaseActionData<TData>);
+	get glyph(): string;
+	get variants(): Collection<TAction>;
+	protected getDefaultVariant(options?: { variant?: string }): TAction;
+	toMessage(options?: Partial<ActionMessageOptions>): Promise<ChatMessagePF2e | undefined>;
+	use(options?: Partial<ActionUseOptions>): Promise<unknown>;
+	protected abstract toActionVariant(data?: TData): TAction;
 }
 export { BaseAction, BaseActionVariant };
 export type { BaseActionData, BaseActionVariantData };

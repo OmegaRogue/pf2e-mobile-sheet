@@ -8,31 +8,87 @@ declare global {
      */
 
     class ActorDelta<TParent extends TokenDocument | null> extends ClientBaseActorDelta<TParent> {
-        syntheticActor?: NonNullable<NonNullable<TParent>["actor"]> | undefined;
+		syntheticActor?: NonNullable<NonNullable<TParent>["actor"]> | undefined;
 
-        override prepareData(): void;
+		protected override _configure(options?: { pack?: string | null; parentCollection?: string | null }): void;
 
-        override reset(): void;
+		protected override _initialize({
+			sceneReset,
+			...options
+		}?: {
+			sceneReset?: boolean;
+			options?: Record<string, unknown>;
+		}): void;
 
-        /**
-         * Generate a synthetic Actor instance when constructed, or when the represented Actor, or actorLink status changes.
-         * @param [options]
-         * @param [options.reinitializeCollections]  Whether to fully re-initialize this ActorDelta's collections in
-         *                                           order to re-retrieve embedded Documents from the synthetic Actor.
-         * @internal
-         */
-        protected _createSyntheticActor(options?: { reinitializeCollections?: boolean }): void;
+		/* -------------------------------------------- */
+		/*  Methods                                     */
 
-        /** Update the synthetic Actor instance with changes from the delta or the base Actor. */
-        updateSyntheticActor(): void;
+		/* -------------------------------------------- */
 
-        restore(): Promise<Actor<TParent>>;
+		/**
+		 * Apply this ActorDelta to the base Actor and return a synthetic Actor.
+		 * @param {object} [context]  Context to supply to synthetic Actor instantiation.
+		 * @returns {Actor|null}
+		 */
+		apply(context?: Record<string, unknown>): NonNullable<TParent>["baseActor"];
 
-        _dispatchDescendantDocumentEvents(
-            event: string,
-            collection: string,
-            args: [object[], ...unknown[]],
-            parent: ClientDocument | undefined,
-        ): void;
-    }
+		override prepareEmbeddedDocuments(): void;
+
+		override updateSource(
+			changes?: Record<string, unknown> | undefined,
+			options?: DocumentSourceUpdateContext,
+		): DeepPartial<this["_source"]>;
+
+		override reset(): void;
+
+		/**
+		 * Generate a synthetic Actor instance when constructed, or when the represented Actor, or actorLink status changes.
+		 * @param [options]
+		 * @param [options.reinitializeCollections]  Whether to fully re-initialize this ActorDelta's collections in
+		 *                                           order to re-retrieve embedded Documents from the synthetic Actor.
+		 * @internal
+		 */
+		protected _createSyntheticActor(options?: { reinitializeCollections?: boolean }): void;
+
+		/** Update the synthetic Actor instance with changes from the delta or the base Actor. */
+		updateSyntheticActor(): void;
+
+		/**
+		 * Restore this delta to empty, inheriting all its properties from the base actor.
+		 * @returns The restored synthetic Actor.
+		 */
+		restore(): Promise<Actor<TParent>>;
+
+		/**
+		 * Ensure that the embedded collection delta is managing any entries that have had their descendants updated.
+		 * @param doc  The parent whose immediate children have been modified.
+		 * @internal
+		 */
+		protected _handleDeltaCollectionUpdates(doc: foundry.abstract.Document): void;
+
+		/* -------------------------------------------- */
+		/*  Database Operations                         */
+
+		/* -------------------------------------------- */
+
+		protected override _preDelete(
+			options: DocumentModificationContext<TParent>,
+			user: User,
+		): Promise<boolean | void>;
+
+		protected override _onUpdate(
+			data: DeepPartial<this["_source"]>,
+			options: DocumentModificationContext<TParent>,
+			userId: string,
+		): void;
+
+		protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
+
+		protected override _dispatchDescendantDocumentEvents(
+			event: string,
+			collection: string,
+			args: [object[], ...unknown[]],
+			parent: ClientDocument | undefined,
+		): void;
+	}
 }

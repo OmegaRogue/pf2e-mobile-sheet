@@ -1,7 +1,4 @@
-import { Fraction } from "@util";
-/**
- * Implementation of travel speed https://2e.aonprd.com/Rules.aspx?ID=470
- */
+/** Implementation of travel speed https://2e.aonprd.com/Rules.aspx?ID=470 */
 export interface ExplorationOptions {
     practicedDefender: boolean;
     swiftSneak: boolean;
@@ -49,6 +46,11 @@ export declare enum DetectionMode {
     DETECT_EVERYTHING = 1,
     DETECT_BEFORE_WALKING_INTO_IT = 2
 }
+
+interface Fraction {
+	numerator: number;
+	denominator: number;
+}
 export declare function calculateNormalizedCharacterSpeed(defaultSpeedInFeet: number, activity: ExplorationActivities, detectionMode: DetectionMode, explorationOptions: ExplorationOptions): number;
 export declare enum LengthUnit {
     MILES = 0,
@@ -62,15 +64,17 @@ export declare enum TimeUnit {
     MINUTE = 0,
     HOUR = 1
 }
-export interface Velocity {
-    distance: Distance;
-    time: TimeUnit;
+
+interface Velocity {
+	distance: Distance;
+	time: TimeUnit;
 }
-export declare function speedToVelocity(speedInFeet: number): Velocity;
+
+declare function speedToVelocity(speedInFeet: number): Velocity;
 export declare enum Terrain {
-    NORMAL = 0,
-    DIFFICULT = 1,
-    GREATER_DIFFICULT = 2
+	NORMAL = 0,
+	DIFFICULT = 1,
+	GREATER_DIFFICULT = 2,
 }
 export interface TerrainSlowdown {
     normal: Fraction;
@@ -88,9 +92,18 @@ export interface TravelDuration {
     hours: number;
     minutes: number;
 }
-export declare function calculateTravelDuration({ journey, velocity, hustleDurationInMinutes, hoursPerDay, }: {
-    journey: Trip[];
-    velocity: Velocity;
-    hustleDurationInMinutes?: number;
-    hoursPerDay?: number;
+
+declare function calculateTravelDuration({
+	journey,
+	velocity,
+	hustleDurationInMinutes,
+	hoursPerDay,
+}: {
+	journey: Trip[];
+	velocity: Velocity;
+	hustleDurationInMinutes?: number;
+	hoursPerDay?: number;
 }): TravelDuration;
+
+export { calculateTravelDuration, speedToVelocity };
+export type { Fraction, Velocity };

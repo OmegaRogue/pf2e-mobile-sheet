@@ -29,9 +29,12 @@ interface EffectSystemSource extends AbstractEffectSystemSource {
     /** Origin, target, and roll context of the action that spawned this effect */
     context: EffectContextData | null;
 }
-interface EffectSystemData extends Omit<EffectSystemSource, "fromSpell">, Omit<AbstractEffectSystemData, "level"> {
-    expired: boolean;
-    badge: EffectBadge | null;
-    remaining: string;
+
+interface EffectSystemData
+	extends Omit<EffectSystemSource, "description" | "fromSpell">,
+		Omit<AbstractEffectSystemData, "level"> {
+	expired: boolean;
+	badge: EffectBadge | null;
+	remaining: string;
 }
 export type { EffectFlags, EffectSource, EffectSystemData };

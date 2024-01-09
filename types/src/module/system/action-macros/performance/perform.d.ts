@@ -1,4 +1,5 @@
 import { SkillActionOptions } from "../index.ts";
+import { SingleCheckAction } from "@actor/actions/index.ts";
 declare const PERFORM_VARIANT_TRAITS: {
     readonly acting: readonly ["auditory", "linguistic", "visual"];
     readonly comedy: readonly ["auditory", "linguistic", "visual"];
@@ -11,7 +12,12 @@ declare const PERFORM_VARIANT_TRAITS: {
     readonly winds: readonly ["auditory", "manipulate"];
 };
 type PerformVariant = keyof typeof PERFORM_VARIANT_TRAITS;
-export declare function perform(options: {
-    variant: PerformVariant;
-} & SkillActionOptions): void;
-export {};
+
+declare function perform(
+	options: {
+		variant: PerformVariant;
+	} & SkillActionOptions,
+): void;
+
+declare const action: SingleCheckAction;
+export { perform as legacy, action };

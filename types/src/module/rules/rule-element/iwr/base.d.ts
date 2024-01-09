@@ -4,7 +4,8 @@ import type { PredicatePF2e } from "@system/predication.ts";
 import { DataUnionField, PredicateField, StrictArrayField, StrictStringField } from "@system/schema-data-fields.ts";
 import type { ArrayField, BooleanField, SchemaField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { AELikeChangeMode } from "../ae-like.ts";
-import { RuleElementPF2e, RuleElementSchema, RuleElementSource, RuleValue } from "../index.ts";
+import { RuleElementPF2e } from "../base.ts";
+import { ModelPropsFromRESchema, RuleElementSchema, RuleElementSource, RuleValue } from "../data.ts";
 /** @category RuleElement */
 declare abstract class IWRRuleElement<TSchema extends IWRRuleSchema> extends RuleElementPF2e<TSchema> {
     #private;
@@ -18,8 +19,11 @@ declare abstract class IWRRuleElement<TSchema extends IWRRuleSchema> extends Rul
     abstract getIWR(value?: number): Immunity[] | Weakness[] | Resistance[];
     afterPrepareData(): void;
 }
-interface IWRRuleElement<TSchema extends IWRRuleSchema> extends RuleElementPF2e<TSchema>, ModelPropsFromSchema<IWRRuleSchema> {
-    constructor: typeof IWRRuleElement<TSchema>;
+
+interface IWRRuleElement<TSchema extends IWRRuleSchema>
+	extends RuleElementPF2e<TSchema>,
+		ModelPropsFromRESchema<IWRRuleSchema> {
+	constructor: typeof IWRRuleElement<TSchema>;
 }
 type IWRRuleSchema = RuleElementSchema & {
     /** Whether to add or remove an immunity, weakness, or resistance (default is "add") */

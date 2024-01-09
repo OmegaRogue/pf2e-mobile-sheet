@@ -6,12 +6,13 @@ import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/s
 import { DamageCategoryUnique } from "@system/damage/types.ts";
 import { AfflictionConditionData, AfflictionStageData } from "./data.ts";
 declare class AfflictionSheetPF2e extends ItemSheetPF2e<AfflictionPF2e> {
-    static get defaultOptions(): ItemSheetOptions;
-    getData(options?: Partial<ItemSheetOptions>): Promise<AfflictionSheetData>;
-    protected prepareStages(): Promise<Record<string, AfflictionStageSheetData>>;
-    activateListeners($html: JQuery<HTMLElement>): void;
-    _onDrop(event: ElementDragEvent): Promise<void>;
-    protected _updateObject(event: Event, formData: Record<string, unknown>): Promise<void>;
+	static get defaultOptions(): ItemSheetOptions;
+	getData(options?: Partial<ItemSheetOptions>): Promise<AfflictionSheetData>;
+	protected prepareStages(): Promise<Record<string, AfflictionStageSheetData>>;
+	activateListeners($html: JQuery<HTMLElement>): void;
+
+	_onDrop(event: DragEvent): Promise<void>;
+	protected _updateObject(event: Event, formData: Record<string, unknown>): Promise<void>;
 }
 interface AfflictionSheetData extends ItemSheetDataPF2e<AfflictionPF2e> {
     conditionTypes: Omit<ConfigPF2e["PF2E"]["conditionTypes"], "persistent-damage">;

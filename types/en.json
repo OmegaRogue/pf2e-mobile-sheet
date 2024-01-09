@@ -173,7 +173,15 @@
 				"Active": "Active",
 				"ActiveHeader": "Active Activities",
 				"Biography": {
-					"ToggleVisibility": "Toggle visibility to other players"
+					"Anathema": {
+						"Add": "Add Anathema",
+						"Delete": "Delete Anathema"
+					},
+					"ToggleVisibility": "Toggle visibility to other players",
+					"Edicts": {
+						"Add": "Add Edict",
+						"Delete": "Delete Edict"
+					}
 				},
 				"Blurb": "Level {level} {ancestry} {class}",
 				"ClassDC": {
@@ -192,8 +200,19 @@
 				"Crafting": {
 					"Cost": "Cost"
 				},
+				"CreateFeat": "Create Feat",
 				"HandsOccupied": "Hands Occupied",
+				"Language": {
+					"OverLimit": "This language is in excess of the number of languages this character can know.",
+					"Unallocated": {
+						"Label": "Unallocated",
+						"Tooltip": "Select a language for this character to know."
+					}
+				},
 				"Proficiency": {
+					"SavingThrow": {
+						"Title": "Saving Throws"
+					},
 					"Attack": {
 						"Advanced": "Advanced Weapons",
 						"Martial": "Martial Weapons",
@@ -209,7 +228,8 @@
 						"Medium": "Medium Armor",
 						"Title": "Defenses",
 						"Unarmored": "Unarmored Defense"
-					}
+					},
+					"HigherUpgrade": "{ability} has upgraded this proficiency's rank to {rank}."
 				},
 				"Rest": {
 					"Label": "Rest for the Night"
@@ -231,6 +251,9 @@
 				},
 				"CriticalSpecialization": "Critical Specialization",
 				"Language": {
+					"CommonLanguage": "Common ({language})",
+					"DetailsPlaceholder": "Caveats, other unusual specifics",
+					"Plural": "Languages",
 					"adlet": "Adlet",
 					"akitonian": "Akitonian",
 					"aklo": "Aklo",
@@ -333,7 +356,6 @@
 					"thalassic": "Thalassic",
 					"thassilonian": "Thassilonian",
 					"tien": "Tien",
-					"undercommon": "Undercommon",
 					"utopian": "Utopian",
 					"vanara": "Vanara",
 					"varisian": "Varisian",
@@ -353,27 +375,32 @@
 						"Precise": "Precise",
 						"Vague": "Vague"
 					},
-					"Label": "Senses",
+					"Label": "Sense",
 					"NoRangeLimit": "No Limit",
+					"NoVision": "No Vision",
+					"Plural": "Senses",
 					"RangeLabel": "Range",
 					"Type": {
 						"Darkvision": "Darkvision",
 						"Echolocation": "Echolocation",
 						"GreaterDarkvision": "Greater Darkvision",
 						"Hearing": "Hearing",
-						"Heatsight": "Heatsight",
+						"InfraredVision": "Infrared Vision",
 						"Lifesense": "Lifesense",
 						"LowLightVision": "Low-Light Vision",
-						"Motionsense": "Motionsense",
+						"MotionSense": "Motion Sense",
 						"Scent": "Scent",
 						"SeeInvisibility": "See Invisibility",
 						"Spiritsense": "Spiritsense",
 						"Thoughtsense": "Thoughtsense",
 						"Tremorsense": "Tremorsense",
+						"Truesight": "Truesight",
+						"Vision": "Vision",
 						"Wavesense": "Wavesense"
 					},
 					"WithAcuity": "{sense} ({acuity})",
-					"WithAcuityAndRange": "{sense} ({acuity} {range} Ft)"
+					"WithAcuityAndRange": "{sense} ({acuity}) {range} Feet",
+					"WithRange": "{sense} {range} Feet"
 				},
 				"Shield": {
 					"ACBonus": "Shield AC Bonus (When Raised)",
@@ -400,6 +427,7 @@
 					"Label": "Spell Attack Modifiers & DCs",
 					"MagicItemTypesLabel": "Magic Item Types",
 					"Rituals": "Rituals",
+					"ShortLabel": "Spellcasting",
 					"TraditionSpellcasting": "{tradition} Spellcasting",
 					"ValidItemTypes": {
 						"All": "All Magic Items",
@@ -452,13 +480,31 @@
 				"Section": {
 					"WeaponsAndShields": "Weapons & Shields"
 				},
-				"TotalBulk": "Total Bulk: {bulk}"
+				"TotalBulk": "Total Bulk: {bulk}",
+				"UnitTitle": {
+					"Bulk": "Unit Bulk",
+					"Price": "Unit Price"
+				}
 			},
 			"IWREditor": {
 				"DoubleVs": "Double Vs.",
 				"Exceptions": "Exceptions",
 				"Title": "{actor}: {category}",
 				"Type": "Type"
+			},
+			"Speed": {
+				"BaseLabel": "Base {type} Speed",
+				"Plural": "Speeds",
+				"Label": "Speed",
+				"LabelFeet": "Speed (Feet)",
+				"Type": {
+					"Burrow": "Burrow",
+					"Climb": "Climb",
+					"Fly": "Fly",
+					"Label": "{type} Speed",
+					"Land": "Land",
+					"Swim": "Swim"
+				}
 			},
 			"NPC": {
 				"Configure": {
@@ -683,6 +729,7 @@
 		"ArmorPropertyRuneModerateDread": "Moderate Dread",
 		"ArmorPropertyRunePortable": "Portable",
 		"ArmorPropertyRuneQuenching": "Quenching",
+		"ArmorPropertyRuneRaiment": "Raiment",
 		"ArmorPropertyRuneReady": "Ready",
 		"ArmorPropertyRuneRockBraced": "Rock-Braced",
 		"ArmorPropertyRuneShadow": "Shadow",
@@ -734,6 +781,7 @@
 		"Biography": "Biography",
 		"BiographyAllies": "Allies",
 		"BiographyAppearance": "Appearance",
+		"BiographyAnathema": "Anathema",
 		"BiographyAttitude": "Attitude",
 		"BiographyBackStory": "Backstory",
 		"BiographyBeliefs": "Beliefs",
@@ -742,6 +790,7 @@
 		"BiographyCampaignNotesHeader": "Campaign",
 		"BiographyCatchphrases": "Catchphrases",
 		"BiographyDislikes": "Dislikes",
+		"BiographyEdicts": "Edicts",
 		"BiographyEnemies": "Enemies",
 		"BiographyLikes": "Likes",
 		"BiographyOrganizations": "Organizations",
@@ -861,6 +910,7 @@
 				},
 				"Label": "Result: <unadjusted>{unadjusted}</unadjusted> <offset>by {offset}</offset>"
 			},
+			"SetAsInitiative": "Set as {actor}'s initiative",
 			"Specific": {
 				"Counteract": "Counteract Check",
 				"Perception": {
@@ -875,8 +925,6 @@
 		"ClassFeatLevels": "Class Feat Levels",
 		"ClassFeatures": "Class Features",
 		"ClassHP": "Class HP",
-		"ClickToSetInitiative": "Click to set initiative to selected token(s).",
-		"ClickToSetInitiativeContext": "Set as Initiative",
 		"ClipboardNotification": "Copied \"{clipText}\" to the clipboard.",
 		"CompendiumBrowser": {
 			"AddedItem": "Added {item} to the selected actor(s).",
@@ -981,19 +1029,6 @@
 			"UseMulti": "Uses {name}, {current} remain",
 			"UseSingle": "Uses {name}"
 		},
-		"ConsumableTypeAmmo": "Ammunition",
-		"ConsumableTypeDrug": "Drug",
-		"ConsumableTypeElixir": "Elixir",
-		"ConsumableTypeMutagen": "Mutagen",
-		"ConsumableTypeOil": "Oil",
-		"ConsumableTypeOther": "Other",
-		"ConsumableTypePoison": "Poison",
-		"ConsumableTypePotion": "Potion",
-		"ConsumableTypeScroll": "Scroll",
-		"ConsumableTypeSnare": "Snare",
-		"ConsumableTypeTalisman": "Talisman",
-		"ConsumableTypeTool": "Tool",
-		"ConsumableTypeWand": "Wand",
 		"CoreSkillsHeader": "Core Skills",
 		"Counteractable": "Counteractable",
 		"CraftDCTitle": "DC",
@@ -1209,6 +1244,7 @@
 			"IncreasedFrom": "Increased from {original} to minimum of 1",
 			"Kind": {
 				"Both": {
+					"Label": "Both",
 					"Roll": {
 						"Noun": "Damage/Healing Roll",
 						"Verb": "Roll Damage/Healing"
@@ -1299,7 +1335,7 @@
 		"DeleteSpellcastEntryTitle": "Delete Spellcasting",
 		"DeleteSpellcastEntryWarning": "WARNING: All spells in this spellcasting entry will also be deleted.",
 		"DenominationLabel": "Denomination",
-		"DetailsHeading": "Details",
+		"Details": "Details",
 		"DragDropFeats": "Drag & Drop feats to add",
 		"Duration": {
 			"P1M": "month",
@@ -1339,7 +1375,6 @@
 			},
 			"RemoveToolTip": "[Right Click] Remove effect",
 			"RollDamageToolTip": "[Left Click] Roll damage",
-			"Sustained": "Sustained?",
 			"Unidentified": "Unidentified",
 			"UnlimitedDuration": "Unlimited duration",
 			"UntilEncounterEnds": "Until encounter ends"
@@ -1662,6 +1697,11 @@
 					"heavy-barding": "Heavy Barding",
 					"light-barding": "Light Barding"
 				},
+				"Rune": {
+					"Resilient": {
+						"Label": "Resilient Rune"
+					}
+				},
 				"Specific": {
 					"Hint": "Marking this armor as <i>specific magic armor</i> indicates that it does more than what its material composition and runes allow. The name, level, rarity, and price will no longer be overridden from precious material or runes at the time of marking. Those material and runes will, however, serve as a baseline for level, rarity, and price adjustments from later upgrades.",
 					"Label": "Specific Magic Armor"
@@ -1682,6 +1722,7 @@
 					},
 					"Dialog": {
 						"Add": "Add Persistent Damage",
+						"Invalid": "Formula is invalid.",
 						"Remove": "Remove Persistent Damage",
 						"Title": "Persistent Damage ({actor})"
 					},
@@ -1694,11 +1735,34 @@
 				}
 			},
 			"Consumable": {
+				"Damage": {
+					"Add": "Add Damage/Healing",
+					"Label": "Damage/Healing",
+					"Remove": "Remove Damage/Healing"
+				},
+				"Category": {
+					"ammo": "Ammunition",
+					"catalyst": "Catalyst",
+					"drug": "Drug",
+					"elixir": "Elixir",
+					"fulu": "Fulu",
+					"gadget": "Gadget",
+					"mutagen": "Mutagen",
+					"oil": "Oil",
+					"other": "Other",
+					"poison": "Poison",
+					"potion": "Potion",
+					"scroll": "Scroll",
+					"snare": "Snare",
+					"talisman": "Talisman",
+					"toolkit": "Toolkit",
+					"wand": "Wand"
+				},
 				"Plural": "Consumables",
 				"Uses": {
-					"AutoDestroy": "AutoDestroy",
+					"AutoDestroy": "Destroy on Use",
 					"Label": "Uses",
-					"None": "No Uses Remaining",
+					"None": "No Uses Remain",
 					"Use": "Use"
 				}
 			},
@@ -2091,22 +2155,43 @@
 						"value": "Fixed Value"
 					}
 				},
+				"Disintegrated": {
+					"Description": "Maybe it's a treatable condition.",
+					"Name": "Disintegrated"
+				},
+				"Plural": "Effects",
 				"ShowTokenIcon": "Show token icon?",
-				"Sustained": "Sustained",
 				"Unidentified": "Unidentified?"
 			},
 			"Feat": {
 				"Info": {
 					"Added": "{item} was added to {category}."
 				},
-				"KeyAbilityOptions": {
-					"Label": "Key Attribute Options",
-					"Hint": "Key attribute options in addition to this provided by a class"
-				},
 				"LevelLabel": "Feat",
 				"LevelN": "Feat {level}",
 				"OnlyLevel1": "Must be taken at level 1",
 				"Plural": "Feats",
+				"Subfeatures": {
+					"KeyAbilityOptions": {
+						"Label": "Key Attribute Options",
+						"Hint": "Key attribute options in addition to those provided by a class"
+					},
+					"Label": "Subfeatures",
+					"Languages": {
+						"OpenSlots": "Open Slots"
+					},
+					"Proficiencies": {
+						"Label": "Proficiencies",
+						"NoOptionSelected": "Select a statistic to which the increase will be applied."
+					},
+					"Senses": {
+						"Darkvision": {
+							"Ancestry": "Grant if the character's ancestry has low-light vision.",
+							"LLV": "Grant if the character has low-light vision from any prior source.",
+							"Second": "Grant if this feat is taken a second time."
+						}
+					}
+				},
 				"TakeMultiple": {
 					"Five": "Up to 5×",
 					"Four": "Up to 4×",
@@ -2347,8 +2432,12 @@
 					"SecondaryChecks": "Secondary Checks",
 					"SecondaryCasters": "Secondary Casters"
 				},
+				"Sustained": {
+					"Duration": "Sustained for up to {maximum}",
+					"Label": "Sustained"
+				},
 				"Variants": {
-					"DeleteDialogText": "Are you sure you want to delete '{variantName}'?",
+					"DeleteDialogText": "Are you sure you want to delete {variantName}?",
 					"DeleteDialogTitle": "Delete Spell Variant",
 					"LabelPlural": "Spell Variants",
 					"SelectOtherVariantLabel": "Select Other Variant",
@@ -2356,8 +2445,10 @@
 					"SheetTitle": "{originalName} (Variant)"
 				},
 				"Warning": {
-					"InvalidLevel": "Attempted to add spell {name} at {targetLevel}, but spell is {baseLevel}.",
-					"WrongSpellType": "Cannot add {spellType} spell to this casting entry."
+					"CantripToRankedSlots": "{spell} is a cantrip and must be added to a cantrips list.",
+					"InvalidRank": "{spell} is {spellRank}, but these slots are for {targetRank}.",
+					"NonCantripToCantrips": "{spell} is not a cantrip and cannot be added to a cantrips list.",
+					"WrongSpellType": "Cannot add {type} spell to this casting entry."
 				}
 			},
 			"Weapon": {
@@ -2429,9 +2520,6 @@
 		"ItemBonusLabel": "Item Bonus",
 		"ItemBonusMinus2": "Shoddy (-2)",
 		"ItemBonusShortLabel": "Item",
-		"ItemDescription": "Description",
-		"ItemDescriptionHeader": "Description",
-		"ItemDetails": "Details",
 		"ItemLevel": "{type} {level}",
 		"ItemMystification": "Mystification",
 		"ItemMystified": "Mystified",
@@ -2458,7 +2546,6 @@
 		"KitItems": "Items",
 		"KitWorldItem": "This item is not found in a Compendium and will not work in other worlds",
 		"LackCastConsumableCapability": "{actor} lacks the proficiency to use {spell} and does not have the Trick Magic Item feat.",
-		"Languages": "Languages",
 		"LanguagesAdditional": "Additional Languages",
 		"Level1": "Level 1",
 		"Level10": "Level 10",
@@ -2655,7 +2742,6 @@
 			"Attacks": "Attacks",
 			"Creature": "Creature",
 			"Dead": "Dead",
-			"Edit": "Edit",
 			"EditImmunities": "Edit Immunities",
 			"EditLanguages": "Edit Languages",
 			"EditResistances": "Edit Resistances",
@@ -2679,13 +2765,11 @@
 			"PassivesLabel": "Passives",
 			"PrivateNotes": "Private Notes",
 			"PublicNotes": "Description",
-			"Remove": "Remove",
 			"SavesExtraInfoLabelPlaceholder": "Bonus to all saves...",
-			"SendToChat": "Send to chat",
+			"SendToChat": "Send to Chat",
 			"SensesLabel": "Senses",
 			"SkillRollFlavor": "{skillName} Skill Check ({rank})",
 			"SpeedExtraInfoLabelPlaceholder": "Speed details...",
-			"SpeedLabel": "Speed",
 			"Spells": {
 				"AttackLabel": "Attack",
 				"DCLabel": "DC",
@@ -2907,9 +2991,6 @@
 			},
 			"WarnNoHeroPoint": "{name} has no Hero Points"
 		},
-		"ResiliencyRuneLabel": "Resilient Rune",
-		"ResistancesExceptionLabel": "Except:",
-		"ResistancesExceptionPlaceholder": "e.g. except silver",
 		"ResistancesLabel": "Resistances",
 		"ResolvePointsShortLabel": "Resolve",
 		"RestoreSpellTitle": "Restore Spell",
@@ -3008,8 +3089,8 @@
 				"Name": "Campaign Feats"
 			},
 			"CampaignType": {
-				"Hint": "Extended campaign rule type for parties",
-				"Name": "Campaign Type",
+				"Hint": "Extended campaign support for campaigns such as Kingmaker",
+				"Name": "Campaign-Specific Features",
 				"Choices": {
 					"none": "None",
 					"kingmaker": "Kingmaker"
@@ -3079,12 +3160,22 @@
 					"Hint": "Traits that can be applied to feats (e.g., Lineage, Monk) and actions",
 					"Name": "Feat Traits"
 				},
-				"Hint": "Add custom traits, languages, and other elements of a homebrew world.",
+				"Hint": "Add custom traits, weapon types, and other elements of a homebrew world.",
 				"Instructions": "These settings allow GMs to add traits, languages, and other elements to a homebrew world. To add such elements, simply type the desired terms in the appropriate fields, separated by commas or tab keystrokes. They will then appear in the appropriate places on actor and item sheets. To update a term, click it to make the desired changes.",
 				"Label": "Manage Homebrew Elements",
 				"Languages": {
+					"CommonLanguage": {
+						"Hint": "Select the language to be referred to as \"Common\" in this game world.",
+						"Label": "The \"Common\" Language"
+					},
 					"Hint": "Languages for characters to know or learn (e.g., Draconic, Gnomish)",
-					"Name": "Languages"
+					"Rarities": {
+						"CommonLanguages": "<rarity>Common</rarity> Languages",
+						"Name": "Language Rarities",
+						"RareLanguages": "<rarity>Rare</rarity> Languages",
+						"SecretLanguages": "<rarity>Secret</rarity> Languages",
+						"UncommonLanguages": "<rarity>Uncommon</rarity> Languages"
+					}
 				},
 				"Name": "Homebrew Elements",
 				"ReservedTerm": "\"{term}\" is a reserved term.",
@@ -3093,6 +3184,7 @@
 					"Name": "Spell Traits"
 				},
 				"Tabs": {
+					"Campaign": "Campaign",
 					"Damage": "Damage Types",
 					"Traits": "Traits and Categories"
 				},
@@ -3123,28 +3215,32 @@
 				"Hint": "Limit what kinds of metagame information your players have access to.",
 				"Label": "Limit Metagame Information",
 				"Name": "Metagame Information",
-				"PartyVision": {
-					"Hint": "If enabled, all players will mutually share token vision, regardless of permissions or token selection.",
-					"Name": "Shared Party Vision"
+				"ShowDC": {
+					"Hint": "Players can see DCs of checks made against NPCs and other non-player-owned sources.",
+					"Name": "Show Check DCs"
+				},
+				"ShowResults": {
+					"Hint": "Players can see the degree of success of checks made against NPCs and other non-player-owned sources.",
+					"Name": "Show Check Outcomes"
+				},
+				"ShowBreakdowns": {
+					"Hint": "Players can see the constituent and total modifiers of rolls made by NPCs and other non-player-owned actors.",
+					"Name": "Show Roll Breakdowns"
 				},
 				"SecretCondition": {
-					"Hint": "If enabled, only the GM will see the condition update and reminder messages that are generated for tokens not owned by a player.",
+					"Hint": "Only the GM can see the condition update and reminder messages for NPCs and other non-player-owned actors.",
 					"Name": "Hide Condition Update Message"
 				},
 				"SecretDamage": {
-					"Hint": "If enabled, only the GM will see the damage/healing taken messages that are generated by the damage chat cards for tokens not owned by a player.",
+					"Hint": "Only the GM can see the damage/healing taken messages that are generated by the damage chat cards for tokens not owned by a player.",
 					"Name": "Hide Damage-Taken Message"
 				},
-				"ShowDC": {
-					"Hint": "If enabled, players will see DCs of checks made against NPCs and other non-player-owned sources.",
-					"Name": "Show DCs on Attacks and Saves"
-				},
-				"ShowResults": {
-					"Hint": "If enabled, players will see the degree of success of checks made against NPCs and other non-player-owned sources.",
-					"Name": "Show Results on Attacks and Saves"
+				"PartyVision": {
+					"Hint": "Players mutually share token vision, regardless of permissions or token selection.",
+					"Name": "Shared Party Vision"
 				},
 				"ShowPartyStats": {
-					"Hint": "If enabled, players will see stats for their fellow party members in the party actor sheet",
+					"Hint": "Players can see stats for their fellow party members in the party actor sheet",
 					"Name": "Show Party-Member Stats"
 				},
 				"TokenSetsNameVisibility": {
@@ -3195,7 +3291,7 @@
 						"ABPRulesAsWritten": "ABP: Disallow Property Runes",
 						"noABP": "Do not use ABP"
 					},
-					"Hint": "Reload Required: Support for Automatic Bonus Progression variant rules, except skills/apex ability.",
+					"Hint": "Enable the Automatic Bonus Progression variant rule. Skill potency must currently be managed manually.",
 					"Name": "Automatic Bonus Progression"
 				},
 				"FreeArchetype": {
@@ -3361,18 +3457,7 @@
 		"SkillThievery": "Thievery",
 		"SkillsLabel": "Skills",
 		"Slug": "Slug",
-		"SpecialLabel": "Special",
 		"SpecialSensesLabel": "Special Senses",
-		"Speed": "Speed",
-		"SpeedBaseLabel": "Base {type} Speed",
-		"SpeedFeet": "Speed (feet)",
-		"SpeedLabel": "{type} Speed",
-		"SpeedTypes": "Speed Types",
-		"SpeedTypesBurrow": "Burrow",
-		"SpeedTypesClimb": "Climb",
-		"SpeedTypesFly": "Fly",
-		"SpeedTypesLand": "Land",
-		"SpeedTypesSwim": "Swim",
 		"SpellAbilityModLabel": "+ Mod",
 		"SpellArea": "Area: {area}",
 		"SpellAttackLabel": "Spell Attack",
@@ -3381,10 +3466,8 @@
 		"SpellCastingFormat": "{traditionSpells} {preparationType} Spells",
 		"SpellCollectionAdd": "Add to Spell Collection",
 		"SpellCollectionRemove": "Remove from Spell Collection",
-		"SpellDurationLabel": "Duration",
 		"SpellFlexibleAvailable": "Flexible: {value} / {max}",
 		"SpellFlexibleLabel": "Flexible",
-		"SpellFocusLabel": "Focus",
 		"SpellLevelBase": "Base: {level}",
 		"SpellLevelHeightened": "Heightened: +{heightened}",
 		"SpellLevelLabel": "Spell Rank",
@@ -3403,8 +3486,8 @@
 			"Selection": "Heightened ({level})"
 		},
 		"SpellSlotEmpty": "Empty Slot (drag spell here)",
-		"SpellSlotExpendedError": "Cannot cast {name}: spell is already expended",
-		"SpellSlotNotEnoughError": "Cannot cast {name} at the {level}: not enough spell slots",
+		"SpellSlotExpendedError": "Cannot cast {spell}: slot is already expended.",
+		"SpellSlotNotEnoughError": "Cannot cast {spell} at {rank}: not enough spell slots.",
 		"SpellTargetLabel": "Targets",
 		"SpellTraditionsLabel": "Traditions",
 		"SpellUnlimitedLabel": "Unlimited",
@@ -3422,10 +3505,8 @@
 		"StackGroupCoins": "Coins",
 		"StackGroupGems": "Gems",
 		"StackGroupLabel": "Stack Group",
-		"StackGroupRations": "Rations",
 		"StackGroupRounds10": "Rounds (10)",
 		"StackGroupRounds5": "Rounds (5)",
-		"StackGroupSacks": "Sacks",
 		"StackGroupSlingBullets": "Sling Bullets",
 		"StackGroupSprayPellets": "Spray Pellets",
 		"StackGroupWoodenTaws": "Wooden Taws",
@@ -3472,8 +3553,6 @@
 		"TabCharacterLabel": "Character",
 		"TabCraftingLabel": "Crafting",
 		"TabDescriptionLabel": "Description",
-		"TabDetailsLabel": "Details",
-		"TabEffectsLabel": "Effects",
 		"TabInventoryLabel": "Inventory",
 		"TabManageTabsLabel": "Manage Tabs",
 		"TabPathfinderSociety": "Pathfinder Society",
@@ -4531,6 +4610,7 @@
 		"TraitVersatileElectricity": "Versatile Electricity",
 		"TraitVersatileFire": "Versatile Fire",
 		"TraitVersatileForce": "Versatile Force",
+		"TraitVersatileMental": "Versatile Mental",
 		"TraitVersatileP": "Versatile P",
 		"TraitVersatilePoison": "Versatile Poison",
 		"TraitVersatileS": "Versatile S",
@@ -4640,7 +4720,6 @@
 			"None": "Full Speed",
 			"NormalTerrain": "Normal Terrain Speed",
 			"PartySpeed": "Party Speed",
-			"Speed": "Speed",
 			"TerrainSlowdown": "Terrain Speed",
 			"Title": "Travel Duration Calculator (Alpha)",
 			"TravelDuration": "Travel Duration",
@@ -4668,7 +4747,6 @@
 			"Label": "UUID",
 			"SourceId": "Source ID"
 		},
-		"UnitPriceLabel": "Unit price",
 		"UnitedPaizoWorkers": {
 			"PFSNote": "Note for Pathfinder Society players: In support of UPW, merchandise purchased from the union store will count in the Online PFS region for the <span class=\"hover\" title=\"When you use a Hero Point to reroll a check, add a +1 circumstance bonus to the reroll\">Promotional Vestments</a> boon.",
 			"ReleaseIntro": "Redmond, WA (October 14th, 2021) — Today, the workers at Paizo, Inc - publisher of the Pathfinder and Starfinder roleplaying games - are announcing their formation of the United Paizo Workers union (UPW), with the Communication Workers of America's CODE-CWA project. This union is the first of its kind in the tabletop roleplaying games industry.",
@@ -5064,6 +5142,9 @@
 			"dancing": {
 				"Name": "Dancing"
 			},
+			"decaying": {
+				"Name": "Decaying"
+			},
 			"deathdrinking": {
 				"Name": "Deathdrinking"
 			},
@@ -5161,6 +5242,9 @@
 				"Note": {
 					"criticalSuccess": "Your critical hits leave the target @UUID[Compendium.pf2e.conditionitems.Item.i3OJZU2nk64Df3xm]{Clumsy 2} and @UUID[Compendium.pf2e.conditionitems.Item.MIRkyAjyBeXivMa7]{Enfeebled 2} until the end of your next turn. @UUID[Compendium.pf2e.equipment-effects.Item.czdEHtLsrUcZxSDx]{Effect: Crushing (Greater)}"
 				}
+			},
+			"greaterDecaying": {
+				"Name": "Greater Decaying"
 			},
 			"greaterDisrupting": {
 				"Name": "Greater Vitalizing",
@@ -5321,9 +5405,6 @@
 				"Note": {
 					"criticalSuccess": "On a critical hit, electricity arcs out to deal an equal amount of electricity damage to up to two other creatures of your choice within 10 feet of the target."
 				}
-			},
-			"speed": {
-				"Name": "Speed"
 			},
 			"spellStoring": {
 				"Name": "Spell-Storing"
@@ -5677,6 +5758,7 @@
 			}
 		},
 		"identification": {
+			"DisplayDetails": "Display Details",
 			"Identified": "Identified",
 			"Identify": "Identify Item",
 			"IdentifyAlchemyDCs": "Identify Alchemy DCs",
@@ -5692,7 +5774,7 @@
 			"TraitGMNote": "Note: this trait is hidden from players.",
 			"Unidentified": "Unidentified",
 			"UnidentifiedDescription": "The nature of this {item} is unclear.",
-			"UnidentifiedHint": "Change the basic display details of this item when unidentified.",
+			"UnidentifiedHint": "Change the basic details seen by players when this item is unidentified.",
 			"UnidentifiedItem": "Unusual {item}",
 			"UnidentifiedType": {
 				"Amulet": "Amulet",

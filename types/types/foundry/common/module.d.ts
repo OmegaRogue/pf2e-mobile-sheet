@@ -12,15 +12,19 @@ import "./types.ts";
 declare global {
     const CONST: typeof Constants;
     namespace globalThis {
-        export import Color = Utils.Color;
-
-        module foundry {
-            export import CONST = Constants;
-            export import abstract = Abstract;
-            export import data = Data;
-            export import documents = Documents;
-            export import packages = Packages;
-            export import utils = Utils;
-        }
+	    namespace foundry {
+			/** Constant definitions used throughout the Foundry Virtual Tabletop framework. */
+			export import CONST = Constants;
+			/** Abstract class definitions for fundamental concepts used throughout the Foundry Virtual Tabletop framework. */
+			export import abstract = Abstract;
+			/** Data schema definitions for data models. */
+			export import data = Data;
+			/** Document definitions used throughout the Foundry Virtual Tabletop framework. */
+			export import documents = Documents;
+			/** Package data definitions, validations, and schema. */
+			export import packages = Packages;
+			/** Utility functions providing helpful functionality. */
+			export import utils = Utils;
+		}
     }
 }

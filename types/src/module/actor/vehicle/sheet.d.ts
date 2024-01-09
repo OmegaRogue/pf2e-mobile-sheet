@@ -13,15 +13,16 @@ export declare class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
     activateListeners($html: JQuery): void;
 }
 interface VehicleSheetData extends ActorSheetDataPF2e<VehiclePF2e> {
-    actions: ActionsSheetData;
-    actorRarities: typeof CONFIG.PF2E.rarityTraits;
-    actorRarity: string;
-    actorSizes: typeof CONFIG.PF2E.actorSizes;
-    actorSize: string;
-    ac: AdjustedValue;
-    saves: {
-        fortitude: AdjustedValue;
-    };
+	actions: ActionsSheetData;
+	actorRarities: typeof CONFIG.PF2E.rarityTraits;
+	actorRarity: string;
+	actorSizes: typeof CONFIG.PF2E.actorSizes;
+	actorSize: string;
+	ac: AdjustedValue;
+	frequencies: typeof CONFIG.PF2E.frequencies;
+	saves: {
+		fortitude: AdjustedValue;
+	};
 }
 type ActionsSheetData = Record<"action" | "reaction" | "free", {
     label: string;

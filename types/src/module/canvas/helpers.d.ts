@@ -1,5 +1,5 @@
-import { MeasuredTemplatePF2e } from "./measured-template.ts";
-import { TokenPF2e } from "./token/index.ts";
+import type { EffectAreaType } from "@item/spell/types.ts";
+import { TokenPF2e, type MeasuredTemplatePF2e } from "./index.ts";
 /**
  * Measure the minimum distance between two rectangles
  * @param r0      The origin rectangle
@@ -14,23 +14,23 @@ declare function measureDistanceCuboid(r0: PIXI.Rectangle, r1: PIXI.Rectangle, {
 /** Highlight grid according to Pathfinder 2e effect-area shapes */
 declare function highlightGrid({ areaType, object, colors, document, collisionType, preview, }: HighlightGridParams): void;
 interface HighlightGridParams {
-    areaType: "burst" | "cone" | "emanation";
-    object: MeasuredTemplatePF2e | TokenPF2e;
-    /** Border and fill colors in hexadecimal */
-    colors: {
-        border: number;
-        fill: number;
-    };
-    /** Shape data for the effect area: satisfied by MeasuredTemplateData */
-    document: Readonly<{
-        x: number;
-        y: number;
-        distance: number | null;
-        angle?: number;
-        direction?: number;
-        width: number | null;
-    }>;
-    collisionType?: WallRestrictionType;
-    preview?: boolean;
+	areaType: EffectAreaType | null;
+	object: MeasuredTemplatePF2e | TokenPF2e;
+	/** Border and fill colors in hexadecimal */
+	colors: {
+		border: number;
+		fill: number;
+	};
+	/** Shape data for the effect area: satisfied by MeasuredTemplateData */
+	document: Readonly<{
+		x: number;
+		y: number;
+		distance: number | null;
+		angle?: number;
+		direction?: number;
+		width: number | null;
+	}>;
+	collisionType?: WallRestrictionType;
+	preview?: boolean;
 }
 export { highlightGrid, measureDistanceCuboid };

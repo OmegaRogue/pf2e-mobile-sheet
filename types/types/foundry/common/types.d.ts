@@ -1,4 +1,4 @@
-import type { Document } from "./abstract/module.d.ts";
+import type { DataModel, Document } from "./abstract/module.d.ts";
 
 declare global {
     interface DocumentConstructionContext<TParent extends Document | null>
@@ -58,56 +58,55 @@ declare global {
 
     /** A Client Setting */
     interface SettingConfig<
-        TChoices extends Record<string, unknown> | undefined = Record<string, unknown> | undefined,
-    > {
-        /** A unique machine-readable id for the setting */
-        key: string;
-        /** The namespace the setting belongs to */
-        namespace: string;
-        /** The human readable name */
-        name: string;
-        /** An additional human readable hint */
-        hint?: string;
-        /** The scope the Setting is stored in, either World or Client */
-        scope: "world" | "client";
-        /** Indicates if this Setting should render in the Config application */
-        config: boolean;
-        /** This will prompt the user to reload the application for the setting to take effect. */
-        requiresReload?: boolean;
-        /** The JS Type that the Setting is storing */
-        type:
-            | NumberConstructor
-            | StringConstructor
-            | BooleanConstructor
-            | ObjectConstructor
-            | ArrayConstructor
-            | FunctionConstructor;
-        /** For string Types, defines the allowable values */
-        choices?: TChoices;
-        /** For numeric Types, defines the allowable range */
-        range?: this["type"] extends NumberConstructor ? { min: number; max: number; step: number } : never;
-        /** The default value */
-        default: number | string | boolean | object | Function;
-        /** Executes when the value of this Setting changes */
-        onChange?: (
-            choice: TChoices extends Record<string, unknown> ? keyof TChoices : undefined,
-        ) => void | Promise<void>;
-    }
+		TChoices extends Record<string, unknown> | undefined = Record<string, unknown> | undefined,
+	> {
+		/** A unique machine-readable id for the setting */
+		key: string;
+		/** The namespace the setting belongs to */
+		namespace: string;
+		/** The human readable name */
+		name: string;
+		/** An additional human readable hint */
+		hint?: string;
+		/** The scope the Setting is stored in, either World or Client */
+		scope: "world" | "client";
+		/** Indicates if this Setting should render in the Config application */
+		config: boolean;
+		/** This will prompt the user to reload the application for the setting to take effect. */
+		requiresReload?: boolean;
+		/** The JS Type that the Setting is storing */
+		type:
+			| NumberConstructor
+			| StringConstructor
+			| BooleanConstructor
+			| ObjectConstructor
+			| ArrayConstructor
+			| ConstructorOf<DataModel>
+			| Function;
+		/** For string Types, defines the allowable values */
+		choices?: TChoices;
+		/** For numeric Types, defines the allowable range */
+		range?: this["type"] extends NumberConstructor ? { min: number; max: number; step: number } : never;
+		/** The default value */
+		default: number | string | boolean | object | (() => number | string | boolean | object);
+		/** Executes when the value of this Setting changes */
+		onChange?: (choice: TChoices extends object ? keyof TChoices : unknown) => void | Promise<void>;
+	}
 
-    interface SettingSubmenuConfig {
-        /** The human readable name */
-        name: string;
-        /** The human readable label */
-        label: string;
-        /** An additional human readable hint */
-        hint: string;
-        /** The classname of an Icon to render */
-        icon: string;
-        /** The FormApplication to render */
-        type: SettingsMenuConstructor;
-        /** If true, only a GM can edit this Setting */
-        restricted: boolean;
-    }
+	interface SettingSubmenuConfig {
+		/** The human readable name */
+		name: string;
+		/** The human readable label */
+		label: string;
+		/** An additional human readable hint */
+		hint: string;
+		/** The classname of an Icon to render */
+		icon: string;
+		/** The FormApplication to render */
+		type: SettingsMenuConstructor;
+		/** If true, only a GM can edit this Setting */
+		restricted: boolean;
+	}
 
     interface SettingsMenuConstructor {
         new (object?: object, options?: Partial<FormApplicationOptions>): FormApplication;
@@ -116,31 +115,31 @@ declare global {
 
     /** A Client Keybinding Action Configuration */
     interface KeybindingActionConfig {
-        /** The namespace within which the action was registered */
-        namespace?: string;
-        /** The human readable name */
-        name: string;
-        /** An additional human readable hint */
-        hint?: string;
-        /** The default bindings that can never be changed nor removed. */
-        uneditable?: KeybindingActionBinding[];
-        /** The default bindings that can be changed by the user. */
-        editable?: KeybindingActionBinding[];
-        /** A function to execute when a key down event occurs. If True is returned, the event is consumed and no further keybinds execute. */
-        onDown?: (context: KeyboardEventContext) => unknown | void;
-        /** A function to execute when a key up event occurs. If True is returned, the event is consumed and no further keybinds execute. */
-        onUp?: (context: KeyboardEventContext) => unknown | void;
-        /** If True, allows Repeat events to execute the Action's onDown. Defaults to false. */
-        repeat?: boolean;
-        /** If true, only a GM can edit and execute this Action */
-        restricted?: boolean;
-        /** Modifiers such as [ "CONTROL" ] that can be also pressed when executing this Action. Prevents using one of these modifiers as a Binding. */
-        reservedModifiers?: ModifierKey[];
-        /** The preferred precedence of running this Keybinding Action */
-        precedence?: number;
-        /** The recorded registration order of the action */
-        order?: number;
-    }
+		/** The namespace within which the action was registered */
+		namespace?: string;
+		/** The human readable name */
+		name: string;
+		/** An additional human readable hint */
+		hint?: string;
+		/** The default bindings that can never be changed nor removed. */
+		uneditable?: KeybindingActionBinding[];
+		/** The default bindings that can be changed by the user. */
+		editable?: KeybindingActionBinding[];
+		/** A function to execute when a key down event occurs. If True is returned, the event is consumed and no further keybinds execute. */
+		onDown?: (context: KeyboardEventContext) => unknown;
+		/** A function to execute when a key up event occurs. If True is returned, the event is consumed and no further keybinds execute. */
+		onUp?: (context: KeyboardEventContext) => unknown;
+		/** If True, allows Repeat events to execute the Action's onDown. Defaults to false. */
+		repeat?: boolean;
+		/** If true, only a GM can edit and execute this Action */
+		restricted?: boolean;
+		/** Modifiers such as [ "CONTROL" ] that can be also pressed when executing this Action. Prevents using one of these modifiers as a Binding. */
+		reservedModifiers?: ModifierKey[];
+		/** The preferred precedence of running this Keybinding Action */
+		precedence?: number;
+		/** The recorded registration order of the action */
+		order?: number;
+	}
 
     interface KeybindingActionBinding {
         /** The KeyboardEvent#code value from https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code/code_values */

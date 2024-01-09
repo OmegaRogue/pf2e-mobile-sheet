@@ -1,93 +1,103 @@
 declare class AmbientLight<
-    TDocument extends AmbientLightDocument<Scene | null> = AmbientLightDocument<Scene | null>,
+	TDocument extends AmbientLightDocument<Scene | null> = AmbientLightDocument<Scene | null>,
 > extends PlaceableObject<TDocument> {
-    constructor(document: TDocument);
+	constructor(document: TDocument);
 
-    /** A reference to the PointSource object which defines this light source area of effect */
-    source: LightSource<this>;
+	/** A reference to the PointSource object which defines this light source area of effect */
+	source: LightSource<this>;
 
-    /** A reference to the ControlIcon used to configure this light */
-    controlIcon: ControlIcon;
+	/** A reference to the ControlIcon used to configure this light */
+	controlIcon: ControlIcon;
 
-    static override embeddedName: "AmbientLight";
+	static override embeddedName: "AmbientLight";
 
-    override get bounds(): PIXI.Rectangle;
+	override get bounds(): PIXI.Rectangle;
 
-    /** A convenience accessor to the LightData configuration object */
-    get config(): TDocument["config"];
+	/** A convenience accessor to the LightData configuration object */
+	get config(): TDocument["config"];
 
-    /** Test whether a specific AmbientLight source provides global illumination */
-    get global(): boolean;
+	/** Test whether a specific AmbientLight source provides global illumination */
+	get global(): boolean;
 
-    /** The maximum radius in pixels of the light field */
-    get radius(): number;
+	/** The maximum radius in pixels of the light field */
+	get radius(): number;
 
-    /** Is this ambient light is currently visible based on its hidden state and the darkness level of the Scene? */
-    get isVisible(): boolean;
+	/** Is this ambient light is currently visible based on its hidden state and the darkness level of the Scene? */
+	get isVisible(): boolean;
 
-    /* -------------------------------------------- */
-    /* Rendering                                    */
-    /* -------------------------------------------- */
+	/**
+	 * Does this Ambient Light actively emit light given its properties and the current darkness level of the Scene?
+	 */
+	get emitsLight(): boolean;
 
-    protected _draw(): Promise<void>;
+	/* -------------------------------------------- */
+	/* Rendering                                    */
+	/* -------------------------------------------- */
 
-    /** Draw the ControlIcon for the AmbientLight */
-    protected _drawControlIcon(): ControlIcon;
+	protected override _destroy(options?: boolean | PIXI.IDestroyOptions): void;
 
-    override refresh(): this;
+	protected _draw(): Promise<void>;
 
-    protected override _refresh(options: object): void;
+	/* -------------------------------------------- */
+	/*  Incremental Refresh                         */
 
-    /** Refresh the display of the ControlIcon for this AmbientLight source */
-    refreshControl(): void;
+	/* -------------------------------------------- */
 
-    /* -------------------------------------------- */
-    /*  Light Source Management                     */
-    /* -------------------------------------------- */
+	protected override _applyRenderFlags(flags: Record<string, boolean>): void;
 
-    /** The named identified for the source object associated with this light */
-    get sourceId(): `Light.${string}`;
+	/** Draw the ControlIcon for the AmbientLight */
+	protected _drawControlIcon(): ControlIcon;
 
-    /**
-     * Update the source object associated with this light
-     * @param defer   Defer refreshing the LightingLayer to manually call that refresh later.
-     * @param deleted Indicate that this light source has been deleted.
-     */
-    updateSource({ defer, deleted }?: { defer?: boolean; deleted?: boolean }): void;
+	/** Refresh the display of the ControlIcon for this AmbientLight source */
+	refreshControl(): void;
 
-    /* -------------------------------------------- */
-    /*  Socket Listeners and Handlers               */
-    /* -------------------------------------------- */
+	/* -------------------------------------------- */
+	/*  Light Source Management                     */
+	/* -------------------------------------------- */
 
-    protected override _onCreate(
-        data: TDocument["_source"],
-        options: DocumentModificationContext<TDocument["parent"]>,
-        userId: string,
-    ): void;
+	/** The named identified for the source object associated with this light */
+	get sourceId(): `Light.${string}`;
 
-    protected override _onUpdate(
-        changed: DeepPartial<TDocument["_source"]>,
-        options: DocumentModificationContext<TDocument["parent"]>,
-        userId: string,
-    ): void;
+	/**
+	 * Update the source object associated with this light
+	 * @param defer   Defer refreshing the LightingLayer to manually call that refresh later.
+	 * @param deleted Indicate that this light source has been deleted.
+	 */
+	updateSource({ defer, deleted }?: { defer?: boolean; deleted?: boolean }): void;
 
-    protected override _onDelete(options: DocumentModificationContext<TDocument["parent"]>, userId: string): void;
+	/* -------------------------------------------- */
+	/*  Socket Listeners and Handlers               */
+	/* -------------------------------------------- */
 
-    /* -------------------------------------------- */
-    /*  Mouse Interaction Handlers                  */
-    /* -------------------------------------------- */
+	protected override _onCreate(
+		data: TDocument["_source"],
+		options: DocumentModificationContext<TDocument["parent"]>,
+		userId: string,
+	): void;
 
-    protected override _canHUD(user: User, event: PIXI.FederatedEvent): boolean;
+	protected override _onUpdate(
+		changed: DeepPartial<TDocument["_source"]>,
+		options: DocumentModificationContext<TDocument["parent"]>,
+		userId: string,
+	): void;
 
-    protected override _canConfigure(user: User, event: PIXI.FederatedEvent): boolean;
+	protected override _onDelete(options: DocumentModificationContext<TDocument["parent"]>, userId: string): void;
 
-    protected override _onClickRight(event: PIXI.FederatedEvent): void;
+	/* -------------------------------------------- */
+	/*  Mouse Interaction Handlers                  */
+	/* -------------------------------------------- */
 
-    protected override _onDragLeftStart(event: PIXI.FederatedEvent): void;
+	protected override _canHUD(user: User, event: PIXI.FederatedEvent): boolean;
 
-    protected override _onDragLeftMove(event: PIXI.FederatedEvent): void;
+	protected override _canConfigure(user: User, event: PIXI.FederatedEvent): boolean;
 
-    protected override _onDragLeftCancel(event: PIXI.FederatedEvent): void;
+	protected override _onClickRight(event: PIXI.FederatedEvent): void;
+
+	protected override _onDragLeftStart(event: PIXI.FederatedEvent): void;
+
+	protected override _onDragLeftMove(event: PIXI.FederatedEvent): void;
+
+	protected override _onDragLeftCancel(event: PIXI.FederatedEvent): void;
 }
 declare interface AmbientLight<
     TDocument extends AmbientLightDocument<Scene | null> = AmbientLightDocument<Scene | null>,

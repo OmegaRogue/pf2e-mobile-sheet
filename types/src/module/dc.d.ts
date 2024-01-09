@@ -11,13 +11,15 @@ declare function rarityToDCAdjustment(rarity?: Rarity): PositiveDCAdjustment;
 declare function adjustDC(dc: number, adjustment?: DCAdjustment): number;
 declare function adjustDCByRarity(dc: number, rarity?: Rarity): number;
 interface DCOptions {
-    proficiencyWithoutLevel?: boolean;
-    rarity?: Rarity;
+	pwol?: boolean;
+	rarity?: Rarity;
 }
 /** Level-based DCs */
-declare function calculateDC(level: number, { proficiencyWithoutLevel, rarity }?: DCOptions): number;
-declare function calculateSimpleDC(rank: ProficiencyRank, { proficiencyWithoutLevel }?: DCOptions): number;
-declare function calculateSpellDC(spellLevel: number, { proficiencyWithoutLevel }?: DCOptions): number;
+declare function calculateDC(level: number, { pwol, rarity }?: DCOptions): number;
+
+declare function calculateSimpleDC(rank: ProficiencyRank, { pwol }?: DCOptions): number;
+
+declare function calculateSpellDC(spellLevel: number, { pwol }?: DCOptions): number;
 /**
  * Used to shift DCs around the adjustment table Rarity increases
  * the adjustment while Lores reduce it.

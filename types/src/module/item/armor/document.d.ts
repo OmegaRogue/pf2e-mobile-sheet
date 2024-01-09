@@ -20,7 +20,6 @@ declare class ArmorPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> ext
     getRollOptions(prefix?: string): string[];
     prepareBaseData(): void;
     prepareDerivedData(): void;
-    private prepareRunes;
     prepareActorData(this: ArmorPF2e<ActorPF2e>): void;
     getChatData(this: ArmorPF2e<ActorPF2e>, htmlOptions?: EnrichmentOptions): Promise<ItemSummaryData>;
     generateUnidentifiedName({ typeOnly }?: {

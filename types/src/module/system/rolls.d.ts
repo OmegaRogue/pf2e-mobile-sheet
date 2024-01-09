@@ -9,8 +9,10 @@ import { RollNotePF2e, RollNoteSource } from "@module/notes.ts";
 import { RollTwiceOption } from "./check/index.ts";
 import { CheckDC, DEGREE_OF_SUCCESS_STRINGS } from "./degree-of-success.ts";
 interface RollDataPF2e extends RollOptions {
-    rollerId?: string;
-    totalModifier?: number;
+	rollerId?: string;
+	totalModifier?: number;
+	/** Whether to show roll formula and tooltip to players */
+	showBreakdown?: boolean;
 }
 /** Possible parameters of a RollFunction */
 interface RollParameters {

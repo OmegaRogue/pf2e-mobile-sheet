@@ -21,13 +21,13 @@ declare global {
     }
 
     interface TokenMeshDisplayAttributes {
-        x: number;
-        y: number;
-        width: number;
-        height: number;
-        scaleX: number;
-        scaleY: number;
-        rotation: number;
-        tint: Color;
-    }
+		x: number;
+		y: number;
+		width: number;
+		height: number;
+		scaleX: number;
+		scaleY: number;
+		rotation: number;
+		tint: foundry.utils.Color;
+	}
 }

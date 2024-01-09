@@ -269,3 +269,15 @@ export { Migration900ClassSpellcastingProficiency } from "./900-class-spellcasti
 export { Migration901ReorganizeBulkData } from "./901-reorganize-bulk-data.ts";
 export { Migration902DuskwoodDawnsilver } from "./902-duskwood-dawnsilver.ts";
 export { Migration903PhysicalNumericData } from "./903-physical-numeric-data.ts";
+export { Migration904UndercommonToSakvroth } from "./904-undercommon-to-sakvroth.ts";
+export { Migration905UnpersistUsage } from "./905-unpersist-usage.ts";
+export { Migration906LimitStackGroup } from "./906-limit-stack-group.ts";
+export { Migration907RestructureArmorWeaponRunes } from "./907-restructure-armor-weapon-runes.ts";
+export { Migration908TrueGangUp } from "./908-true-gang-up.ts";
+export { Migration909RefineConsumableData } from "./909-refine-consumable-data.ts";
+export { Migration910EdictsAnathemaArrays } from "./910-edicts-anathema-arrays.ts";
+export { Migration911CoinBulk } from "./911-coin-bulk.ts";
+export { Migration912RmFocusTraitFocusCantrips } from "./912-rm-focus-trait-focus-cantrips.ts";
+export { Migration913SpellSustainedText } from "./913-spell-sustained-text.ts";
+export { Migration914MovePerceptionSenses } from "./914-move-perception-senses.ts";
+export { Migration915MoveLanguages } from "./915-move-languages.ts";

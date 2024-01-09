@@ -13,12 +13,6 @@ interface AbilitySystemSource extends ItemSystemSource {
         value: OneToThree | null;
     };
     category: ActionCategory | null;
-    requirements: {
-        value: string;
-    };
-    trigger: {
-        value: string;
-    };
     deathNote: boolean;
     frequency?: FrequencySource;
     level?: never;
@@ -29,10 +23,11 @@ interface SelfEffectReferenceSource {
     uuid: ItemUUID;
     name: string;
 }
-interface AbilitySystemData extends AbilitySystemSource, Omit<ItemSystemData, "level" | "traits"> {
-    frequency?: Frequency;
-    /** A self-applied effect for simple actions */
-    selfEffect: SelfEffectReference | null;
+
+interface AbilitySystemData extends Omit<AbilitySystemSource, "description">, Omit<ItemSystemData, "level" | "traits"> {
+	frequency?: Frequency;
+	/** A self-applied effect for simple actions */
+	selfEffect: SelfEffectReference | null;
 }
 interface SelfEffectReference extends SelfEffectReferenceSource {
     img?: Maybe<ImageFilePath>;

@@ -1,7 +1,84 @@
+diff --git a/types/foundry/client/core/hooks.d.ts b/types/foundry/client/core/hooks.d.ts
+--- a/types/foundry/client/core/hooks.d.ts	(revision 274df0e694162065298f930be954f464e2376cbb)
++++ b/types/foundry/client/core/hooks.d.ts	(revision 3e52143c7cc1b18e5207339ddda461975953f2d5)
+@@ -6,6 +6,7 @@
+     // Sequence of hooks called on world load
+     type HookParamsInit = HookParameters<"init", never>;
+     type HookParamsSetup = HookParameters<"setup", never>;
++    type HookParamsI18nInit = HookParameters<"i18nInit", never>;
+     type HookParamsCanvasInit = HookParameters<"canvasInit", [DrawnCanvas]>;
+     type HookParamsCanvasReady = HookParameters<"canvasReady", [DrawnCanvas]>;
+     type HookParamsReady = HookParameters<"ready", never>;
+@@ -60,6 +61,7 @@
+         static on(...args: HookParamsSetup): number;
+         static on(...args: HookParamsInit): number;
+         static on(...args: HookParamsReady): number;
++        static on(...args: HookParamsI18nInit): number;
+         static on(...args: HookParamsCanvasInit): number;
+         static on(...args: HookParamsCanvasReady): number;
+         static on(...args: HookParamsClose<CombatTrackerConfig, "CombatTrackerConfig">): number;
+Index: types/foundry/client/data/documents/scene.d.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/types/foundry/client/data/documents/scene.d.ts b/types/foundry/client/data/documents/scene.d.ts
+--- a/types/foundry/client/data/documents/scene.d.ts	(revision 274df0e694162065298f930be954f464e2376cbb)
++++ b/types/foundry/client/data/documents/scene.d.ts	(revision 3e52143c7cc1b18e5207339ddda461975953f2d5)
+@@ -1,4 +1,6 @@
+ import type { ClientBaseScene } from "./client-base-mixes.d.ts";
++import type { NoteSource} from "../../../common/documents/note.js";
++import {TokenSource} from "../../../common/documents/token.js";
+
+ declare global {
+     /**
+@@ -155,6 +157,12 @@
+
+         update(data: Record<string, unknown>, options?: SceneUpdateContext): Promise<this>;
+
++        createEmbeddedDocuments(
++            embeddedName: "Note",
++            data: PreCreate<NoteSource>[],
++            context?: DocumentModificationContext<this>,
++        ): Promise<NoteDocument<this>[]>;
++
+         updateEmbeddedDocuments(
+             embeddedName: "Token",
+             updateData: EmbeddedDocumentUpdateData[],
+Index: types/foundry/client/pixi/board.d.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/types/foundry/client/pixi/board.d.ts b/types/foundry/client/pixi/board.d.ts
+--- a/types/foundry/client/pixi/board.d.ts	(revision 274df0e694162065298f930be954f464e2376cbb)
++++ b/types/foundry/client/pixi/board.d.ts	(revision 3e52143c7cc1b18e5207339ddda461975953f2d5)
+@@ -313,7 +313,7 @@
+          * @param origin  Point to display Ping at
+          * @param options Additional options to configure how the ping is drawn.
+          */
+-        ping(origin: Point, options: Record<string, unknown>): Promise<boolean>;
++        ping(origin: Point, options?: Record<string, unknown>): Promise<boolean>;
+
+         /**
+          * Create a BlurFilter instance and register it to the array for updates when the zoom level changes.
+Index: types/foundry/client/pixi/canvas-layer/grid-layer.d.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
 ===================================================================
 diff --git a/types/foundry/client/pixi/canvas-layer/grid-layer.d.ts b/types/foundry/client/pixi/canvas-layer/grid-layer.d.ts
---- a/types/foundry/client/pixi/canvas-layer/grid-layer.d.ts	(revision b3dbabae86f862914df4b4404a6385c56918c34b)
-+++ b/types/foundry/client/pixi/canvas-layer/grid-layer.d.ts	(revision db2c6a72df3cd4a1431aa39fd3c8ec6ce94a4d28)
+--- a/types/foundry/client/pixi/canvas-layer/grid-layer.d.ts	(revision 274df0e694162065298f930be954f464e2376cbb)
++++ b/types/foundry/client/pixi/canvas-layer/grid-layer.d.ts	(revision 3e52143c7cc1b18e5207339ddda461975953f2d5)
+@@ -30,7 +30,7 @@
+          * Draw the grid
+          * @param preview Override settings used in place of those saved to the Scene data
+          */
+-        protected _draw({ type, dimensions, gridColor, gridAlpha }?: GridDrawOptions): Promise<void>;
++        protected _draw({type, dimensions, gridColor, gridAlpha}?: GridDrawOptions): Promise<void>;
+
+         /**
+          * Given a pair of coordinates (x1,y1), return the grid coordinates (x2,y2) which represent the snapped position
 @@ -56,22 +56,24 @@
           * Measure the grid-wise distance between two point coordinates.
           * @param origin The origin point
@@ -41,135 +118,71 @@ diff --git a/types/foundry/client/pixi/canvas-layer/grid-layer.d.ts b/types/foun
  }
 
  interface GridLayerOptions extends CanvasLayerOptions {
-===================================================================
-diff --git a/types/foundry/client/pixi/board.d.ts b/types/foundry/client/pixi/board.d.ts
---- a/types/foundry/client/pixi/board.d.ts	(revision b3dbabae86f862914df4b4404a6385c56918c34b)
-+++ b/types/foundry/client/pixi/board.d.ts	(revision db2c6a72df3cd4a1431aa39fd3c8ec6ce94a4d28)
-@@ -313,7 +317,7 @@
-          * @param origin  Point to display Ping at
-          * @param options Additional options to configure how the ping is drawn.
-          */
--        ping(origin: Point, options: Record<string, unknown>): Promise<boolean>;
-+        ping(origin: Point, options?: Record<string, unknown>): Promise<boolean>;
-
-         /**
-          * Create a BlurFilter instance and register it to the array for updates when the zoom level changes.
+Index: types/foundry/common/primitives/set.d.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
 ===================================================================
 diff --git a/types/foundry/common/primitives/set.d.ts b/types/foundry/common/primitives/set.d.ts
-index e69de29..e1cf635 100644
---- a/types/foundry/common/primitives/set.d.ts
-+++ b/types/foundry/common/primitives/set.d.ts
-@@ -0,0 +1,129 @@
-+interface Set<T> {
-+    /**
-+     * Test whether every element in this Set satisfies a certain test criterion.
-+     * @see Array#every
-+     * @param test The test criterion to apply. Positional arguments are the value,
-+     * the index of iteration, and the set being tested.
-+     * @returns Does every element in the set satisfy the test criterion?
-+     */
-+    every<S extends T>(test: (value: T, index: number, set: Set<T>) => value is S): this is Set<S>;
-+    /**
-+     * Test whether every element in this Set satisfies a certain test criterion.
-+     * @see Array#every
-+     * @param test The test criterion to apply. Positional arguments are the value,
-+     * the index of iteration, and the set being tested.
-+     * @returns Does every element in the set satisfy the test criterion?
-+     */
+--- a/types/foundry/common/primitives/set.d.ts	(revision 274df0e694162065298f930be954f464e2376cbb)
++++ b/types/foundry/common/primitives/set.d.ts	(revision 3e52143c7cc1b18e5207339ddda461975953f2d5)
+@@ -72,8 +72,8 @@
+      * the index of iteration, and the set being tested.
+      * @returns {boolean}  Does every element in the set satisfy the test criterion?
+      */
+-    every<U extends T = T>(test: (value: T) => value is U): this is Set<U>;
+-    every(test: (value: T) => boolean): boolean;
++    every<U extends T = T>(test: (value: T, index: number, set: Set<T>) => value is U): this is Set<U>;
 +    every(test: (value: T, index: number, set: Set<T>) => boolean): boolean;
-+
-+    /**
-+     * Return the difference of two sets.
-+     * @param other Some other set to compare against
-+     * @returns The difference defined as objects in this which are not present in other
-+     */
-+    difference(other: Set<T>): Set<T>;
-+    /**
-+     * Test whether this set is equal to some other set.
-+     * Sets are equal if they share the same members, independent of order
-+     * @param other Some other set to compare against
-+     * @returns Are the sets equal?
-+     */
-+    equals(other: Set<T>): boolean;
-+    /**
-+     * Return the first value from the set.
-+     * @returns The first element in the set, or undefined
-+     */
-+    first(): T;
-+    /**
-+     * Return the intersection of two sets.
-+     * @param other Some other set to compare against
-+     * @returns The intersection of both sets
-+     */
-+    intersection(other: Set<T>): Set<T>;
-+    /**
-+     * Test whether this set has an intersection with another set.
-+     * @param other Another set to compare against
-+     * @returns Do the sets intersect?
-+     */
-+    intersects(other: Set<T>): boolean;
-+    /**
-+     * Test whether this set is a subset of some other set.
-+     * A set is a subset if all its members are also present in the other set.
-+     * @param other Some other set that may be a subset of this one
-+     * @returns Is the other set a subset of this one?
-+     */
-+    isSubset(other: Set<T>);
-+    /**
-+     * Convert a set to a JSON object by mapping its contents to an array
-+     * @returns The set elements as an array.
-+     */
-+    toObject(): T[];
-+    /**
-+     * Filter this set to create a subset of elements which satisfy a certain test criterion.
-+     * @see Array#filter
-+     * @param test  The test criterion to apply. Positional arguments are the value,
-+     * the index of iteration, and the set being filtered.
-+     * @returns A new Set containing only elements which satisfy the test criterion.
-+     */
-+    filter<S extends T>(test: (value: T, index: number, set: Set<T>) => value is S): Set<S>;
-+    /**
-+     * Filter this set to create a subset of elements which satisfy a certain test criterion.
-+     * @see Array#filter
-+     * @param test The test criterion to apply. Positional arguments are the value,
-+     * the index of iteration, and the set being filtered.
-+     * @returns A new Set containing only elements which satisfy the test criterion.
-+     */
+
+     /**
+      * Filter this set to create a subset of elements which satisfy a certain test criterion.
+@@ -82,17 +82,25 @@
+      * the index of iteration, and the set being filtered.
+      * @returns {Set}  A new Set containing only elements which satisfy the test criterion.
+      */
+-    filter<U extends T = T>(test: (value: T) => value is U): Set<U>;
+-    filter(test: (value: T) => boolean): Set<T>;
++    filter<U extends T = T>(test: (value: T, index: number, set: Set<T>) => value is U): Set<U>;
 +    filter(test: (value: T, index: number, set: Set<T>) => boolean): Set<T>;
-+
+
+     /**
+      * Find the first element in this set which satisfies a certain test criterion.
+      * @see Array#find
+      * @param test The test criterion to apply. Positional arguments are the value,
+      * the index of iteration, and the set being searched.
+-     * @returns  The first element in the set which satisfies the test criterion, or undefined.
++     * @returns The first element in the set which satisfies the test criterion, or undefined.
+      */
+-    find<U extends T = T>(test: (value: U) => boolean): T | undefined;
++    find<U extends T>(test: (value: T, index: number, obj: Set<T>) => value is U): U | undefined;
 +    /**
 +     * Find the first element in this set which satisfies a certain test criterion.
 +     * @see Array#find
 +     * @param test The test criterion to apply. Positional arguments are the value,
 +     * the index of iteration, and the set being searched.
-+     * @returns The first element in the set which satisfies the test criterion, or undefined.
-+     */
-+    find<S extends T>(test: (value: T, index: number, obj: Set<T>) => value is S): S | undefined;
-+    /**
-+     * Find the first element in this set which satisfies a certain test criterion.
-+     * @see Array#find
-+     * @param test The test criterion to apply. Positional arguments are the value,
-+     * the index of iteration, and the set being searched.
-+     * @returns The first element in the set which satisfies the test criterion, or undefined.
++     * @returns  The first element in the set which satisfies the test criterion, or undefined.
 +     */
 +    find(test: (value: T, index: number, obj: Set<T>) => boolean): T | undefined;
-+    /**
-+     * Create a new Set where every element is modified by a provided transformation function.
-+     * @see Array#map
-+     * @param transform The transformation function to apply.Positional arguments are
-+     * the value, the index of iteration, and the set being transformed.
-+     * @returns A new Set of equal size containing transformed elements.
-+     */
+
+     /**
+      * Create a new Set where every element is modified by a provided transformation function.
+@@ -101,7 +109,7 @@
+      *                  and the set being transformed.
+      * @returns A new Set of equal size containing transformed elements.
+      */
+-    map<U>(transfor: (value: T) => U): Set<U>;
 +    map<U>(transform: (value: T, index: number, set: Set<T>) => U): Set<U>;
-+    /**
-+     * Create a new Set with elements that are filtered and transformed by a provided reducer function.
-+     * @see Array#reduce
-+     * @param reducer A reducer function applied to each value. Positional
-+     * arguments are the accumulator, the value, the index of iteration, and the set being reduced.
-+     * @param accumulator The initial value of the returned accumulator.
-+     * @returns The final value of the accumulator.
-+     */
+
+     /**
+      * Create a new Set with elements that are filtered and transformed by a provided reducer function.
+@@ -111,7 +119,17 @@
+      * @param accumulator The initial value of the returned accumulator.
+      * @returns The final value of the accumulator.
+      */
+-    reduce<U>(evaluator: (accumlator: U, value: T) => U, initial: U): U;
 +    reduce<U>(reducer: (previousValue: U, currentValue: T, currentIndex: number, set: Set<T>) => U, accumulator: U): U;
++
 +    /**
 +     * Create a new Set with elements that are filtered and transformed by a provided reducer function.
 +     * @see Array#reduce
@@ -179,52 +192,24 @@ index e69de29..e1cf635 100644
 +     * @returns The final value of the accumulator.
 +     */
 +    reduce(reducer: (previousValue: T, currentValue: T, currentIndex: number, set: Set<T>) => T, accumulator: T): T;
-+
-+    /**
-+     * Test whether any element in this Set satisfies a certain test criterion.
-+     * @see Array#some
-+     * @param test The test criterion to apply. Positional arguments are the value,
-+     * the index of iteration, and the set being tested.
-+     * @returns Does any element in the set satisfy the test criterion?
-+     */
-+    some(test: (value: T, index: number, set: Set<T>) => unknown): boolean;
-+}
-===================================================================
-diff --git a/types/foundry/client/core/hooks.d.ts b/types/foundry/client/core/hooks.d.ts
---- a/types/foundry/client/core/hooks.d.ts	(revision b265d4c6d120193abe61c9b0b61f2e7af47fb13f)
-+++ b/types/foundry/client/core/hooks.d.ts	(date 1698592741600)
-@@ -6,6 +6,7 @@
-     // Sequence of hooks called on world load
-     type HookParamsInit = HookParameters<"init", never>;
-     type HookParamsSetup = HookParameters<"setup", never>;
-+    type HookParamsI18nInit = HookParameters<"i18nInit", never>;
-     type HookParamsCanvasInit = HookParameters<"canvasInit", [DrawnCanvas]>;
-     type HookParamsCanvasReady = HookParameters<"canvasReady", [DrawnCanvas]>;
-     type HookParamsReady = HookParameters<"ready", never>;
-@@ -60,6 +61,7 @@
-         static on(...args: HookParamsSetup): number;
-         static on(...args: HookParamsInit): number;
-         static on(...args: HookParamsReady): number;
-+        static on(...args: HookParamsI18nInit): number;
-         static on(...args: HookParamsCanvasInit): number;
-         static on(...args: HookParamsCanvasReady): number;
-         static on(...args: HookParamsClose<CombatTrackerConfig, "CombatTrackerConfig">): number;
-===================================================================
-diff --git a/types/src/module/scene/document.d.ts b/types/src/module/scene/document.d.ts
---- a/types/src/module/scene/document.d.ts	(revision 3fff4ddf913bc97d8f15238018b92b4508817a6a)
-+++ b/types/src/module/scene/document.d.ts	(date 1701707013831)
-@@ -33,6 +33,7 @@
-     readonly tiles: foundry.abstract.EmbeddedCollection<TileDocumentPF2e<this>>;
-     get sheet(): SceneConfigPF2e<this>;
-     createEmbeddedDocuments(embeddedName: "Token", data: PreCreate<foundry.documents.TokenSource>[], context?: DocumentModificationContext<this>): Promise<TokenDocumentPF2e<this>[]>;
-+    createEmbeddedDocuments(embeddedName: "Note", data: PreCreate<foundry.documents.NoteSource>[], context?: DocumentModificationContext<this>): Promise<NoteDocument<this>[]>;
-     createEmbeddedDocuments(embeddedName: string, data: object[], context?: DocumentModificationContext<this>): Promise<foundry.abstract.Document[]>;
+
+     /**
+      * Test whether any element in this Set satisfies a certain test criterion.
+@@ -120,5 +138,5 @@
+      *             being tested.
+      * @returns Does any element in the set satisfy the test criterion?
+      */
+-    some(test: (value: T) => boolean): boolean;
++    some(test: (value: T, index: number, set: Set<T>) => boolean): boolean;
  }
- export { ScenePF2e };
+Index: types/foundry/common/utils/collection.d.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
 ===================================================================
-diff --git a/types/types/foundry/common/utils/collection.d.ts b/types/types/foundry/common/utils/collection.d.ts
---- a/types/types/foundry/common/utils/collection.d.ts	(revision 3fff4ddf913bc97d8f15238018b92b4508817a6a)
-+++ b/types/types/foundry/common/utils/collection.d.ts	(date 1701865867719)
+diff --git a/types/foundry/common/utils/collection.d.ts b/types/foundry/common/utils/collection.d.ts
+--- a/types/foundry/common/utils/collection.d.ts	(revision 274df0e694162065298f930be954f464e2376cbb)
++++ b/types/foundry/common/utils/collection.d.ts	(revision 3e52143c7cc1b18e5207339ddda461975953f2d5)
 @@ -80,7 +80,7 @@
       * @param transformer  The transformation function to apply to each entry value
       * @return An Array of transformed values

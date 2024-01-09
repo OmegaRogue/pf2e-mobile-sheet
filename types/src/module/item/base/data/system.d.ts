@@ -59,33 +59,43 @@ interface ItemGrantSource {
 }
 type ItemGrantDeleteAction = "cascade" | "detach" | "restrict";
 type ItemSystemSource = {
-    level?: {
-        value: number;
-    };
-    description: {
-        gm: string;
-        value: string;
-    };
-    traits: ItemTraits | ItemTraitsNoRarity | RarityTraitAndOtherTags | OtherTagsOnly;
-    rules: RuleElementSource[];
-    slug: string | null;
-    /** Information concerning the publication from which this item originates */
-    publication: PublicationData;
-    /** A record of this actor's current world schema version as well a log of the last migration to occur */
-    _migration: MigrationRecord;
-    /** Legacy location of `MigrationRecord` */
-    schema?: Readonly<{
-        version: number | null;
-        lastMigration: object | null;
-    }>;
+	level?: {
+		value: number;
+	};
+	description: ItemDescriptionSource;
+	traits: ItemTraits | ItemTraitsNoRarity | RarityTraitAndOtherTags | OtherTagsOnly;
+	rules: RuleElementSource[];
+	slug: string | null;
+	/** Information concerning the publication from which this item originates */
+	publication: PublicationData;
+	/** A record of this actor's current world schema version as well a log of the last migration to occur */
+	_migration: MigrationRecord;
+	/** Legacy location of `MigrationRecord` */
+	schema?: Readonly<{
+		version: number | null;
+		lastMigration: object | null;
+	}>;
 };
-type ItemSystemData = ItemSystemSource;
-type FrequencyInterval = keyof ConfigPF2e["PF2E"]["frequencies"];
+
+interface ItemDescriptionSource {
+	gm: string;
+	value: string;
+}
+
+interface ItemSystemData extends ItemSystemSource {
+	description: ItemDescriptionData;
+}
+
+interface ItemDescriptionData extends ItemDescriptionSource {
+	addenda: string[];
+}
+
+type FrequencyInterval = keyof typeof CONFIG.PF2E.frequencies;
 interface FrequencySource {
-    value?: number;
-    max: number;
-    /** Gap between recharges as an ISO8601 duration, or "day" for daily prep. */
-    per: FrequencyInterval;
+	value?: number;
+	max: number;
+	/** Gap between recharges as an ISO8601 duration, or "day" for daily prep. */
+	per: FrequencyInterval;
 }
 type ItemSchemaPF2e = Omit<foundry.documents.ItemSchema, "system"> & {
     system: fields.TypeDataField;

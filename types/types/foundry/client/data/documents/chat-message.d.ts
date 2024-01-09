@@ -1,3 +1,5 @@
+import BaseActor from "../../../common/documents/actor.js";
+import BaseUser from "../../../common/documents/user.js";
 import type { ClientBaseChatMessage } from "./client-base-mixes.d.ts";
 
 declare global {
@@ -8,163 +10,183 @@ declare global {
      * @see {@link documents.Messages} The world-level collection of ChatMessage documents
      */
     class ChatMessage extends ClientBaseChatMessage {
-        constructor(data: PreCreate<foundry.documents.ChatMessageSource>, context?: DocumentConstructionContext<null>);
+		constructor(data: PreCreate<foundry.documents.ChatMessageSource>, context?: DocumentConstructionContext<null>);
 
-        _rollExpanded: boolean;
+		_rollExpanded: boolean;
 
-        /**
-         * Return the recommended String alias for this message.
-         * The alias could be a Token name in the case of in-character messages or dice rolls.
-         * Alternatively it could be a User name in the case of OOC chat or whispers.
-         */
-        get alias(): string;
+		/**
+		 * Return the recommended String alias for this message.
+		 * The alias could be a Token name in the case of in-character messages or dice rolls.
+		 * Alternatively it could be a User name in the case of OOC chat or whispers.
+		 */
+		get alias(): string;
 
-        /** Is the current User the author of this message? */
-        get isAuthor(): boolean;
+		/** Is the current User the author of this message? */
+		get isAuthor(): boolean;
 
-        /**
-         * Return whether the content of the message is visible to the current user.
-         * For certain dice rolls, for example, the message itself may be visible while the content of that message is not.
-         */
-        get isContentVisible(): boolean;
+		/**
+		 * Return whether the content of the message is visible to the current user.
+		 * For certain dice rolls, for example, the message itself may be visible while the content of that message is not.
+		 */
+		get isContentVisible(): boolean;
 
-        /** Test whether the chat message contains a dice roll */
-        get isRoll(): boolean;
+		/** Test whether the chat message contains a dice roll */
+		get isRoll(): boolean;
 
-        /**
-         * Return whether the ChatMessage is visible to the current User.
-         * Messages may not be visible if they are private whispers.
-         */
-        override get visible(): boolean;
+		/**
+		 * Return whether the ChatMessage is visible to the current User.
+		 * Messages may not be visible if they are private whispers.
+		 */
+		override get visible(): boolean;
 
-        override prepareData(): void;
+		override prepareData(): void;
 
-        /**
-         * Transform a provided object of ChatMessage data by applying a certain rollMode to the data object.
-         * @param chatData The object of ChatMessage data prior to applying a rollMode preference
-         * @param rollMode The rollMode preference to apply to this message data
-         * @returns The modified ChatMessage data with rollMode preferences applied
-         */
-        static applyRollMode(chatData: ChatMessage["_source"], rollMode: RollMode): ChatMessage["_source"];
+		/**
+		 * Transform a provided object of ChatMessage data by applying a certain rollMode to the data object.
+		 * @param chatData The object of ChatMessage data prior to applying a rollMode preference
+		 * @param rollMode The rollMode preference to apply to this message data
+		 * @returns The modified ChatMessage data with rollMode preferences applied
+		 */
+		static applyRollMode<TData extends DeepPartial<ChatMessage["_source"]>>(
+			chatData: TData,
+			rollMode: RollMode | "roll",
+		): TData;
 
-        /**
-         * Update the data of a ChatMessage instance to apply a requested rollMode
-         * @param rollMode The rollMode preference to apply to this message data
-         */
-        applyRollMode(rollMode: RollMode): void;
+		/**
+		 * Update the data of a ChatMessage instance to apply a requested rollMode
+		 * @param rollMode The rollMode preference to apply to this message data
+		 */
+		applyRollMode(rollMode: RollMode | "roll"): void;
 
-        /**
-         * Attempt to determine who is the speaking character (and token) for a certain Chat Message
-         * First assume that the currently controlled Token is the speaker
-         *
-         * @param [scene] The Scene in which the speaker resides
-         * @param [actor] The Actor whom is speaking
-         * @param [token] The Token whom is speaking
-         * @param [alias] The name of the speaker to display
-         * @returns The identified speaker data
-         */
-        static getSpeaker({
-            scene,
-            actor,
-            token,
-            alias,
-        }?: {
-            scene?: Scene | null;
-            actor?: Actor | null;
-            token?: TokenDocument | null;
-            alias?: string;
-        }): foundry.documents.ChatSpeakerData;
+		/**
+		 * Attempt to determine who is the speaking character (and token) for a certain Chat Message
+		 * First assume that the currently controlled Token is the speaker
+		 *
+		 * @param [scene] The Scene in which the speaker resides
+		 * @param [actor] The Actor whom is speaking
+		 * @param [token] The Token whom is speaking
+		 * @param [alias] The name of the speaker to display
+		 * @returns The identified speaker data
+		 */
+		static getSpeaker({
+			scene,
+			actor,
+			token,
+			alias,
+		}?: {
+			scene?: Scene | null;
+			actor?: Actor | null;
+			token?: TokenDocument | null;
+			alias?: string;
+		}): foundry.documents.ChatSpeakerData;
 
-        /** A helper to prepare the speaker object based on a target Token */
-        protected static _getSpeakerFromToken({ token, alias }: { token: Token; alias?: string }): {
-            scene: string;
-            token: string;
-            actor: string | null;
-            alias: string;
-        };
-        /**
-         * A helper to prepare the speaker object based on a target Actor
-         * @private
-         */
-        protected static _getSpeakerFromActor({
-            scene,
-            actor,
-            alias,
-        }: {
-            scene?: Scene;
-            actor: Actor;
-            alias?: string;
-        }): {
-            scene: string | null;
-            actor: string;
-            token: null;
-            alias: string;
-        };
+		/** A helper to prepare the speaker object based on a target Token */
+		protected static _getSpeakerFromToken({ token, alias }: { token: Token; alias?: string }): {
+			scene: string;
+			token: string;
+			actor: string | null;
+			alias: string;
+		};
+		/**
+		 * A helper to prepare the speaker object based on a target Actor
+		 * @private
+		 */
+		protected static _getSpeakerFromActor({
+			scene,
+			actor,
+			alias,
+		}: {
+			scene?: Scene;
+			actor: Actor;
+			alias?: string;
+		}): {
+			scene: string | null;
+			actor: string;
+			token: null;
+			alias: string;
+		};
 
-        /** A helper to prepare the speaker object based on a target User */
-        protected static _getSpeakerFromUser({
-            scene,
-            user,
-            alias,
-        }: {
-            scene?: Scene | null;
-            user: User;
-            alias?: string;
-        }): {
-            scene: string | null;
-            actor: null;
-            token: null;
-            alias: string;
-        };
+		/** A helper to prepare the speaker object based on a target User */
+		protected static _getSpeakerFromUser({
+			scene,
+			user,
+			alias,
+		}: {
+			scene?: Scene | null;
+			user: User;
+			alias?: string;
+		}): {
+			scene: string | null;
+			actor: null;
+			token: null;
+			alias: string;
+		};
 
-        /**
-         * Obtain an Actor instance which represents the speaker of this message (if any)
-         * @param speaker The speaker data object
-         */
-        static getSpeakerActor(speaker: DeepPartial<foundry.documents.ChatSpeakerData>): Actor | null;
+		/**
+		 * Obtain an Actor instance which represents the speaker of this message (if any)
+		 * @param speaker The speaker data object
+		 */
+		static getSpeakerActor(speaker: DeepPartial<foundry.documents.ChatSpeakerData>): Actor | null;
 
-        /** Obtain a data object used to evaluate any dice rolls associated with this particular chat message */
-        getRollData(): object;
+		/** Obtain a data object used to evaluate any dice rolls associated with this particular chat message */
+		getRollData(): object;
 
-        /**
-         * Given a string whisper target, return an Array of the user IDs which should be targeted for the whisper
-         * @param name The target name of the whisper target
-         * @return An array of User instances
-         */
-        static getWhisperRecipients(name: string): User[];
+		/**
+		 * Given a string whisper target, return an Array of the user IDs which should be targeted for the whisper
+		 * @param name The target name of the whisper target
+		 * @return An array of User instances
+		 */
+		static getWhisperRecipients(name: string): User[];
 
-        /** Render the HTML for the ChatMessage which should be added to the log */
-        getHTML(): Promise<JQuery>;
+		/** Render the HTML for the ChatMessage which should be added to the log */
+		getHTML(): Promise<JQuery>;
 
-        /**
-         * Render the inner HTML content for ROLL type messages.
-         * @param messageData      The chat message data used to render the message HTML
-         */
-        protected _renderRollContent: (messageData: ChatMessageRenderData) => Promise<void>;
+		/**
+		 * Render the inner HTML content for ROLL type messages.
+		 * @param messageData The chat message data used to render the message HTML
+		 */
+		protected _renderRollContent(messageData: ChatMessageRenderData): Promise<void>;
 
-        protected override _preUpdate(
-            changed: DeepPartial<this["_source"]>,
-            options: DocumentModificationContext<null>,
-            user: User,
-        ): Promise<boolean | void>;
+		/**
+		 * Render HTML for the array of Roll objects included in this message.
+		 * @param  isPrivate Is the chat message private?
+		 * @returns The rendered HTML string
+		 */
+		protected _renderRollHTML(isPrivate: boolean): Promise<string>;
 
-        protected override _onCreate(
-            data: this["_source"],
-            options: DocumentModificationContext<null>,
-            userId: string,
-        ): void;
+		/* -------------------------------------------- */
+		/*  Event Handlers                              */
 
-        protected override _onUpdate(
-            changed: DeepPartial<this["_source"]>,
-            options: DocumentModificationContext<null>,
-            userId: string,
-        ): void;
+		/* -------------------------------------------- */
 
-        protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;
+		protected override _preCreate(
+			data: this["_source"],
+			options: DocumentModificationContext<null>,
+			user: BaseUser<BaseActor<null>>,
+		): Promise<boolean | void>;
 
-        /** Export the content of the chat message into a standardized log format */
-        export(): string;
-    }
+		protected override _onCreate(
+			data: this["_source"],
+			options: DocumentModificationContext<null>,
+			userId: string,
+		): void;
+
+		protected override _onUpdate(
+			changed: DeepPartial<this["_source"]>,
+			options: DocumentModificationContext<null>,
+			userId: string,
+		): void;
+
+		protected override _onDelete(options: DocumentModificationContext<null>, userId: string): void;
+
+		/* -------------------------------------------- */
+		/*  Importing and Exporting                     */
+
+		/* -------------------------------------------- */
+
+		/** Export the content of the chat message into a standardized log format */
+		export(): string;
+	}
 
     interface ChatMessage extends ClientBaseChatMessage {
         user: User;
