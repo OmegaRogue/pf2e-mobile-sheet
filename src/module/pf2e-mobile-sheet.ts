@@ -108,6 +108,11 @@ const familiarSheetResizeObserver = new ResizeObserver((entries) => {
 		}
 	}
 });
+const characterSheetSidebarMutationObserver = new MutationObserver((mutations) => {
+	for (const mutation of mutations) {
+		log(true, mutation);
+	}
+});
 const characterSheetResizeObserver = new ResizeObserver((entries) => {
 	for (const entry of entries) {
 		if (!entry.target.id.startsWith("CharacterSheetPF2e")) continue;
@@ -133,6 +138,11 @@ const characterSheetResizeObserver = new ResizeObserver((entries) => {
 			} else {
 				html.find(".sheet-content .tab.sidebar").append(aside.detach());
 			}
+			characterSheetSidebarMutationObserver.observe(html.find(".sheet-content .tab.sidebar")[0], {
+				subtree: true,
+				childList: true,
+			});
+
 			entries[0].target.classList.add("mobile");
 
 			html.find(".proficiencies-list .button-group button").text(
@@ -148,7 +158,8 @@ const characterSheetResizeObserver = new ResizeObserver((entries) => {
 		} else if (entry.contentRect.width >= 745 && entries[0].target.classList.contains("mobile")) {
 			log(false, "sidebar found off", html.find("aside").length);
 			entries[0].target.classList.remove("mobile");
-			html.find(".window-content form").prepend(html.find(".tab.sidebar aside").detach());
+			const sidebar = html.find(".tab.sidebar aside");
+			html.find(".window-content form").prepend(sidebar.detach());
 			const sidebarTab = html.find(".tab.sidebar.active");
 			if (sidebarTab.length > 0) {
 				sidebarTab.removeClass("active");
@@ -281,28 +292,32 @@ Hooks.on("renderSettingsConfig", (_app: Application, html: JQuery) => {
 });
 
 Hooks.on("renderCharacterSheetPF2e", (_app: Application, html: JQuery) => {
-	characterSheetResizeObserver.observe(html[0]);
-	// if(html.hasClass("mobile")) {
-	// 	if (html.find(".sheet-navigation #sidebar-tab").length === 0) {
-	// 		const sidebarTabButton = $(
-	// 			`<a class="item" id="sidebar-tab" data-tab="sidebar" title="${game.i18n.localize(
-	// 				"pf2e-mobile-sheet.sidebar-tab",
-	// 			)}"><i class="fa-solid fa-bars"></i></a>`,
-	// 		);
-	// 		const afterButton = html.find(".sheet-navigation .panel-title");
-	// 		sidebarTabButton.insertAfter(afterButton);
-	// 	}
-	//
-	// 	const aside = html.find("aside");
-	//
-	// 	if (html.find(".sheet-content .tab.sidebar").length === 0) {
-	// 		const sidebarTab = $(`<div class="tab sidebar" data-group="primary" data-tab="sidebar"/>`);
-	// 		sidebarTab.append(aside.detach());
-	// 		html.find(".sheet-content").append(sidebarTab);
-	// 	} else {
-	// 		html.find(".sheet-content .tab.sidebar").append(aside.detach());
-	// 	}
-	// }
+	if (html.hasClass("crb-style")) {
+		html = html.parent().parent();
+	} else {
+		characterSheetResizeObserver.observe(html[0]);
+	}
+	if (html.hasClass("mobile")) {
+		if (html.find(".sheet-navigation #sidebar-tab").length === 0) {
+			const sidebarTabButton = $(
+				`<a class="item" id="sidebar-tab" data-tab="sidebar" title="${game.i18n.localize(
+					"pf2e-mobile-sheet.sidebar-tab",
+				)}"><i class="fa-solid fa-bars"></i></a>`,
+			);
+			const afterButton = html.find(".sheet-navigation .panel-title");
+			sidebarTabButton.insertAfter(afterButton);
+		}
+
+		const aside = html.find("aside");
+
+		if (html.find(".sheet-content .tab.sidebar").length === 0) {
+			const sidebarTab = $(`<div class="tab sidebar" data-group="primary" data-tab="sidebar"/>`);
+			sidebarTab.append(aside.detach());
+			html.find(".sheet-content").append(sidebarTab);
+		} else {
+			html.find(".sheet-content .tab.sidebar").append(aside.detach());
+		}
+	}
 });
 Hooks.on("renderFamiliarSheetPF2e", (_app: Application, html: JQuery) => {
 	familiarSheetResizeObserver.observe(html[0]);
