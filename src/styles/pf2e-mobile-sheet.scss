@@ -301,6 +301,11 @@ $global-breakpoint: 930px;
 	.send-button {
 		display: none;
 	}
+
+}
+
+#mobile-chat-row {
+	height: 100%;
 }
 
 @media screen and (max-width: #{$global-breakpoint}) {
@@ -336,6 +341,7 @@ $global-breakpoint: 930px;
 		background-color: var(--glass-bg-light);
 	}
 
+
 	.dorako-ui .send-button {
 		border: unset;
 		border-radius: var(--border-radius);
@@ -368,6 +374,10 @@ $global-breakpoint: 930px;
 
 	:is(.sheet.actor.character .window-resizable-handle, .popout-module-button, .pathmuncher-open, .configure-token, .configure-creature, .send-to-taskbar, .configure-theatre, .console-print, .document-id-link, .document-image-link, .simple-calendar, #tokenbar) {
 		display: none !important;
+	}
+
+	div#taskbar.taskbar {
+		display: none;
 	}
 
 

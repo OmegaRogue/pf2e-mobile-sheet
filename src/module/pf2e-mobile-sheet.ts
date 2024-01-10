@@ -47,9 +47,9 @@ Hooks.once("ready", async () => {
 	const body = $("body");
 	if (game.modules.get("pathfinder-ui")?.active) body.addClass("pf2e-ui");
 	if (game.modules.get("_chatcommands")?.active) body.addClass("chatcommander-active");
-	$(".taskbar-workspaces, .taskbar-docking-container, .taskbar, .simple-calendar").remove();
-	$("tokenbar").remove();
-	$("canvas#board").remove();
+	// $(".taskbar-workspaces, .taskbar-docking-container, .taskbar, .simple-calendar").remove();
+	// $("tokenbar").remove();
+	// $("canvas#board").remove();
 });
 Hooks.on("renderChatLog", async () => {
 	// if (!checkMobileWithOverride("send-button")) return;
