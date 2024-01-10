@@ -19,12 +19,6 @@
 				"hint": "Entfernt den Text des 'Fenster Schließen' Knopfes"
 			}
 		},
-		"sidebar-tab": "Seitenleiste",
-		"ProficiencyLevel0Short": "Unge",
-		"ProficiencyLevel1Short": "Geüb",
-		"ProficiencyLevel2Short": "Exp",
-		"ProficiencyLevel3Short": "Mstr",
-		"ProficiencyLevel4Short": "Leg",
-		"ModifiersTitleShort": "Mod"
+		"sidebar-tab": "Seitenleiste"
 	}
 }

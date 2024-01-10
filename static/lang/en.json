@@ -19,12 +19,6 @@
 				"hint": "Removes the 'Close' Text on the close window button."
 			}
 		},
-		"sidebar-tab": "Sidebar",
-		"ProficiencyLevel0Short": "Untr",
-		"ProficiencyLevel1Short": "Train",
-		"ProficiencyLevel2Short": "Exp",
-		"ProficiencyLevel3Short": "Mstr",
-		"ProficiencyLevel4Short": "Leg",
-		"ModifiersTitleShort": "Mods"
+		"sidebar-tab": "Sidebar"
 	}
 }
