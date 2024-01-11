@@ -18,7 +18,7 @@ export function log(force: boolean, ...args: any[]) {
 	}
 }
 
-const isMobile = window.navigator.userAgent.includes("Mobile");
+const isMobile = window.screen.width < 930;
 
 export function checkMobile(): boolean {
 	if (getDebug()) {

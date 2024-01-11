@@ -38,7 +38,10 @@
 		"systems": [
 			{
 				"id": "pf2e",
-				"type": "system"
+				"type": "system",
+				"compatibility": {
+					"minimum": "5.12.4"
+				}
 			}
 		]
 	},

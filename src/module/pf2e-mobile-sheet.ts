@@ -9,6 +9,8 @@ import { TokenDocumentPF2e } from "@scene/token-document/document.js";
 import { ScenePF2e } from "@scene/document.js";
 import { checkMobile, checkMobileWithOverride, getDebug, log } from "./utils.js";
 
+import "styles/pf2e-mobile-sheet.scss";
+
 Hooks.once("devModeReady", async ({ registerPackageDebugFlag }) => {
 	await registerPackageDebugFlag(MODULE_ID);
 	getDebug();
@@ -81,8 +83,6 @@ async function dragEndFullscreenWindow() {
 	wind.css("top", "");
 	wind.css("left", "");
 }
-
-$(window).on("resize", dragEndFullscreenWindow);
 
 const characterSheetResizeObserver = new ResizeObserver((entries) => {
 	for (const entry of entries) {

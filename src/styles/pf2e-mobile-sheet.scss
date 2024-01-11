@@ -5,6 +5,7 @@ $loot-sheet-breakpoint: 445px;
 $vehicle-sheet-breakpoint: 585px;
 $hazard-sheet-breakpoint: 495px;
 $global-breakpoint: 930px;
+$npc-sheet-breakpoint: 548px;
 
 :root {
 	--send-button-gap: 0.5em;
@@ -32,267 +33,324 @@ $global-breakpoint: 930px;
 	}
 }
 
-.sheet.actor {
-	container: actor-sheet / inline-size;
+.sheet {
+	&.actor {
+		container: actor-sheet / inline-size;
 
 
-	@container actor-sheet (width < #{$familiar-breakpoint}) {
-		&.familiar {
-			.header-content {
-				overflow: hidden;
+		@container actor-sheet (width < #{$familiar-breakpoint}) {
+			&.familiar {
+				.header-content {
+					overflow: hidden;
 
-				.sub-header {
-					flex-direction: column;
-				}
+					.sub-header {
+						flex-direction: column;
+					}
 
-				.details-section {
-					flex-direction: column;
-				}
-			}
-
-			.main-section {
-				flex-direction: column;
-				overflow: hidden scroll;
-
-				.skills-content {
-					width: unset;
-
-					.skills-list {
-						display: grid;
-						grid-template-columns: repeat(2, 1fr);
+					.details-section {
+						flex-direction: column;
 					}
 				}
 
-				.main-container {
-					overflow: initial;
-				}
-			}
-		}
-	}
+				.main-section {
+					flex-direction: column;
+					overflow: hidden scroll;
 
-	@container actor-sheet (width < #{$party-breakpoint}) {
-		&.party {
-			[data-tab="overview"] .member {
-				height: unset;
-				padding-right: 0.2em;
+					.skills-content {
+						width: unset;
 
-				.main-stats {
-					display: grid;
-					gap: 0.3rem;
-					grid-template-columns: repeat(3, 1fr);
-				}
-
-				.name a {
-					max-width: 10em;
-					overflow: hidden;
-					text-overflow: ellipsis;
-				}
-			}
-
-			.tab.active {
-				flex-direction: column;
-				overflow: hidden scroll;
-			}
-
-			.sidebar {
-				overflow: unset;
-				width: unset;
-			}
-
-			.content {
-				overflow: unset;
-			}
-		}
-	}
-	@container actor-sheet (width < #{$player-character-breakpoint}) {
-		&.character {
-			.crb-style {
-				grid-template-columns: initial !important;
-				grid-template-areas: "header " "nav    " "content" !important;
-
-				aside {
-					background-image: none;
-
-					.logo {
-						display: none;
-					}
-				}
-
-				.pf-rank {
-					width: 4em;
-					text-overflow: ellipsis;
-					overflow: hidden;
-					display: inline-block;
-				}
-
-				@include sheet-nav-bar;
-
-				.sheet-body .sheet-content .tab {
-					&[data-tab=character] {
-						.character-details {
-							.abcd {
-								grid-template-columns: repeat(2, 1fr);
-
-								.detail.deity {
-									grid-column: span 2;
-								}
-							}
+						.skills-list {
+							display: grid;
+							grid-template-columns: repeat(2, 1fr);
 						}
+					}
 
-						.attributes .attribute .label {
+					.main-container {
+						overflow: initial;
+					}
+				}
+			}
+		}
+
+		@container actor-sheet (width < #{$party-breakpoint}) {
+			&.party {
+				[data-tab="overview"] .member {
+					height: unset;
+					padding-right: 0.2em;
+
+					.main-stats {
+						display: grid;
+						gap: 0.3rem;
+						grid-template-columns: repeat(3, 1fr);
+					}
+
+					.name a {
+						max-width: 10em;
+						overflow: hidden;
+						text-overflow: ellipsis;
+					}
+				}
+
+				.tab.active {
+					flex-direction: column;
+					overflow: hidden scroll;
+				}
+
+				.sidebar {
+					overflow: unset;
+					width: unset;
+				}
+
+				.content {
+					overflow: unset;
+				}
+			}
+		}
+		@container actor-sheet (width < #{$player-character-breakpoint}) {
+			&.character {
+				.crb-style {
+					grid-template-columns: initial !important;
+					grid-template-areas: "header " "nav    " "content" !important;
+
+					aside {
+						background-image: none;
+
+						.logo {
 							display: none;
 						}
 					}
 
-					&[data-tab=actions] {
-						.button-group {
-							flex-wrap: wrap !important;
+					.pf-rank {
+						width: 4em;
+						text-overflow: ellipsis;
+						overflow: hidden;
+						display: inline-block;
+					}
+
+					@include sheet-nav-bar;
+
+					.sheet-body .sheet-content .tab {
+						&[data-tab=character] {
+							.character-details {
+								.abcd {
+									grid-template-columns: repeat(2, 1fr);
+
+									.detail.deity {
+										grid-column: span 2;
+									}
+								}
+							}
+
+							.attributes .attribute .label {
+								display: none;
+							}
 						}
 
-						button.tag.damage:after {
-							content: '(' attr(data-tooltip) ')';
+						&[data-tab=actions] {
+							.button-group {
+								flex-wrap: wrap !important;
+							}
+
+							button.tag.damage:after {
+								content: '(' attr(data-tooltip) ')';
+							}
+						}
+
+						&[data-tab=proficiencies] {
+							ul.proficiencies-list li .button-group button {
+								width: 4em;
+								text-overflow: ellipsis;
+								overflow: hidden;
+								display: inline-block;
+							}
 						}
 					}
 
-					&[data-tab=proficiencies] {
-						ul.proficiencies-list li .button-group button {
-							width: 4em;
-							text-overflow: ellipsis;
-							overflow: hidden;
-							display: inline-block;
+					header.char-header .char-level {
+						.exp-data {
+							padding: initial !important;
 						}
+
+						flex-wrap: wrap !important;
+						justify-content: center !important;
 					}
 				}
 
-				header.char-header .char-level {
-					.exp-data {
-						padding: initial !important;
-					}
-
-					flex-wrap: wrap !important;
-					justify-content: center !important;
+				&:not([data-color-scheme=dark]) .sheet-content .tab.sidebar {
+					background-color: var(--primary);
 				}
-			}
-
-			&:not([data-color-scheme=dark]) .sheet-content .tab.sidebar {
-				background-color: var(--primary);
 			}
 		}
-	}
-	@container actor-sheet (width < #{$loot-sheet-breakpoint}) {
-		&.loot form {
-			flex-direction: column-reverse;
-			overflow: hidden scroll;
+		@container actor-sheet (width < #{$loot-sheet-breakpoint}) {
+			&.loot form {
+				flex-direction: column-reverse;
+				overflow: hidden scroll;
 
-			section {
-				&.sidebar {
-					position: sticky;
-					display: grid;
-					grid-template-areas: "a b"
+				section {
+					&.sidebar {
+						position: sticky;
+						display: grid;
+						grid-template-areas: "a b"
 									"c c";
-					width: 100%;
+						width: 100%;
 
-					img.actor-image {
-						border-bottom: unset !important;
-					}
+						img.actor-image {
+							border-bottom: unset !important;
+						}
 
-					.gm-settings {
-						border-bottom: unset;
-						margin: auto 0;
+						.gm-settings {
+							border-bottom: unset;
+							margin: auto 0;
 
-						.loot-distribution {
-							flex-direction: row;
+							.loot-distribution {
+								flex-direction: row;
+							}
 						}
 					}
-				}
 
-				&.sheet-header {
-					position: sticky;
-				}
+					&.sheet-header {
+						position: sticky;
+					}
 
-				&.content {
-					height: unset;
-				}
-			}
-
-			.inventory .inventory-list {
-				overflow: hidden;
-			}
-		}
-	}
-	@container actor-sheet (width < #{$vehicle-sheet-breakpoint}) {
-		&.vehicle {
-			.crb-style {
-				grid-template-columns: initial !important;
-				grid-template-areas: "header " "nav    " "content" !important;
-
-				.sheet-navigation {
-					min-width: unset;
-				}
-
-				@include sheet-nav-bar;
-
-				aside {
-					background-image: none;
-
-					.logo {
-						display: none;
+					&.content {
+						height: unset;
 					}
 				}
 
-				.tab {
-					&[data-tab=details] {
-						.vehicle-details .detail-sheet {
-							grid: repeat(2, 1fr)/3fr 2fr !important;
+				.inventory .inventory-list {
+					overflow: hidden;
+				}
+			}
+		}
+		@container actor-sheet (width < #{$vehicle-sheet-breakpoint}) {
+			&.vehicle {
+				.crb-style {
+					grid-template-columns: initial !important;
+					grid-template-areas: "header " "nav    " "content" !important;
 
-							.detail-small {
-								display: grid !important;
-								grid-template-columns: repeat(2, 0.5fr);
-								grid-column-gap: 0.5em;
+					.sheet-navigation {
+						min-width: unset;
+					}
 
+					@include sheet-nav-bar;
+
+					aside {
+						background-image: none;
+
+						.logo {
+							display: none;
+						}
+					}
+
+					.tab {
+						&[data-tab=details] {
+							.vehicle-details .detail-sheet {
+								grid: repeat(2, 1fr)/3fr 2fr !important;
+
+								.detail-small {
+									display: grid !important;
+									grid-template-columns: repeat(2, 0.5fr);
+									grid-column-gap: 0.5em;
+
+								}
 							}
 						}
 					}
 				}
-			}
 
-			&:not([data-color-scheme=dark]) .sheet-content .tab.sidebar {
-				background-color: var(--primary);
+				&:not([data-color-scheme=dark]) .sheet-content .tab.sidebar {
+					background-color: var(--primary);
+				}
 			}
 		}
+		@container actor-sheet (width < #{$hazard-sheet-breakpoint}) {
+			&.hazard .container {
+				display: block;
+				overflow: hidden scroll;
+
+				.sidebar {
+					overflow: hidden;
+					height: unset;
+					width: unset;
+				}
+
+				.content {
+					overflow: hidden;
+				}
+			}
+		}
+		@container actor-sheet (width < #{$npc-sheet-breakpoint}) {
+			&.npc {
+				form {
+					overflow: hidden scroll;
+					flex-direction: column-reverse;
+
+					.sidebar {
+						overflow: visible;
+						height: unset;
+					}
+
+					.sheet-body .tab {
+						overflow: visible;
+					}
+
+					.npc-body {
+						overflow-y: visible;
+					}
+
+					nav.sheet-tabs .item {
+						padding: 8px 0;
+					}
+
+					.attacks-list li.attack .button-group button {
+						height: unset !important;
+						text-wrap: wrap !important;
+					}
+
+					ol.spell-list > li.spell {
+						grid-template-columns: 50% auto fit-content(5rem) 3rem;
+					}
+
+					//.labeled-field input[type=text] {
+					//	min-width: unset;
+					//
+					//}
+
+					.attribute-modifiers {
+						.list {
+							grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+							grid-column-gap: 0.5em;
+						}
+
+						.labeled-field {
+							justify-content: center;
+						}
+					}
+				}
+			}
+		}
+		@container actor-sheet (width >= #{$player-character-breakpoint}) {
+			&.character {
+				a#sidebar-tab {
+					display: none;
+				}
+			}
+		}
+		@container actor-sheet (width >= #{$vehicle-sheet-breakpoint}) {
+			&.vehicle {
+				a#sidebar-tab {
+					display: none;
+				}
+			}
+		}
+
 	}
-	@container actor-sheet (width < #{$hazard-sheet-breakpoint}) {
-		&.hazard .container {
-			display: block;
-			overflow: hidden scroll;
 
-			.sidebar {
-				overflow: hidden;
-				height: unset;
-				width: unset;
-			}
-
-			.content {
-				overflow: hidden;
-			}
-		}
-	}
-
-	@container actor-sheet (width >= #{$player-character-breakpoint}) {
-		&.character {
-			a#sidebar-tab {
-				display: none;
-			}
-		}
-	}
-	@container actor-sheet (width >= #{$vehicle-sheet-breakpoint}) {
-		&.vehicle {
-			a#sidebar-tab {
-				display: none;
-			}
-		}
+	&.journal-entry {
+		min-width: unset;
 	}
 }
+
 
 @media screen and (min-width: #{$global-breakpoint}) {
 	.collapse-mobile {
@@ -372,7 +430,11 @@ $global-breakpoint: 930px;
 		font-size: 2em;
 	}
 
-	:is(.sheet.actor.character .window-resizable-handle, .popout-module-button, .pathmuncher-open, .configure-token, .configure-creature, .send-to-taskbar, .configure-theatre, .console-print, .document-id-link, .document-image-link, .simple-calendar, #tokenbar) {
+	.sheet.actor.character .popout-module-button, .pathmuncher-open, .configure-token, .configure-creature, .send-to-taskbar, .configure-theatre, .console-print, .document-id-link, .document-image-link, .simple-calendar, #tokenbar {
+		display: none !important;
+	}
+
+	.window-resizable-handle {
 		display: none !important;
 	}
 
@@ -484,6 +546,13 @@ $global-breakpoint: 930px;
 		.list-buttons {
 			display: none;
 		}
+	}
+
+	.app.window-app:not(.minimized,.dialog) {
+		height: 100% !important;
+		left: 0 !important;
+		top: 0 !important;
+		width: 100% !important;
 	}
 }
 

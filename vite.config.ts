@@ -109,11 +109,11 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
 		},
 		server: {
 			port: 30001,
-			open: "/game",
+			open: false,
 			proxy: {
-				"^(?!/modules/pf2e-mobile-sheet/)": "http://localhost:30000/",
+				"^(?!/modules/pf2e-mobile-sheet/)": "http://localhost:32456/",
 				"/socket.io": {
-					target: "ws://localhost:30000",
+					target: "ws://localhost:32456",
 					ws: true,
 				},
 			},
