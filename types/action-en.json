@@ -433,6 +433,15 @@
 				},
 				"Title": "High Jump"
 			},
+			"IdentifyAlchemy": {
+				"Description": "<p><strong>Requirements</strong> You are holding or wearing an alchemist's toolkit.</p><hr><p>You can identify the nature of an alchemical item with 10 minutes of testing using your alchemist's toolkit. If your attempt is interrupted in any way, you must start over.</p><p><strong>Success</strong> You identify the item and the means of activating it.</p><p><strong>Failure</strong> You fail to identify the item but can try again.</p><p><strong>Critical Failure</strong> You misidentify the item as another item of the GM's choice.</p>",
+				"Notes": {
+					"criticalFailure": "<strong>Critical Failure</strong> You misidentify the magic as something else of the GM's choice.",
+					"failure": "<strong>Failure</strong> You fail to identify the magic and can't try again for 1 day.",
+					"success": "<strong>Success</strong> For an item or location, you get a sense of what it does and learn any means of activating it. For an ongoing effect (such as a spell with a duration), you learn the effect's name and what it does. You can't try again in hopes of getting a critical success."
+				},
+				"Title": "Identify Alchemy"
+			},
 			"IdentifyMagic": {
 				"Description": "<p>Once you discover that an item, location, or ongoing effect is magical, you can spend 10 minutes to try to identify the particulars of its magic. If your attempt is interrupted, you must start over. The GM sets the DC for your check. Cursed magic or esoteric subjects usually have higher DCs or might even be impossible to identify using this activity alone. Heightening a spell doesn't increase the DC to identify it.</p><p><strong>Critical Success</strong> You learn all the attributes of the magic, including its name (for an effect), what it does, any means of activating it (for an item or location), and whether it is cursed.</p><p><strong>Success</strong> For an item or location, you get a sense of what it does and learn any means of activating it. For an ongoing effect (such as a spell with a duration), you learn the effect's name and what it does. You can't try again in hopes of getting a critical success.</p><p><strong>Failure</strong> You fail to identify the magic and can't try again for 1 day.</p><p><strong>Critical Failure</strong> You misidentify the magic as something else of the GM's choice.</p>",
 				"Notes": {
@@ -441,7 +450,10 @@
 					"failure": "<strong>Failure</strong> You fail to identify the magic and can't try again for 1 day.",
 					"success": "<strong>Success</strong> For an item or location, you get a sense of what it does and learn any means of activating it. For an ongoing effect (such as a spell with a duration), you learn the effect's name and what it does. You can't try again in hopes of getting a critical success."
 				},
-				"Title": "Identify Magic"
+				"Title": "Identify Magic",
+				"Warning": {
+					"NoStatistic": "The Identify Magic action can be used with different statistics, and no statistic was specified."
+				}
 			},
 			"Impersonate": {
 				"Description": "<p>You create a disguise to pass yourself off as someone or something you are not. Assembling a convincing disguise takes 10 minutes and requires a @UUID[Compendium.pf2e.equipment-srd.Item.Jvp0x2Sc82WVpExT]{Disguise Kit}, but a simpler, quicker disguise might do the job if you're not trying to imitate a specific individual, at the GM's discretion.</p><p>In most cases, creatures have a chance to detect your deception only if they use the @UUID[Compendium.pf2e.actionspf2e.Item.BlAOM2X92SI6HMtJ]{Seek} action to attempt Perception checks against your Deception DC. If you attempt to directly interact with someone while disguised, the GM rolls a secret Deception check for you against that creature's Perception DC instead.</p><p>If you're disguised as a specific individual, the GM might give creatures you interact with a circumstance bonus based on how well they know the person you're imitating, or the GM might roll a secret Deception check even if you aren't directly interacting with others.</p><p><strong>Success</strong> You trick the creature into thinking you're the person you're disguised as. You might have to attempt a new check if your behavior changes.<br><strong>Failure</strong> The creature can tell you're not who you claim to be.<br><strong>Critical Failure</strong> The creature can tell you're not who you claim to be, and it recognizes you if it would know you without a disguise.</p>",

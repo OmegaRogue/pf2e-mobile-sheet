@@ -38,6 +38,7 @@ declare interface Collection<V>
 	 * let hasA = c.filters(entry => entry.slice(0) === "A");
 	 */
 	filter<T extends V = V>(condition: (value: V) => value is T): T[];
+
 	filter<T extends V = V>(condition: (value: V) => boolean): T[];
 
 	/**
@@ -64,6 +65,7 @@ declare interface Collection<V>
 	 * c.get("d", {strict: true}); // throws Error
 	 */
 	get<T extends V = V>(key: Maybe<string>, { strict }: { strict: true }): T;
+
 	get<T extends V = V>(key: string, { strict }?: CollectionGetOptions): T | undefined;
 
 	/**
@@ -80,7 +82,7 @@ declare interface Collection<V>
 	 * @param transformer  The transformation function to apply to each entry value
 	 * @return An Array of transformed values
 	 */
-	map<T>(transformer: (value: V) => T): T[];
+	map<T>(transformer: (value: V, index: number, collection: this) => T): T[];
 
 	/**
 	 * Reduce the Collection by applying an evaluator function and accumulating entries
@@ -107,9 +109,9 @@ declare interface Collection<V>
 }
 
 declare interface CollectionConstructor {
-	new<V>(entries?: readonly (readonly [string, V])[] | null): Collection<V>;
+	new <V>(entries?: readonly (readonly [string, V])[] | null): Collection<V>;
 
-	new(): Collection<unknown>;
+	new (): Collection<unknown>;
 
 	readonly prototype: Collection<unknown>;
 }

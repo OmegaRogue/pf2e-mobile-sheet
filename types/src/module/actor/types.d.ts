@@ -47,7 +47,6 @@ interface ActorDimensions {
 	width: number;
 	height: number;
 }
-
 type SkillAbbreviation = (typeof SKILL_ABBREVIATIONS)[number];
 type SkillLongForm = SetElement<typeof SKILL_LONG_FORMS>;
 type ActorAlliance = "party" | "opposition" | null;

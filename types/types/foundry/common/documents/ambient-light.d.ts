@@ -4,7 +4,10 @@ import type * as fields from "../data/fields.d.ts";
 import type * as documents from "./module.d.ts";
 
 /** The AmbientLight embedded document model. */
-export default class BaseAmbientLight<TParent extends documents.BaseScene | null> extends Document<TParent, AmbientLightSchema> {
+export default class BaseAmbientLight<TParent extends documents.BaseScene | null> extends Document<
+	TParent,
+	AmbientLightSchema
+> {
 	static override get metadata(): AmbientLightMetadata;
 
 	static override defineSchema(): AmbientLightSchema;

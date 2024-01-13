@@ -144,10 +144,7 @@ async function updateCombatTracker(
 		let dist = 0;
 		const target = scene.tokens.get(combatant.tokenId ?? "");
 		if (!target) return;
-		dist = canvas.grid.measureDistance(
-			origin.center,
-			target.center, //{ gridSpaces: true }
-		);
+		dist = canvas.grid.measureDistance(origin.center, target.center, { gridSpaces: true });
 		const combatantDisplay = $(`#combat-tracker li[data-combatant-id=${combatant.id}]`);
 		// let targetIndicator = combatantDisplay.find(".users-targeting");
 
@@ -176,11 +173,6 @@ Hooks.on("collapseSidebar", (_, collapsed: boolean) => {
 	if (!checkMobile()) return;
 	const sidebar = $("#sidebar");
 	const collapseButton = sidebar.find(".collapse > i");
-	if (collapsed) {
-		collapseButton.removeClass("fa-caret-left");
-		// collapseButton.addClass('fa-caret-left');
-	} else {
-		collapseButton.removeClass("fa-caret-right");
-		// collapseButton.addClass('fa-caret-left');
-	}
+	if (collapsed) collapseButton.removeClass("fa-caret-left");
+	else collapseButton.removeClass("fa-caret-right");
 });

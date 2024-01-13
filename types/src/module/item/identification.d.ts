@@ -17,8 +17,6 @@ declare function getItemIdentificationDCs(
 	item: PhysicalItemPF2e,
 	{ pwol, notMatchingTraditionModifier }: IdentifyItemOptions,
 ): GenericIdentifyDCs | IdentifyMagicDCs | IdentifyAlchemyDCs;
-
 declare function getUnidentifiedPlaceholderImage(item: PhysicalItemPF2e): string;
-
 export { getItemIdentificationDCs, getUnidentifiedPlaceholderImage };
 export type { GenericIdentifyDCs, IdentifyAlchemyDCs, IdentifyMagicDCs };

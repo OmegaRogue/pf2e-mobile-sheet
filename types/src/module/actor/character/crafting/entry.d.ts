@@ -2,7 +2,6 @@ import type { CharacterPF2e } from "@actor";
 import type { ItemPF2e } from "@item";
 import { PredicatePF2e, RawPredicate } from "@system/predication.ts";
 import { CraftingFormula } from "./formula.ts";
-
 declare class CraftingEntry implements CraftingEntryData {
 	#private;
 	/** A label for this crafting entry to display on sheets */
@@ -35,11 +34,15 @@ declare class CraftingEntry implements CraftingEntryData {
 	get item(): ItemPF2e<CharacterPF2e>;
 
 	get actor(): CharacterPF2e;
+
 	get formulas(): (PreparedFormulaSheetData | null)[];
+
 	get reagentCost(): number;
 
 	static isValid(data: Maybe<Partial<CraftingEntryData>>): data is CraftingEntryData;
+
 	prepareFormula(formula: CraftingFormula): Promise<void>;
+
 	checkEntryRequirements(
 		formula: CraftingFormula,
 		{
@@ -48,13 +51,19 @@ declare class CraftingEntry implements CraftingEntryData {
 			warn?: boolean | undefined;
 		},
 	): boolean;
+
 	unprepareFormula(index: number, itemUUID: string): Promise<void>;
+
 	increaseFormulaQuantity(index: number, itemUUID: string): Promise<void>;
+
 	decreaseFormulaQuantity(index: number, itemUUID: string): Promise<void>;
 
 	setFormulaQuantity(index: number, itemUUID: string, value: "increase" | "decrease" | number): Promise<void>;
+
 	toggleFormulaExpended(index: number, itemUUID: string): Promise<void>;
+
 	toggleSignatureItem(itemUUID: string): Promise<void>;
+
 	updateFormulas(formulas: PreparedFormulaData[]): Promise<void>;
 }
 interface CraftingEntryData {

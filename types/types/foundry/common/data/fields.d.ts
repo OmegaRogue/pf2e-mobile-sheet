@@ -738,22 +738,22 @@ export class EmbeddedCollectionField<
 
 	protected override _validateElements(
 		value: unknown[],
-		options?: Record<string, unknown>,
+		options?: Record<string, unknown,
 	): DataModelValidationFailure | void;
 
 	override initialize(
 		_value: unknown,
-		model: ConstructorOf<abstract.DataModel>,
+		model: ConstructorOf<abstract.DataModel>
 	): MaybeSchemaProp<abstract.EmbeddedCollection<TDocument>, TRequired, TNullable, THasInitial>;
 
 	override toObject(
-		value: abstract.EmbeddedCollection<TDocument>,
+		value: abstract.EmbeddedCollection<TDocument>
 	): MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>;
 
 	override apply(
 		fn: string | ((field: this, value?: unknown, options?: Record<string, unknown>) => unknown),
 		data?: object,
-		options?: Record<string, unknown>,
+		options?: Record<string, unknown>
 	): unknown;
 }
 

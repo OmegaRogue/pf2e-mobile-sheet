@@ -110,6 +110,7 @@ declare global {
 
 	interface SettingsMenuConstructor {
 		new (object?: object, options?: Partial<FormApplicationOptions>): FormApplication;
+
 		registerSettings(): void;
 	}
 
@@ -148,31 +149,31 @@ declare global {
 		modifiers: ModifierKey[];
 	}
 
-    /** An action that can occur when a key is pressed */
-    interface KeybindingAction {
-        /** The namespaced machine identifier of the Action */
-        action: string;
-        /** The Keyboard key */
-        key: string;
-        /** The human readable name */
-        name: string;
-        /** Required modifiers */
-        requiredModifiers?: ModifierKey[];
-        /** Optional (reserved) modifiers */
-        optionalModifiers?: ModifierKey[];
-        /** The handler that executes onDown */
-        onDown?: (...args: unknown[]) => boolean;
-        /** The handler that executes onUp */
-        onUp?: (...args: unknown[]) => boolean;
-        /** If True, allows Repeat events to execute this Action's onDown */
-        repeat?: boolean;
-        /** If true, only a GM can execute this Action */
-        restricted?: boolean;
-        /** The registration precedence */
-        precedence?: number;
-        /** The registration order */
-        order?: number;
-    }
+	/** An action that can occur when a key is pressed */
+	interface KeybindingAction {
+		/** The namespaced machine identifier of the Action */
+		action: string;
+		/** The Keyboard key */
+		key: string;
+		/** The human readable name */
+		name: string;
+		/** Required modifiers */
+		requiredModifiers?: ModifierKey[];
+		/** Optional (reserved) modifiers */
+		optionalModifiers?: ModifierKey[];
+		/** The handler that executes onDown */
+		onDown?: (...args: unknown[]) => boolean;
+		/** The handler that executes onUp */
+		onUp?: (...args: unknown[]) => boolean;
+		/** If True, allows Repeat events to execute this Action's onDown */
+		repeat?: boolean;
+		/** If true, only a GM can execute this Action */
+		restricted?: boolean;
+		/** The registration precedence */
+		precedence?: number;
+		/** The registration order */
+		order?: number;
+	}
 
     /** Keyboard event context */
     interface KeyboardEventContext {

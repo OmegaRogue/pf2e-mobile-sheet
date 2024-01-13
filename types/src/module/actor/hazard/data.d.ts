@@ -65,6 +65,7 @@ interface HazardTraitsData extends HazardTraitsSource {
     size: ActorSizePF2e;
     rarity: Rarity;
 }
+
 interface HazardAttributes
 	extends Omit<HazardAttributesSource, "initiative" | "immunities" | "weaknesses" | "resistances">,
 		Omit<ActorAttributes, "perception" | "shield"> {
@@ -82,7 +83,6 @@ interface HazardAttributes
 	emitsSound: boolean | "encounter";
 	shield?: never;
 }
-
 interface HazardStealthTraceData extends Omit<StatisticTraceData, "dc" | "totalModifier" | "value"> {
 	dc: number | null;
 	totalModifier: number | null;

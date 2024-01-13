@@ -17,34 +17,6 @@ diff --git a/types/foundry/client/core/hooks.d.ts b/types/foundry/client/core/ho
          static on(...args: HookParamsCanvasInit): number;
          static on(...args: HookParamsCanvasReady): number;
          static on(...args: HookParamsClose<CombatTrackerConfig, "CombatTrackerConfig">): number;
-Index: types/foundry/client/data/documents/scene.d.ts
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
-===================================================================
-diff --git a/types/foundry/client/data/documents/scene.d.ts b/types/foundry/client/data/documents/scene.d.ts
---- a/types/foundry/client/data/documents/scene.d.ts	(revision 274df0e694162065298f930be954f464e2376cbb)
-+++ b/types/foundry/client/data/documents/scene.d.ts	(revision 3e52143c7cc1b18e5207339ddda461975953f2d5)
-@@ -1,4 +1,6 @@
- import type { ClientBaseScene } from "./client-base-mixes.d.ts";
-+import type { NoteSource} from "../../../common/documents/note.js";
-+import {TokenSource} from "../../../common/documents/token.js";
-
- declare global {
-     /**
-@@ -155,6 +157,12 @@
-
-         update(data: Record<string, unknown>, options?: SceneUpdateContext): Promise<this>;
-
-+        createEmbeddedDocuments(
-+            embeddedName: "Note",
-+            data: PreCreate<NoteSource>[],
-+            context?: DocumentModificationContext<this>,
-+        ): Promise<NoteDocument<this>[]>;
-+
-         updateEmbeddedDocuments(
-             embeddedName: "Token",
-             updateData: EmbeddedDocumentUpdateData[],
 Index: types/foundry/client/pixi/board.d.ts
 IDEA additional info:
 Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP

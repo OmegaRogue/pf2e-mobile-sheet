@@ -2,25 +2,21 @@ import { log } from "./utils.js";
 import { id as MODULE_ID } from "../../static/module.json";
 
 async function getDistance(sourceId: string, targetId: string): Promise<number> {
-	return canvas.grid.measureDistance(
-		canvas.tokens.get(sourceId)?.center,
-		canvas.tokens.get(targetId)?.center,
-		// 	{
-		// 	gridSpaces: true,
-		// }
-	);
+	return canvas.grid.measureDistance(canvas.tokens.get(sourceId)?.center, canvas.tokens.get(targetId)?.center, {
+		gridSpaces: true,
+	});
 }
 
-// async function socketTarget(tokenDocumentId: string, userSourceId: string, releaseOthers: boolean): Promise<void> {
-// 	const user = game.users.get(userSourceId);
-// 	/**
-// 	 * @var {Token} token
-// 	 */
-// 	const token = canvas.tokens.get(tokenDocumentId);
-// 	let doTarget = true;
-// 	if (user?.targets.find((t) => t.id === tokenDocumentId)) doTarget = false;
-// 	token?.setTarget(doTarget, { user: user, releaseOthers: releaseOthers });
-// }
+async function socketTarget(tokenDocumentId: string, userSourceId: string, releaseOthers: boolean): Promise<void> {
+	const user = game.users.get(userSourceId);
+	/**
+	 * @var {Token} token
+	 */
+	const token = canvas.tokens.get(tokenDocumentId);
+	let doTarget = true;
+	if (user?.targets.find((t) => t.id === tokenDocumentId)) doTarget = false;
+	token?.setTarget(doTarget, { user: user, releaseOthers: releaseOthers });
+}
 
 /**
  * Set this Token as an active target for the current game User
@@ -35,7 +31,7 @@ async function socketSetTarget(
 	userId: string,
 	targeted?: boolean,
 	releaseOthers?: boolean,
-	groupSelection?: boolea,
+	groupSelection?: boolean,
 ): Promise<void> {
 	const token = canvas.tokens.get(tokenId);
 	const user = game.users.get(userId);
@@ -66,7 +62,7 @@ export let socket: SocketlibSocket;
 Hooks.once("socketlib.ready", () => {
 	// eslint-disable-next-line no-undef
 	socket = socketlib.registerModule(MODULE_ID);
-	// socket.register("targetToken", socketTarget);
+	socket.register("targetToken", socketTarget);
 	socket.register("pingToken", socketPing);
 	socket.register("log", log);
 	socket.register("distance", getDistance);

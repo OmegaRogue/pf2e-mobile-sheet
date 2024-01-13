@@ -107,6 +107,7 @@ interface GamePF2e
 			};
 			/** Encumbrance automation */
 			encumbrance: boolean;
+			gmVision: boolean;
 			/** Immunities, weaknesses, and resistances */
 			iwr: boolean;
 			metagame: {
@@ -171,6 +172,7 @@ declare global {
 			CompendiumDirectoryPF2e,
 			EncounterTrackerPF2e<EncounterPF2e | null>
 		>;
+
 		interface Math {
 			eq: (a: number, b: number) => boolean;
 			gt: (a: number, b: number) => boolean;
@@ -303,20 +305,21 @@ declare global {
 
 		get(module: "pf2e", setting: "worldSystemVersion"): string;
 	}
+
 	interface ClientSettingsMap {
 		get(key: "pf2e.worldClock.worldCreatedOn"): SettingConfig & {
 			default: string;
 		};
 	}
-    interface RollMathProxy {
-        eq: (a: number, b: number) => boolean;
-        gt: (a: number, b: number) => boolean;
-        gte: (a: number, b: number) => boolean;
-        lt: (a: number, b: number) => boolean;
-        lte: (a: number, b: number) => boolean;
-        ne: (a: number, b: number) => boolean;
-        ternary: (condition: boolean | number, ifTrue: number, ifFalse: number) => number;
-    }
+	interface RollMathProxy {
+		eq: (a: number, b: number) => boolean;
+		gt: (a: number, b: number) => boolean;
+		gte: (a: number, b: number) => boolean;
+		lt: (a: number, b: number) => boolean;
+		lte: (a: number, b: number) => boolean;
+		ne: (a: number, b: number) => boolean;
+		ternary: (condition: boolean | number, ifTrue: number, ifFalse: number) => number;
+	}
     const BUILD_MODE: "development" | "production";
     const CONDITION_SOURCES: ConditionSource[];
     const EN_JSON: typeof EnJSON;

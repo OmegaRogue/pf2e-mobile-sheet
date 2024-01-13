@@ -11,6 +11,7 @@ declare class CraftingFormula implements CraftingFormulaData {
 	batchSize: number;
 	/** Whether or not this formula is saved directly on the actor and can be deleted */
 	deletable: boolean;
+
 	constructor(
 		item: PhysicalItemPF2e,
 		{
@@ -25,15 +26,25 @@ declare class CraftingFormula implements CraftingFormulaData {
 	);
 
 	get options(): Set<string>;
+
 	get uuid(): ItemUUID;
+
 	get img(): ImageFilePath;
+
 	get name(): string;
+
 	get level(): number;
+
 	get rarity(): Rarity;
+
 	get price(): Price;
+
 	get cost(): Coins;
+
 	get minimumBatchSize(): number;
+
 	get defaultBatchSize(): number;
+
 	get description(): string;
 }
 interface CraftingFormulaData {

@@ -94,7 +94,7 @@ declare function calculateTravelDuration({
 	journey,
 	velocity,
 	hustleDurationInMinutes,
-	hoursPerDa,
+	hoursPerDay,
 }: {
 	journey: Trip[];
 	velocity: Velocity;

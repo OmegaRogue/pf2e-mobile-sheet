@@ -37,7 +37,6 @@ interface ClassSystemSource extends ABCSystemSource {
 	};
 	level?: never;
 }
-
 interface ClassSystemData extends Omit<ClassSystemSource, "description">, Omit<ABCSystemData, "level" | "traits"> {
 }
 interface ClassAttackProficiencies {
