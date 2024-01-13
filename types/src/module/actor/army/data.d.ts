@@ -41,14 +41,14 @@ interface ArmyDetailsSource extends Required<ActorDetailsSource> {
     description: string;
 }
 interface ArmySystemData extends Omit<ArmySystemSource, "attributes">, ActorSystemData {
-	attributes: ArmyAttributes;
-	traits: ArmyTraits;
-	perception: Pick<PerceptionTraceData, "senses">;
-	details: ArmyDetails;
-	resources: ArmyResourcesData;
-	saves: ArmySystemSource["saves"] & {
-		strongSave: "maneuver" | "morale";
-	};
+    attributes: ArmyAttributes;
+    traits: ArmyTraits;
+    perception: Pick<PerceptionTraceData, "senses">;
+    details: ArmyDetails;
+    resources: ArmyResourcesData;
+    saves: ArmySystemSource["saves"] & {
+        strongSave: "maneuver" | "morale";
+    };
 }
 interface ArmyAttributesSource extends ActorAttributesSource {
     immunities?: never;
@@ -57,12 +57,9 @@ interface ArmyAttributesSource extends ActorAttributesSource {
     hp: ArmyHitPointsSource;
     ac: never;
 }
-
-interface ArmyAttributes
-	extends Omit<ArmyAttributesSource, "immunities" | "weaknesses" | "resistances">,
-		ActorAttributes {
-	ac: never;
-	hp: ArmyHitPoints;
+interface ArmyAttributes extends Omit<ArmyAttributesSource, "immunities" | "weaknesses" | "resistances">, ActorAttributes {
+    ac: never;
+    hp: ArmyHitPoints;
 }
 interface ArmyHitPointsSource extends Required<BaseHitPointsSource> {
     /** Typically half the army's hit points, armies that can't be feared have a threshold of 0 instead */
@@ -78,10 +75,10 @@ interface ArmyResourcesSource {
     potions: ValueAndMaybeMax;
 }
 interface ArmyResourcesData extends ArmyResourcesSource {
-	potions: ValueAndMax;
+    potions: ValueAndMax;
 }
-
-interface ArmyTraits extends Omit<ArmyTraitsSource, "size">, Required<ActorTraitsData<string>> {}
-
-interface ArmyDetails extends ArmyDetailsSource, ActorDetails {}
+interface ArmyTraits extends Omit<ArmyTraitsSource, "size">, Required<ActorTraitsData<string>> {
+}
+interface ArmyDetails extends ArmyDetailsSource, ActorDetails {
+}
 export type { ArmySource, ArmySystemData };

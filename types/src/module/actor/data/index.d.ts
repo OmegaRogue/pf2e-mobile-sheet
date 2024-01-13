@@ -12,17 +12,4 @@ type ActorSourcePF2e = ArmySource | CreatureSource | HazardSource | LootSource |
 interface RollInitiativeOptionsPF2e extends RollInitiativeOptions, StatisticRollParameters {
     secret?: boolean;
 }
-
-export type {
-	ActorSourcePF2e,
-	ArmySource,
-	CharacterSource,
-	CreatureSource,
-	FamiliarSource,
-	HazardSource,
-	LootSource,
-	NPCSource,
-	PartySource,
-	RollInitiativeOptionsPF2e,
-	VehicleSource,
-};
+export type { ActorSourcePF2e, ArmySource, CharacterSource, CreatureSource, FamiliarSource, HazardSource, LootSource, NPCSource, PartySource, RollInitiativeOptionsPF2e, VehicleSource, };

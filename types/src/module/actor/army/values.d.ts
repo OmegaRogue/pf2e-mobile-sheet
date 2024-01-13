@@ -13,18 +13,18 @@ declare const ARMY_STATS: {
     maxTactics: number[];
 };
 interface ArmyGearData {
-	img: string;
-	name: string;
-	traits: (KingmakerTrait | ActionTrait)[];
-	description: string;
-	price?: number;
-	level?: number;
-	ranks?: {
-		name: string;
-		description: string;
-		price: number;
-		level: number;
-	}[];
+    img: string;
+    name: string;
+    traits: (KingmakerTrait | ActionTrait)[];
+    description: string;
+    price?: number;
+    level?: number;
+    ranks?: {
+        name: string;
+        description: string;
+        price: number;
+        level: number;
+    }[];
 }
 type ArmyGearType = "melee" | "ranged" | "additional-melee" | "additional-ranged" | "potions" | "armor";
 declare function getArmyGearData(): Record<ArmyGearType, ArmyGearData>;

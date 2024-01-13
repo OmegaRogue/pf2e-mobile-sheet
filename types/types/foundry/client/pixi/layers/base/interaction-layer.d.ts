@@ -109,7 +109,7 @@ declare abstract class InteractionLayer extends CanvasLayer {
 }
 
 declare interface InteractionLayer extends CanvasLayer {
-	constructor: typeof InteractionLayer;
+    constructor: typeof InteractionLayer;
 }
 
 declare interface InteractionLayerOptions extends CanvasLayerOptions {

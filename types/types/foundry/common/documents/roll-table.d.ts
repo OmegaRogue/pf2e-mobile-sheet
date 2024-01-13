@@ -37,33 +37,33 @@ interface RollTableMetadata extends DocumentMetadata {
 }
 
 type RollTableSchema = {
-	/** The _id which uniquely identifies this RollTable document */
-	_id: fields.DocumentIdField;
-	/** The name of this RollTable */
-	name: fields.StringField<string, string, true, false, false>;
-	/** An image file path which provides the thumbnail artwork for this RollTable */
-	img: fields.FilePathField<ImageFilePath>;
-	/** The HTML text description for this RollTable document */
-	description: fields.HTMLField;
-	/** A Collection of TableResult embedded documents which belong to this RollTable */
-	// biome-ignore lint/suspicious/noExplicitAny:
-	results: fields.EmbeddedCollectionField<documents.BaseTableResult<BaseRollTable>>;
-	/** The Roll formula which determines the results chosen from the table */
-	formula: fields.StringField<string>;
-	/** Are results from this table drawn with replacement? */
-	replacement: fields.BooleanField;
-	/** Is the Roll result used to draw from this RollTable displayed in chat? */
-	displayRoll: fields.BooleanField;
-	/** The _id of a Folder which contains this RollTable */
-	folder: fields.ForeignDocumentField<documents.BaseFolder>;
-	/** The numeric sort value which orders this RollTable relative to its siblings */
-	sort: fields.IntegerSortField;
-	/** An object which configures ownership of this RollTable */
-	ownership: fields.DocumentOwnershipField;
-	/** An object of optional key/value flags */
-	flags: fields.ObjectField<DocumentFlags>;
-	/** An object of creation and access information */
-	_stats: fields.DocumentStatsField;
+    /** The _id which uniquely identifies this RollTable document */
+    _id: fields.DocumentIdField;
+    /** The name of this RollTable */
+    name: fields.StringField<string, string, true, false, false>;
+    /** An image file path which provides the thumbnail artwork for this RollTable */
+    img: fields.FilePathField<ImageFilePath>;
+    /** The HTML text description for this RollTable document */
+    description: fields.HTMLField;
+    /** A Collection of TableResult embedded documents which belong to this RollTable */
+    // biome-ignore lint/suspicious/noExplicitAny:
+    results: fields.EmbeddedCollectionField<documents.BaseTableResult<BaseRollTable>>;
+    /** The Roll formula which determines the results chosen from the table */
+    formula: fields.StringField<string>;
+    /** Are results from this table drawn with replacement? */
+    replacement: fields.BooleanField;
+    /** Is the Roll result used to draw from this RollTable displayed in chat? */
+    displayRoll: fields.BooleanField;
+    /** The _id of a Folder which contains this RollTable */
+    folder: fields.ForeignDocumentField<documents.BaseFolder>;
+    /** The numeric sort value which orders this RollTable relative to its siblings */
+    sort: fields.IntegerSortField;
+    /** An object which configures ownership of this RollTable */
+    ownership: fields.DocumentOwnershipField;
+    /** An object of optional key/value flags */
+    flags: fields.ObjectField<DocumentFlags>;
+    /** An object of creation and access information */
+    _stats: fields.DocumentStatsField;
 };
 
 type RollTableSource = SourceFromSchema<RollTableSchema>;

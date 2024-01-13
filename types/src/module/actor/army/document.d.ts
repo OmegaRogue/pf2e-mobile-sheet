@@ -9,56 +9,36 @@ import { ActorPF2e, type ActorUpdateContext, type HitPointsSummary } from "../ba
 import type { ArmySource, ArmySystemData } from "./data.ts";
 import type { ArmyStrike } from "./types.ts";
 declare class ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
-	scouting: Statistic;
-	maneuver: Statistic;
-	morale: Statistic;
-	tactics: FeatGroup<ArmyPF2e, CampaignFeaturePF2e>;
-	bonusTactics: FeatGroup<ArmyPF2e, CampaignFeaturePF2e>;
-	strikes: Record<string, ArmyStrike | null>;
-
-	get allowedItemTypes(): (ItemType | "physical")[];
-
-	get underRoutThreshold(): boolean;
-
-	/** Gets the active kingdom. Later this should be configurable based on alliance */
-	get kingdom(): Kingdom | null;
-
-	get maxTactics(): number;
-
-	prepareData(): void;
-
-	prepareBaseData(): void;
-
-	/** Run rule elements */
-	prepareEmbeddedDocuments(): void;
-
-	prepareDerivedData(): void;
-
-	usePotion(): Promise<void>;
-
-	prepareArmyStrike(type: "melee" | "ranged"): ArmyStrike | null;
-
-	/** Updates the army's level, scaling all attributes that are intended to scale as the army levels up */
-	updateLevel(newLevel: number): Promise<this | undefined>;
-
-	/** Prevent addition of invalid tactic types */
-	checkItemValidity(source: PreCreate<ItemSourcePF2e>): boolean;
-
-	getStatistic(slug: string): Statistic | null;
-
-	_preUpdate(
-		changed: DeepPartial<this["_source"]>,
-		options: ActorUpdateContext<TParent>,
-		user: UserPF2e,
-	): Promise<boolean | void>;
-
-	_onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
+    scouting: Statistic;
+    maneuver: Statistic;
+    morale: Statistic;
+    tactics: FeatGroup<ArmyPF2e, CampaignFeaturePF2e>;
+    bonusTactics: FeatGroup<ArmyPF2e, CampaignFeaturePF2e>;
+    strikes: Record<string, ArmyStrike | null>;
+    get allowedItemTypes(): (ItemType | "physical")[];
+    get underRoutThreshold(): boolean;
+    /** Gets the active kingdom. Later this should be configurable based on alliance */
+    get kingdom(): Kingdom | null;
+    get maxTactics(): number;
+    prepareData(): void;
+    prepareBaseData(): void;
+    /** Run rule elements */
+    prepareEmbeddedDocuments(): void;
+    prepareDerivedData(): void;
+    usePotion(): Promise<void>;
+    prepareArmyStrike(type: "melee" | "ranged"): ArmyStrike | null;
+    /** Updates the army's level, scaling all attributes that are intended to scale as the army levels up */
+    updateLevel(newLevel: number): Promise<this | undefined>;
+    /** Prevent addition of invalid tactic types */
+    checkItemValidity(source: PreCreate<ItemSourcePF2e>): boolean;
+    getStatistic(slug: string): Statistic | null;
+    _preUpdate(changed: DeepPartial<this["_source"]>, options: ActorUpdateContext<TParent>, user: UserPF2e): Promise<boolean | void>;
+    _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
 }
 interface ArmyPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
-	readonly _source: ArmySource;
-	armorClass: StatisticDifficultyClass<ArmorStatistic>;
-	system: ArmySystemData;
-
-	get hitPoints(): HitPointsSummary;
+    readonly _source: ArmySource;
+    armorClass: StatisticDifficultyClass<ArmorStatistic>;
+    system: ArmySystemData;
+    get hitPoints(): HitPointsSummary;
 }
 export { ArmyPF2e };

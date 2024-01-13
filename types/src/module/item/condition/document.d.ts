@@ -7,69 +7,43 @@ import type { TokenDocumentPF2e } from "@scene/index.ts";
 import { ConditionSource, ConditionSystemData, PersistentDamageData } from "./data.ts";
 import { ConditionKey, ConditionSlug } from "./types.ts";
 declare class ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends AbstractEffectPF2e<TParent> {
-	active: boolean;
-
-	get badge(): EffectBadge | null;
-
-	/** Retrieve this condition's origin from its granting effect, if any */
-	get origin(): ActorPF2e | null;
-
-	/** A key that can be used in place of slug for condition types that are split up (persistent damage) */
-	get key(): ConditionKey;
-
-	get appliedBy(): ItemPF2e<ActorPF2e> | null;
-
-	get value(): number | null;
-
-	/** Is this condition locked in place by another? */
-	get isLocked(): boolean;
-
-	/** Is the condition found in the token HUD menu? */
-	get isInHUD(): boolean;
-
-	/** Create a textual breakdown of what applied this condition */
-	get breakdown(): string | null;
-
-	/**
-	 * Whether this condition is in-memory rather than stored in an actor's `items` collection and cannot be updated or
-	 * deleted
-	 */
-	get readonly(): boolean;
-
-	/** Include damage type and possibly category for persistent-damage conditions */
-	getRollOptions(prefix?: string): string[];
-
-	increase(this: ConditionPF2e<ActorPF2e>): Promise<void>;
-
-	decrease(this: ConditionPF2e<ActorPF2e>): Promise<void>;
-
-	onEndTurn(options?: { token?: TokenDocumentPF2e | null }): Promise<void>;
-
-	/** Rolls recovery for this condition if it is persistent damage */
-	rollRecovery(): Promise<void>;
-
-	/** Ensure value.isValued and value.value are in sync */
-	prepareBaseData(): void;
-
-	prepareSiblingData(this: ConditionPF2e<ActorPF2e>): void;
-
-	/** Log self in parent's conditions map */
-	prepareActorData(this: ConditionPF2e<ActorPF2e>): void;
-
-	/** Withhold all rule elements if this condition is inactive */
-	prepareRuleElements(options?: RuleElementOptions): RuleElementPF2e[];
-
-	protected _preUpdate(
-		changed: DeepPartial<this["_source"]>,
-		options: ConditionModificationContext<TParent>,
-		user: UserPF2e,
-	): Promise<boolean | void>;
-
-	protected _onUpdate(
-		changed: DeepPartial<this["_source"]>,
-		options: ConditionModificationContext<TParent>,
-		userId: string,
-	): void;
+    active: boolean;
+    get badge(): EffectBadge | null;
+    /** Retrieve this condition's origin from its granting effect, if any */
+    get origin(): ActorPF2e | null;
+    /** A key that can be used in place of slug for condition types that are split up (persistent damage) */
+    get key(): ConditionKey;
+    get appliedBy(): ItemPF2e<ActorPF2e> | null;
+    get value(): number | null;
+    /** Is this condition locked in place by another? */
+    get isLocked(): boolean;
+    /** Is the condition found in the token HUD menu? */
+    get isInHUD(): boolean;
+    /** Create a textual breakdown of what applied this condition */
+    get breakdown(): string | null;
+    /**
+     * Whether this condition is in-memory rather than stored in an actor's `items` collection and cannot be updated or
+     * deleted
+     */
+    get readonly(): boolean;
+    /** Include damage type and possibly category for persistent-damage conditions */
+    getRollOptions(prefix?: string): string[];
+    increase(this: ConditionPF2e<ActorPF2e>): Promise<void>;
+    decrease(this: ConditionPF2e<ActorPF2e>): Promise<void>;
+    onEndTurn(options?: {
+        token?: TokenDocumentPF2e | null;
+    }): Promise<void>;
+    /** Rolls recovery for this condition if it is persistent damage */
+    rollRecovery(): Promise<void>;
+    /** Ensure value.isValued and value.value are in sync */
+    prepareBaseData(): void;
+    prepareSiblingData(this: ConditionPF2e<ActorPF2e>): void;
+    /** Log self in parent's conditions map */
+    prepareActorData(this: ConditionPF2e<ActorPF2e>): void;
+    /** Withhold all rule elements if this condition is inactive */
+    prepareRuleElements(options?: RuleElementOptions): RuleElementPF2e[];
+    protected _preUpdate(changed: DeepPartial<this["_source"]>, options: ConditionModificationContext<TParent>, user: UserPF2e): Promise<boolean | void>;
+    protected _onUpdate(changed: DeepPartial<this["_source"]>, options: ConditionModificationContext<TParent>, userId: string): void;
 }
 interface ConditionPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends AbstractEffectPF2e<TParent> {
     readonly _source: ConditionSource;

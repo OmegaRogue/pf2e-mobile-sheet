@@ -10,8 +10,6 @@ interface HeritageSystemSource extends ItemSystemSource {
     traits: AncestryTraits;
     level?: never;
 }
-
-interface HeritageSystemData
-	extends Omit<HeritageSystemSource, "description">,
-		Omit<ItemSystemData, "level" | "traits"> {}
+interface HeritageSystemData extends Omit<HeritageSystemSource, "description">, Omit<ItemSystemData, "level" | "traits"> {
+}
 export type { HeritageSource, HeritageSystemData, HeritageSystemSource };

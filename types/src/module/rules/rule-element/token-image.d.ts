@@ -10,10 +10,8 @@ declare class TokenImageRuleElement extends RuleElementPF2e<TokenImageRuleSchema
     static defineSchema(): TokenImageRuleSchema;
     afterPrepareData(): void;
 }
-
-interface TokenImageRuleElement
-	extends RuleElementPF2e<TokenImageRuleSchema>,
-		ModelPropsFromRESchema<TokenImageRuleSchema> {}
+interface TokenImageRuleElement extends RuleElementPF2e<TokenImageRuleSchema>, ModelPropsFromRESchema<TokenImageRuleSchema> {
+}
 type TokenImageRuleSchema = RuleElementSchema & {
     /** An image or video path */
     value: ResolvableValueField<true, false, false>;

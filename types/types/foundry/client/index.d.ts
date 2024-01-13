@@ -8,12 +8,12 @@ declare global {
         export import gsap = GSAP;
         export import Handlebars = HANDLEBARS;
 
-	    namespace foundry {
-			export import CONST = Constants;
-			export import abstract = Abstract;
-			export import data = Data;
-			export import documents = Documents;
-			export import utils = Utils;
-		}
+        namespace foundry {
+            export import CONST = Constants;
+            export import abstract = Abstract;
+            export import data = Data;
+            export import documents = Documents;
+            export import utils = Utils;
+        }
     }
 }

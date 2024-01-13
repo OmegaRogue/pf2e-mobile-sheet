@@ -9,10 +9,8 @@ declare class EphemeralEffectRuleElement extends RuleElementPF2e<EphemeralEffect
     static validateJoint(data: SourceFromSchema<EphemeralEffectSchema>): void;
     afterPrepareData(): void;
 }
-
-interface EphemeralEffectRuleElement
-	extends RuleElementPF2e<EphemeralEffectSchema>,
-		ModelPropsFromRESchema<EphemeralEffectSchema> {}
+interface EphemeralEffectRuleElement extends RuleElementPF2e<EphemeralEffectSchema>, ModelPropsFromRESchema<EphemeralEffectSchema> {
+}
 type EphemeralEffectSchema = RuleElementSchema & {
     affects: StringField<"target" | "origin", "target" | "origin", true, false, true>;
     selectors: ArrayField<StringField<string, string, true, false, false>>;

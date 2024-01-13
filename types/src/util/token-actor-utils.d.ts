@@ -7,11 +7,11 @@ import type { ActorPF2e, ActorType } from "@actor";
  */
 declare function getSelectedActors(params?: GetSelectedActorsParams): ActorPF2e[];
 interface GetSelectedActorsParams {
-	/** Actor types that should be included (defaults to all) */
-	include?: (ActorType | "creature")[];
-	/** Actor types that should be excluded (defaults to none) */
-	exclude?: (ActorType | "creature")[];
-	/** Given no qualifying actor is selected, fall back to the user's assigned character if it also qualifies. */
-	assignedFallback?: boolean;
+    /** Actor types that should be included (defaults to all) */
+    include?: (ActorType | "creature")[];
+    /** Actor types that should be excluded (defaults to none) */
+    exclude?: (ActorType | "creature")[];
+    /** Given no qualifying actor is selected, fall back to the user's assigned character if it also qualifies. */
+    assignedFallback?: boolean;
 }
 export { getSelectedActors };

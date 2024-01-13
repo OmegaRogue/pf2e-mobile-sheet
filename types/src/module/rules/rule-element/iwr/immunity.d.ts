@@ -13,8 +13,8 @@ declare class ImmunityRuleElement extends IWRRuleElement<ImmunityRuleSchema> {
     getIWR(): Immunity[];
 }
 interface ImmunityRuleElement extends IWRRuleElement<ImmunityRuleSchema>, ModelPropsFromRESchema<ImmunityRuleSchema> {
-	type: ImmunityType[];
-	exceptions: IWRException<ImmunityType>[];
+    type: ImmunityType[];
+    exceptions: IWRException<ImmunityType>[];
 }
 type ImmunityRuleSchema = Omit<IWRRuleSchema, "exceptions"> & {
     exceptions: StrictArrayField<IWRExceptionField<ImmunityType>>;

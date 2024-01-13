@@ -13,8 +13,6 @@ type ActorTraitsRuleSchema = RuleElementSchema & {
     add: ArrayField<StringField<string, string, true, false, false>>;
     remove: ArrayField<StringField<string, string, true, false, false>>;
 };
-
-interface ActorTraitsRuleElement
-	extends RuleElementPF2e<ActorTraitsRuleSchema>,
-		ModelPropsFromRESchema<ActorTraitsRuleSchema> {}
+interface ActorTraitsRuleElement extends RuleElementPF2e<ActorTraitsRuleSchema>, ModelPropsFromRESchema<ActorTraitsRuleSchema> {
+}
 export { ActorTraitsRuleElement };

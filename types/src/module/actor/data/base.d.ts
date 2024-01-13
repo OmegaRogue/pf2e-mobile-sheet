@@ -49,23 +49,23 @@ interface ActorHitPointsSource extends ValueAndMaybeMax {
     temp?: number;
 }
 interface ActorDetailsSource {
-	/** The level of this actor */
-	level?: {
-		value: number;
-	};
-	/** The alliance this NPC belongs to: relevant to mechanics like flanking */
-	alliance?: ActorAlliance;
+    /** The level of this actor */
+    level?: {
+        value: number;
+    };
+    /** The alliance this NPC belongs to: relevant to mechanics like flanking */
+    alliance?: ActorAlliance;
 }
 interface ActorSystemData extends ActorSystemSource {
-	abilities?: Abilities;
-	details: ActorDetails;
-	actions?: StrikeData[];
-	attributes: ActorAttributes;
-	traits?: ActorTraitsData<string>;
-	/** Initiative, used to determine turn order in encounters */
-	initiative?: InitiativeTraceData;
-	/** An audit log of automatic, non-modifier changes applied to various actor data nodes */
-	autoChanges: Record<string, AutoChangeEntry[] | undefined>;
+    abilities?: Abilities;
+    details: ActorDetails;
+    actions?: StrikeData[];
+    attributes: ActorAttributes;
+    traits?: ActorTraitsData<string>;
+    /** Initiative, used to determine turn order in encounters */
+    initiative?: InitiativeTraceData;
+    /** An audit log of automatic, non-modifier changes applied to various actor data nodes */
+    autoChanges: Record<string, AutoChangeEntry[] | undefined>;
 }
 interface ActorAttributes extends ActorAttributesSource {
     hp?: ActorHitPoints;
@@ -115,43 +115,42 @@ interface BaseHitPointsSource {
     /** Any details about hit points. */
     details: string;
 }
-
-type OffGuardableCircumstance =
-	/** Flat-footable in all flanking situations */
-	| true
-	/** Flat-footable if the flanker's level is less than or equal to the actor's own */
-	| number
-	/** Never off-guardable */
-	| false;
-type GangUpCircumstance =
-	/** Requires at least `number` allies within melee reach of the target */
-	| number
-	/** Requires the actor's animal companion to be adjacent to the target */
-	| "animal-companion"
-	/** The Gang Up rogue feat allows allies to flank with the gang-upper */
-	| true;
+type OffGuardableCircumstance = 
+/** Flat-footable in all flanking situations */
+true
+/** Flat-footable if the flanker's level is less than or equal to the actor's own */
+ | number
+/** Never off-guardable */
+ | false;
+type GangUpCircumstance = 
+/** Requires at least `number` allies within melee reach of the target */
+number
+/** Requires the actor's animal companion to be adjacent to the target */
+ | "animal-companion"
+/** The Gang Up rogue feat allows allies to flank with the gang-upper */
+ | true;
 /** Data related to actor hitpoints. */
 type HitPointsStatistic = StatisticModifier & ActorHitPoints;
 interface ActorTraitsSource<TTrait extends string> {
-	/** Actual Pathfinder traits */
-	value: TTrait[];
-	/** The rarity of the actor */
-	rarity?: Rarity;
-	/** The actor's size category */
-	size?: {
-		value: Size;
-	};
+    /** Actual Pathfinder traits */
+    value: TTrait[];
+    /** The rarity of the actor */
+    rarity?: Rarity;
+    /** The actor's size category */
+    size?: {
+        value: Size;
+    };
 }
 interface ActorTraitsData<TTrait extends string> extends ActorTraitsSource<TTrait> {
-	size?: ActorSizePF2e;
+    size?: ActorSizePF2e;
 }
 /** Basic skill and save data (not including custom modifiers). */
 interface AttributeBasedTraceData extends StatisticTraceData {
-	attribute: AttributeString;
-	/** The actual modifier for this martial type */
-	value: number;
-	/** Describes how the value was computed */
-	breakdown: string;
+    attribute: AttributeString;
+    /** The actual modifier for this martial type */
+    value: number;
+    /** Describes how the value was computed */
+    breakdown: string;
 }
 /** A roll function which can be called to roll a given skill. */
 type RollFunction<T extends RollParameters = RollParameters> = (params: T) => Promise<Rolled<CheckRoll> | null | string | void>;
@@ -257,31 +256,4 @@ interface PrototypeTokenPF2e<TParent extends ActorPF2e | null> extends foundry.d
         };
     };
 }
-
-export type {
-	ActorAttributes,
-	ActorAttributesSource,
-	ActorDetails,
-	ActorDetailsSource,
-	ActorFlagsPF2e,
-	ActorHitPoints,
-	ActorHitPointsSource,
-	ActorSystemData,
-	ActorSystemSource,
-	ActorTraitsData,
-	ActorTraitsSource,
-	ArmorClassData,
-	AttributeBasedTraceData,
-	BaseActorSourcePF2e,
-	BaseHitPointsSource,
-	DamageRollFunction,
-	GangUpCircumstance,
-	HitPointsStatistic,
-	InitiativeData,
-	PrototypeTokenPF2e,
-	RollFunction,
-	RollOptionFlags,
-	Rollable,
-	StrikeData,
-	TraitViewData,
-};
+export type { ActorAttributes, ActorAttributesSource, ActorDetails, ActorDetailsSource, ActorFlagsPF2e, ActorHitPoints, ActorHitPointsSource, ActorSystemData, ActorSystemSource, ActorTraitsData, ActorTraitsSource, ArmorClassData, AttributeBasedTraceData, BaseActorSourcePF2e, BaseHitPointsSource, DamageRollFunction, GangUpCircumstance, HitPointsStatistic, InitiativeData, PrototypeTokenPF2e, RollFunction, RollOptionFlags, Rollable, StrikeData, TraitViewData, };

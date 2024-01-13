@@ -7,10 +7,8 @@ declare class RollTwiceRuleElement extends RuleElementPF2e<RollTwiceRuleSchema> 
     beforePrepareData(): void;
     afterRoll({ domains, roll, rollOptions }: RuleElementPF2e.AfterRollParams): Promise<void>;
 }
-
-interface RollTwiceRuleElement
-	extends RuleElementPF2e<RollTwiceRuleSchema>,
-		ModelPropsFromRESchema<RollTwiceRuleSchema> {}
+interface RollTwiceRuleElement extends RuleElementPF2e<RollTwiceRuleSchema>, ModelPropsFromRESchema<RollTwiceRuleSchema> {
+}
 type RollTwiceRuleSchema = RuleElementSchema & {
     selector: StringField<string, string, true, false, false>;
     keep: StringField<"higher" | "lower", "higher" | "lower", true, false, false>;

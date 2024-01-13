@@ -15,16 +15,7 @@ import type { PredicatePF2e } from "@system/predication.ts";
 import type { StatisticCheck } from "@system/statistic/index.ts";
 import type { StrikeData } from "./data/base.ts";
 import type { ModifierPF2e } from "./modifiers.ts";
-import type {
-	ACTOR_TYPES,
-	ATTRIBUTE_ABBREVIATIONS,
-	DC_SLUGS,
-	MOVEMENT_TYPES,
-	SAVE_TYPES,
-	SKILL_ABBREVIATIONS,
-	SKILL_LONG_FORMS,
-	UNAFFECTED_TYPES,
-} from "./values.ts";
+import type { ACTOR_TYPES, ATTRIBUTE_ABBREVIATIONS, DC_SLUGS, MOVEMENT_TYPES, SAVE_TYPES, SKILL_ABBREVIATIONS, SKILL_LONG_FORMS, UNAFFECTED_TYPES } from "./values.ts";
 type ActorType = (typeof ACTOR_TYPES)[number];
 /** Used exclusively to resolve `ActorPF2e#isOfType` */
 interface ActorInstances<TParent extends TokenDocumentPF2e | null> {
@@ -43,9 +34,9 @@ type EmbeddedItemInstances<TParent extends ActorPF2e> = {
 };
 type AttributeString = SetElement<typeof ATTRIBUTE_ABBREVIATIONS>;
 interface ActorDimensions {
-	length: number;
-	width: number;
-	height: number;
+    length: number;
+    width: number;
+    height: number;
 }
 type SkillAbbreviation = (typeof SKILL_ABBREVIATIONS)[number];
 type SkillLongForm = SetElement<typeof SKILL_LONG_FORMS>;
@@ -173,32 +164,4 @@ type ResistanceType = keyof typeof resistanceTypes;
 /** Damage types a creature or hazard is possibly unaffected by, outside the IWR framework */
 type UnaffectedType = SetElement<typeof UNAFFECTED_TYPES>;
 type IWRType = ImmunityType | WeaknessType | ResistanceType;
-export type {
-	ActorAlliance,
-	ActorDimensions,
-	ActorInstances,
-	ActorType,
-	ApplyDamageParams,
-	AttributeString,
-	AuraAppearanceData,
-	AuraData,
-	AuraEffectData,
-	CheckContext,
-	CheckContextParams,
-	DCSlug,
-	DamageRollContextParams,
-	EmbeddedItemInstances,
-	IWRType,
-	ImmunityType,
-	MovementType,
-	ResistanceType,
-	RollContext,
-	RollContextParams,
-	RollTarget,
-	SaveType,
-	SkillAbbreviation,
-	SkillLongForm,
-	StrikeSelf,
-	UnaffectedType,
-	WeaknessType,
-};
+export type { ActorAlliance, ActorDimensions, ActorInstances, ActorType, ApplyDamageParams, AttributeString, AuraAppearanceData, AuraData, AuraEffectData, CheckContext, CheckContextParams, DCSlug, DamageRollContextParams, EmbeddedItemInstances, IWRType, ImmunityType, MovementType, ResistanceType, RollContext, RollContextParams, RollTarget, SaveType, SkillAbbreviation, SkillLongForm, StrikeSelf, UnaffectedType, WeaknessType, };

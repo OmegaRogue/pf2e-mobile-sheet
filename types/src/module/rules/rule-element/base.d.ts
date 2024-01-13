@@ -14,94 +14,74 @@ import { BracketedValue, RuleElementSchema, RuleElementSource, RuleValue } from 
  * @category RuleElement
  */
 declare abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleElementSchema> extends foundry.abstract
-	.DataModel<ItemPF2e<ActorPF2e>, TSchema> {
-	#private;
-	protected static _schema: LaxSchemaField<RuleElementSchema> | undefined;
-	label: string;
-	sourceIndex: number | null;
-	protected suppressWarnings: boolean;
-	/** A list of actor types on which this rule element can operate (all unless overridden) */
-	protected static validActorTypes: ActorType[];
-
-	/**
-	 * @param source unserialized JSON data from the actual rule input
-	 * @param item where the rule is persisted on
-	 */
-	constructor(source: RuleElementSource, options: RuleElementOptions);
-
-	static defineSchema(): RuleElementSchema;
-
-	/** Use a "lax" schema field that preserves properties not defined in the `DataSchema` */
-	static get schema(): LaxSchemaField<RuleElementSchema>;
-
-	get item(): this["parent"];
-
-	get actor(): ActorPF2e;
-
-	/** Retrieves the token from the actor, or from the active tokens. */
-	get token(): TokenDocumentPF2e | null;
-
-	/** Generate a label without a leading title (such as "Effect:") */
-	protected getReducedLabel(label?: string): string;
-
-	/** Include parent item's name and UUID in `DataModel` validation error messages */
-	validate(options?: DataModelValidationOptions): boolean;
-
-	/** Test this rule element's predicate, if present */
-	protected test(rollOptions?: string[] | Set<string>): boolean;
-
-	/** Send a deferred warning to the console indicating that a rule element's validation failed */
-	protected failValidation(...message: string[]): void;
-
-	/**
-	 * Callback used to parse and look up values when calculating rules. Parses strings that look like
-	 * {actor|x.y.z}, {item|x.y.z} or {rule|x.y.z} where x.y.z is the path on the current actor, item or rule.
-	 * It's useful if you want to include something like the item's ID in a modifier selector (for applying the
-	 * modifier only to a specific weapon, for example), or include the item's name in some text.
-	 *
-	 * Example:
-	 * {
-	 *   "key": "PF2E.RuleElement.Note",
-	 *   "selector": "will",
-	 *   "text": "<b>{item|name}</b> A success on a Will save vs fear is treated as a critical success.",
-	 *   "predicate": {
-	 *       "all": ["fear"]
-	 *   }
-	 * }
-	 *
-	 * @param source The string that is to be resolved
-	 * @param options.warn Whether to warn on a failed resolution
-	 * @return the looked up value on the specific object
-	 */
-	resolveInjectedProperties<T extends string | number | object | null | undefined>(
-		source: T,
-		options?: {
-			warn?: boolean;
-		},
-	): T;
-
-	/**
-	 * Parses the value attribute on a rule.
-	 *
-	 * @param valueData can be one of 3 different formats:
-	 * * {value: 5}: returns 5
-	 * * {value: "4 + @details.level.value"}: uses foundry's built in roll syntax to evaluate it
-	 * * {
-	 *      field: "item|data.level.value",
-	 *      brackets: [
-	 *          {start: 1, end: 4, value: 5}],
-	 *          {start: 5, end: 9, value: 10}],
-	 *   }: compares the value from field to >= start and <= end of a bracket and uses that value
-	 * @param defaultValue if no value is found, use that one
-	 * @return the evaluated value
-	 */
-	resolveValue(
-		value: unknown,
-		defaultValue?: Exclude<RuleValue, BracketedValue>,
-		{ evaluate, resolvables, warn }?: ResolveValueParams,
-	): number | string | boolean | object | null;
-
-	protected isBracketedValue(value: unknown): value is BracketedValue;
+    .DataModel<ItemPF2e<ActorPF2e>, TSchema> {
+    #private;
+    protected static _schema: LaxSchemaField<RuleElementSchema> | undefined;
+    label: string;
+    sourceIndex: number | null;
+    protected suppressWarnings: boolean;
+    /** A list of actor types on which this rule element can operate (all unless overridden) */
+    protected static validActorTypes: ActorType[];
+    /**
+     * @param source unserialized JSON data from the actual rule input
+     * @param item where the rule is persisted on
+     */
+    constructor(source: RuleElementSource, options: RuleElementOptions);
+    static defineSchema(): RuleElementSchema;
+    /** Use a "lax" schema field that preserves properties not defined in the `DataSchema` */
+    static get schema(): LaxSchemaField<RuleElementSchema>;
+    get item(): this["parent"];
+    get actor(): ActorPF2e;
+    /** Retrieves the token from the actor, or from the active tokens. */
+    get token(): TokenDocumentPF2e | null;
+    /** Generate a label without a leading title (such as "Effect:") */
+    protected getReducedLabel(label?: string): string;
+    /** Include parent item's name and UUID in `DataModel` validation error messages */
+    validate(options?: DataModelValidationOptions): boolean;
+    /** Test this rule element's predicate, if present */
+    protected test(rollOptions?: string[] | Set<string>): boolean;
+    /** Send a deferred warning to the console indicating that a rule element's validation failed */
+    protected failValidation(...message: string[]): void;
+    /**
+     * Callback used to parse and look up values when calculating rules. Parses strings that look like
+     * {actor|x.y.z}, {item|x.y.z} or {rule|x.y.z} where x.y.z is the path on the current actor, item or rule.
+     * It's useful if you want to include something like the item's ID in a modifier selector (for applying the
+     * modifier only to a specific weapon, for example), or include the item's name in some text.
+     *
+     * Example:
+     * {
+     *   "key": "PF2E.RuleElement.Note",
+     *   "selector": "will",
+     *   "text": "<b>{item|name}</b> A success on a Will save vs fear is treated as a critical success.",
+     *   "predicate": {
+     *       "all": ["fear"]
+     *   }
+     * }
+     *
+     * @param source The string that is to be resolved
+     * @param options.warn Whether to warn on a failed resolution
+     * @return the looked up value on the specific object
+     */
+    resolveInjectedProperties<T extends string | number | object | null | undefined>(source: T, options?: {
+        warn?: boolean;
+    }): T;
+    /**
+     * Parses the value attribute on a rule.
+     *
+     * @param valueData can be one of 3 different formats:
+     * * {value: 5}: returns 5
+     * * {value: "4 + @details.level.value"}: uses foundry's built in roll syntax to evaluate it
+     * * {
+     *      field: "item|data.level.value",
+     *      brackets: [
+     *          {start: 1, end: 4, value: 5}],
+     *          {start: 5, end: 9, value: 10}],
+     *   }: compares the value from field to >= start and <= end of a bracket and uses that value
+     * @param defaultValue if no value is found, use that one
+     * @return the evaluated value
+     */
+    resolveValue(value: unknown, defaultValue?: Exclude<RuleValue, BracketedValue>, { evaluate, resolvables, warn }?: ResolveValueParams): number | string | boolean | object | null;
+    protected isBracketedValue(value: unknown): value is BracketedValue;
 }
 interface RuleElementPF2e<TSchema extends RuleElementSchema> extends foundry.abstract.DataModel<ItemPF2e<ActorPF2e>, TSchema>, ModelPropsFromSchema<RuleElementSchema> {
     constructor: typeof RuleElementPF2e<TSchema>;

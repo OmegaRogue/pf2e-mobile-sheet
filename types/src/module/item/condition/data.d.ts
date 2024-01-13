@@ -40,12 +40,9 @@ interface PersistentSourceData {
     damageType: DamageType;
     dc: number;
 }
-
-interface ConditionSystemData
-	extends Omit<ConditionSystemSource, "description" | "fromSpell">,
-		Omit<AbstractEffectSystemData, "level" | "slug" | "traits"> {
-	persistent?: PersistentDamageData;
-	duration: DurationData;
+interface ConditionSystemData extends Omit<ConditionSystemSource, "description" | "fromSpell">, Omit<AbstractEffectSystemData, "level" | "slug" | "traits"> {
+    persistent?: PersistentDamageData;
+    duration: DurationData;
 }
 interface PersistentDamageData extends PersistentSourceData {
     damage: DamageRoll;

@@ -19,10 +19,8 @@ interface DamageDiceSource extends RuleElementSource {
     category?: unknown;
     damageCategory?: unknown;
 }
-
-interface DamageDiceRuleElement
-	extends RuleElementPF2e<DamageDiceRuleSchema>,
-		ModelPropsFromRESchema<DamageDiceRuleSchema> {}
+interface DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema>, ModelPropsFromRESchema<DamageDiceRuleSchema> {
+}
 type DamageDiceRuleSchema = RuleElementSchema & {
     /** All domains to add a modifier to */
     selector: ArrayField<StringField<string, string, true, false, false>>;

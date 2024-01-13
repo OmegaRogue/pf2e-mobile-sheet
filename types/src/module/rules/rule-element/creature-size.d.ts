@@ -20,11 +20,8 @@ declare class CreatureSizeRuleElement extends RuleElementPF2e<CreatureSizeRuleSc
     private decrementSize;
     beforePrepareData(): void;
 }
-
-interface CreatureSizeRuleElement
-	extends RuleElementPF2e<CreatureSizeRuleSchema>,
-		ModelPropsFromRESchema<CreatureSizeRuleSchema> {
-	get actor(): CreaturePF2e;
+interface CreatureSizeRuleElement extends RuleElementPF2e<CreatureSizeRuleSchema>, ModelPropsFromRESchema<CreatureSizeRuleSchema> {
+    get actor(): CreaturePF2e;
 }
 type CreatureSizeRuleSchema = RuleElementSchema & {
     value: ResolvableValueField<true, false, true>;

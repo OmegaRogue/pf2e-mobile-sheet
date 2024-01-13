@@ -15,8 +15,8 @@ declare class TempHPRuleElement extends RuleElementPF2e<TempHPRuleSchema> {
     /** Send out a chat message notifying everyone that the actor gained temporary HP */
     broadcast(newQuantity: number, oldQuantity: number): void;
 }
-
-interface TempHPRuleElement extends RuleElementPF2e<TempHPRuleSchema>, ModelPropsFromRESchema<TempHPRuleSchema> {}
+interface TempHPRuleElement extends RuleElementPF2e<TempHPRuleSchema>, ModelPropsFromRESchema<TempHPRuleSchema> {
+}
 type TempHPEventsSchema = {
     /** Whether the temporary hit points are immediately applied */
     onCreate: BooleanField<boolean, boolean, false, false, false>;

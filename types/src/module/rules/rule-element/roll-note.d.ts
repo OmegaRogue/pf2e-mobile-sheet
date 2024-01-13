@@ -8,8 +8,8 @@ declare class RollNoteRuleElement extends RuleElementPF2e<RollNoteSchema> {
     static defineSchema(): RollNoteSchema;
     beforePrepareData(): void;
 }
-
-interface RollNoteRuleElement extends RuleElementPF2e<RollNoteSchema>, ModelPropsFromRESchema<RollNoteSchema> {}
+interface RollNoteRuleElement extends RuleElementPF2e<RollNoteSchema>, ModelPropsFromRESchema<RollNoteSchema> {
+}
 type RollNoteSchema = RuleElementSchema & {
     /** The statistic(s) slugs of the rolls for which this note will be appended */
     selector: ArrayField<StringField<string, string, true, false, false>, string[], string[], true, false, true>;

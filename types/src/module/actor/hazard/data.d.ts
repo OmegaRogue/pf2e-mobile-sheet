@@ -48,11 +48,11 @@ interface HazardDetailsSource extends ActorDetailsSource {
     readonly alliance?: never;
 }
 interface HazardSystemData extends Omit<HazardSystemSource, "attributes" | "details">, Omit<ActorSystemData, "traits"> {
-	actions: NPCStrike[];
-	attributes: HazardAttributes;
-	details: HazardDetails;
-	initiative?: InitiativeTraceData;
-	traits: HazardTraitsData;
+    actions: NPCStrike[];
+    attributes: HazardAttributes;
+    details: HazardDetails;
+    initiative?: InitiativeTraceData;
+    traits: HazardTraitsData;
 }
 interface HazardTraitsSource extends ActorTraitsSource<HazardTrait> {
     size: {
@@ -65,32 +65,29 @@ interface HazardTraitsData extends HazardTraitsSource {
     size: ActorSizePF2e;
     rarity: Rarity;
 }
-
-interface HazardAttributes
-	extends Omit<HazardAttributesSource, "initiative" | "immunities" | "weaknesses" | "resistances">,
-		Omit<ActorAttributes, "perception" | "shield"> {
-	ac: {
-		value: number;
-	};
-	hasHealth: boolean;
-	hp: HazardHitPoints;
-	hardness: number;
-	stealth: HazardStealthTraceData;
-	/**
-	 * Whether the hazard emits sound and can therefore be detected via hearing. A value of "encounter" indicates it is
-	 * silent until an encounter begins.
-	 */
-	emitsSound: boolean | "encounter";
-	shield?: never;
+interface HazardAttributes extends Omit<HazardAttributesSource, "initiative" | "immunities" | "weaknesses" | "resistances">, Omit<ActorAttributes, "perception" | "shield"> {
+    ac: {
+        value: number;
+    };
+    hasHealth: boolean;
+    hp: HazardHitPoints;
+    hardness: number;
+    stealth: HazardStealthTraceData;
+    /**
+     * Whether the hazard emits sound and can therefore be detected via hearing. A value of "encounter" indicates it is
+     * silent until an encounter begins.
+     */
+    emitsSound: boolean | "encounter";
+    shield?: never;
 }
 interface HazardStealthTraceData extends Omit<StatisticTraceData, "dc" | "totalModifier" | "value"> {
-	dc: number | null;
-	totalModifier: number | null;
-	value: number | null;
-	details: string;
+    dc: number | null;
+    totalModifier: number | null;
+    value: number | null;
+    details: string;
 }
 interface HazardDetails extends Omit<HazardDetailsSource, "alliance">, ActorDetails {
-	alliance: null;
+    alliance: null;
 }
 interface HazardHitPoints extends ActorHitPoints {
     brokenThreshold: number;

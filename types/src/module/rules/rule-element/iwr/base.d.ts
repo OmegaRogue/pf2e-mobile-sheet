@@ -19,11 +19,8 @@ declare abstract class IWRRuleElement<TSchema extends IWRRuleSchema> extends Rul
     abstract getIWR(value?: number): Immunity[] | Weakness[] | Resistance[];
     afterPrepareData(): void;
 }
-
-interface IWRRuleElement<TSchema extends IWRRuleSchema>
-	extends RuleElementPF2e<TSchema>,
-		ModelPropsFromRESchema<IWRRuleSchema> {
-	constructor: typeof IWRRuleElement<TSchema>;
+interface IWRRuleElement<TSchema extends IWRRuleSchema> extends RuleElementPF2e<TSchema>, ModelPropsFromRESchema<IWRRuleSchema> {
+    constructor: typeof IWRRuleElement<TSchema>;
 }
 type IWRRuleSchema = RuleElementSchema & {
     /** Whether to add or remove an immunity, weakness, or resistance (default is "add") */

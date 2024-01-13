@@ -59,11 +59,8 @@ interface SpellCollectionTypeSource {
     flexible?: boolean;
     validItems?: "scroll" | "" | null;
 }
-
-interface SpellcastingEntrySystemData
-	extends Omit<SpellcastingEntrySystemSource, "description">,
-		Omit<ItemSystemData, "level" | "traits"> {
-	prepared: SpellCollectionTypeData;
+interface SpellcastingEntrySystemData extends Omit<SpellcastingEntrySystemSource, "description">, Omit<ItemSystemData, "level" | "traits"> {
+    prepared: SpellCollectionTypeData;
 }
 interface SpellCollectionTypeData extends SpellCollectionTypeSource {
     flexible: boolean;

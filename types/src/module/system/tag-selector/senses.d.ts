@@ -16,28 +16,28 @@ declare class SenseSelector<TActor extends ActorPF2e> extends BaseTagSelector<TA
     protected _updateObject(event: Event, formData: SenseFormData): Promise<void>;
 }
 interface SenseSelector<TActor extends ActorPF2e> extends BaseTagSelector<TActor> {
-	choices: Record<SenseType, string>;
+    choices: Record<SenseType, string>;
 }
 interface SenseSelectorData<TActor extends ActorPF2e> extends TagSelectorData<TActor> {
-	hasExceptions: boolean;
-	choices: Record<string, SenseChoiceData>;
-	senseAcuities: typeof CONFIG.PF2E.senseAcuities;
-	vision: {
-		value: boolean;
-		editable: boolean;
-		source: string | null;
-	};
+    hasExceptions: boolean;
+    choices: Record<string, SenseChoiceData>;
+    senseAcuities: typeof CONFIG.PF2E.senseAcuities;
+    vision: {
+        value: boolean;
+        editable: boolean;
+        source: string | null;
+    };
 }
 interface SenseChoiceData {
-	selected: boolean;
-	acuity: SenseAcuity;
-	label: string;
-	range: number | null;
-	canSetAcuity: boolean;
-	canSetRange: boolean;
-	source: string | null;
+    selected: boolean;
+    acuity: SenseAcuity;
+    label: string;
+    range: number | null;
+    canSetAcuity: boolean;
+    canSetRange: boolean;
+    source: string | null;
 }
 type SenseFormData = {
-	"system.perception.vision"?: boolean;
+    "system.perception.vision"?: boolean;
 } & Record<string, [boolean, string, number | null]>;
 export { SenseSelector };

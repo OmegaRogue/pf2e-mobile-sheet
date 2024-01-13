@@ -9,10 +9,8 @@ declare class SubstituteRollRuleElement extends RuleElementPF2e<SubstituteRollSc
     beforePrepareData(): void;
     afterRoll(params: RuleElementPF2e.AfterRollParams): Promise<void>;
 }
-
-interface SubstituteRollRuleElement
-	extends RuleElementPF2e<SubstituteRollSchema>,
-		ModelPropsFromRESchema<SubstituteRollSchema> {}
+interface SubstituteRollRuleElement extends RuleElementPF2e<SubstituteRollSchema>, ModelPropsFromRESchema<SubstituteRollSchema> {
+}
 type SubstituteRollSchema = RuleElementSchema & {
     selector: StringField<string, string, true, false, true>;
     value: ResolvableValueField<true, false, false>;

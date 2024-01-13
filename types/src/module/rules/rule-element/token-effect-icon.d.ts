@@ -9,10 +9,8 @@ declare class TokenEffectIconRuleElement extends RuleElementPF2e<TokenEffectIcon
     static defineSchema(): TokenEffectIconSchema;
     afterPrepareData(): void;
 }
-
-interface TokenEffectIconRuleElement
-	extends RuleElementPF2e<TokenEffectIconSchema>,
-		ModelPropsFromRESchema<TokenEffectIconSchema> {}
+interface TokenEffectIconRuleElement extends RuleElementPF2e<TokenEffectIconSchema>, ModelPropsFromRESchema<TokenEffectIconSchema> {
+}
 type TokenEffectIconSchema = RuleElementSchema & {
     value: StringField<string, string, false, false, false>;
 };

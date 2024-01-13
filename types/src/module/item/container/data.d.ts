@@ -3,13 +3,13 @@ import { BasePhysicalItemSource, BulkData, Investable, PhysicalItemTraits, Physi
 type ContainerSource = BasePhysicalItemSource<"backpack", ContainerSystemSource>;
 type ContainerTraits = PhysicalItemTraits<EquipmentTrait>;
 interface ContainerSystemSource extends Investable<PhysicalSystemSource> {
-	traits: ContainerTraits;
-	stowing: boolean;
-	bulk: ContainerBulkSource;
-	collapsed: boolean;
-	usage: {
-		value: string;
-	};
+    traits: ContainerTraits;
+    stowing: boolean;
+    bulk: ContainerBulkSource;
+    collapsed: boolean;
+    usage: {
+        value: string;
+    };
 }
 interface ContainerBulkSource {
     value: number;
@@ -17,24 +17,11 @@ interface ContainerBulkSource {
     capacity: number;
     ignored: number;
 }
-
-interface ContainerSystemData
-	extends Omit<ContainerSystemSource, SourceOmission>,
-		Omit<Investable<PhysicalSystemData>, "traits"> {
-	bulk: ContainerBulkData;
-	stackGroup: null;
+interface ContainerSystemData extends Omit<ContainerSystemSource, SourceOmission>, Omit<Investable<PhysicalSystemData>, "traits"> {
+    bulk: ContainerBulkData;
+    stackGroup: null;
 }
-
-type SourceOmission =
-	| "apex"
-	| "bulk"
-	| "description"
-	| "hp"
-	| "identification"
-	| "material"
-	| "price"
-	| "temporary"
-	| "usage";
-
-interface ContainerBulkData extends ContainerBulkSource, BulkData {}
+type SourceOmission = "apex" | "bulk" | "description" | "hp" | "identification" | "material" | "price" | "temporary" | "usage";
+interface ContainerBulkData extends ContainerBulkSource, BulkData {
+}
 export type { ContainerBulkData, ContainerSource, ContainerSystemData };

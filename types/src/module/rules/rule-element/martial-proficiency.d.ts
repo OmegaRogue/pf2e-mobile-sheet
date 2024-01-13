@@ -12,11 +12,8 @@ declare class MartialProficiencyRuleElement extends RuleElementPF2e<MartialProfi
     constructor(data: RuleElementSource, options: RuleElementOptions);
     onApplyActiveEffects(): void;
 }
-
-interface MartialProficiencyRuleElement
-	extends RuleElementPF2e<MartialProficiencySchema>,
-		ModelPropsFromRESchema<MartialProficiencySchema> {
-	get actor(): CharacterPF2e;
+interface MartialProficiencyRuleElement extends RuleElementPF2e<MartialProficiencySchema>, ModelPropsFromRESchema<MartialProficiencySchema> {
+    get actor(): CharacterPF2e;
 }
 type MartialProficiencySchema = RuleElementSchema & {
     /** Whether the proficiency is an attack or defense */

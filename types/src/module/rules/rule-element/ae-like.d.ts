@@ -7,55 +7,39 @@ import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleEl
  * @category RuleElement
  */
 declare class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TSchema> {
-	#private;
-
-	static defineSchema(): AELikeSchema;
-
-	static CHANGE_MODE_DEFAULT_PRIORITIES: {
-		multiply: number;
-		add: number;
-		subtract: number;
-		remove: number;
-		downgrade: number;
-		upgrade: number;
-		override: number;
-	};
-	static PHASES: readonly ["applyAEs", "beforeDerived", "afterDerived", "beforeRoll"];
-
-	static validateJoint(data: SourceFromSchema<AELikeSchema>): void;
-
-	/** Process this rule element during item pre-creation to inform subsequent choice sets. */
-	preCreate(): Promise<void>;
-
-	/** Apply the modifications immediately after proper ActiveEffects are applied */
-	onApplyActiveEffects(): void;
-
-	/** Apply the modifications near the beginning of the actor's derived-data preparation */
-	beforePrepareData(): void;
-
-	/** Apply the modifications at the conclusion of the actor's derived-data preparation */
-	afterPrepareData(): void;
-
-	/** Apply the modifications prior to a Check (roll) */
-	beforeRoll(_domains: string[], rollOptions: Set<string>): void;
-
-	static getNewValue(mode: AELikeChangeMode, current: number, change: number, merge?: boolean): number;
-	static getNewValue<TCurrent>(
-		mode: AELikeChangeMode,
-		current: TCurrent,
-		change: TCurrent extends (infer TValue)[] ? TValue : TCurrent,
-		merge?: boolean,
-	): (TCurrent extends (infer TValue)[] ? TValue : TCurrent) | DataModelValidationFailure;
+    #private;
+    static defineSchema(): AELikeSchema;
+    static CHANGE_MODE_DEFAULT_PRIORITIES: {
+        multiply: number;
+        add: number;
+        subtract: number;
+        remove: number;
+        downgrade: number;
+        upgrade: number;
+        override: number;
+    };
+    static PHASES: readonly ["applyAEs", "beforeDerived", "afterDerived", "beforeRoll"];
+    static validateJoint(data: SourceFromSchema<AELikeSchema>): void;
+    /** Process this rule element during item pre-creation to inform subsequent choice sets. */
+    preCreate(): Promise<void>;
+    /** Apply the modifications immediately after proper ActiveEffects are applied */
+    onApplyActiveEffects(): void;
+    /** Apply the modifications near the beginning of the actor's derived-data preparation */
+    beforePrepareData(): void;
+    /** Apply the modifications at the conclusion of the actor's derived-data preparation */
+    afterPrepareData(): void;
+    /** Apply the modifications prior to a Check (roll) */
+    beforeRoll(_domains: string[], rollOptions: Set<string>): void;
+    static getNewValue(mode: AELikeChangeMode, current: number, change: number, merge?: boolean): number;
+    static getNewValue<TCurrent>(mode: AELikeChangeMode, current: TCurrent, change: TCurrent extends (infer TValue)[] ? TValue : TCurrent, merge?: boolean): (TCurrent extends (infer TValue)[] ? TValue : TCurrent) | DataModelValidationFailure;
 }
-
-interface AELikeRuleElement<TSchema extends AELikeSchema>
-	extends RuleElementPF2e<TSchema>,
-		ModelPropsFromRESchema<AELikeSchema> {}
+interface AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TSchema>, ModelPropsFromRESchema<AELikeSchema> {
+}
 interface AutoChangeEntry {
-	source: string;
-	level: number | null;
-	value: boolean | number | string | null;
-	mode: AELikeChangeMode;
+    source: string;
+    level: number | null;
+    value: boolean | number | string | null;
+    mode: AELikeChangeMode;
 }
 type AELikeSchema = RuleElementSchema & {
     /** How to apply the `value` at the `path` */

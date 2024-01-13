@@ -12,8 +12,8 @@ declare class CritSpecRuleElement extends RuleElementPF2e<CritSpecRuleSchema> {
     static validateJoint(data: SourceFromSchema<CritSpecRuleSchema>): void;
     beforePrepareData(): void;
 }
-
-interface CritSpecRuleElement extends RuleElementPF2e<CritSpecRuleSchema>, ModelPropsFromRESchema<CritSpecRuleSchema> {}
+interface CritSpecRuleElement extends RuleElementPF2e<CritSpecRuleSchema>, ModelPropsFromRESchema<CritSpecRuleSchema> {
+}
 type DamageDieFaces = 4 | 6 | 8 | 10 | 12;
 type CritSpecRuleSchema = RuleElementSchema & {
     /** Whether this critical specialization note substitutes for the standard one of a given weapon group */

@@ -56,9 +56,9 @@ interface BoostFlawRow {
     isApex?: boolean;
 }
 interface AncestryBoosts extends BoostFlawRow {
-	alternate: boolean;
-	labels: string[];
-	flawLabels: string[];
+    alternate: boolean;
+    labels: string[];
+    flawLabels: string[];
 }
 interface VoluntaryFlaws extends BoostFlawRow {
     voluntaryBoostsRemaining: number;

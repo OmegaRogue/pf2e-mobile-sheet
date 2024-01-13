@@ -13,11 +13,8 @@ declare class FixedProficiencyRuleElement extends RuleElementPF2e<FixedProficien
     beforePrepareData(): void;
     afterPrepareData(): void;
 }
-
-interface FixedProficiencyRuleElement
-	extends RuleElementPF2e<FixedProficiencyRuleSchema>,
-		ModelPropsFromRESchema<FixedProficiencyRuleSchema> {
-	get actor(): CharacterPF2e;
+interface FixedProficiencyRuleElement extends RuleElementPF2e<FixedProficiencyRuleSchema>, ModelPropsFromRESchema<FixedProficiencyRuleSchema> {
+    get actor(): CharacterPF2e;
 }
 type FixedProficiencyRuleSchema = RuleElementSchema & {
     selector: StringField<string, string, true, false, false>;

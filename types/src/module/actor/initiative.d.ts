@@ -16,31 +16,19 @@ interface InitiativeRollParams extends StatisticRollParameters {
 }
 /** A statistic wrapper used to roll initiative for actors */
 declare class ActorInitiative {
-	actor: ActorPF2e;
-	statistic: Statistic;
-	tiebreakPriority: ZeroToTwo;
-
-	constructor(
-		actor: ActorPF2e,
-		{
-			statistic,
-			tiebreakPriority,
-		}: {
-			statistic: string;
-			tiebreakPriority: ZeroToTwo;
-		},
-	);
-
-	get attribute(): AttributeString | null;
-
-	get mod(): number;
-
-	/** @deprecated */
-	get ability(): AttributeString | null;
-
-	roll(args?: InitiativeRollParams): Promise<InitiativeRollResult | null>;
-
-	getTraceData(): InitiativeTraceData;
+    actor: ActorPF2e;
+    statistic: Statistic;
+    tiebreakPriority: ZeroToTwo;
+    constructor(actor: ActorPF2e, { statistic, tiebreakPriority }: {
+        statistic: string;
+        tiebreakPriority: ZeroToTwo;
+    });
+    get attribute(): AttributeString | null;
+    get mod(): number;
+    /** @deprecated */
+    get ability(): AttributeString | null;
+    roll(args?: InitiativeRollParams): Promise<InitiativeRollResult | null>;
+    getTraceData(): InitiativeTraceData;
 }
 type InitiativeTraceData = StatisticTraceData & InitiativeData;
 export { ActorInitiative };

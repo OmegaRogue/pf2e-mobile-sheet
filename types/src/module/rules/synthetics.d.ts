@@ -118,9 +118,9 @@ interface RollTwiceSynthetic {
     predicate?: PredicatePF2e;
 }
 interface SenseSynthetic {
-	sense: Required<SenseData>;
-	predicate: PredicatePF2e;
-	force: boolean;
+    sense: Required<SenseData>;
+    predicate: PredicatePF2e;
+    force: boolean;
 }
 interface StrikeAdjustment {
     adjustDamageRoll?: (weapon: WeaponPF2e | MeleePF2e, { materials }: {

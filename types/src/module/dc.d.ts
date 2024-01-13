@@ -11,8 +11,8 @@ declare function rarityToDCAdjustment(rarity?: Rarity): PositiveDCAdjustment;
 declare function adjustDC(dc: number, adjustment?: DCAdjustment): number;
 declare function adjustDCByRarity(dc: number, rarity?: Rarity): number;
 interface DCOptions {
-	pwol?: boolean;
-	rarity?: Rarity;
+    pwol?: boolean;
+    rarity?: Rarity;
 }
 /** Level-based DCs */
 declare function calculateDC(level: number, { pwol, rarity }?: DCOptions): number;

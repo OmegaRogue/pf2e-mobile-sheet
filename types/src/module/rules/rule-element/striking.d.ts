@@ -7,8 +7,8 @@ declare class StrikingRuleElement extends RuleElementPF2e<StrikingRuleSchema> {
     static defineSchema(): StrikingRuleSchema;
     beforePrepareData(): void;
 }
-
-interface StrikingRuleElement extends RuleElementPF2e<StrikingRuleSchema>, ModelPropsFromRESchema<StrikingRuleSchema> {}
+interface StrikingRuleElement extends RuleElementPF2e<StrikingRuleSchema>, ModelPropsFromRESchema<StrikingRuleSchema> {
+}
 type StrikingRuleSchema = RuleElementSchema & {
     selector: StringField<string, string, true, false, false>;
     value: ResolvableValueField<false, false, false>;

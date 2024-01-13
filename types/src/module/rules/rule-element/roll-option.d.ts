@@ -33,7 +33,7 @@ declare class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
     afterRoll({ domains, rollOptions }: RuleElementPF2e.AfterRollParams): Promise<void>;
 }
 interface RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema>, ModelPropsFromRESchema<RollOptionSchema> {
-	value: boolean | string;
+    value: boolean | string;
 }
 type RollOptionSchema = RuleElementSchema & {
     domain: StringField<string, string, true, false, true>;

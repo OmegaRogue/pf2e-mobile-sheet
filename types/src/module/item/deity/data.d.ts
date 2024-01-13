@@ -24,6 +24,6 @@ type DeitySanctification = {
     what: Sanctification[];
 };
 type DivineFonts = ["harm"] | ["heal"] | ["harm", "heal"] | never[];
-
-interface DeitySystemData extends Omit<DeitySystemSource, "description">, Omit<ItemSystemData, "level" | "traits"> {}
+interface DeitySystemData extends Omit<DeitySystemSource, "description">, Omit<ItemSystemData, "level" | "traits"> {
+}
 export type { DeitySanctification, DeitySource, DeitySystemData, DeitySystemSource };

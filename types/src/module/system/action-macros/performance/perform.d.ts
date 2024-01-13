@@ -12,11 +12,8 @@ declare const PERFORM_VARIANT_TRAITS: {
     readonly winds: readonly ["auditory", "manipulate"];
 };
 type PerformVariant = keyof typeof PERFORM_VARIANT_TRAITS;
-
-declare function perform(
-	options: {
-		variant: PerformVariant;
-	} & SkillActionOptions,
-): void;
+declare function perform(options: {
+    variant: PerformVariant;
+} & SkillActionOptions): void;
 declare const action: SingleCheckAction;
 export { perform as legacy, action };

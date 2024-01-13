@@ -12,51 +12,53 @@ import type * as documents from "./module.d.ts";
  * @param data    Initial data used to construct the ActorDelta.
  * @param context Construction context options.
  */
-export default class BaseActorDelta<TParent extends documents.BaseToken | null> extends abstract.Document<TParent, ActorDeltaSchema> {
-	/* -------------------------------------------- */
-	/*  Model Configuration                         */
-	/* -------------------------------------------- */
+export default class BaseActorDelta<TParent extends documents.BaseToken | null> extends abstract.Document<
+    TParent,
+    ActorDeltaSchema
+> {
+    /* -------------------------------------------- */
+    /*  Model Configuration                         */
+    /* -------------------------------------------- */
 
-	static override readonly metadata: ActorDeltaMetadata;
+    static override readonly metadata: ActorDeltaMetadata;
 
-	static override defineSchema(): ActorDeltaSchema;
+    static override defineSchema(): ActorDeltaSchema;
 
-	override canUserModify(user: documents.BaseUser, action: UserAction, data?: Record<string, unknown>): boolean;
+    override canUserModify(user: documents.BaseUser, action: UserAction, data?: Record<string, unknown>): boolean;
 
-	override testUserPermission(
-		user: documents.BaseUser,
-		permission: DocumentOwnershipString | DocumentOwnershipLevel,
-		{ exact }?: { exact?: boolean },
-	): boolean;
+    override testUserPermission(
+        user: documents.BaseUser,
+        permission: DocumentOwnershipString | DocumentOwnershipLevel,
+        { exact }?: { exact?: boolean },
+    ): boolean;
 
-	/* -------------------------------------------- */
-	/*  Methods                                     */
+    /* -------------------------------------------- */
+    /*  Methods                                     */
+    /* -------------------------------------------- */
 
-	/* -------------------------------------------- */
+    /**
+     * Retrieve the base actor's collection, if it exists.
+     * @param collectionName  The collection name.
+     */
+    getBaseCollection(collectionName: string): Collection<documents.BaseActor> | undefined;
 
-	/**
-	 * Retrieve the base actor's collection, if it exists.
-	 * @param collectionName  The collection name.
-	 */
-	getBaseCollection(collectionName: string): Collection<documents.BaseActor> | undefined;
-
-	/**
-	 * Apply an ActorDelta to an Actor and return the resultant synthetic Actor.
-	 * @param {ActorDelta} delta  The ActorDelta.
-	 * @param {Actor} baseActor   The base Actor.
-	 * @param {object} [context]  Context to supply to synthetic Actor instantiation.
-	 * @returns {Actor|null}
-	 */
-	static applyDelta(
-		delta: BaseActorDelta<documents.BaseToken | null>,
-		baseActor: documents.BaseActor,
-		context?: DocumentConstructionContext<documents.BaseToken | null>,
-	): documents.BaseActor;
+    /**
+     * Apply an ActorDelta to an Actor and return the resultant synthetic Actor.
+     * @param {ActorDelta} delta  The ActorDelta.
+     * @param {Actor} baseActor   The base Actor.
+     * @param {object} [context]  Context to supply to synthetic Actor instantiation.
+     * @returns {Actor|null}
+     */
+    static applyDelta(
+        delta: BaseActorDelta<documents.BaseToken | null>,
+        baseActor: documents.BaseActor,
+        context?: DocumentConstructionContext<documents.BaseToken | null>,
+    ): documents.BaseActor;
 }
 
 export default interface BaseActorDelta<TParent extends documents.BaseToken | null>
-	extends abstract.Document<TParent, ActorDeltaSchema>,
-		ModelPropsFromSchema<ActorDeltaSchema> {}
+    extends abstract.Document<TParent, ActorDeltaSchema>,
+        ModelPropsFromSchema<ActorDeltaSchema> {}
 
 interface ActorDeltaMetadata extends abstract.DocumentMetadata {
     name: "ActorDelta";
@@ -71,18 +73,18 @@ interface ActorDeltaMetadata extends abstract.DocumentMetadata {
 }
 
 type ActorDeltaSchema = {
-	_id: fields.DocumentIdField;
-	name: fields.StringField<string, string, false, true, true>;
-	type: fields.StringField<string, string, false, true, true>;
-	img: fields.FilePathField<ImageFilePath, ImageFilePath, false, true, true>;
-	system: fields.ObjectField<object, object, true, true, true>;
-	items: fields.EmbeddedCollectionDeltaField<
-		documents.BaseItem<documents.BaseActor>,
-		(DocumentSourceFromSchema<ItemSchema, true> | SourceFromSchema<TombstoneDataSchema>)[]
-	>;
-	effects: fields.EmbeddedCollectionDeltaField<documents.BaseActiveEffect<documents.BaseActor>>;
-	ownership: fields.DocumentOwnershipField;
-	flags: fields.ObjectField<DocumentFlags>;
+    _id: fields.DocumentIdField;
+    name: fields.StringField<string, string, false, true, true>;
+    type: fields.StringField<string, string, false, true, true>;
+    img: fields.FilePathField<ImageFilePath, ImageFilePath, false, true, true>;
+    system: fields.ObjectField<object, object, true, true, true>;
+    items: fields.EmbeddedCollectionDeltaField<
+        documents.BaseItem<documents.BaseActor>,
+        (DocumentSourceFromSchema<ItemSchema, true> | SourceFromSchema<TombstoneDataSchema>)[]
+    >;
+    effects: fields.EmbeddedCollectionDeltaField<documents.BaseActiveEffect<documents.BaseActor>>;
+    ownership: fields.DocumentOwnershipField;
+    flags: fields.ObjectField<DocumentFlags>;
 };
 
 export type ActorDeltaSource = SourceFromSchema<ActorDeltaSchema>;

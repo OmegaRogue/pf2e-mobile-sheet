@@ -10,62 +10,14 @@ declare function nextDamageDieSize(next: {
 }): DamageDieSize;
 /** Provides constants for typical damage categories */
 declare const DamageCategorization: {
-	/** Map a damage type to its corresponding damage category, if any. */
-	readonly fromDamageType: (damageType: DamageType) => DamageCategory | null;
-	/** Get a set of all damage categories (both base and custom). */
-	readonly allCategories: () => Set<
-		| "abysium"
-		| "adamantine"
-		| "dawnsilver"
-		| "djezet"
-		| "duskwood"
-		| "energy"
-		| "inubrix"
-		| "noqual"
-		| "orichalcum"
-		| "physical"
-		| "siccatite"
-		| "silver"
-		| "precision"
-		| "splash"
-		| "cold-iron"
-		| "keep-stone"
-		| "peachwood"
-		| "sisterstone-dusk"
-		| "sisterstone-scarlet"
-		| "sovereign-steel"
-		| "warpglass"
-		| "persistent"
-		| null
-	>;
-	/** Get a set of all of the base rule damage types. */
-	readonly baseCategories: () => Set<
-		| "abysium"
-		| "adamantine"
-		| "dawnsilver"
-		| "djezet"
-		| "duskwood"
-		| "energy"
-		| "inubrix"
-		| "noqual"
-		| "orichalcum"
-		| "physical"
-		| "siccatite"
-		| "silver"
-		| "precision"
-		| "splash"
-		| "cold-iron"
-		| "keep-stone"
-		| "peachwood"
-		| "sisterstone-dusk"
-		| "sisterstone-scarlet"
-		| "sovereign-steel"
-		| "warpglass"
-		| "persistent"
-		| null
-	>;
-	/** Map a damage category to the set of damage types in it. */
-	readonly toDamageTypes: (category: string) => Set<string>;
+    /** Map a damage type to its corresponding damage category, if any. */
+    readonly fromDamageType: (damageType: DamageType) => DamageCategory | null;
+    /** Get a set of all damage categories (both base and custom). */
+    readonly allCategories: () => Set<"abysium" | "adamantine" | "dawnsilver" | "djezet" | "duskwood" | "energy" | "inubrix" | "noqual" | "orichalcum" | "physical" | "siccatite" | "silver" | "precision" | "splash" | "cold-iron" | "keep-stone" | "peachwood" | "sisterstone-dusk" | "sisterstone-scarlet" | "sovereign-steel" | "warpglass" | "persistent" | null>;
+    /** Get a set of all of the base rule damage types. */
+    readonly baseCategories: () => Set<"abysium" | "adamantine" | "dawnsilver" | "djezet" | "duskwood" | "energy" | "inubrix" | "noqual" | "orichalcum" | "physical" | "siccatite" | "silver" | "precision" | "splash" | "cold-iron" | "keep-stone" | "peachwood" | "sisterstone-dusk" | "sisterstone-scarlet" | "sovereign-steel" | "warpglass" | "persistent" | null>;
+    /** Map a damage category to the set of damage types in it. */
+    readonly toDamageTypes: (category: string) => Set<string>;
 };
 /** Apply damage dice overrides and upgrades to a non-weapon's damage formula */
 declare function applyDamageDiceOverrides(baseEntries: BaseDamageData[], dice: DamageDicePF2e[], options?: {
@@ -95,17 +47,4 @@ declare function looksLikeDamageRoll(roll: Roll): boolean;
 declare function damageDiceIcon(roll: DamageRoll | DamageInstance, { fixedWidth }?: {
     fixedWidth?: boolean | undefined;
 }): HTMLElement;
-
-export {
-	DamageCategorization,
-	applyDamageDiceOverrides,
-	damageDiceIcon,
-	deepFindTerms,
-	extractBaseDamage,
-	isFlavoredArithmetic
-	isSystemDamageTerm,
-	looksLikeDamageRoll,
-	nextDamageDieSize,
-	renderComponentDamage,
-	simplifyTerm,
-};
+export { DamageCategorization, applyDamageDiceOverrides, damageDiceIcon, deepFindTerms, extractBaseDamage, isFlavoredArithmetic, isSystemDamageTerm, looksLikeDamageRoll, nextDamageDieSize, renderComponentDamage, simplifyTerm, };

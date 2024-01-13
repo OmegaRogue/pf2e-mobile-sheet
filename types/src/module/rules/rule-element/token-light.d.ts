@@ -11,10 +11,8 @@ declare class TokenLightRuleElement extends RuleElementPF2e<TokenLightRuleSchema
     getLightData(): SourceFromSchema<LightDataSchema> | null;
     afterPrepareData(): void;
 }
-
-interface TokenLightRuleElement
-	extends RuleElementPF2e<TokenLightRuleSchema>,
-		ModelPropsFromRESchema<TokenLightRuleSchema> {}
+interface TokenLightRuleElement extends RuleElementPF2e<TokenLightRuleSchema>, ModelPropsFromRESchema<TokenLightRuleSchema> {
+}
 type TokenLightValueSchema = Omit<LightDataSchema, "bright" | "color" | "dim"> & {
     bright: ResolvableValueField<false, false, false>;
     /** `LightData#color` as an injectable property */

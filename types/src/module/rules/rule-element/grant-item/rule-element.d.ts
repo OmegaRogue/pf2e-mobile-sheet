@@ -29,8 +29,8 @@ declare class GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema> {
     /** Add an in-memory-only condition to the actor */
     onApplyActiveEffects(): void;
 }
-
-interface GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema>, ModelPropsFromRESchema<GrantItemSchema> {}
+interface GrantItemRuleElement extends RuleElementPF2e<GrantItemSchema>, ModelPropsFromRESchema<GrantItemSchema> {
+}
 interface GrantItemSource extends RuleElementSource {
     uuid?: unknown;
     preselectChoices?: unknown;

@@ -20,10 +20,8 @@ type FastHealingRuleSchema = RuleElementSchema & {
     details: StringField<string, string, false, true, true>;
     deactivatedBy: ArrayField<StringField<string, string, true, false, false>, string[], string[], false, false, false>;
 };
-
-interface FastHealingRuleElement
-	extends RuleElementPF2e<FastHealingRuleSchema>,
-		ModelPropsFromRESchema<FastHealingRuleSchema> {}
+interface FastHealingRuleElement extends RuleElementPF2e<FastHealingRuleSchema>, ModelPropsFromRESchema<FastHealingRuleSchema> {
+}
 type FastHealingType = "fast-healing" | "regeneration";
 type FastHealingSource = SourceFromSchema<FastHealingRuleSchema>;
 export { FastHealingRuleElement };

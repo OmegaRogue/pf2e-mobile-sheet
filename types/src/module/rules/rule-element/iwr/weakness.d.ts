@@ -11,8 +11,8 @@ declare class WeaknessRuleElement extends IWRRuleElement<WeaknessRuleSchema> {
     getIWR(value: number): Weakness[];
 }
 interface WeaknessRuleElement extends IWRRuleElement<WeaknessRuleSchema>, ModelPropsFromRESchema<WeaknessRuleSchema> {
-	type: WeaknessType[];
-	exceptions: IWRException<WeaknessType>[];
+    type: WeaknessType[];
+    exceptions: IWRException<WeaknessType>[];
 }
 type WeaknessRuleSchema = Omit<IWRRuleSchema, "exceptions"> & {
     value: ResolvableValueField<true, false, false>;

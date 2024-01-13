@@ -24,9 +24,9 @@ interface SelfEffectReferenceSource {
     name: string;
 }
 interface AbilitySystemData extends Omit<AbilitySystemSource, "description">, Omit<ItemSystemData, "level" | "traits"> {
-	frequency?: Frequency;
-	/** A self-applied effect for simple actions */
-	selfEffect: SelfEffectReference | null;
+    frequency?: Frequency;
+    /** A self-applied effect for simple actions */
+    selfEffect: SelfEffectReference | null;
 }
 interface SelfEffectReference extends SelfEffectReferenceSource {
     img?: Maybe<ImageFilePath>;

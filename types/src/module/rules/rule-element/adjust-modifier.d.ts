@@ -12,12 +12,9 @@ declare class AdjustModifierRuleElement extends RuleElementPF2e<AdjustModifierSc
     /** Instead of applying the change directly to a property path, defer it to a synthetic */
     beforePrepareData(): void;
 }
-
-interface AdjustModifierRuleElement
-	extends RuleElementPF2e<AdjustModifierSchema>,
-		ModelPropsFromRESchema<AdjustModifierSchema> {
-	suppress: boolean;
-	maxApplications: number;
+interface AdjustModifierRuleElement extends RuleElementPF2e<AdjustModifierSchema>, ModelPropsFromRESchema<AdjustModifierSchema> {
+    suppress: boolean;
+    maxApplications: number;
 }
 type AdjustModifierSchema = RuleElementSchema & {
     mode: StringField<AELikeChangeMode, AELikeChangeMode, true, false, false>;

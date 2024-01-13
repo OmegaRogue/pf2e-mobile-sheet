@@ -12,11 +12,8 @@ declare class BaseSpeedRuleElement extends RuleElementPF2e<BaseSpeedRuleSchema> 
     constructor(data: RuleElementSource, options: RuleElementOptions);
     beforePrepareData(): void;
 }
-
-interface BaseSpeedRuleElement
-	extends RuleElementPF2e<BaseSpeedRuleSchema>,
-		ModelPropsFromRESchema<BaseSpeedRuleSchema> {
-	get actor(): CreaturePF2e;
+interface BaseSpeedRuleElement extends RuleElementPF2e<BaseSpeedRuleSchema>, ModelPropsFromRESchema<BaseSpeedRuleSchema> {
+    get actor(): CreaturePF2e;
 }
 type BaseSpeedRuleSchema = RuleElementSchema & {
     selector: StringField<string, string, true, false, false>;

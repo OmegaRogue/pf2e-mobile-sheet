@@ -29,29 +29,18 @@ interface ActionUseOptions extends ActionVariantUseOptions {
     variant: string;
 }
 interface Action {
-	cost?: ActionCost;
-	description?: string;
-	glyph?: string;
-	img?: string;
-	name: string;
-	sampleTasks?: Partial<Record<ProficiencyRank, string>>;
-	section?: ActionSection;
-	slug: string;
-	traits: string[];
-	variants: Collection<ActionVariant>;
-
-	toMessage(options?: Partial<ActionMessageOptions>): Promise<ChatMessagePF2e | undefined>;
-
-	/** Uses the default variant for this action, which will usually be the first one in the collection. */
-	use(options?: Partial<ActionUseOptions>): Promise<unknown>;
+    cost?: ActionCost;
+    description?: string;
+    glyph?: string;
+    img?: string;
+    name: string;
+    sampleTasks?: Partial<Record<ProficiencyRank, string>>;
+    section?: ActionSection;
+    slug: string;
+    traits: string[];
+    variants: Collection<ActionVariant>;
+    toMessage(options?: Partial<ActionMessageOptions>): Promise<ChatMessagePF2e | undefined>;
+    /** Uses the default variant for this action, which will usually be the first one in the collection. */
+    use(options?: Partial<ActionUseOptions>): Promise<unknown>;
 }
-
-export type {
-	Action,
-	ActionCost,
-	ActionMessageOptions,
-	ActionSection,
-	ActionUseOptions,
-	ActionVariant,
-	ActionVariantUseOptions,
-};
+export type { Action, ActionCost, ActionMessageOptions, ActionSection, ActionUseOptions, ActionVariant, ActionVariantUseOptions, };

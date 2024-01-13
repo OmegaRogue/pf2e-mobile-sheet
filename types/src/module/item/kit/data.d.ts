@@ -15,6 +15,6 @@ interface KitSystemSource extends ItemSystemSource {
     price: PartialPrice;
     level?: never;
 }
-
-interface KitSystemData extends Omit<KitSystemSource, "description" | "traits">, Omit<ItemSystemData, "level"> {}
+interface KitSystemData extends Omit<KitSystemSource, "description" | "traits">, Omit<ItemSystemData, "level"> {
+}
 export type { KitEntryData, KitSource, KitSystemData, KitSystemSource };

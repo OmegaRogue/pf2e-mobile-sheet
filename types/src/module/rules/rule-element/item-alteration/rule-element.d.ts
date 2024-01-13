@@ -10,10 +10,8 @@ declare class ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRu
     onApplyActiveEffects(): void;
     preCreate({ tempItems }: RuleElementPF2e.PreCreateParams): Promise<void>;
 }
-
-interface ItemAlterationRuleElement
-	extends RuleElementPF2e<ItemAlterationRuleSchema>,
-		ModelPropsFromRESchema<ItemAlterationRuleSchema> {}
+interface ItemAlterationRuleElement extends RuleElementPF2e<ItemAlterationRuleSchema>, ModelPropsFromRESchema<ItemAlterationRuleSchema> {
+}
 type ItemAlterationRuleSchema = RuleElementSchema & ItemAlterationSchema & {
     /** The type of items to alter */
     itemType: StringField<ItemType, ItemType, false, false, false>;

@@ -7,19 +7,19 @@ declare class ArmorSheetPF2e extends PhysicalItemSheetPF2e<ArmorPF2e> {
     protected _updateObject(event: Event, formData: Record<string, unknown>): Promise<void>;
 }
 interface ArmorSheetData extends PhysicalItemSheetData<ArmorPF2e> {
-	basePrice: CoinsPF2e;
-	baseTypes: Record<BaseArmorType, string>;
-	categories: Record<ArmorCategory, string>;
-	groups: Record<ArmorGroup, string>;
-	otherTags: SheetOptions;
-	preciousMaterials: MaterialSheetData;
-	propertyRuneSlots: PropertyRuneSheetSlot[];
-	runeTypes: typeof RUNE_DATA.armor;
-	specificMagicData: SpecificArmorData;
+    basePrice: CoinsPF2e;
+    baseTypes: Record<BaseArmorType, string>;
+    categories: Record<ArmorCategory, string>;
+    groups: Record<ArmorGroup, string>;
+    otherTags: SheetOptions;
+    preciousMaterials: MaterialSheetData;
+    propertyRuneSlots: PropertyRuneSheetSlot[];
+    runeTypes: typeof RUNE_DATA.armor;
+    specificMagicData: SpecificArmorData;
 }
 interface PropertyRuneSheetSlot {
-	slug: string | null;
-	label: string | null;
-	disabled: boolean;
+    slug: string | null;
+    label: string | null;
+    disabled: boolean;
 }
 export { ArmorSheetPF2e };

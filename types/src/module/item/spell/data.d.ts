@@ -56,12 +56,12 @@ interface SpellArea {
     details?: string;
 }
 interface SpellDamageSource {
-	formula: string;
-	kinds?: DamageKind[];
-	applyMod?: boolean;
-	type: DamageType;
-	category: DamageCategoryUnique | null;
-	materials: MaterialDamageEffect[];
+    formula: string;
+    kinds?: DamageKind[];
+    applyMod?: boolean;
+    type: DamageType;
+    category: DamageCategoryUnique | null;
+    materials: MaterialDamageEffect[];
 }
 interface SpellDefenseSource {
     save: {
@@ -90,20 +90,17 @@ interface SpellOverlayOverride {
     overlayType: "override";
     sort: number;
 }
-
-interface SpellSystemData
-	extends Omit<SpellSystemSource, "damage" | "description">,
-		Omit<ItemSystemData, "level" | "traits"> {
-	/** Time and resources consumed in the casting of this spell */
-	cast: SpellCastData;
-	damage: Record<string, SpellDamage>;
-	defense: SpellDefenseData | null;
+interface SpellSystemData extends Omit<SpellSystemSource, "damage" | "description">, Omit<ItemSystemData, "level" | "traits"> {
+    /** Time and resources consumed in the casting of this spell */
+    cast: SpellCastData;
+    damage: Record<string, SpellDamage>;
+    defense: SpellDefenseData | null;
 }
 interface SpellCastData {
-	focusPoints: ZeroToThree;
+    focusPoints: ZeroToThree;
 }
 interface SpellDamage extends Omit<SpellDamageSource, "kinds"> {
-	kinds: Set<DamageKind>;
+    kinds: Set<DamageKind>;
 }
 interface SpellDefenseData extends SpellDefenseSource {
     passive: {

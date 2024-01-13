@@ -8,24 +8,7 @@ declare const IMMUNITY_TYPES: Set<"abysium" | "adamantine" | "auditory" | "blind
 declare const WEAKNESS_TYPES: Set<"abysium" | "adamantine" | "dawnsilver" | "djezet" | "duskwood" | "emotion" | "energy" | "glass" | "holy" | "inubrix" | "light" | "magical" | "metal" | "non-magical" | "noqual" | "orichalcum" | "physical" | "plant" | "radiation" | "salt" | "siccatite" | "silver" | "spells" | "unholy" | "vorpal" | "water" | "weapons" | "wood" | "acid" | "air" | "bleed" | "bludgeoning" | "cold" | "earth" | "electricity" | "fire" | "force" | "mental" | "piercing" | "poison" | "precision" | "slashing" | "sonic" | "spirit" | "vitality" | "void" | "cold-iron" | "persistent-damage" | "custom" | "area-damage" | "critical-hits" | "ghost-touch" | "nonlethal-attacks" | "salt-water" | "unarmed-attacks" | "weapons-shedding-bright-light" | "arrow-vulnerability" | "axe-vulnerability" | "splash-damage" | "vampire-weaknesses" | "vorpal-fear" | "vulnerable-to-sunlight">;
 declare const RESISTANCE_TYPES: Set<"abysium" | "adamantine" | "dawnsilver" | "djezet" | "duskwood" | "energy" | "holy" | "inubrix" | "light" | "magical" | "metal" | "non-magical" | "nonlethal" | "noqual" | "orichalcum" | "physical" | "plant" | "radiation" | "salt" | "siccatite" | "silver" | "spells" | "unholy" | "vorpal" | "water" | "weapons" | "wood" | "acid" | "air" | "bleed" | "bludgeoning" | "cold" | "earth" | "electricity" | "fire" | "force" | "mental" | "piercing" | "poison" | "precision" | "slashing" | "sonic" | "spirit" | "vitality" | "void" | "cold-iron" | "persistent-damage" | "custom" | "all-damage" | "area-damage" | "critical-hits" | "damage-from-spells" | "ghost-touch" | "nonlethal-attacks" | "protean-anatomy" | "salt-water" | "unarmed-attacks" | "vorpal-adamantine" | "weapons-shedding-bright-light">;
 declare const UNAFFECTED_TYPES: Set<"bleed" | "spirit" | "vitality" | "void" | "good" | "evil" | "lawful" | "chaotic">;
-declare const SKILL_ABBREVIATIONS: readonly [
-	"acr",
-	"arc",
-	"ath",
-	"cra",
-	"dec",
-	"dip",
-	"itm",
-	"med",
-	"nat",
-	"occ",
-	"prf",
-	"rel",
-	"soc",
-	"ste",
-	"sur",
-	"thi",
-];
+declare const SKILL_ABBREVIATIONS: readonly ["acr", "arc", "ath", "cra", "dec", "dip", "itm", "med", "nat", "occ", "prf", "rel", "soc", "ste", "sur", "thi"];
 declare const SKILL_DICTIONARY: {
     readonly acr: "acrobatics";
     readonly arc: "arcana";
@@ -57,21 +40,4 @@ declare const SKILL_EXPANDED: Record<SkillLongForm, SkillExpanded>;
 declare const MOVEMENT_TYPES: readonly ["land", "burrow", "climb", "fly", "swim"];
 /** Actor types that are valid for token size linking */
 declare const SIZE_LINKABLE_ACTOR_TYPES: Set<string>;
-export {
-	ACTOR_TYPES,
-	ATTRIBUTE_ABBREVIATIONS,
-	CREATURE_ACTOR_TYPES,
-	DC_SLUGS,
-	IMMUNITY_TYPES,
-	MOVEMENT_TYPES,
-	RESISTANCE_TYPES,
-	SAVE_TYPES,
-	SIZE_LINKABLE_ACTOR_TYPES,
-	SKILL_ABBREVIATIONS,
-	SKILL_DICTIONARY,
-	SKILL_DICTIONARY_REVERSE,
-	SKILL_EXPANDED,
-	SKILL_LONG_FORMS,
-	UNAFFECTED_TYPS,
-	WEAKNESS_TYPES,
-};
+export { ACTOR_TYPES, ATTRIBUTE_ABBREVIATIONS, CREATURE_ACTOR_TYPES, DC_SLUGS, IMMUNITY_TYPES, MOVEMENT_TYPES, RESISTANCE_TYPES, SAVE_TYPES, SIZE_LINKABLE_ACTOR_TYPES, SKILL_ABBREVIATIONS, SKILL_DICTIONARY, SKILL_DICTIONARY_REVERSE, SKILL_EXPANDED, SKILL_LONG_FORMS, UNAFFECTED_TYPES, WEAKNESS_TYPES, };

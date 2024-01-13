@@ -93,7 +93,7 @@ interface WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
     get traits(): Set<WeaponTrait>;
 }
 interface WeaponConstructionContext<TParent extends ActorPF2e | null> extends PhysicalItemConstructionContext<TParent> {
-	shield?: ShieldPF2e<TParent>;
+    shield?: ShieldPF2e<TParent>;
 }
 interface WeaponCloneContext extends DocumentCloneContext {
     /** If this clone is an alternative usage, the type */

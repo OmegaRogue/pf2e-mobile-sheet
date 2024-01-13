@@ -11,10 +11,8 @@ declare class WeaponPotencyRuleElement extends RuleElementPF2e<WeaponPotencyRule
     static defineSchema(): WeaponPotencyRuleSchema;
     beforePrepareData(): void;
 }
-
-interface WeaponPotencyRuleElement
-	extends RuleElementPF2e<WeaponPotencyRuleSchema>,
-		ModelPropsFromRESchema<WeaponPotencyRuleSchema> {}
+interface WeaponPotencyRuleElement extends RuleElementPF2e<WeaponPotencyRuleSchema>, ModelPropsFromRESchema<WeaponPotencyRuleSchema> {
+}
 type WeaponPotencyRuleSchema = RuleElementSchema & {
     selector: StringField<string, string, true, false, false>;
     value: ResolvableValueField<true, false, false>;

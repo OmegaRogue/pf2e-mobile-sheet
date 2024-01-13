@@ -14,6 +14,6 @@ type TokenMarkSchema = Omit<RuleElementSchema, "slug"> & {
     uuid: StringField<string, string, false, true, true>;
 };
 interface TokenMarkRuleElement extends RuleElementPF2e<TokenMarkSchema>, ModelPropsFromRESchema<TokenMarkSchema> {
-	slug: string;
+    slug: string;
 }
 export { TokenMarkRuleElement };

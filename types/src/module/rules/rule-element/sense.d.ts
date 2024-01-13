@@ -12,7 +12,7 @@ declare class SenseRuleElement extends RuleElementPF2e<SenseRuleSchema> {
     beforePrepareData(): void;
 }
 interface SenseRuleElement extends RuleElementPF2e<SenseRuleSchema>, ModelPropsFromRESchema<SenseRuleSchema> {
-	get actor(): CharacterPF2e | FamiliarPF2e;
+    get actor(): CharacterPF2e | FamiliarPF2e;
 }
 type SenseRuleSchema = RuleElementSchema & {
     selector: StringField<SenseType, SenseType, true, false, false>;

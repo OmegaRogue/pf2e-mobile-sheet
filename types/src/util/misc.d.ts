@@ -41,16 +41,10 @@ declare function setHasElement<T extends Set<unknown>>(set: T, value: unknown): 
  * @param options.emptyStringZero If the value is zero, return an empty string
  * @param options.zeroIsNegative Treat zero as a negative value
  */
-declare function signedInteger(
-	value: number,
-	{
-		emptyStringZero,
-		zeroIsNegative,
-	}?: {
-		emptyStringZero?: boolean | undefined;
-		zeroIsNegative?: boolean | undefined;
-	},
-): string;
+declare function signedInteger(value: number, { emptyStringZero, zeroIsNegative }?: {
+    emptyStringZero?: boolean | undefined;
+    zeroIsNegative?: boolean | undefined;
+}): string;
 /**
  * The system's sluggification algorithm for labels and other terms.
  * @param text The text to sluggify
@@ -109,34 +103,4 @@ declare function isImageFilePath(path: unknown): path is ImageFilePath;
 declare function isVideoFilePath(path: unknown): path is ImageFilePath;
 declare function isImageOrVideoPath(path: unknown): path is ImageFilePath | VideoFilePath;
 declare const SORTABLE_BASE_OPTIONS: Sortable.Options;
-export {
-	ErrorPF2e,
-	SORTABLE_BASE_OPTIONS,
-	applyNTimes,
-	configFromLocalization,
-	fontAwesomeIcon,
-	getActionGlyph,
-	getActionIcon,
-	getActionTypeLabel,
-	groupBy,
-	isImageFilePath,
-	isImageOrVideoPath,
-	isObject,
-	isVideoFilePath,
-	localizeList,
-	localizer,
-	mapValues,
-	objectHasKey,
-	ordinalString,
-	padArray,
-	parseHTML,
-	recursiveReplaceString,
-	setHasElement,
-	signedInteger,
-	sluggify,
-	sortLabeledRecord,
-	sortObjByKey,
-	sortStringRecord,
-	tupleHasValue,
-	ype SlugCamel,
-};
+export { ErrorPF2e, SORTABLE_BASE_OPTIONS, applyNTimes, configFromLocalization, fontAwesomeIcon, getActionGlyph, getActionIcon, getActionTypeLabel, groupBy, isImageFilePath, isImageOrVideoPath, isObject, isVideoFilePath, localizeList, localizer, mapValues, objectHasKey, ordinalString, padArray, parseHTML, recursiveReplaceString, setHasElement, signedInteger, sluggify, sortLabeledRecord, sortObjByKey, sortStringRecord, tupleHasValue, type SlugCamel, };

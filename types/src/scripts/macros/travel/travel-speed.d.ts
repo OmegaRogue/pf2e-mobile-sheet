@@ -47,8 +47,8 @@ export declare enum DetectionMode {
     DETECT_BEFORE_WALKING_INTO_IT = 2
 }
 interface Fraction {
-	numerator: number;
-	denominator: number;
+    numerator: number;
+    denominator: number;
 }
 export declare function calculateNormalizedCharacterSpeed(defaultSpeedInFeet: number, activity: ExplorationActivities, detectionMode: DetectionMode, explorationOptions: ExplorationOptions): number;
 export declare enum LengthUnit {
@@ -64,14 +64,14 @@ export declare enum TimeUnit {
     HOUR = 1
 }
 interface Velocity {
-	distance: Distance;
-	time: TimeUnit;
+    distance: Distance;
+    time: TimeUnit;
 }
 declare function speedToVelocity(speedInFeet: number): Velocity;
 export declare enum Terrain {
-	NORMAL = 0,
-	DIFFICULT = 1,
-	GREATER_DIFFICULT = 2,
+    NORMAL = 0,
+    DIFFICULT = 1,
+    GREATER_DIFFICULT = 2
 }
 export interface TerrainSlowdown {
     normal: Fraction;
@@ -84,22 +84,16 @@ export interface Trip {
     terrainSlowdown: TerrainSlowdown;
 }
 export interface TravelDuration {
-	weeks: number;
-	days: number;
-	hours: number;
-	minutes: number;
+    weeks: number;
+    days: number;
+    hours: number;
+    minutes: number;
 }
-
-declare function calculateTravelDuration({
-	journey,
-	velocity,
-	hustleDurationInMinutes,
-	hoursPerDay,
-}: {
-	journey: Trip[];
-	velocity: Velocity;
-	hustleDurationInMinutes?: number;
-	hoursPerDay?: number;
+declare function calculateTravelDuration({ journey, velocity, hustleDurationInMinutes, hoursPerDay, }: {
+    journey: Trip[];
+    velocity: Velocity;
+    hustleDurationInMinutes?: number;
+    hoursPerDay?: number;
 }): TravelDuration;
 export { calculateTravelDuration, speedToVelocity };
 export type { Fraction, Velocity };

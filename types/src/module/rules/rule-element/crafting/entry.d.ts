@@ -13,32 +13,26 @@ declare class CraftingEntryRuleElement extends RuleElementPF2e<CraftingEntryRule
     constructor(data: CraftingEntryRuleSource, options: RuleElementOptions);
     beforePrepareData(): void;
 }
-
-interface CraftingEntryRuleElement
-	extends RuleElementPF2e<CraftingEntryRuleSchema>,
-		ModelPropsFromRESchema<CraftingEntryRuleSchema> {
-	readonly parent: ItemPF2e<CharacterPF2e>;
-
-	get actor(): CharacterPF2e;
+interface CraftingEntryRuleElement extends RuleElementPF2e<CraftingEntryRuleSchema>, ModelPropsFromRESchema<CraftingEntryRuleSchema> {
+    readonly parent: ItemPF2e<CharacterPF2e>;
+    get actor(): CharacterPF2e;
 }
 type CraftingEntryRuleSchema = RuleElementSchema & {
-	selector: StringField<string, string, true, false, false>;
-	isAlchemical: BooleanField<boolean, boolean, false, false, true>;
-	isDailyPrep: BooleanField<boolean, boolean, false, false, true>;
-	isPrepared: BooleanField<boolean, boolean, false, false, true>;
-	batchSizes: SchemaField<{
-		default: QuantityField;
-		other: ArrayField<
-			SchemaField<{
-				quantity: QuantityField;
-				definition: PredicateField;
-			}>
-		>;
-	}>;
-	maxItemLevel: ResolvableValueField<false, false, true>;
-	maxSlots: NumberField<number, number, false, false, false>;
-	craftableItems: PredicateField;
-	preparedFormulas: ArrayField<SchemaField<PreparedFormulaSchema>>;
+    selector: StringField<string, string, true, false, false>;
+    isAlchemical: BooleanField<boolean, boolean, false, false, true>;
+    isDailyPrep: BooleanField<boolean, boolean, false, false, true>;
+    isPrepared: BooleanField<boolean, boolean, false, false, true>;
+    batchSizes: SchemaField<{
+        default: QuantityField;
+        other: ArrayField<SchemaField<{
+            quantity: QuantityField;
+            definition: PredicateField;
+        }>>;
+    }>;
+    maxItemLevel: ResolvableValueField<false, false, true>;
+    maxSlots: NumberField<number, number, false, false, false>;
+    craftableItems: PredicateField;
+    preparedFormulas: ArrayField<SchemaField<PreparedFormulaSchema>>;
 };
 type QuantityField = NumberField<number, number, true, false, true>;
 type PreparedFormulaSchema = {

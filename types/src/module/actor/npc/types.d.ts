@@ -38,28 +38,23 @@ type WithRank = {
 };
 type NPCSkillSheetData = NPCSkillData & WithAdjustments & WithRank;
 interface NPCSystemSheetData extends NPCSystemData {
-	actions: NPCStrikeSheetData[];
-	perception: NPCPerceptionData & WithAdjustments & WithRank;
-	attributes: NPCAttributes & {
-		ac: ArmorClassTraceData & WithAdjustments;
-		hp: HitPointsStatistic & WithAdjustments;
-	};
-	details: NPCSystemData["details"] & {
-		level: NPCSystemData["details"]["level"] & WithAdjustments;
-		alignment: {
-			localizedName?: string;
-		};
-	};
-	sortedSkills: Record<SkillAbbreviation, NPCSkillSheetData>;
-	saves: Record<
-		SaveType,
-		NPCSaveData &
-			WithAdjustments &
-			WithRank & {
-				labelShort?: string;
-			}
-	>;
-	skills: Record<SkillAbbreviation, NPCSkillSheetData>;
+    actions: NPCStrikeSheetData[];
+    perception: NPCPerceptionData & WithAdjustments & WithRank;
+    attributes: NPCAttributes & {
+        ac: ArmorClassTraceData & WithAdjustments;
+        hp: HitPointsStatistic & WithAdjustments;
+    };
+    details: NPCSystemData["details"] & {
+        level: NPCSystemData["details"]["level"] & WithAdjustments;
+        alignment: {
+            localizedName?: string;
+        };
+    };
+    sortedSkills: Record<SkillAbbreviation, NPCSkillSheetData>;
+    saves: Record<SaveType, NPCSaveData & WithAdjustments & WithRank & {
+        labelShort?: string;
+    }>;
+    skills: Record<SkillAbbreviation, NPCSkillSheetData>;
 }
 interface NPCStrikeSheetData extends NPCStrike {
     /** The damage formula of the strike for display on sheets */

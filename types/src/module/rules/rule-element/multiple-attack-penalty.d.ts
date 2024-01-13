@@ -8,10 +8,8 @@ declare class MultipleAttackPenaltyRuleElement extends RuleElementPF2e<MAPRuleSc
     static defineSchema(): MAPRuleSchema;
     beforePrepareData(): void;
 }
-
-interface MultipleAttackPenaltyRuleElement
-	extends RuleElementPF2e<MAPRuleSchema>,
-		ModelPropsFromRESchema<MAPRuleSchema> {}
+interface MultipleAttackPenaltyRuleElement extends RuleElementPF2e<MAPRuleSchema>, ModelPropsFromRESchema<MAPRuleSchema> {
+}
 type MAPRuleSchema = RuleElementSchema & {
     selector: StringField<string, string, true, false, false>;
     value: ResolvableValueField<true, false, false>;

@@ -28,10 +28,10 @@ interface MeleeSystemSource extends ItemSystemSource {
     };
 }
 interface MeleeSystemData extends Omit<MeleeSystemSource, "description">, Omit<ItemSystemData, "level" | "traits"> {
-	material: WeaponMaterialData;
-	runes: {
-		property: WeaponPropertyRuneType[];
-	};
+    material: WeaponMaterialData;
+    runes: {
+        property: WeaponPropertyRuneType[];
+    };
 }
 interface NPCAttackDamageSource {
     damage: string;

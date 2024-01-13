@@ -174,11 +174,11 @@ declare global {
         process(form: HTMLFormElement): void;
     }
 
-	interface FormApplicationData<O extends object = object> {
-		object?: O | object;
-		options?: Partial<FormApplicationOptions>;
-		title?: string;
-	}
+    interface FormApplicationData<O extends object = object> {
+        object?: O | object;
+        options?: Partial<FormApplicationOptions>;
+        title?: string;
+    }
 
     interface OnSubmitFormOptions {
         updateData?: Record<string, unknown> | null;
@@ -304,13 +304,13 @@ declare global {
     }
 
     interface DocumentSheetData<TDocument extends foundry.abstract.Document = foundry.abstract.Document> {
-		cssClass: string;
-		editable: boolean;
-		document: TDocument;
-		data: object;
-		limited: boolean;
-		options: Partial<DocumentSheetOptions>;
-		owner: boolean;
-		title: string;
-	}
+        cssClass: string;
+        editable: boolean;
+        document: TDocument;
+        data: object;
+        limited: boolean;
+        options: Partial<DocumentSheetOptions>;
+        owner: boolean;
+        title: string;
+    }
 }

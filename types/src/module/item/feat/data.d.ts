@@ -2,15 +2,7 @@ import { Language, SenseAcuity, SenseType } from "@actor/creature/types.ts";
 import { AttributeString, SaveType } from "@actor/types.ts";
 import { SelfEffectReference, SelfEffectReferenceSource } from "@item/ability/index.ts";
 import { ArmorCategory } from "@item/armor/types.ts";
-import {
-	ActionType,
-	BaseItemSourcePF2e,
-	Frequency,
-	FrequencySource,
-	ItemSystemData,
-	ItemSystemSource,
-	ItemTraits,
-} from "@item/base/data/system.ts";
+import { ActionType, BaseItemSourcePF2e, Frequency, FrequencySource, ItemSystemData, ItemSystemSource, ItemTraits } from "@item/base/data/system.ts";
 import { ClassTrait } from "@item/class/types.ts";
 import { WeaponCategory } from "@item/weapon/types.ts";
 import { OneToFour, OneToThree } from "@module/data.ts";
@@ -44,55 +36,55 @@ interface FeatSystemSource extends ItemSystemSource {
     selfEffect?: SelfEffectReferenceSource | null;
 }
 interface FeatLevelSource {
-	value: number;
-	taken?: number | null;
+    value: number;
+    taken?: number | null;
 }
 interface FeatSystemData extends Omit<FeatSystemSource, "description" | "maxTaken">, Omit<ItemSystemData, "traits"> {
-	level: FeatLevelData;
-	/** `null` is set to `Infinity` during data preparation */
-	maxTakable: number;
-	frequency?: Frequency;
-	subfeatures: FeatSubfeatures;
-	/** A self-applied effect for simple actions */
-	selfEffect: SelfEffectReference | null;
+    level: FeatLevelData;
+    /** `null` is set to `Infinity` during data preparation */
+    maxTakable: number;
+    frequency?: Frequency;
+    subfeatures: FeatSubfeatures;
+    /** A self-applied effect for simple actions */
+    selfEffect: SelfEffectReference | null;
 }
 interface FeatLevelData extends Required<FeatLevelSource> {
 }
 interface FeatSubfeatures {
-	keyOptions: AttributeString[];
-	languages: LanguagesSubfeature;
-	proficiencies: {
-		[K in IncreasableProficiency]?: {
-			rank: OneToFour;
-			attribute?: AttributeString | null;
-		};
-	};
-	senses: {
-		[K in SenseType]?: SenseSubfeature;
-	};
+    keyOptions: AttributeString[];
+    languages: LanguagesSubfeature;
+    proficiencies: {
+        [K in IncreasableProficiency]?: {
+            rank: OneToFour;
+            attribute?: AttributeString | null;
+        };
+    };
+    senses: {
+        [K in SenseType]?: SenseSubfeature;
+    };
 }
 interface LanguagesSubfeature {
-	/** A number of open slots fillable with any language */
-	slots: number;
-	/** Additional specific languages the character knows */
-	granted: Language[];
+    /** A number of open slots fillable with any language */
+    slots: number;
+    /** Additional specific languages the character knows */
+    granted: Language[];
 }
 interface SenseSubfeature {
-	acuity?: SenseAcuity;
-	/** The radius of the sense in feet: `null` indicates no limit. */
-	range?: number | null;
-	/** "Special" clauses for darkvision */
-	special?: {
-		/** Only grant darkvision if the PC's ancestry grants low-light vision. */
-		ancestry: boolean;
-		/**
-		 * Grant darkvision if the PC has low-light vision from any prior source (ancestry, earlier feats, etc.). This
-		 * option is mutually exclusive with `ancestry`.
-		 */
-		llv: boolean;
-		/** Grant darkvision if this feat is taken a second time. */
-		second: boolean;
-	};
+    acuity?: SenseAcuity;
+    /** The radius of the sense in feet: `null` indicates no limit. */
+    range?: number | null;
+    /** "Special" clauses for darkvision */
+    special?: {
+        /** Only grant darkvision if the PC's ancestry grants low-light vision. */
+        ancestry: boolean;
+        /**
+         * Grant darkvision if the PC has low-light vision from any prior source (ancestry, earlier feats, etc.). This
+         * option is mutually exclusive with `ancestry`.
+         */
+        llv: boolean;
+        /** Grant darkvision if this feat is taken a second time. */
+        second: boolean;
+    };
 }
 type IncreasableProficiency = ArmorCategory | ClassTrait | SaveType | WeaponCategory | "perception" | "spellcasting";
 type FeatTraits = ItemTraits<FeatTrait>;

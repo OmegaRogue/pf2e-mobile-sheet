@@ -8,38 +8,17 @@ type CreatureActorType = (typeof CREATURE_ACTOR_TYPES)[number];
 type CreatureTrait = keyof typeof CONFIG.PF2E.creatureTraits;
 /** One of the major creature types given in the Pathfinder bestiaries */
 type CreatureType = keyof typeof CONFIG.PF2E.creatureTypes;
-type Language =
-	| "common"
-	| (typeof LANGUAGES_BY_RARITY.common)[number]
-	| (typeof LANGUAGES_BY_RARITY.uncommon)[number]
-	| (typeof LANGUAGES_BY_RARITY.rare)[number]
-	| (typeof LANGUAGES_BY_RARITY.secret)[number];
+type Language = "common" | (typeof LANGUAGES_BY_RARITY.common)[number] | (typeof LANGUAGES_BY_RARITY.uncommon)[number] | (typeof LANGUAGES_BY_RARITY.rare)[number] | (typeof LANGUAGES_BY_RARITY.secret)[number];
 type Attitude = keyof typeof CONFIG.PF2E.attitude;
 type ModeOfBeing = "living" | "undead" | "construct" | "object";
 type SenseAcuity = "precise" | "imprecise" | "vague";
 type SenseType = SetElement<typeof SENSE_TYPES>;
-type SpecialVisionType = Extract<
-	SenseType,
-	"low-light-vision" | "darkvision" | "greater-darkvision" | "see-invisibility"
->;
+type SpecialVisionType = Extract<SenseType, "low-light-vision" | "darkvision" | "greater-darkvision" | "see-invisibility">;
 interface GetReachParameters {
     action?: "interact" | "attack";
     weapon?: Maybe<AbilityItemPF2e<ActorPF2e> | WeaponPF2e<ActorPF2e> | MeleePF2e<ActorPF2e>>;
 }
 interface CreatureUpdateContext<TParent extends TokenDocumentPF2e | null> extends ActorUpdateContext<TParent> {
-	allowHPOverage?: boolean;
+    allowHPOverage?: boolean;
 }
-
-export type {
-	Attitude,
-	CreatureActorType,
-	CreatureTrait,
-	CreatureType,
-	CreatureUpdateContext,
-	GetReachParameters,
-	Language,
-	ModeOfBeing,
-	SenseAcuity,
-	SenseType,
-	SpecialVisionType,
-};
+export type { Attitude, CreatureActorType, CreatureTrait, CreatureType, CreatureUpdateContext, GetReachParameters, Language, ModeOfBeing, SenseAcuity, SenseType, SpecialVisionType, };

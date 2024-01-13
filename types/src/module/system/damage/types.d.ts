@@ -35,17 +35,17 @@ interface DamageRollRenderData {
     damageTypes: Record<string, DamageTypeRenderData>;
 }
 interface DamageRollContext extends BaseRollContext {
-	type: "damage-roll";
-	sourceType: "attack" | "check" | "save";
-	outcome?: DegreeOfSuccessString | null;
-	self?: StrikeSelf | null;
-	target?: RollTarget | null;
-	options: Set<string>;
-	secret?: boolean;
-	/** The domains this roll had, for reporting purposes */
-	domains: string[];
-	/** The number of MAP increases from the preceding check */
-	mapIncreases?: ZeroToTwo;
+    type: "damage-roll";
+    sourceType: "attack" | "check" | "save";
+    outcome?: DegreeOfSuccessString | null;
+    self?: StrikeSelf | null;
+    target?: RollTarget | null;
+    options: Set<string>;
+    secret?: boolean;
+    /** The domains this roll had, for reporting purposes */
+    domains: string[];
+    /** The number of MAP increases from the preceding check */
+    mapIncreases?: ZeroToTwo;
 }
 interface DamageFormulaData {
     base: BaseDamageData[];
@@ -60,9 +60,9 @@ interface DamageFormulaData {
     kinds?: Set<DamageKind>;
 }
 interface ResolvedDamageFormulaData extends DamageFormulaData {
-	roll?: never;
-	formula: Record<DegreeOfSuccessString, string | null>;
-	breakdown: Record<DegreeOfSuccessString, string[]>;
+    roll?: never;
+    formula: Record<DegreeOfSuccessString, string | null>;
+    breakdown: Record<DegreeOfSuccessString, string[]>;
 }
 interface DamagePartialTerm {
     /** The static amount of damage of the current damage type and category. */

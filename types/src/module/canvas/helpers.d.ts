@@ -14,23 +14,23 @@ declare function measureDistanceCuboid(r0: PIXI.Rectangle, r1: PIXI.Rectangle, {
 /** Highlight grid according to Pathfinder 2e effect-area shapes */
 declare function highlightGrid({ areaType, object, colors, document, collisionType, preview, }: HighlightGridParams): void;
 interface HighlightGridParams {
-	areaType: EffectAreaType | null;
-	object: MeasuredTemplatePF2e | TokenPF2e;
-	/** Border and fill colors in hexadecimal */
-	colors: {
-		border: number;
-		fill: number;
-	};
-	/** Shape data for the effect area: satisfied by MeasuredTemplateData */
-	document: Readonly<{
-		x: number;
-		y: number;
-		distance: number | null;
-		angle?: number;
-		direction?: number;
-		width: number | null;
-	}>;
-	collisionType?: WallRestrictionType;
-	preview?: boolean;
+    areaType: EffectAreaType | null;
+    object: MeasuredTemplatePF2e | TokenPF2e;
+    /** Border and fill colors in hexadecimal */
+    colors: {
+        border: number;
+        fill: number;
+    };
+    /** Shape data for the effect area: satisfied by MeasuredTemplateData */
+    document: Readonly<{
+        x: number;
+        y: number;
+        distance: number | null;
+        angle?: number;
+        direction?: number;
+        width: number | null;
+    }>;
+    collisionType?: WallRestrictionType;
+    preview?: boolean;
 }
 export { highlightGrid, measureDistanceCuboid };

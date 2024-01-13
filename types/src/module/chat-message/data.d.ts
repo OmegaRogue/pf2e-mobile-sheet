@@ -11,14 +11,14 @@ type ChatMessageSourcePF2e = foundry.documents.ChatMessageSource & {
     flags: ChatMessageFlagsPF2e;
 };
 export interface ItemOriginFlag {
-	actor?: ActorUUID;
-	type: ItemType;
-	uuid: string;
-	castRank?: number;
-	messageId?: string;
-	variant?: {
-		overlays: string[];
-	};
+    actor?: ActorUUID;
+    type: ItemType;
+    uuid: string;
+    castRank?: number;
+    messageId?: string;
+    variant?: {
+        overlays: string[];
+    };
 }
 type ChatMessageFlagsPF2e = ChatMessageFlags & {
     pf2e: {

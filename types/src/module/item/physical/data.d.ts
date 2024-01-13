@@ -15,65 +15,65 @@ import { UsageDetails } from "./usage.ts";
 type ItemCarryType = SetElement<typeof ITEM_CARRY_TYPES>;
 type BasePhysicalItemSource<TType extends PhysicalItemType, TSystemSource extends PhysicalSystemSource = PhysicalSystemSource> = BaseItemSourcePF2e<TType, TSystemSource>;
 interface PhysicalSystemSource extends ItemSystemSource {
-	level: {
-		value: number;
-	};
-	traits: PhysicalItemTraits;
-	quantity: number;
-	baseItem: string | null;
-	bulk: {
-		value: number;
-	};
-	hp: PhysicalItemHPSource;
-	hardness: number;
-	price: PartialPrice;
-	equipped: EquippedData;
-	identification: IdentificationSource;
-	containerId: string | null;
-	material: ItemMaterialSource;
-	size: Size;
-	usage?: {
-		value: string;
-	};
-	activations?: Record<string, ItemActivation>;
-	temporary?: boolean;
-	/**
-	 * Data for apex items: the attribute upgraded and, in case of multiple apex items, whether the upgrade has been
-	 * selected
-	 */
-	apex?: {
-		attribute: AttributeString;
-		selected?: boolean;
-	};
+    level: {
+        value: number;
+    };
+    traits: PhysicalItemTraits;
+    quantity: number;
+    baseItem: string | null;
+    bulk: {
+        value: number;
+    };
+    hp: PhysicalItemHPSource;
+    hardness: number;
+    price: PartialPrice;
+    equipped: EquippedData;
+    identification: IdentificationSource;
+    containerId: string | null;
+    material: ItemMaterialSource;
+    size: Size;
+    usage?: {
+        value: string;
+    };
+    activations?: Record<string, ItemActivation>;
+    temporary?: boolean;
+    /**
+     * Data for apex items: the attribute upgraded and, in case of multiple apex items, whether the upgrade has been
+     * selected
+     */
+    apex?: {
+        attribute: AttributeString;
+        selected?: boolean;
+    };
 }
 interface IdentificationSource {
-	status: IdentificationStatus;
-	unidentified: MystifiedData;
-	misidentified: object;
+    status: IdentificationStatus;
+    unidentified: MystifiedData;
+    misidentified: object;
 }
 interface ItemMaterialSource {
     grade: PreciousMaterialGrade | null;
     type: PreciousMaterialType | null;
 }
 interface PhysicalSystemData extends Omit<PhysicalSystemSource, "description">, Omit<ItemSystemData, "level"> {
-	apex?: {
-		attribute: AttributeString;
-		selected: boolean;
-	};
-	hp: PhysicalItemHitPoints;
-	price: Price;
-	bulk: BulkData;
-	material: ItemMaterialData;
-	traits: PhysicalItemTraits;
-	temporary: boolean;
-	identification: IdentificationData;
-	usage: UsageDetails;
-	stackGroup: string | null;
+    apex?: {
+        attribute: AttributeString;
+        selected: boolean;
+    };
+    hp: PhysicalItemHitPoints;
+    price: Price;
+    bulk: BulkData;
+    material: ItemMaterialData;
+    traits: PhysicalItemTraits;
+    temporary: boolean;
+    identification: IdentificationData;
+    usage: UsageDetails;
+    stackGroup: string | null;
 }
 type Investable<TData extends PhysicalSystemData | PhysicalSystemSource> = TData & {
-	equipped: {
-		invested: boolean | null;
-	};
+    equipped: {
+        invested: boolean | null;
+    };
 };
 /** The item's bulk in Light bulk units, given the item is of medium size */
 interface BulkData {

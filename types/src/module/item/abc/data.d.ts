@@ -8,6 +8,6 @@ interface ABCFeatureEntryData {
 interface ABCSystemSource extends ItemSystemSource {
     items: Record<string, ABCFeatureEntryData>;
 }
-
-interface ABCSystemData extends Omit<ABCSystemSource, "description">, ItemSystemData {}
+interface ABCSystemData extends Omit<ABCSystemSource, "description">, ItemSystemData {
+}
 export type { ABCFeatureEntryData, ABCSystemData, ABCSystemSource };

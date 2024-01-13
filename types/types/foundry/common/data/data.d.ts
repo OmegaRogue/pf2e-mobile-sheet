@@ -30,14 +30,14 @@ export interface DarknessActivation {
  * This is re-used by both the AmbientLightData and TokenData classes.
  */
 export class LightData<TParent extends DataModel | null> extends DataModel<TParent, LightDataSchema> {
-	static override defineSchema(): LightDataSchema;
+    static override defineSchema(): LightDataSchema;
 
-	static override migrateData<TSource extends Record<string, JSONValue>>(source: TSource): TSource;
+    static override migrateData<TSource extends Record<string, JSONValue>>(source: TSource): TSource;
 }
 
 export interface LightData<TParent extends DataModel | null>
-	extends DataModel<TParent, LightDataSchema>,
-		ModelPropsFromSchema<LightDataSchema> {}
+    extends DataModel<TParent, LightDataSchema>,
+        ModelPropsFromSchema<LightDataSchema> {}
 
 export type LightSource = SourceFromSchema<LightDataSchema>;
 

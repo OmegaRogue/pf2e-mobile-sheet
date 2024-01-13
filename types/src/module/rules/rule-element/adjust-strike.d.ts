@@ -14,10 +14,8 @@ declare class AdjustStrikeRuleElement extends RuleElementPF2e<AdjustStrikeSchema
     /** Score the trait value. If it's a dice roll, use the average roll, otherwise just use the number */
     static getTraitScore(traitValue: string): number;
 }
-
-interface AdjustStrikeRuleElement
-	extends RuleElementPF2e<AdjustStrikeSchema>,
-		ModelPropsFromRESchema<AdjustStrikeSchema> {}
+interface AdjustStrikeRuleElement extends RuleElementPF2e<AdjustStrikeSchema>, ModelPropsFromRESchema<AdjustStrikeSchema> {
+}
 type AdjustStrikeSchema = RuleElementSchema & {
     mode: StringField<AELikeChangeMode, AELikeChangeMode, true, false, false>;
     /** The property of the strike to adjust */
