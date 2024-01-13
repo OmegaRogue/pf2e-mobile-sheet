@@ -1,5 +1,4 @@
 import { id as MODULE_ID } from "../../static/module.json";
-import { socket } from "./pf2e-mobile-sheet.js";
 
 declare global {
 	interface ClientSettings {
@@ -11,6 +10,8 @@ declare global {
 
 		get(module: MODULE_ID, setting: "share-targets"): boolean;
 
+		get(module: MODULE_ID, setting: "receive-targets"): boolean;
+
 		get(module: MODULE_ID, setting: "disable-canvas"): boolean;
 	}
 
@@ -19,25 +20,25 @@ declare global {
 
 		executeAsGM(handler: "checkTargets", userId: string, tokenId: string): Promise<boolean>;
 
-		// executeAsGM(
-		// 	handler: "targetToken",
-		// 	tokenDocumentId: string,
-		// 	userSourceId: string,
-		// 	releaseOthers: boolean,
-		// ): Promise<void>;
+		executeAsGM(
+			handler: "targetToken",
+			tokenDocumentId: string,
+			userSourceId: string,
+			releaseOthers: boolean,
+		): Promise<void>;
 
 		executeAsGM(handler: "pingToken", tokenDocumentId: string): Promise<boolean>;
 
 		executeAsGM(handler: "getTargets", userId: string): Promise<Set<string> | undefined>;
 
-		// executeAsGM(
-		// 	handler: "setTarget",
-		// 	tokenId: string,
-		// 	userId: string,
-		// 	targeted?: boolean,
-		// 	releaseOthers?: boolean,
-		// 	groupSelection?: boolean,
-		// ): Promise<void>;
+		executeAsGM(
+			handler: "setTarget",
+			tokenId: string,
+			userId: string,
+			targeted?: boolean,
+			releaseOthers?: boolean,
+			groupSelection?: boolea,
+		): Promise<void>;
 	}
 
 	enum WRAPPER_TYPES {

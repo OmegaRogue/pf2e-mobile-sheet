@@ -311,6 +311,7 @@ declare global {
 			default: string;
 		};
 	}
+
 	interface RollMathProxy {
 		eq: (a: number, b: number) => boolean;
 		gt: (a: number, b: number) => boolean;
@@ -320,7 +321,7 @@ declare global {
 		ne: (a: number, b: number) => boolean;
 		ternary: (condition: boolean | number, ifTrue: number, ifFalse: number) => number;
 	}
-    const BUILD_MODE: "development" | "production";
+	const BUILD_MODE: "development" | "production";
     const CONDITION_SOURCES: ConditionSource[];
     const EN_JSON: typeof EnJSON;
     const ROLL_PARSER: string;

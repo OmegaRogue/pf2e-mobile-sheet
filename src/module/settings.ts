@@ -29,20 +29,4 @@ export function registerSettings() {
 		default: "auto",
 		requiresReload: true,
 	});
-	game.settings.register(MODULE_ID, "share-targets", {
-		name: `${MODULE_ID}.settings.share-targets.name`,
-		hint: `${MODULE_ID}.settings.share-targets.hint`,
-		config: true,
-		scope: "client",
-		type: Boolean,
-		default: false,
-	});
-	game.settings.register(MODULE_ID, "disable-canvas", {
-		name: `${MODULE_ID}.settings.disable-canvas.name`,
-		hint: `${MODULE_ID}.settings.disable-canvas.hint`,
-		config: true,
-		scope: "client",
-		type: Boolean,
-		default: false,
-	});
 }

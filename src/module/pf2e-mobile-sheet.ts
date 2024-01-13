@@ -86,14 +86,17 @@ Hooks.on("renderChatLog", async () => {
 	log(false, "Add Send Button");
 });
 
-async function dragEndFullscreenWindow() {
-	if (!checkMobile()) return;
-	const wind = $(".fullscreen-window");
-	wind.css("width", "");
-	wind.css("height", "");
-	wind.css("top", "");
-	wind.css("left", "");
-}
+// Hooks.on("targetToken", (user, token, targeted) => {
+// 	game.settings.
+// 	if (!game.settings.get(MODULE_ID, "share-targets")) return;
+// 	if (user.id === sharedUserId) {
+// 		for (const userId in sharingUsers) {
+// 			socket.executeAsUser(socketTarget, userId, targeted, token.id);
+// 		}
+// 	} else {
+// 		socket.executeAsUser(socketTarget, sharedUserId, targeted, token.id);
+// 	}
+// });
 
 async function renderFullscreenWindow(_app: Application, html: JQuery): Promise<void> {
 	if (checkMobileWithOverride("close-button-text")) {
@@ -106,28 +109,12 @@ async function renderFullscreenWindow(_app: Application, html: JQuery): Promise<
 			.last()
 			.replaceWith("");
 	}
-	if (!checkMobile()) return;
-	if (!html.hasClass("window-app") || html.hasClass("dialog")) {
-		return;
-	}
-	html.addClass("fullscreen-window");
-	html.removeClass("");
-	html.css("width", "");
-	html.css("height", "");
-	html.css("top", "");
-	html.css("left", "");
-	const header = html.find("header") as JQuery<HTMLElement>;
-	header.removeClass("draggable");
-	header.removeClass("resizable");
 }
 
 // document.querySelector("#combat-tracker > li.combatant.actor.directory-item.flexrow.hidden-name.gm-draggable > div.token-name.flexcol > h4 > span.name")
 
 Hooks.on("renderActorSheet", renderFullscreenWindow);
 Hooks.on("renderApplication", renderFullscreenWindow);
-Hooks.on("dragEndActorSheet", dragEndFullscreenWindow);
-Hooks.on("dragEndApplication", dragEndFullscreenWindow);
-Hooks.on("setAppScaleEvent", dragEndFullscreenWindow);
 
 const headings = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
 
