@@ -8,9 +8,12 @@ import { ContainerSource, ContainerSystemData } from "./data.ts";
 declare class ContainerPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
 	/** This container's contents, reloaded every data preparation cycle */
 	contents: Collection<PhysicalItemPF2e<NonNullable<TParent>>>;
+
 	/** Is this an actual stowing container or merely one of the old pouches/quivers/etc.? */
 	get stowsItems(): boolean;
+
 	get isCollapsed(): boolean;
+
 	get capacity(): {
 		value: Bulk;
 		max: Bulk;
@@ -18,13 +21,19 @@ declare class ContainerPF2e<TParent extends ActorPF2e | null = ActorPF2e | null>
 
 	/** The percentage filled of container's bulk capacity: if over 100%, return a value without excess Light units. */
 	get percentFull(): number;
+
 	get bulkIgnored(): Bulk;
+
 	get bulk(): Bulk;
+
 	/** Reload this container's contents following Actor embedded-document preparation */
 	prepareSiblingData(this: ContainerPF2e<ActorPF2e>): void;
+
 	/** Move the contents of this container into the next-higher container or otherwise the main actor inventory */
 	ejectContents(): Promise<void>;
+
 	getChatData(this: ContainerPF2e<TParent>, htmlOptions?: EnrichmentOptions): Promise<ItemSummaryData>;
+
 	/** Coerce changes to container bulk data into validity */
 	protected _preUpdate(
 		changed: DeepPartial<this["_source"]>,

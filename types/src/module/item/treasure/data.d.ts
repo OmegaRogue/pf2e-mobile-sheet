@@ -7,7 +7,6 @@ type TreasureSystemSource = Omit<PhysicalSystemSource, "usage"> & {
 	readonly usage?: never;
 	stackGroup: "coins" | "gems" | null;
 };
-
 interface TreasureSystemData extends Omit<PhysicalSystemData, "equipped"> {
 	apex?: never;
 	equipped: TreasureEquippedData;
@@ -15,7 +14,6 @@ interface TreasureSystemData extends Omit<PhysicalSystemData, "equipped"> {
 	usage: CarriedUsage;
 	stackGroup: "coins" | "gems" | null;
 }
-
 interface TreasureEquippedData extends EquippedData {
 	invested?: never;
 }

@@ -15,8 +15,11 @@ declare class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
 	/** Basic war actions are sheet data. Note that they cannot ever work with rule elements */
 	basicWarActions: CampaignFeaturePF2e[];
 	itemRenderer: ArmyItemRenderer;
+
 	static get defaultOptions(): ActorSheetOptions;
+
 	getData(options?: Partial<ActorSheetOptions>): Promise<ArmySheetData>;
+
 	activateListeners($html: JQuery<HTMLElement>): void;
 
 	protected activateClickListener(html: HTMLElement): SheetClickActionHandlers;
@@ -26,7 +29,6 @@ declare class ArmySheetPF2e extends ActorSheetPF2e<ArmyPF2e> {
 	/** Handle a drop event for an existing Owned Item to sort that item */
 	protected _onSortItem(event: DragEvent, itemSource: ItemSourcePF2e): Promise<ItemPF2e[]>;
 }
-
 declare class ArmyItemRenderer extends ItemSummaryRenderer<ArmyPF2e, ArmySheetPF2e> {
 	protected getItemFromElement(element: HTMLElement): Promise<ClientDocument | null>;
 }

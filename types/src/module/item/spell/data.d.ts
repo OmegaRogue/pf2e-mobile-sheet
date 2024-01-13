@@ -100,7 +100,6 @@ interface SpellSystemData
 	damage: Record<string, SpellDamage>;
 	defense: SpellDefenseData | null;
 }
-
 interface SpellCastData {
 	focusPoints: ZeroToThree;
 }

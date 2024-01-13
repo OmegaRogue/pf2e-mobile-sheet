@@ -17,6 +17,7 @@ export declare class ItemSummaryRenderer<
 	protected sheet: TSheet;
 
 	constructor(sheet: TSheet);
+
 	/**
 	 * Triggers toggling the visibility of an item summary element,
 	 * delegating the populating of the item summary to renderItemSummary().
@@ -32,10 +33,12 @@ export declare class ItemSummaryRenderer<
 
 	/** Retrieves the item from the element that the current toggleable summary is for */
 	protected getItemFromElement(element: HTMLElement): Promise<ClientDocument | null>;
+
 	/**
 	 * Called when an item summary is expanded and needs to be filled out.
 	 */
 	renderItemSummary(container: HTMLElement, item: ItemPF2e, chatData: ItemSummaryData): Promise<void>;
+
 	/**
 	 * Executes a callback, performing a save and restore for all item summaries to maintain visual state.
 	 * Most restorations are driven by a data-item-id attribute, however data-item-summary-id with a custom string

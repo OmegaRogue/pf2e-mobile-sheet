@@ -10,6 +10,7 @@ import { ScenePF2e } from "@scene/document.js";
 import { checkMobile, checkMobileWithOverride, getDebug, log } from "./utils.js";
 
 import "styles/pf2e-mobile-sheet.scss";
+import "./resizeObservers.js";
 
 Hooks.once("devModeReady", async ({ registerPackageDebugFlag }) => {
 	await registerPackageDebugFlag(MODULE_ID);
@@ -53,6 +54,16 @@ Hooks.once("ready", async () => {
 	// $("tokenbar").remove();
 	// $("canvas#board").remove();
 });
+
+Hooks.on("renderApplication", async (app: Application) => {
+	if (app.id !== "fsc-ng") return;
+	setTimeout(() => {
+		const simpleCalendarTaskbarButton = $(".taskbar-item:contains('Simple Calendar')");
+		if (!simpleCalendarTaskbarButton.hasClass("taskbar-hidden-mobile")) {
+			simpleCalendarTaskbarButton.addClass("taskbar-hidden-mobile");
+		}
+	}, 500);
+});
 Hooks.on("renderChatLog", async () => {
 	// if (!checkMobileWithOverride("send-button")) return;
 	const sendButton = $(`<button type="button" class="button send-button"><i class="fas fa-paper-plane"/></button>`);
@@ -83,103 +94,6 @@ async function dragEndFullscreenWindow() {
 	wind.css("top", "");
 	wind.css("left", "");
 }
-
-const characterSheetResizeObserver = new ResizeObserver((entries) => {
-	for (const entry of entries) {
-		if (!entry.target.id.startsWith("CharacterSheetPF2e")) continue;
-		const html = $(entry.target);
-		if (entry.contentRect.width < 745 && !entries[0].target.classList.contains("mobile")) {
-			log(false, "sidebar found", html.find("aside").length);
-			if (html.find(".sheet-navigation #sidebar-tab").length === 0) {
-				const sidebarTabButton = $(
-					`<a class="item" id="sidebar-tab" data-tab="sidebar" title="${game.i18n.localize(
-						"pf2e-mobile-sheet.sidebar-tab",
-					)}"><i class="fa-solid fa-bars"></i></a>`,
-				);
-				const afterButton = html.find(".sheet-navigation .panel-title");
-				sidebarTabButton.insertAfter(afterButton);
-			}
-
-			const aside = html.find("aside");
-
-			if (html.find(".sheet-content .tab.sidebar").length === 0) {
-				const sidebarTab = $(`<div class="tab sidebar" data-group="primary" data-tab="sidebar"/>`);
-				sidebarTab.append(aside.detach());
-				html.find(".sheet-content").append(sidebarTab);
-			} else {
-				html.find(".sheet-content .tab.sidebar").append(aside.detach());
-			}
-
-			entries[0].target.classList.add("mobile");
-			log(false, "mobile", entry);
-			log(false, "sidebar found", html.find("aside").length);
-		} else if (entry.contentRect.width >= 745 && entries[0].target.classList.contains("mobile")) {
-			log(false, "sidebar found off", html.find("aside").length);
-			entries[0].target.classList.remove("mobile");
-			const sidebar = html.find(".tab.sidebar aside");
-			html.find(".window-content form").prepend(sidebar.detach());
-			const sidebarTab = html.find(".tab.sidebar.active");
-			if (sidebarTab.length > 0) {
-				sidebarTab.removeClass("active");
-				html.find('a[data-tab="character"]')[0].click();
-			}
-			log(false, "no mobile");
-			log(false, "sidebar found", html.find("aside").length);
-		}
-	}
-});
-
-const vehicleSheetResizeObserver = new ResizeObserver((entries) => {
-	for (const entry of entries) {
-		if (!entry.target.id.startsWith("VehicleSheetPF2e")) continue;
-		const html = $(entry.target);
-		if (entry.contentRect.width < 585 && !entries[0].target.classList.contains("mobile")) {
-			log(true, "sidebar found", html.find("aside").length);
-			if (html.find(".sheet-navigation #sidebar-tab").length === 0) {
-				const sidebarTabButton = $(
-					`<a class="item" id="sidebar-tab" data-tab="sidebar" title="${game.i18n.localize(
-						"pf2e-mobile-sheet.sidebar-tab",
-					)}"><i class="fa-solid fa-bars"></i></a>`,
-				);
-				const afterButton = html.find(".sheet-navigation .panel-title");
-				sidebarTabButton.insertAfter(afterButton);
-			}
-
-			const aside = html.find("aside");
-
-			if (html.find(".sheet-content .tab.sidebar").length === 0) {
-				const sidebarTab = $(`<div class="tab sidebar" data-group="primary" data-tab="sidebar"/>`);
-				sidebarTab.append(aside.detach());
-				html.find(".sheet-content").append(sidebarTab);
-			} else {
-				html.find(".sheet-content .tab.sidebar").append(aside.detach());
-			}
-
-			entries[0].target.classList.add("mobile");
-			log(true, "mobile", entry);
-			log(true, "sidebar found", html.find("aside").length);
-		} else if (entry.contentRect.width >= 585 && entries[0].target.classList.contains("mobile")) {
-			log(true, "sidebar found off", html.find("aside").length);
-			entries[0].target.classList.remove("mobile");
-			const sidebar = html.find(".tab.sidebar aside");
-			html.find(".window-content form").prepend(sidebar.detach());
-			const sidebarTab = html.find(".tab.sidebar.active");
-			if (sidebarTab.length > 0) {
-				sidebarTab.removeClass("active");
-				html.find('a[data-tab="details"]')[0].click();
-			}
-			log(true, "no mobile");
-			log(true, "sidebar found", html.find("aside").length);
-		}
-	}
-});
-
-Hooks.on("closeCharacterSheetPF2e", (_app: Application, html: JQuery) => {
-	characterSheetResizeObserver.unobserve(html[0]);
-});
-Hooks.on("closeVehicleSheetPF2e", (_app: Application, html: JQuery) => {
-	vehicleSheetResizeObserver.unobserve(html[0]);
-});
 
 async function renderFullscreenWindow(_app: Application, html: JQuery): Promise<void> {
 	if (checkMobileWithOverride("close-button-text")) {
@@ -230,7 +144,10 @@ async function updateCombatTracker(
 		let dist = 0;
 		const target = scene.tokens.get(combatant.tokenId ?? "");
 		if (!target) return;
-		dist = canvas.grid.measureDistance(origin.center, target.center, { gridSpaces: true });
+		dist = canvas.grid.measureDistance(
+			origin.center,
+			target.center, //{ gridSpaces: true }
+		);
 		const combatantDisplay = $(`#combat-tracker li[data-combatant-id=${combatant.id}]`);
 		// let targetIndicator = combatantDisplay.find(".users-targeting");
 
@@ -246,90 +163,13 @@ async function updateCombatTracker(
 }
 
 Hooks.on("changeSidebarTab", async (tab: SidebarTab) => {
-	if (tab.appId !== 24) return;
+	if (tab.id !== "combat") return;
 	await updateCombatTracker((tab as EncounterTrackerPF2e<EncounterPF2e>).viewed?.turns);
 });
 
 Hooks.on("refreshToken", async () => {
 	if (!game.combat?.turns) return;
 	await updateCombatTracker(game.combat?.turns);
-});
-
-Hooks.on("renderSettingsConfig", (_app: Application, html: JQuery) => {
-	if (!checkMobile()) return;
-	const content = html.find("div:not(#mps-view-group).flexrow");
-	if (content.length === 1) {
-		content.removeClass("flexrow");
-		content.addClass("flexcol");
-	}
-	const scrollable = html.find(".scrollable");
-	scrollable.appendTo(content);
-	const form = html.find(".categories");
-	scrollable.children().appendTo(form);
-	const sidebar = html.find("aside.sidebar");
-	sidebar.appendTo(scrollable);
-	form.appendTo(scrollable);
-	const footer = form.find("footer");
-	if (footer.length === 1) {
-		html.find(".reset-all").prependTo(footer);
-		footer.addClass("flexrow");
-		footer.appendTo(content);
-		const submitButton = footer.find("button[type=submit]");
-		submitButton.removeAttr("type").attr("type", "button");
-		submitButton.on("click", () => form.trigger("submit"));
-	}
-});
-
-Hooks.on("renderCharacterSheetPF2e", (_app: Application, html: JQuery) => {
-	html = html.closest(".app");
-	characterSheetResizeObserver.observe(html[0]);
-	if (html.hasClass("mobile")) {
-		if (html.find(".sheet-navigation #sidebar-tab").length === 0) {
-			const sidebarTabButton = $(
-				`<a class="item" id="sidebar-tab" data-tab="sidebar" title="${game.i18n.localize(
-					"pf2e-mobile-sheet.sidebar-tab",
-				)}"><i class="fa-solid fa-bars"></i></a>`,
-			);
-			const afterButton = html.find(".sheet-navigation .panel-title");
-			sidebarTabButton.insertAfter(afterButton);
-		}
-
-		const aside = html.find("aside");
-
-		if (html.find(".sheet-content .tab.sidebar").length === 0) {
-			const sidebarTab = $(`<div class="tab sidebar" data-group="primary" data-tab="sidebar"/>`);
-			sidebarTab.append(aside.detach());
-			html.find(".sheet-content").append(sidebarTab);
-		} else {
-			html.find(".sheet-content .tab.sidebar").append(aside.detach());
-		}
-	}
-});
-
-Hooks.on("renderVehicleSheetPF2e", (_app: Application, html: JQuery) => {
-	html = html.closest(".app");
-	vehicleSheetResizeObserver.observe(html[0]);
-	if (html.hasClass("mobile")) {
-		if (html.find(".sheet-navigation #sidebar-tab").length === 0) {
-			const sidebarTabButton = $(
-				`<a class="item" id="sidebar-tab" data-tab="sidebar" title="${game.i18n.localize(
-					"pf2e-mobile-sheet.sidebar-tab",
-				)}"><i class="fa-solid fa-bars"></i></a>`,
-			);
-			const afterButton = html.find(".sheet-navigation .panel-title");
-			sidebarTabButton.insertAfter(afterButton);
-		}
-
-		const aside = html.find("aside");
-
-		if (html.find(".sheet-content .tab.sidebar").length === 0) {
-			const sidebarTab = $(`<div class="tab sidebar" data-group="primary" data-tab="sidebar"/>`);
-			sidebarTab.append(aside.detach());
-			html.find(".sheet-content").append(sidebarTab);
-		} else {
-			html.find(".sheet-content .tab.sidebar").append(aside.detach());
-		}
-	}
 });
 
 Hooks.on("collapseSidebar", (_, collapsed: boolean) => {

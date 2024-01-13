@@ -16,9 +16,7 @@ interface DCOptions {
 }
 /** Level-based DCs */
 declare function calculateDC(level: number, { pwol, rarity }?: DCOptions): number;
-
 declare function calculateSimpleDC(rank: ProficiencyRank, { pwol }?: DCOptions): number;
-
 declare function calculateSpellDC(spellLevel: number, { pwol }?: DCOptions): number;
 /**
  * Used to shift DCs around the adjustment table Rarity increases

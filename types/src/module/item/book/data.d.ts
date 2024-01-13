@@ -7,7 +7,6 @@ import {
 } from "@item/physical/data.ts";
 type BookSource = BasePhysicalItemSource<"book", BookSystemSource>;
 type BookTraits = PhysicalItemTraits<EquipmentTrait>;
-
 interface BookSystemSource extends PhysicalSystemSource {
 	traits: BookTraits;
 	category: "formula" | "spell";

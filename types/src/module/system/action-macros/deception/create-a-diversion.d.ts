@@ -8,6 +8,5 @@ declare function createADiversion(
 		variant: CreateADiversionVariant;
 	} & SkillActionOptions,
 ): void;
-
 declare const action: SingleCheckAction;
 export { createADiversion as legacy, action };

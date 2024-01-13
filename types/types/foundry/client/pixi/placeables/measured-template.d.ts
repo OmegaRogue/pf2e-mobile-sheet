@@ -40,6 +40,7 @@ declare class MeasuredTemplate<
 
 	/* -------------------------------------------- */
 	/*  Properties                                  */
+
 	/* -------------------------------------------- */
 
 	override get bounds(): PIXI.Rectangle;
@@ -64,6 +65,7 @@ declare class MeasuredTemplate<
 
 	/* -------------------------------------------- */
 	/*  Initial Drawing                             */
+
 	/* -------------------------------------------- */
 
 	protected _draw(): Promise<void>;
@@ -120,12 +122,14 @@ declare class MeasuredTemplate<
 
 	/* -------------------------------------------- */
 	/*  Methods                                     */
+
 	/* -------------------------------------------- */
 
 	override rotate(angle: number, snap: number): Promise<TDocument | undefined>;
 
 	/* -------------------------------------------- */
 	/*  Interactivity                               */
+
 	/* -------------------------------------------- */
 
 	protected override _canControl(user: User, event?: PIXI.FederatedEvent): boolean;
@@ -136,6 +140,7 @@ declare class MeasuredTemplate<
 
 	/* -------------------------------------------- */
 	/*  Socket Listeners and Handlers               */
+
 	/* -------------------------------------------- */
 
 	protected override _onUpdate(

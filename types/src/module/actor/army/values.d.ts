@@ -12,7 +12,6 @@ declare const ARMY_STATS: {
     attack: number[];
     maxTactics: number[];
 };
-
 interface ArmyGearData {
 	img: string;
 	name: string;
@@ -27,9 +26,6 @@ interface ArmyGearData {
 		level: number;
 	}[];
 }
-
 type ArmyGearType = "melee" | "ranged" | "additional-melee" | "additional-ranged" | "potions" | "armor";
-
 declare function getArmyGearData(): Record<ArmyGearType, ArmyGearData>;
-
 export { ALIGNMENTS, ARMY_STATS, ARMY_TYPES, BASIC_WAR_ACTIONS_FOLDER, getArmyGearData };

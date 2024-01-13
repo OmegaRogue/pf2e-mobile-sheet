@@ -1,9 +1,7 @@
 import type * as abstract from "./module.d.ts";
 
 /** Used for the specific task of containing embedded Document instances within a parent Document. */
-export default class EmbeddedCollection<
-	TDocument extends abstract.Document<abstract.Document>,
-> extends Collection<TDocument> {
+export default class EmbeddedCollection<TDocument extends abstract.Document<abstract.Document>> extends Collection<TDocument> {
 	constructor(
 		/** The name of this collection in the parent Document. */
 		name: string,
@@ -42,7 +40,7 @@ export default class EmbeddedCollection<
 	): TDocument;
 
 	/**
-	 * nitialize the EmbeddedCollection object by constructing its contained Document instances
+	 * Initialize the EmbeddedCollection object by constructing its contained Document instances
 	 * @param options Initialization options.
 	 * @param options.strict Whether to log an error or a warning when encountering invalid embedded documents.
 	 */

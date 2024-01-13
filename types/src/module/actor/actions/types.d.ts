@@ -39,7 +39,9 @@ interface Action {
 	slug: string;
 	traits: string[];
 	variants: Collection<ActionVariant>;
+
 	toMessage(options?: Partial<ActionMessageOptions>): Promise<ChatMessagePF2e | undefined>;
+
 	/** Uses the default variant for this action, which will usually be the first one in the collection. */
 	use(options?: Partial<ActionUseOptions>): Promise<unknown>;
 }

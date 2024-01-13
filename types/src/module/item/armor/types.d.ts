@@ -1,5 +1,4 @@
 import type { ARMOR_CATEGORIES, ARMOR_GROUPS, ARMOR_PROPERTY_RUNE_TYPES } from "./values.ts";
-
 type ArmorCategory = (typeof ARMOR_CATEGORIES)[number];
 type ArmorGroup = (typeof ARMOR_GROUPS)[number];
 type ArmorPropertyRuneType = SetElement<typeof ARMOR_PROPERTY_RUNE_TYPES>;

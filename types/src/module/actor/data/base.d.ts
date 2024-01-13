@@ -115,17 +115,18 @@ interface BaseHitPointsSource {
     /** Any details about hit points. */
     details: string;
 }
+
 type OffGuardableCircumstance =
-/** Flat-footable in all flanking situations */
-true
-/** Flat-footable if the flanker's level is less than or equal to the actor's own */
- | number
-/** Never off-guardable */
- | false;
+	/** Flat-footable in all flanking situations */
+	| true
+	/** Flat-footable if the flanker's level is less than or equal to the actor's own */
+	| number
+	/** Never off-guardable */
+	| false;
 type GangUpCircumstance =
-/** Requires at least `number` allies within melee reach of the target */
-number
-/** Requires the actor's animal companion to be adjacent to the target */
+	/** Requires at least `number` allies within melee reach of the target */
+	| number
+	/** Requires the actor's animal companion to be adjacent to the target */
 	| "animal-companion"
 	/** The Gang Up rogue feat allows allies to flank with the gang-upper */
 	| true;

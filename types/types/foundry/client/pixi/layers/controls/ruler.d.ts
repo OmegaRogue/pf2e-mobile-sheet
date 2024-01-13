@@ -54,6 +54,7 @@ declare global {
 
 		/* -------------------------------------------- */
 		/*  Ruler Methods                               */
+
 		/* -------------------------------------------- */
 
 		/** Clear display of the current Ruler */
@@ -97,6 +98,7 @@ declare global {
 
 		/* -------------------------------------------- */
 		/*  Token Movement Execution                    */
+
 		/* -------------------------------------------- */
 
 		/**
@@ -128,6 +130,7 @@ declare global {
 
 		/* -------------------------------------------- */
 		/*  Event Listeners and Handlers                */
+
 		/* -------------------------------------------- */
 
 		/**
@@ -180,6 +183,7 @@ declare global {
 
 		/* -------------------------------------------- */
 		/*  Saving and Loading                          */
+
 		/* -------------------------------------------- */
 
 		/** Package Ruler data to an object which can be serialized to a string. */

@@ -25,7 +25,6 @@ import type {
 	SKILL_LONG_FORMS,
 	UNAFFECTED_TYPES,
 } from "./values.ts";
-
 type ActorType = (typeof ACTOR_TYPES)[number];
 /** Used exclusively to resolve `ActorPF2e#isOfType` */
 interface ActorInstances<TParent extends TokenDocumentPF2e | null> {
@@ -44,11 +43,12 @@ type EmbeddedItemInstances<TParent extends ActorPF2e> = {
 };
 type AttributeString = SetElement<typeof ATTRIBUTE_ABBREVIATIONS>;
 interface ActorDimensions {
-    length: number;
-    width: number;
-    height: number;
+	length: number;
+	width: number;
+	height: number;
 }
-type SkillAbbreviation = SetElement<typeof SKILL_ABBREVIATIONS>;
+
+type SkillAbbreviation = (typeof SKILL_ABBREVIATIONS)[number];
 type SkillLongForm = SetElement<typeof SKILL_LONG_FORMS>;
 type ActorAlliance = "party" | "opposition" | null;
 type DCSlug = SetElement<typeof DC_SLUGS>;
@@ -201,5 +201,5 @@ export type {
 	SkillLongForm,
 	StrikeSelf,
 	UnaffectedType,
-	WeaknessTyp,
+	WeaknessType,
 };

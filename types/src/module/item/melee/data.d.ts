@@ -27,7 +27,6 @@ interface MeleeSystemSource extends ItemSystemSource {
         value: "melee" | "ranged";
     };
 }
-
 interface MeleeSystemData extends Omit<MeleeSystemSource, "description">, Omit<ItemSystemData, "level" | "traits"> {
 	material: WeaponMaterialData;
 	runes: {

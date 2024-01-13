@@ -24,24 +24,35 @@ declare class SpellPreparationSheet<TActor extends CreaturePF2e> extends ActorSh
 		this
 	>;
 	item: SpellcastingEntryPF2e<TActor>;
+
 	constructor(item: SpellcastingEntryPF2e<TActor>, options: Partial<ActorSheetOptions>);
+
 	static get defaultOptions(): ActorSheetOptions;
+
 	/** Avoid conflicting with the real actor sheet */
 	get id(): string;
+
 	get title(): string;
+
 	/**
 	 * This being an actor sheet saves us from most drag and drop re-implementation,
 	 * but we still have a gotcha in the form of the header buttons.
 	 */
 	protected _getHeaderButtons(): ApplicationHeaderButton[];
+
 	getData(): Promise<SpellPreparationSheetData<TActor>>;
+
 	activateListeners($html: JQuery<HTMLElement>): void;
+
 	/** Filter spells by search query */
 	protected _onSearchFilter(_event: KeyboardEvent, query: string, _rgx: RegExp, html: HTMLElement | null): void;
+
 	/** Allow adding new spells to the shortlist by dragging directly into the window */
 	protected _onDropItemCreate(itemSource: ItemSourcePF2e | ItemSourcePF2e[]): Promise<ItemPF2e<TActor>[]>;
+
 	/** Allow transferring spells between open windows */
 	protected _onSortItem(event: DragEvent, itemData: ItemSourcePF2e): Promise<ItemPF2e[]>;
+
 	/** Override of inner render function to maintain item summary state */
 	protected _renderInner(data: Record<string, unknown>, options: RenderOptions): Promise<JQuery>;
 }

@@ -143,6 +143,7 @@ declare global {
 
 		/* -------------------------------------------- */
 		/*  Properties and Attributes                   */
+
 		/* -------------------------------------------- */
 
 		/** A flag for whether the game Canvas is initialized and ready for drawing. */
@@ -186,6 +187,7 @@ declare global {
 
 		/* -------------------------------------------- */
 		/*  Initialization                              */
+
 		/* -------------------------------------------- */
 
 		/**
@@ -197,6 +199,7 @@ declare global {
 
 		/* -------------------------------------------- */
 		/*  Rendering                                   */
+
 		/* -------------------------------------------- */
 
 		/**
@@ -250,6 +253,7 @@ declare global {
 
 		/* -------------------------------------------- */
 		/*  Methods                                     */
+
 		/* -------------------------------------------- */
 
 		/** Activate framerate tracking by adding an HTML element to the display and refreshing it every frame. */
@@ -313,7 +317,7 @@ declare global {
 		 * @param origin  Point to display Ping at
 		 * @param options Additional options to configure how the ping is drawn.
 		 */
-		ping(origin: Point, options?: Record<string, unknown>): Promise<boolean>;
+		ping(origin: Point, options: Record<string, unknown>): Promise<boolean>;
 
 		/**
 		 * Create a BlurFilter instance and register it to the array for updates when the zoom level changes.

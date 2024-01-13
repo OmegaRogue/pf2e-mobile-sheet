@@ -19,13 +19,21 @@ declare class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 	protected selectedFilter: string | null;
 	/** HTML element to focus on a re-render, such as when new elements are added */
 	protected focusElement: string | null;
+
 	constructor(actor: PartyPF2e, options?: Partial<ActorSheetOptions>);
+
 	get kingdom(): Kingdom;
+
 	get title(): string;
+
 	static get defaultOptions(): ActorSheetOptions;
+
 	protected _getHeaderButtons(): ApplicationHeaderButton[];
+
 	getData(options?: ActorSheetOptions): Promise<KingdomSheetData>;
+
 	activateListeners($html: JQuery<HTMLElement>): void;
+
 	protected filterActions(
 		trait: string | null,
 		options?: {
@@ -34,12 +42,15 @@ declare class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
 	): void;
 
 	protected _onDropItem(event: DragEvent, data: DropCanvasItemDataPF2e): Promise<ItemPF2e[]>;
+
 	/** Handle a drop event for an existing Owned Item to sort that item */
 	protected _onSortItem(event: DragEvent, itemData: ItemSourcePF2e): Promise<ItemPF2e[]>;
 
 	protected _onDropActor(event: DragEvent, data: DropCanvasData<"Actor", PartyPF2e>): Promise<false | void>;
+
 	/** Override to not auto-disable fields on a thing meant to be used by players */
 	protected _disableFields(form: HTMLElement): void;
+
 	protected _updateObject(_event: Event, formData: Record<string, unknown>): Promise<void>;
 }
 interface KingdomSheetData extends ActorSheetDataPF2e<PartyPF2e> {
@@ -71,7 +82,6 @@ interface KingdomSheetData extends ActorSheetDataPF2e<PartyPF2e> {
 	abilityLabels: Record<string, string>;
 	skillLabels: Record<string, string>;
 }
-
 interface ArmySheetData {
 	link: string;
 	document: ArmyPF2e;

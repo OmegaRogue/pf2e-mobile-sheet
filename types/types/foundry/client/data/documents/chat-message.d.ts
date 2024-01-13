@@ -87,6 +87,7 @@ declare global {
 			actor: string | null;
 			alias: string;
 		};
+
 		/**
 		 * A helper to prepare the speaker object based on a target Actor
 		 * @private

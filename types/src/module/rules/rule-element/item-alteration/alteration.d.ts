@@ -30,10 +30,14 @@ declare class ItemAlteration extends foundry.abstract.DataModel<RuleElementPF2e,
 		"strength",
 		"traits",
 	];
+
 	static defineSchema(): ItemAlterationSchema;
+
 	get actor(): ActorPF2e;
+
 	/** Convenience access to the parent rule element's `resolveValue` method */
 	resolveValue(...args: Parameters<RuleElementPF2e["resolveValue"]>): ReturnType<RuleElementPF2e["resolveValue"]>;
+
 	/**
 	 * Apply this alteration to an item (or source)
 	 * @param item The item to be altered

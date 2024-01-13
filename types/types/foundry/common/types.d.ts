@@ -108,10 +108,10 @@ declare global {
 		restricted: boolean;
 	}
 
-    interface SettingsMenuConstructor {
-        new (object?: object, options?: Partial<FormApplicationOptions>): FormApplication;
-        registerSettings(): void;
-    }
+	interface SettingsMenuConstructor {
+		new (object?: object, options?: Partial<FormApplicationOptions>): FormApplication;
+		registerSettings(): void;
+	}
 
     /** A Client Keybinding Action Configuration */
     interface KeybindingActionConfig {
@@ -141,12 +141,12 @@ declare global {
 		order?: number;
 	}
 
-    interface KeybindingActionBinding {
-        /** The KeyboardEvent#code value from https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code/code_values */
-        key: string | null;
-        /** An array of modifiers keys from KeyboardManager.MODIFIER_KEYS which are required for this binding to be activated */
-        modifiers: ModifierKey[];
-    }
+	interface KeybindingActionBinding {
+		/** The KeyboardEvent#code value from https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code/code_values */
+		key: string | null;
+		/** An array of modifiers keys from KeyboardManager.MODIFIER_KEYS which are required for this binding to be activated */
+		modifiers: ModifierKey[];
+	}
 
     /** An action that can occur when a key is pressed */
     interface KeybindingAction {

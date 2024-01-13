@@ -102,7 +102,7 @@ export {
 	damageDiceIcon,
 	deepFindTerms,
 	extractBaseDamage,
-	isFlavoredArithmetic,
+	isFlavoredArithmetic
 	isSystemDamageTerm,
 	looksLikeDamageRoll,
 	nextDamageDieSize,

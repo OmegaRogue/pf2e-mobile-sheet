@@ -147,7 +147,7 @@ declare const LANGUAGES_BY_RARITY: {
 	secret: readonly ["wildsong"];
 };
 declare const LANGUAGES: Language[];
-declare const LANGUAGE_RARITIES: readonly ["common", "uncommon", "rare", "secret"];
+declare const LANGUAGE_RARITIES: readonly ["common", "uncomon", "rare", "secret"];
 export {
 	ALLIANCES,
 	LANGUAGES,

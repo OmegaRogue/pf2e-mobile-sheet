@@ -15,27 +15,38 @@ export declare class MockActor {
 	readonly effects: MockCollection<ActiveEffectPF2e<ActorPF2e>>;
 	prototypeToken: {};
 	_itemGuid: number;
+
 	constructor(data: ActorSourcePF2e, options?: DocumentConstructionContext<null>);
+
 	get id(): string | null;
+
 	get name(): string;
+
 	get system(): ActorSystemSource;
+
 	prepareData(): void;
+
 	update(changes: Record<string, unknown>): void;
+
 	static updateDocuments(
 		updates?: Record<string, unknown>[],
 		_context?: DocumentModificationContext<TokenDocumentPF2e<ScenePF2e | null>>,
 	): Promise<ActorPF2e[]>;
+
 	updateEmbeddedDocuments(
 		type: string,
 		data: {
 			_id: string;
 		}[],
 	): Promise<void>;
+
 	createEmbeddedDocuments(
 		type: string,
 		data: ItemSourcePF2e[],
 		_context: DocumentModificationContext<ActorPF2e>,
 	): Promise<void>;
+
 	deleteEmbeddedDocuments(type: string, ids: string[]): Promise<void>;
+
 	toObject(): ActorSourcePF2e;
 }

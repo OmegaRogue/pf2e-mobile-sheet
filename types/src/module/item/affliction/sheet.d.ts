@@ -7,11 +7,15 @@ import { DamageCategoryUnique } from "@system/damage/types.ts";
 import { AfflictionConditionData, AfflictionStageData } from "./data.ts";
 declare class AfflictionSheetPF2e extends ItemSheetPF2e<AfflictionPF2e> {
 	static get defaultOptions(): ItemSheetOptions;
+
 	getData(options?: Partial<ItemSheetOptions>): Promise<AfflictionSheetData>;
+
 	protected prepareStages(): Promise<Record<string, AfflictionStageSheetData>>;
+
 	activateListeners($html: JQuery<HTMLElement>): void;
 
 	_onDrop(event: DragEvent): Promise<void>;
+
 	protected _updateObject(event: Event, formData: Record<string, unknown>): Promise<void>;
 }
 interface AfflictionSheetData extends ItemSheetDataPF2e<AfflictionPF2e> {

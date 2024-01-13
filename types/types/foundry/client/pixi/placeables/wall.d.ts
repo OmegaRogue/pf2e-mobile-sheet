@@ -16,6 +16,7 @@ declare class Wall<TDocument extends WallDocument<Scene | null>> extends Placeab
 
 	/* -------------------------------------------- */
 	/*  Properties                                  */
+
 	/* -------------------------------------------- */
 
 	/** A convenience reference to the coordinates Array for the Wall endpoints, [x0,y0,x1,y1]. */
@@ -36,6 +37,7 @@ declare class Wall<TDocument extends WallDocument<Scene | null>> extends Placeab
 
 	/* -------------------------------------------- */
 	/*  Methods                                     */
+
 	/* -------------------------------------------- */
 
 	/**
@@ -102,6 +104,7 @@ declare class Wall<TDocument extends WallDocument<Scene | null>> extends Placeab
 
 	/* -------------------------------------------- */
 	/*  Socket Listeners and Handlers               */
+
 	/* -------------------------------------------- */
 
 	protected override _onCreate(
@@ -113,7 +116,7 @@ declare class Wall<TDocument extends WallDocument<Scene | null>> extends Placeab
 	protected override _onUpdate(
 		changed: DeepPartial<TDocument["_source"]>,
 		options: DocumentModificationContext<TDocument["parent"]>,
-		userId: string,
+		userId: strin,
 	): void;
 
 	protected override _onDelete(options: DocumentModificationContext<TDocument["parent"]>, userId: string): void;
@@ -126,6 +129,7 @@ declare class Wall<TDocument extends WallDocument<Scene | null>> extends Placeab
 
 	/* -------------------------------------------- */
 	/*  Interaction Event Callbacks                 */
+
 	/* -------------------------------------------- */
 
 	protected override _canControl(user: User, event?: PIXI.FederatedEvent): boolean;

@@ -21,16 +21,23 @@ declare class AuraRenderer extends PIXI.Graphics implements TokenAuraData {
 	static readonly LINE_THICKNESS = 3;
 	border: import("pixi.js").Graphics;
 	textureContainer: PIXI.Graphics | null;
+
 	constructor(params: AuraRendererParams);
+
 	get bounds(): PIXI.Rectangle;
+
 	/** ID of `GridHighlight` container for this aura's token */
 	get highlightLayer(): GridHighlight | null;
+
 	/** The squares covered by this aura */
 	get squares(): EffectAreaSquare[];
+
 	/** Draw the aura's border and texture */
 	draw(showBorder: boolean): Promise<void>;
+
 	/** Reposition this aura's texture after the token has moved. */
 	repositionTexture(): void;
+
 	/** Highlight the affected grid squares of this aura and indicate the radius */
 	highlight(): void;
 

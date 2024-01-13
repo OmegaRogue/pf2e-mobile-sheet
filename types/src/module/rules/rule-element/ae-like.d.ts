@@ -8,7 +8,9 @@ import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleEl
  */
 declare class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElementPF2e<TSchema> {
 	#private;
+
 	static defineSchema(): AELikeSchema;
+
 	static CHANGE_MODE_DEFAULT_PRIORITIES: {
 		multiply: number;
 		add: number;
@@ -19,15 +21,21 @@ declare class AELikeRuleElement<TSchema extends AELikeSchema> extends RuleElemen
 		override: number;
 	};
 	static PHASES: readonly ["applyAEs", "beforeDerived", "afterDerived", "beforeRoll"];
+
 	static validateJoint(data: SourceFromSchema<AELikeSchema>): void;
+
 	/** Process this rule element during item pre-creation to inform subsequent choice sets. */
 	preCreate(): Promise<void>;
+
 	/** Apply the modifications immediately after proper ActiveEffects are applied */
 	onApplyActiveEffects(): void;
+
 	/** Apply the modifications near the beginning of the actor's derived-data preparation */
 	beforePrepareData(): void;
+
 	/** Apply the modifications at the conclusion of the actor's derived-data preparation */
 	afterPrepareData(): void;
+
 	/** Apply the modifications prior to a Check (roll) */
 	beforeRoll(_domains: string[], rollOptions: Set<string>): void;
 

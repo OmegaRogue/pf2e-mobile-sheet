@@ -92,7 +92,6 @@ interface WeaponSystemSource extends Investable<PhysicalSystemSource> {
 	};
 	selectedAmmoId: string | null;
 }
-
 interface WeaponTraitsSource extends PhysicalItemTraits<WeaponTrait> {
 	otherTags: OtherWeaponTag[];
 	toggles?: {
@@ -104,7 +103,6 @@ interface WeaponTraitsSource extends PhysicalItemTraits<WeaponTrait> {
 		};
 	};
 }
-
 interface WeaponDamage {
 	dice: number;
 	die: DamageDieSize | null;
@@ -113,7 +111,6 @@ interface WeaponDamage {
 	/** Optional persistent damage */
 	persistent: WeaponPersistentDamage | null;
 }
-
 interface WeaponPersistentDamage {
 	/** A number of dice if `faces` is numeric, otherwise a constant */
 	number: number;
@@ -122,7 +119,6 @@ interface WeaponPersistentDamage {
 	/** Usually the same as the weapon's own base damage type, but open for the user to change */
 	type: DamageType;
 }
-
 /** A weapon can either be unspecific or specific along with baseline material and runes */
 type SpecificWeaponData = {
 	material: WeaponMaterialSource;
@@ -131,7 +127,6 @@ type SpecificWeaponData = {
 interface WeaponMaterialSource extends ItemMaterialSource {
     type: WeaponMaterialType | null;
 }
-
 type WeaponRuneSource = {
 	potency: ZeroToFour;
 	striking: ZeroToThree;
@@ -158,7 +153,6 @@ interface WeaponSystemData
 	meleeUsage?: Required<ComboWeaponMeleeUsage>;
 	stackGroup: null;
 }
-
 type SourceOmission = "apex" | "bulk" | "description" | "hp" | "identification" | "price" | "temporary";
 type WeaponUsageDetails = UsageDetails & Required<WeaponSystemSource["usage"]>;
 interface WeaponTraits extends WeaponTraitsSource {
@@ -168,7 +162,6 @@ interface WeaponTraits extends WeaponTraitsSource {
 interface WeaponMaterialData extends ItemMaterialData {
     type: WeaponMaterialType | null;
 }
-
 interface WeaponRuneData extends WeaponRuneSource {
 	effects: WeaponPropertyRuneType[];
 }

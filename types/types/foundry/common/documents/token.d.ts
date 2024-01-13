@@ -8,9 +8,10 @@ import type * as documents from "./module.d.ts";
  * @param data Initial data from which to construct the document.
  * @property data The constructed data object for the document.
  */
-export default class BaseToken<
-	TParent extends documents.BaseScene | null = documents.BaseScene | null,
-> extends abstract.Document<TParent, TokenSchema> {
+export default class BaseToken<TParent extends documents.BaseScene | null = documents.BaseScene | null> extends abstract.Document<
+	TParent,
+	TokenSchema
+> {
 	static override get metadata(): TokenMetadata;
 
 	static override defineSchema(): TokenSchema;

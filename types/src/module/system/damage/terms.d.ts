@@ -42,22 +42,37 @@ type ArithmeticOperator = "+" | "-" | "*" | "/" | "%";
 declare class Grouping extends RollTerm<GroupingData> {
 	#private;
 	term: RollTerm;
+
 	constructor(termData: GroupingData);
+
 	static SERIALIZE_ATTRIBUTES: string[];
+
 	static fromData<TTerm extends RollTerm>(this: ConstructorOf<TTerm>, data: TermDataOf<TTerm>): TTerm;
+
 	get dice(): DiceTerm[];
+
 	/** Show a simplified expression if it is known that order of operations won't be lost */
 	get expression(): string;
+
 	/** Preserve flavor of inner terms */
 	get formula(): string;
+
 	get total(): number | undefined;
+
 	get critImmuneTotal(): number | undefined;
+
 	get isDeterministic(): boolean;
+
 	get minimumValue(): number;
+
 	get expectedValue(): number;
+
 	get maximumValue(): number;
+
 	protected _evaluate(options?: { minimize?: boolean; maximize?: boolean }): Promise<Evaluated<this>>;
+
 	toJSON(): GroupingData;
+
 	/** Construct a string for an HTML rendering of this term */
 	render(): DocumentFragment;
 }

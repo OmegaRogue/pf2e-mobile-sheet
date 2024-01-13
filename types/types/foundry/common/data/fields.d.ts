@@ -702,59 +702,59 @@ export class EmbeddedDocumentField<
  */
 export class EmbeddedCollectionField<
 	TDocument extends abstract.Document<abstract.Document>,
-    TSourceProp extends object[] = SourceFromSchema<TDocument["schema"]["fields"]>[],
-    TRequired extends boolean = true,
-    TNullable extends boolean = false,
-    THasInitial extends boolean = true,
+	TSourceProp extends object[] = SourceFromSchema<TDocument["schema"]["fields"]>[],
+	TRequired extends boolean = true,
+	TNullable extends boolean = false,
+	THasInitial extends boolean = true,
 > extends ArrayField<
-    TDocument["schema"],
-    TSourceProp,
-    abstract.EmbeddedCollection<TDocument>,
-    TRequired,
-    TNullable,
-    THasInitial
+	TDocument["schema"],
+	TSourceProp,
+	abstract.EmbeddedCollection<TDocument>,
+	TRequired,
+	TNullable,
+	THasInitial
 > {
-    /**
-     * @param element The type of Document which belongs to this embedded collection
-     * @param options Options which configure the behavior of the field
-     */
-    constructor(
-        element: ConstructorOf<Document>,
-        options?: ArrayFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>,
-    );
+	/**
+	 * @param element The type of Document which belongs to this embedded collection
+	 * @param options Options which configure the behavior of the field
+	 */
+	constructor(
+		element: ConstructorOf<Document>,
+		options?: ArrayFieldOptions<TSourceProp, TRequired, TNullable, THasInitial>,
+	);
 
-    static override _validateElementType(element: unknown): Document;
+	static override _validateElementType(element: unknown): Document;
 
-    /** A reference to the DataModel subclass of the embedded document element */
-    get model(): ConstructorOf<Document>;
+	/** A reference to the DataModel subclass of the embedded document element */
+	get model(): ConstructorOf<Document>;
 
-    /** The DataSchema of the contained Document model. */
-    get schema(): TDocument["schema"];
+	/** The DataSchema of the contained Document model. */
+	get schema(): TDocument["schema"];
 
-    protected override _cleanType(
-        value: unknown,
-        options?: CleanFieldOptions,
-    ): MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>;
+	protected override _cleanType(
+		value: unknown,
+		options?: CleanFieldOptions,
+	): MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>;
 
-    protected override _validateElements(
-        value: unknown[],
-        options?: Record<string, unknown>,
-    ): DataModelValidationFailure | void;
+	protected override _validateElements(
+		value: unknown[],
+		options?: Record<string, unknown>,
+	): DataModelValidationFailure | void;
 
-    override initialize(
-        _value: unknown,
-        model: ConstructorOf<abstract.DataModel>,
-    ): MaybeSchemaProp<abstract.EmbeddedCollection<TDocument>, TRequired, TNullable, THasInitial>;
+	override initialize(
+		_value: unknown,
+		model: ConstructorOf<abstract.DataModel>,
+	): MaybeSchemaProp<abstract.EmbeddedCollection<TDocument>, TRequired, TNullable, THasInitial>;
 
-    override toObject(
-        value: abstract.EmbeddedCollection<TDocument>,
-    ): MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>;
+	override toObject(
+		value: abstract.EmbeddedCollection<TDocument>,
+	): MaybeSchemaProp<TSourceProp, TRequired, TNullable, THasInitial>;
 
-    override apply(
-        fn: string | ((field: this, value?: unknown, options?: Record<string, unknown>) => unknown),
-        data?: object,
-        options?: Record<string, unknown>,
-    ): unknown;
+	override apply(
+		fn: string | ((field: this, value?: unknown, options?: Record<string, unknown>) => unknown),
+		data?: object,
+		options?: Record<string, unknown>,
+	): unknown;
 }
 
 /**

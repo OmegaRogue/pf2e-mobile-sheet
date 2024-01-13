@@ -139,29 +139,7 @@ export declare const PF2ECONFIG: {
 		cp: string;
 	};
 	preciousMaterialGrades: Record<"low" | "standard" | "high", string>;
-	preciousMaterials: Record<
-		| "abysium"
-		| "adamantine"
-		| "dawnsilver"
-		| "djezet"
-		| "duskwood"
-		| "inubrix"
-		| "noqual"
-		| "orichalcum"
-		| "siccatite"
-		| "silver"
-		| "cold-iron"
-		| "dragonhide"
-		| "grisantian-pelt"
-		| "keep-stone"
-		| "peachwood"
-		| "sisterstone"
-		| "sisterstone-dusk"
-		| "sisterstone-scarlet"
-		| "sovereign-steel"
-		| "warpglass",
-		string
-	>;
+	preciousMaterials: Record<"abysium" | "adamantine" | "dawnsilver" | "djezet" | "duskwood" | "inubrix" | "noqual" | "orichalcum" | "siccatite" | "silver" | "cold-iron" | "dragonhide" | "grisantian-pelt" | "keep-stone" | "peachwood" | "sisterstone" | "sisterstone-dusk" | "sisterstone-scarlet" | "sovereign-steel" | "warpglass", string>;
 	accessoryPropertyRunes: {
 		called: string;
 		dragonsBreath: string;
@@ -199,44 +177,8 @@ export declare const PF2ECONFIG: {
 		water: string;
 		wood: string;
 	};
-	damageTypes: Record<
-		| "acid"
-		| "bleed"
-		| "bludgeoning"
-		| "cold"
-		| "electricity"
-		| "fire"
-		| "force"
-		| "mental"
-		| "piercing"
-		| "poison"
-		| "slashing"
-		| "sonic"
-		| "spirit"
-		| "vitality"
-		| "void"
-		| "untyped",
-		string
-	>;
-	damageRollFlavors: Record<
-		| "acid"
-		| "bleed"
-		| "bludgeoning"
-		| "cold"
-		| "electricity"
-		| "fire"
-		| "force"
-		| "mental"
-		| "piercing"
-		| "poison"
-		| "slashing"
-		| "sonic"
-		| "spirit"
-		| "vitality"
-		| "void"
-		| "untyped",
-		string
-	>;
+	damageTypes: Record<"acid" | "bleed" | "bludgeoning" | "cold" | "electricity" | "fire" | "force" | "mental" | "piercing" | "poison" | "slashing" | "sonic" | "spirit" | "vitality" | "void" | "untyped", string>;
+	damageRollFlavors: Record<"acid" | "bleed" | "bludgeoning" | "cold" | "electricity" | "fire" | "force" | "mental" | "piercing" | "poison" | "slashing" | "sonic" | "spirit" | "vitality" | "void" | "untyped", string>;
 	damageCategories: {
 		energy: string;
 		physical: string;
@@ -269,48 +211,7 @@ export declare const PF2ECONFIG: {
 		water: string;
 		wood: string;
 	};
-	materialDamageEffects: Pick<
-		Record<
-			| "abysium"
-			| "adamantine"
-			| "dawnsilver"
-			| "djezet"
-			| "duskwood"
-			| "inubrix"
-			| "noqual"
-			| "orichalcum"
-			| "siccatite"
-			| "silver"
-			| "cold-iron"
-			| "dragonhide"
-			| "grisantian-pelt"
-			| "keep-stone"
-			| "peachwood"
-			| "sisterstone"
-			| "sisterstone-dusk"
-			| "sisterstone-scarlet"
-			| "sovereign-steel"
-			| "warpglass",
-			string
-		>,
-		| "abysium"
-		| "adamantine"
-		| "dawnsilver"
-		| "djezet"
-		| "duskwood"
-		| "inubrix"
-		| "noqual"
-		| "orichalcum"
-		| "siccatite"
-		| "silver"
-		| "cold-iron"
-		| "keep-stone"
-		| "peachwood"
-		| "sisterstone-dusk"
-		| "sisterstone-scarlet"
-		| "sovereign-steel"
-		| "warpglass"
-	>;
+	materialDamageEffects: Pick<Record<"abysium" | "adamantine" | "dawnsilver" | "djezet" | "duskwood" | "inubrix" | "noqual" | "orichalcum" | "siccatite" | "silver" | "cold-iron" | "dragonhide" | "grisantian-pelt" | "keep-stone" | "peachwood" | "sisterstone" | "sisterstone-dusk" | "sisterstone-scarlet" | "sovereign-steel" | "warpglass", string>, "abysium" | "adamantine" | "dawnsilver" | "djezet" | "duskwood" | "inubrix" | "noqual" | "orichalcum" | "siccatite" | "silver" | "cold-iron" | "keep-stone" | "peachwood" | "sisterstone-dusk" | "sisterstone-scarlet" | "sovereign-steel" | "warpglass">;
 	resistanceTypes: {
 		acid: string;
 		air: string;
@@ -449,368 +350,11 @@ export declare const PF2ECONFIG: {
 		"cold-iron": string;
 	};
 	weaponCategories: Record<"unarmed" | "simple" | "martial" | "advanced", string>;
-	weaponGroups: Record<
-		| "dart"
-		| "knife"
-		| "axe"
-		| "brawling"
-		| "club"
-		| "flail"
-		| "hammer"
-		| "pick"
-		| "polearm"
-		| "shield"
-		| "spear"
-		| "sword"
-		| "bomb"
-		| "bow"
-		| "crossbow"
-		| "firearm"
-		| "sling",
-		string
-	>;
-	meleeWeaponGroups: Record<
-		| "dart"
-		| "knife"
-		| "axe"
-		| "brawling"
-		| "club"
-		| "flail"
-		| "hammer"
-		| "pick"
-		| "polearm"
-		| "shield"
-		| "spear"
-		| "sword",
-		string
-	>;
-	baseArmorTypes: Record<
-		| "armored-cloak"
-		| "armored-coat"
-		| "bastion-plate"
-		| "breastplate"
-		| "buckle-armor"
-		| "ceramic-plate"
-		| "chain-mail"
-		| "chain-shirt"
-		| "coral-armor"
-		| "explorers-clothing"
-		| "fortress-plate"
-		| "full-plate"
-		| "gi"
-		| "half-plate"
-		| "hellknight-breastplate"
-		| "hellknight-half-plate"
-		| "hellknight-plate"
-		| "hide-armor"
-		| "lamellar-breastplate"
-		| "lattice-armor"
-		| "leaf-weave"
-		| "leather-armor"
-		| "leather-lamellar"
-		| "mantis-shell"
-		| "niyahaat"
-		| "o-yoroi"
-		| "padded-armor"
-		| "power-suit"
-		| "quilted-armor"
-		| "sankeit"
-		| "scale-mail"
-		| "scroll-robes"
-		| "splint-mail"
-		| "studded-leather-armor"
-		| "subterfuge-suit"
-		| "wooden-breastplate",
-		string
-	>;
-	baseShieldTypes: Record<
-		| "buckler"
-		| "casters-targe"
-		| "dart-shield"
-		| "fortress-shield"
-		| "gauntlet-buckler"
-		| "harnessed-shield"
-		| "heavy-rondache"
-		| "hide-shield"
-		| "klar"
-		| "meteor-shield"
-		| "razor-disc"
-		| "salvo-shield"
-		| "steel-shield"
-		| "swordstealer-shield"
-		| "tower-shield"
-		| "wooden-shield",
-		string
-	>;
-	baseWeaponTypes: Record<
-		| "dart"
-		| "club"
-		| "flail"
-		| "pick"
-		| "spear"
-		| "crossbow"
-		| "sling"
-		| "adze"
-		| "air-repeater"
-		| "aklys"
-		| "alchemical-bomb"
-		| "alchemical-crossbow"
-		| "aldori-dueling-sword"
-		| "arbalest"
-		| "arquebus"
-		| "asp-coil"
-		| "atlatl"
-		| "axe-musket"
-		| "barricade-buster"
-		| "bastard-sword"
-		| "battle-axe"
-		| "battle-lute"
-		| "battle-saddle"
-		| "bec-de-corbin"
-		| "big-boom-gun"
-		| "black-powder-knuckle-dusters"
-		| "bladed-diabolo"
-		| "bladed-gauntlet"
-		| "bladed-hoop"
-		| "bladed-scarf"
-		| "blowgun"
-		| "blowgun-darts"
-		| "blunderbuss"
-		| "bo-staff"
-		| "boarding-axe"
-		| "boarding-pike"
-		| "bola"
-		| "boomerang"
-		| "bow-staff"
-		| "breaching-pike"
-		| "broadspear"
-		| "butchering-axe"
-		| "butterfly-sword"
-		| "buugeng"
-		| "cane-pistol"
-		| "chain-sword"
-		| "chakram"
-		| "chakri"
-		| "clan-dagger"
-		| "clan-pistol"
-		| "claw"
-		| "claw-blade"
-		| "coat-pistol"
-		| "combat-grapnel"
-		| "combat-lure"
-		| "composite-longbow"
-		| "composite-shortbow"
-		| "corset-knife"
-		| "crescent-cross"
-		| "dagger"
-		| "dagger-pistol"
-		| "daikyu"
-		| "dancers-spear"
-		| "dandpatta"
-		| "dogslicer"
-		| "donchak"
-		| "double-barreled-musket"
-		| "double-barreled-pistol"
-		| "dragon-mouth-pistol"
-		| "dueling-pistol"
-		| "dueling-spear"
-		| "dwarven-dorn-dergar"
-		| "dwarven-scattergun"
-		| "dwarven-war-axe"
-		| "earthbreaker"
-		| "elven-branched-spear"
-		| "elven-curve-blade"
-		| "explosive-dogslicer"
-		| "exquisite-sword-cane"
-		| "exquisite-sword-cane-sheath"
-		| "falcata"
-		| "falchion"
-		| "fangwire"
-		| "fauchard"
-		| "feng-huo-lun"
-		| "fighting-fan"
-		| "fighting-stick"
-		| "filchers-fork"
-		| "fire-lance"
-		| "fire-poi"
-		| "fist"
-		| "flingflenser"
-		| "flintlock-musket"
-		| "flintlock-pistol"
-		| "flying-talon"
-		| "flyssa"
-		| "forked-bipod"
-		| "frying-pan"
-		| "gada"
-		| "gaff"
-		| "gakgung"
-		| "gauntlet"
-		| "gauntlet-bow"
-		| "gill-hook"
-		| "glaive"
-		| "gnome-amalgam-musket"
-		| "gnome-flickmace"
-		| "gnome-hooked-hammer"
-		| "greataxe"
-		| "greatclub"
-		| "greatpick"
-		| "greatsword"
-		| "griffon-cane"
-		| "guisarme"
-		| "gun-sword"
-		| "halberd"
-		| "halfling-sling-staff"
-		| "hammer-gun"
-		| "hand-adze"
-		| "hand-cannon"
-		| "hand-crossbow"
-		| "harmona-gun"
-		| "harpoon"
-		| "hatchet"
-		| "heavy-crossbow"
-		| "hongali-hornbow"
-		| "hook-sword"
-		| "horsechopper"
-		| "injection-spear"
-		| "javelin"
-		| "jaws"
-		| "jezail"
-		| "jiu-huan-dao"
-		| "juggling-club"
-		| "kalis"
-		| "kama"
-		| "karambit"
-		| "katana"
-		| "katar"
-		| "khakkhara"
-		| "khopesh"
-		| "knuckle-duster"
-		| "kris"
-		| "kukri"
-		| "kusarigama"
-		| "lance"
-		| "lancer"
-		| "leiomano"
-		| "light-hammer"
-		| "light-mace"
-		| "light-pick"
-		| "lion-scythe"
-		| "long-air-repeater"
-		| "long-hammer"
-		| "longbow"
-		| "longspear"
-		| "longsword"
-		| "mace"
-		| "mace-multipistol"
-		| "machete"
-		| "main-gauche"
-		| "mambele"
-		| "maul"
-		| "meteor-hammer"
-		| "mikazuki"
-		| "mithral-tree"
-		| "monkeys-fist"
-		| "morningstar"
-		| "naginata"
-		| "nightstick"
-		| "nine-ring-sword"
-		| "nodachi"
-		| "nunchaku"
-		| "ogre-hook"
-		| "orc-knuckle-dagger"
-		| "orc-necksplitter"
-		| "panabas"
-		| "pepperbox"
-		| "phalanx-piercer"
-		| "piercing-wind"
-		| "piranha-kiss"
-		| "poi"
-		| "polytool"
-		| "probing-cane"
-		| "ranseur"
-		| "rapier"
-		| "rapier-pistol"
-		| "reinforced-wheels"
-		| "repeating-crossbow"
-		| "repeating-hand-crossbow"
-		| "repeating-heavy-crossbow"
-		| "rhoka-sword"
-		| "rope-dart"
-		| "rotary-bow"
-		| "rungu"
-		| "sai"
-		| "sansetsukon"
-		| "sap"
-		| "sawtooth-saber"
-		| "scimitar"
-		| "scizore"
-		| "scorpion-whip"
-		| "scourge"
-		| "scythe"
-		| "shauth-lash"
-		| "shears"
-		| "shield-bash"
-		| "shield-boss"
-		| "shield-bow"
-		| "shield-pistol"
-		| "shield-spikes"
-		| "shobhad-longrifle"
-		| "shortbow"
-		| "shortsword"
-		| "shuriken"
-		| "sickle"
-		| "sickle-saber"
-		| "slide-pistol"
-		| "sling-bullets"
-		| "spiked-chain"
-		| "spiked-gauntlet"
-		| "spiral-rapier"
-		| "spoon-gun"
-		| "spraysling"
-		| "staff"
-		| "starknife"
-		| "stiletto-pen"
-		| "sukgung"
-		| "sun-sling"
-		| "switchscythe"
-		| "sword-cane"
-		| "talwar"
-		| "tamchal-chakram"
-		| "taw-launcher"
-		| "tekko-kagi"
-		| "temple-sword"
-		| "tengu-gale-blade"
-		| "thorn-whip"
-		| "three-peaked-tree"
-		| "three-section-naginata"
-		| "throwing-knife"
-		| "thunder-sling"
-		| "thundermace"
-		| "tonfa"
-		| "tri-bladed-katar"
-		| "tricky-pick"
-		| "trident"
-		| "triggerbrand"
-		| "urumi"
-		| "visap"
-		| "wakizashi"
-		| "war-flail"
-		| "war-lance"
-		| "war-razor"
-		| "warhammer"
-		| "wheel-blades"
-		| "wheel-spikes"
-		| "whip"
-		| "whip-claw"
-		| "whip-staff"
-		| "wish-blade"
-		| "wish-knife"
-		| "wooden-taws"
-		| "wrecker"
-		| "wrist-launcher"
-		| "zulfikar",
-		string
-	>;
+	weaponGroups: Record<"dart" | "knife" | "axe" | "brawling" | "club" | "flail" | "hammer" | "pick" | "polearm" | "shield" | "spear" | "sword" | "bomb" | "bow" | "crossbow" | "firearm" | "sling", string>;
+	meleeWeaponGroups: Record<"dart" | "knife" | "axe" | "brawling" | "club" | "flail" | "hammer" | "pick" | "polearm" | "shield" | "spear" | "sword", string>;
+	baseArmorTypes: Record<"armored-cloak" | "armored-coat" | "bastion-plate" | "breastplate" | "buckle-armor" | "ceramic-plate" | "chain-mail" | "chain-shirt" | "coral-armor" | "explorers-clothing" | "fortress-plate" | "full-plate" | "gi" | "half-plate" | "hellknight-breastplate" | "hellknight-half-plate" | "hellknight-plate" | "hide-armor" | "lamellar-breastplate" | "lattice-armor" | "leaf-weave" | "leather-armor" | "leather-lamellar" | "mantis-shell" | "niyahaat" | "o-yoroi" | "padded-armor" | "power-suit" | "quilted-armor" | "sankeit" | "scale-mail" | "scroll-robes" | "splint-mail" | "studded-leather-armor" | "subterfuge-suit" | "wooden-breastplate", string>;
+	baseShieldTypes: Record<"buckler" | "casters-targe" | "dart-shield" | "fortress-shield" | "gauntlet-buckler" | "harnessed-shield" | "heavy-rondache" | "hide-shield" | "klar" | "meteor-shield" | "razor-disc" | "salvo-shield" | "steel-shield" | "swordstealer-shield" | "tower-shield" | "wooden-shield", string>;
+	baseWeaponTypes: Record<"dart" | "club" | "flail" | "pick" | "spear" | "crossbow" | "sling" | "adze" | "air-repeater" | "aklys" | "alchemical-bomb" | "alchemical-crossbow" | "aldori-dueling-sword" | "arbalest" | "arquebus" | "asp-coil" | "atlatl" | "axe-musket" | "barricade-buster" | "bastard-sword" | "battle-axe" | "battle-lute" | "battle-saddle" | "bec-de-corbin" | "big-boom-gun" | "black-powder-knuckle-dusters" | "bladed-diabolo" | "bladed-gauntlet" | "bladed-hoop" | "bladed-scarf" | "blowgun" | "blowgun-darts" | "blunderbuss" | "bo-staff" | "boarding-axe" | "boarding-pike" | "bola" | "boomerang" | "bow-staff" | "breaching-pike" | "broadspear" | "butchering-axe" | "butterfly-sword" | "buugeng" | "cane-pistol" | "chain-sword" | "chakram" | "chakri" | "clan-dagger" | "clan-pistol" | "claw" | "claw-blade" | "coat-pistol" | "combat-grapnel" | "combat-lure" | "composite-longbow" | "composite-shortbow" | "corset-knife" | "crescent-cross" | "dagger" | "dagger-pistol" | "daikyu" | "dancers-spear" | "dandpatta" | "dogslicer" | "donchak" | "double-barreled-musket" | "double-barreled-pistol" | "dragon-mouth-pistol" | "dueling-pistol" | "dueling-spear" | "dwarven-dorn-dergar" | "dwarven-scattergun" | "dwarven-war-axe" | "earthbreaker" | "elven-branched-spear" | "elven-curve-blade" | "explosive-dogslicer" | "exquisite-sword-cane" | "exquisite-sword-cane-sheath" | "falcata" | "falchion" | "fangwire" | "fauchard" | "feng-huo-lun" | "fighting-fan" | "fighting-stick" | "filchers-fork" | "fire-lance" | "fire-poi" | "fist" | "flingflenser" | "flintlock-musket" | "flintlock-pistol" | "flying-talon" | "flyssa" | "forked-bipod" | "frying-pan" | "gada" | "gaff" | "gakgung" | "gauntlet" | "gauntlet-bow" | "gill-hook" | "glaive" | "gnome-amalgam-musket" | "gnome-flickmace" | "gnome-hooked-hammer" | "greataxe" | "greatclub" | "greatpick" | "greatsword" | "griffon-cane" | "guisarme" | "gun-sword" | "halberd" | "halfling-sling-staff" | "hammer-gun" | "hand-adze" | "hand-cannon" | "hand-crossbow" | "harmona-gun" | "harpoon" | "hatchet" | "heavy-crossbow" | "hongali-hornbow" | "hook-sword" | "horsechopper" | "injection-spear" | "javelin" | "jaws" | "jezail" | "jiu-huan-dao" | "juggling-club" | "kalis" | "kama" | "karambit" | "katana" | "katar" | "khakkhara" | "khopesh" | "knuckle-duster" | "kris" | "kukri" | "kusarigama" | "lance" | "lancer" | "leiomano" | "light-hammer" | "light-mace" | "light-pick" | "lion-scythe" | "long-air-repeater" | "long-hammer" | "longbow" | "longspear" | "longsword" | "mace" | "mace-multipistol" | "machete" | "main-gauche" | "mambele" | "maul" | "meteor-hammer" | "mikazuki" | "mithral-tree" | "monkeys-fist" | "morningstar" | "naginata" | "nightstick" | "nine-ring-sword" | "nodachi" | "nunchaku" | "ogre-hook" | "orc-knuckle-dagger" | "orc-necksplitter" | "panabas" | "pepperbox" | "phalanx-piercer" | "piercing-wind" | "piranha-kiss" | "poi" | "polytool" | "probing-cane" | "ranseur" | "rapier" | "rapier-pistol" | "reinforced-wheels" | "repeating-crossbow" | "repeating-hand-crossbow" | "repeating-heavy-crossbow" | "rhoka-sword" | "rope-dart" | "rotary-bow" | "rungu" | "sai" | "sansetsukon" | "sap" | "sawtooth-saber" | "scimitar" | "scizore" | "scorpion-whip" | "scourge" | "scythe" | "shauth-lash" | "shears" | "shield-bash" | "shield-boss" | "shield-bow" | "shield-pistol" | "shield-spikes" | "shobhad-longrifle" | "shortbow" | "shortsword" | "shuriken" | "sickle" | "sickle-saber" | "slide-pistol" | "sling-bullets" | "spiked-chain" | "spiked-gauntlet" | "spiral-rapier" | "spoon-gun" | "spraysling" | "staff" | "starknife" | "stiletto-pen" | "sukgung" | "sun-sling" | "switchscythe" | "sword-cane" | "talwar" | "tamchal-chakram" | "taw-launcher" | "tekko-kagi" | "temple-sword" | "tengu-gale-blade" | "thorn-whip" | "three-peaked-tree" | "three-section-naginata" | "throwing-knife" | "thunder-sling" | "thundermace" | "tonfa" | "tri-bladed-katar" | "tricky-pick" | "trident" | "triggerbrand" | "urumi" | "visap" | "wakizashi" | "war-flail" | "war-lance" | "war-razor" | "warhammer" | "wheel-blades" | "wheel-spikes" | "whip" | "whip-claw" | "whip-staff" | "wish-blade" | "wish-knife" | "wooden-taws" | "wrecker" | "wrist-launcher" | "zulfikar", string>;
 	equivalentWeapons: {
 		readonly "composite-longbow": "longbow";
 		readonly "composite-shortbow": "shortbow";
@@ -965,32 +509,7 @@ export declare const PF2ECONFIG: {
 		unique: string;
 	};
 	magicTraditions: Record<"arcane" | "divine" | "occult" | "primal", string>;
-	classTraits: Record<
-		| "alchemist"
-		| "barbarian"
-		| "bard"
-		| "champion"
-		| "cleric"
-		| "druid"
-		| "fighter"
-		| "gunslinger"
-		| "kineticist"
-		| "inventor"
-		| "investigator"
-		| "magus"
-		| "monk"
-		| "oracle"
-		| "psychic"
-		| "ranger"
-		| "rogue"
-		| "sorcerer"
-		| "summoner"
-		| "swashbuckler"
-		| "thaumaturge"
-		| "witch"
-		| "wizard",
-		string
-	>;
+	classTraits: Record<"alchemist" | "barbarian" | "bard" | "champion" | "cleric" | "druid" | "fighter" | "gunslinger" | "kineticist" | "inventor" | "investigator" | "magus" | "monk" | "oracle" | "psychic" | "ranger" | "rogue" | "sorcerer" | "summoner" | "swashbuckler" | "thaumaturge" | "witch" | "wizard", string>;
 	ancestryTraits: {
 		aberration: string;
 		aiuvarin: string;
@@ -1048,86 +567,10 @@ export declare const PF2ECONFIG: {
 		vanara: string;
 		vishkanya: string;
 	};
-	deityDomains: Record<
-		| "healing"
-		| "magic"
-		| "metal"
-		| "water"
-		| "wood"
-		| "air"
-		| "cold"
-		| "earth"
-		| "fire"
-		| "void"
-		| "wealth"
-		| "abomination"
-		| "ambition"
-		| "change"
-		| "cities"
-		| "confidence"
-		| "creation"
-		| "darkness"
-		| "death"
-		| "decay"
-		| "delirium"
-		| "destruction"
-		| "dreams"
-		| "dust"
-		| "duty"
-		| "family"
-		| "fate"
-		| "freedom"
-		| "glyph"
-		| "indulgence"
-		| "introspection"
-		| "knowledge"
-		| "lightning"
-		| "luck"
-		| "might"
-		| "moon"
-		| "naga"
-		| "nature"
-		| "nightmares"
-		| "pain"
-		| "passion"
-		| "perfection"
-		| "plague"
-		| "protection"
-		| "repose"
-		| "secrecy"
-		| "sorrow"
-		| "soul"
-		| "star"
-		| "sun"
-		| "swarm"
-		| "time"
-		| "toil"
-		| "travel"
-		| "trickery"
-		| "truth"
-		| "tyranny"
-		| "undeath"
-		| "vigil"
-		| "wyrmkin"
-		| "zeal"
-		| "airapocryphal"
-		| "ambitionapocryphal"
-		| "confidenceapocryphal"
-		| "darknessapocryphal"
-		| "deathapocryphal"
-		| "fateapocryphal"
-		| "fireapocryphal"
-		| "indulgenceapocryphal"
-		| "knowledgeapocryphal"
-		| "mightapocryphal"
-		| "secrecyapocryphal"
-		| "travelapocryphal"
-		| "waterapocryphal",
-		{
-			label: string;
-			description: string;
-		}
-	>;
+	deityDomains: Record<"healing" | "magic" | "metal" | "water" | "wood" | "air" | "cold" | "earth" | "fire" | "void" | "wealth" | "abomination" | "ambition" | "change" | "cities" | "confidence" | "creation" | "darkness" | "death" | "decay" | "delirium" | "destruction" | "dreams" | "dust" | "duty" | "family" | "fate" | "freedom" | "glyph" | "indulgence" | "introspection" | "knowledge" | "lightning" | "luck" | "might" | "moon" | "naga" | "nature" | "nightmares" | "pain" | "passion" | "perfection" | "plague" | "protection" | "repose" | "secrecy" | "sorrow" | "soul" | "star" | "sun" | "swarm" | "time" | "toil" | "travel" | "trickery" | "truth" | "tyranny" | "undeath" | "vigil" | "wyrmkin" | "zeal" | "airapocryphal" | "ambitionapocryphal" | "confidenceapocryphal" | "darknessapocryphal" | "deathapocryphal" | "fateapocryphal" | "fireapocryphal" | "indulgenceapocryphal" | "knowledgeapocryphal" | "mightapocryphal" | "secrecyapocryphal" | "travelapocryphal" | "waterapocryphal", {
+		label: string;
+		description: string;
+	}>;
 	weaponTraits: {
 		adjusted: string;
 		alchemical: string;
@@ -3617,229 +3060,202 @@ export declare const PF2ECONFIG: {
 		siege: string;
 		skirmisher: string;
 	};
-	creatureTypes: Pick<
-		{
-			aberration: string;
-			aeon: string;
-			aesir: string;
-			agathion: string;
-			alchemical: string;
-			amphibious: string;
-			angel: string;
-			animal: string;
-			anugobu: string;
-			aquatic: string;
-			archon: string;
-			astral: string;
-			asura: string;
-			azata: string;
-			beast: string;
-			boggard: string;
-			caligni: string;
-			celestial: string;
-			"charau-ka": string;
-			clockwork: string;
-			construct: string;
-			couatl: string;
-			daemon: string;
-			darvakka: string;
-			demon: string;
-			dero: string;
-			devil: string;
-			dinosaur: string;
-			div: string;
-			dragon: string;
-			dream: string;
-			drow: string;
-			duergar: string;
-			eidolon: string;
-			elemental: string;
-			ethereal: string;
-			fey: string;
-			fiend: string;
-			formian: string;
-			fungus: string;
-			genie: string;
-			ghoran: string;
-			ghost: string;
-			ghoul: string;
-			ghul: string;
-			giant: string;
-			golem: string;
-			gremlin: string;
-			grioth: string;
-			hag: string;
-			hantu: string;
-			herald: string;
-			hryngar: string;
-			humanoid: string;
-			ikeshti: string;
-			illusion: string;
-			incorporeal: string;
-			inevitable: string;
-			kami: string;
-			kovintus: string;
-			light: string;
-			lilu: string;
-			locathah: string;
-			mental: string;
-			merfolk: string;
-			mindless: string;
-			minion: string;
-			monitor: string;
-			morlock: string;
-			mortic: string;
-			mummy: string;
-			munavri: string;
-			mutant: string;
-			nindoru: string;
-			nymph: string;
-			oni: string;
-			ooze: string;
-			oread: string;
-			paaridar: string;
-			petitioner: string;
-			phantom: string;
-			plant: string;
-			poison: string;
-			protean: string;
-			psychopomp: string;
-			qlippoth: string;
-			rakshasa: string;
-			reflection: string;
-			sahkil: string;
-			samsaran: string;
-			"sea-devil": string;
-			serpentfolk: string;
-			seugathi: string;
-			shabti: string;
-			shadow: string;
-			shobhad: string;
-			siktempora: string;
-			skelm: string;
-			skulk: string;
-			soulbound: string;
-			spirit: string;
-			sporeborn: string;
-			spriggan: string;
-			stheno: string;
-			summoned: string;
-			swarm: string;
-			tane: string;
-			tanggal: string;
-			time: string;
-			titan: string;
-			troll: string;
-			troop: string;
-			undead: string;
-			urdefhan: string;
-			vampire: string;
-			vanara: string;
-			velstrac: string;
-			wayang: string;
-			werecreature: string;
-			wight: string;
-			"wild-hunt": string;
-			wraith: string;
-			wyrwood: string;
-			xulgath: string;
-			zombie: string;
-			holy: string;
-			unholy: string;
-			arcane: string;
-			divine: string;
-			occult: string;
-			primal: string;
-			acid: string;
-			cold: string;
-			electricity: string;
-			fire: string;
-			force: string;
-			sonic: string;
-			vitality: string;
-			void: string;
-			air: string;
-			earth: string;
-			metal: string;
-			water: string;
-			wood: string;
-			aiuvarin: string;
-			anadi: string;
-			android: string;
-			aphorite: string;
-			ardande: string;
-			automaton: string;
-			azarketi: string;
-			beastkin: string;
-			catfolk: string;
-			changeling: string;
-			conrasu: string;
-			dhampir: string;
-			dromaar: string;
-			duskwalker: string;
-			dwarf: string;
-			elf: string;
-			fetchling: string;
-			fleshwarp: string;
-			ganzi: string;
-			geniekin: string;
-			gnoll: string;
-			gnome: string;
-			goblin: string;
-			goloma: string;
-			grippli: string;
-			halfling: string;
-			hobgoblin: string;
-			human: string;
-			kashrishi: string;
-			kitsune: string;
-			kobold: string;
-			leshy: string;
-			lizardfolk: string;
-			nagaji: string;
-			naari: string;
-			nephilim: string;
-			orc: string;
-			poppet: string;
-			ratfolk: string;
-			shisk: string;
-			shoony: string;
-			skeleton: string;
-			sprite: string;
-			strix: string;
-			suli: string;
-			sylph: string;
-			talos: string;
-			tengu: string;
-			undine: string;
-			vishkanya: string;
-		},
-		| "plant"
-		| "spirit"
-		| "vitality"
-		| "void"
-		| "time"
-		| "fungus"
-		| "shadow"
-		| "aberration"
-		| "animal"
-		| "astral"
-		| "beast"
-		| "celestial"
-		| "construct"
-		| "dragon"
-		| "dream"
-		| "elemental"
-		| "ethereal"
-		| "fey"
-		| "fiend"
-		| "giant"
-		| "humanoid"
-		| "monitor"
-		| "ooze"
-		| "petitioner"
-		| "undead"
-	>;
+	creatureTypes: Pick<{
+		aberration: string;
+		aeon: string;
+		aesir: string;
+		agathion: string;
+		alchemical: string;
+		amphibious: string;
+		angel: string;
+		animal: string;
+		anugobu: string;
+		aquatic: string;
+		archon: string;
+		astral: string;
+		asura: string;
+		azata: string;
+		beast: string;
+		boggard: string;
+		caligni: string;
+		celestial: string;
+		"charau-ka": string;
+		clockwork: string;
+		construct: string;
+		couatl: string;
+		daemon: string;
+		darvakka: string;
+		demon: string;
+		dero: string;
+		devil: string;
+		dinosaur: string;
+		div: string;
+		dragon: string;
+		dream: string;
+		drow: string;
+		duergar: string;
+		eidolon: string;
+		elemental: string;
+		ethereal: string;
+		fey: string;
+		fiend: string;
+		formian: string;
+		fungus: string;
+		genie: string;
+		ghoran: string;
+		ghost: string;
+		ghoul: string;
+		ghul: string;
+		giant: string;
+		golem: string;
+		gremlin: string;
+		grioth: string;
+		hag: string;
+		hantu: string;
+		herald: string;
+		hryngar: string;
+		humanoid: string;
+		ikeshti: string;
+		illusion: string;
+		incorporeal: string;
+		inevitable: string;
+		kami: string;
+		kovintus: string;
+		light: string;
+		lilu: string;
+		locathah: string;
+		mental: string;
+		merfolk: string;
+		mindless: string;
+		minion: string;
+		monitor: string;
+		morlock: string;
+		mortic: string;
+		mummy: string;
+		munavri: string;
+		mutant: string;
+		nindoru: string;
+		nymph: string;
+		oni: string;
+		ooze: string;
+		oread: string;
+		paaridar: string;
+		petitioner: string;
+		phantom: string;
+		plant: string;
+		poison: string;
+		protean: string;
+		psychopomp: string;
+		qlippoth: string;
+		rakshasa: string;
+		reflection: string;
+		sahkil: string;
+		samsaran: string;
+		"sea-devil": string;
+		serpentfolk: string;
+		seugathi: string;
+		shabti: string;
+		shadow: string;
+		shobhad: string;
+		siktempora: string;
+		skelm: string;
+		skulk: string;
+		soulbound: string;
+		spirit: string;
+		sporeborn: string;
+		spriggan: string;
+		stheno: string;
+		summoned: string;
+		swarm: string;
+		tane: string;
+		tanggal: string;
+		time: string;
+		titan: string;
+		troll: string;
+		troop: string;
+		undead: string;
+		urdefhan: string;
+		vampire: string;
+		vanara: string;
+		velstrac: string;
+		wayang: string;
+		werecreature: string;
+		wight: string;
+		"wild-hunt": string;
+		wraith: string;
+		wyrwood: string;
+		xulgath: string;
+		zombie: string;
+		holy: string;
+		unholy: string;
+		arcane: string;
+		divine: string;
+		occult: string;
+		primal: string;
+		acid: string;
+		cold: string;
+		electricity: string;
+		fire: string;
+		force: string;
+		sonic: string;
+		vitality: string;
+		void: string;
+		air: string;
+		earth: string;
+		metal: string;
+		water: string;
+		wood: string;
+		aiuvarin: string;
+		anadi: string;
+		android: string;
+		aphorite: string;
+		ardande: string;
+		automaton: string;
+		azarketi: string;
+		beastkin: string;
+		catfolk: string;
+		changeling: string;
+		conrasu: string;
+		dhampir: string;
+		dromaar: string;
+		duskwalker: string;
+		dwarf: string;
+		elf: string;
+		fetchling: string;
+		fleshwarp: string;
+		ganzi: string;
+		geniekin: string;
+		gnoll: string;
+		gnome: string;
+		goblin: string;
+		goloma: string;
+		grippli: string;
+		halfling: string;
+		hobgoblin: string;
+		human: string;
+		kashrishi: string;
+		kitsune: string;
+		kobold: string;
+		leshy: string;
+		lizardfolk: string;
+		nagaji: string;
+		naari: string;
+		nephilim: string;
+		orc: string;
+		poppet: string;
+		ratfolk: string;
+		shisk: string;
+		shoony: string;
+		skeleton: string;
+		sprite: string;
+		strix: string;
+		suli: string;
+		sylph: string;
+		talos: string;
+		tengu: string;
+		undine: string;
+		vishkanya: string;
+	}, "plant" | "spirit" | "vitality" | "void" | "time" | "fungus" | "shadow" | "aberration" | "animal" | "astral" | "beast" | "celestial" | "construct" | "dragon" | "dream" | "elemental" | "ethereal" | "fey" | "fiend" | "giant" | "humanoid" | "monitor" | "ooze" | "petitioner" | "undead">;
 	weaponHands: {
 		1: string;
 		"1+": string;
@@ -3876,25 +3292,7 @@ export declare const PF2ECONFIG: {
 	weaponReload: Record<WeaponReloadTime, string>;
 	armorCategories: Record<"light" | "unarmored" | "medium" | "heavy" | "light-barding" | "heavy-barding", string>;
 	armorGroups: Record<"wood" | "chain" | "cloth" | "composite" | "leather" | "plate" | "skeletal", string>;
-	consumableCategories: Record<
-		| "poison"
-		| "ammo"
-		| "catalyst"
-		| "drug"
-		| "elixir"
-		| "fulu"
-		| "gadget"
-		| "mutagen"
-		| "oil"
-		| "other"
-		| "potion"
-		| "scroll"
-		| "snare"
-		| "talisman"
-		| "toolkit"
-		| "wand",
-		string
-	>;
+	consumableCategories: Record<"poison" | "ammo" | "catalyst" | "drug" | "elixir" | "fulu" | "gadget" | "mutagen" | "oil" | "other" | "potion" | "scroll" | "snare" | "talisman" | "toolkit" | "wand", string>;
 	identification: {
 		DisplayDetails: string;
 		Identified: string;
@@ -4013,19 +3411,7 @@ export declare const PF2ECONFIG: {
 		M: string;
 		F: string;
 	};
-	featCategories: Record<
-		| "curse"
-		| "ancestry"
-		| "bonus"
-		| "class"
-		| "general"
-		| "skill"
-		| "ancestryfeature"
-		| "classfeature"
-		| "deityboon"
-		| "pfsboon",
-		string
-	>;
+	featCategories: Record<"curse" | "ancestry" | "bonus" | "class" | "general" | "skill" | "ancestryfeature" | "classfeature" | "deityboon" | "pfsboon", string>;
 	actionTypes: {
 		action: string;
 		reaction: string;
@@ -4063,13 +3449,7 @@ export declare const PF2ECONFIG: {
 		unlimited: string;
 		encounter: string;
 	};
-	proficiencyLevels: readonly [
-		"PF2E.ProficiencyLevel0",
-		"PF2E.ProficiencyLevel1",
-		"PF2E.ProficiencyLevel2",
-		"PF2E.ProficiencyLevel3",
-		"PF2E.ProficiencyLevel4",
-	];
+	proficiencyLevels: readonly ["PF2E.ProficiencyLevel0", "PF2E.ProficiencyLevel1", "PF2E.ProficiencyLevel2", "PF2E.ProficiencyLevel3", "PF2E.ProficiencyLevel4"];
 	proficiencyRanks: {
 		readonly untrained: "PF2E.ProficiencyLevel0";
 		readonly trained: "PF2E.ProficiencyLevel1";
@@ -4087,70 +3467,9 @@ export declare const PF2ECONFIG: {
 		prerequisite4: string;
 		prerequisite5: string;
 	};
-	senses: Record<
-		| "darkvision"
-		| "echolocation"
-		| "greater-darkvision"
-		| "infrared-vision"
-		| "lifesense"
-		| "low-light-vision"
-		| "motion-sense"
-		| "scent"
-		| "see-invisibility"
-		| "spiritsense"
-		| "thoughtsense"
-		| "tremorsense"
-		| "truesight"
-		| "wavesense",
-		string
-	>;
+	senses: Record<"darkvision" | "echolocation" | "greater-darkvision" | "infrared-vision" | "lifesense" | "low-light-vision" | "motion-sense" | "scent" | "see-invisibility" | "spiritsense" | "thoughtsense" | "tremorsense" | "truesight" | "wavesense", string>;
 	senseAcuities: Record<SenseAcuity, string>;
-	conditionTypes: Record<
-		| "blinded"
-		| "broken"
-		| "clumsy"
-		| "confused"
-		| "controlled"
-		| "dazzled"
-		| "deafened"
-		| "doomed"
-		| "drained"
-		| "enfeebled"
-		| "fascinated"
-		| "fatigued"
-		| "fleeing"
-		| "frightened"
-		| "grabbed"
-		| "hidden"
-		| "immobilized"
-		| "off-guard"
-		| "paralyzed"
-		| "petrified"
-		| "prone"
-		| "restrained"
-		| "sickened"
-		| "slowed"
-		| "stunned"
-		| "stupefied"
-		| "unconscious"
-		| "wounded"
-		| "concealed"
-		| "dying"
-		| "encumbered"
-		| "friendly"
-		| "helpful"
-		| "hostile"
-		| "indifferent"
-		| "invisible"
-		| "malevolence"
-		| "observed"
-		| "persistent-damage"
-		| "quickened"
-		| "undetected"
-		| "unfriendly"
-		| "unnoticed",
-		string
-	>;
+	conditionTypes: Record<"blinded" | "broken" | "clumsy" | "confused" | "controlled" | "dazzled" | "deafened" | "doomed" | "drained" | "enfeebled" | "fascinated" | "fatigued" | "fleeing" | "frightened" | "grabbed" | "hidden" | "immobilized" | "off-guard" | "paralyzed" | "petrified" | "prone" | "restrained" | "sickened" | "slowed" | "stunned" | "stupefied" | "unconscious" | "wounded" | "concealed" | "dying" | "encumbered" | "friendly" | "helpful" | "hostile" | "indifferent" | "invisible" | "malevolence" | "observed" | "persistent-damage" | "quickened" | "undetected" | "unfriendly" | "unnoticed", string>;
 	pfsFactions: {
 		EA: string;
 		GA: string;
@@ -6508,32 +5827,7 @@ export declare const PF2ECONFIG: {
 				vanara: string;
 				vishkanya: string;
 			};
-			kit: Record<
-				| "alchemist"
-				| "barbarian"
-				| "bard"
-				| "champion"
-				| "cleric"
-				| "druid"
-				| "fighter"
-				| "gunslinger"
-				| "kineticist"
-				| "inventor"
-				| "investigator"
-				| "magus"
-				| "monk"
-				| "oracle"
-				| "psychic"
-				| "ranger"
-				| "rogue"
-				| "sorcerer"
-				| "summoner"
-				| "swashbuckler"
-				| "thaumaturge"
-				| "witch"
-				| "wizard",
-				string
-			>;
+			kit: Record<"alchemist" | "barbarian" | "bard" | "champion" | "cleric" | "druid" | "fighter" | "gunslinger" | "kineticist" | "inventor" | "investigator" | "magus" | "monk" | "oracle" | "psychic" | "ranger" | "rogue" | "sorcerer" | "summoner" | "swashbuckler" | "thaumaturge" | "witch" | "wizard", string>;
 			melee: {
 				curse: string;
 				"deadly-2d8": string;

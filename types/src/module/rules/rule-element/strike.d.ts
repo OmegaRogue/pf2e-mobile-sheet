@@ -35,11 +35,11 @@ declare class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
     /** Toggle the modular or versatile trait of this strike's weapon */
     toggleTrait({ trait, selection }: UpdateToggleParams): Promise<void>;
 }
-
 interface StrikeRuleElement extends RuleElementPF2e<StrikeSchema>, ModelPropsFromRESchema<StrikeSchema> {
 	slug: string;
 	fist: boolean;
 	options: string[];
+
 	get actor(): CharacterPF2e | NPCPF2e;
 }
 type StrikeSchema = RuleElementSchema & {

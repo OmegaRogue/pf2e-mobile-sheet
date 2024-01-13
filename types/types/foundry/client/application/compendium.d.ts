@@ -14,6 +14,7 @@ declare class Compendium<TDocument extends CompendiumDocument> extends Applicati
 
 	/* ----------------------------------------- */
 	/*  Rendering                                */
+
 	/* ----------------------------------------- */
 
 	getData(options: ApplicationOptions): ApplicationOptions;
@@ -22,6 +23,7 @@ declare class Compendium<TDocument extends CompendiumDocument> extends Applicati
 
 	/* -------------------------------------------- */
 	/*  Event Listeners and Handlers                */
+
 	/* -------------------------------------------- */
 
 	activateListeners(html: JQuery): void;

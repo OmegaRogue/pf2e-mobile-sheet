@@ -18,6 +18,5 @@ declare function perform(
 		variant: PerformVariant;
 	} & SkillActionOptions,
 ): void;
-
 declare const action: SingleCheckAction;
 export { perform as legacy, action };

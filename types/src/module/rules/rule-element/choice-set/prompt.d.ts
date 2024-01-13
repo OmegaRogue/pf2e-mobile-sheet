@@ -14,16 +14,25 @@ declare class ChoiceSetPrompt extends PickAThingPrompt<string | number | object>
 		label: string | null;
 		predicate: PredicatePF2e;
 	} | null;
+
 	constructor(data: ChoiceSetPromptData);
+
 	static get defaultOptions(): ApplicationOptions;
+
 	getData(options?: Partial<ApplicationOptions>): Promise<ChoiceSetTemplateData>;
+
 	protected getChoices(): PickableThing[];
+
 	setChoices(choices: PickableThing[]): void;
+
 	activateListeners($html: JQuery): void;
+
 	/** Return early if there is only one choice */
 	resolveSelection(): Promise<PickableThing<string | number | object> | null>;
+
 	/** Handle a dropped homebrew item */
 	protected _onDrop(event: DragEvent): Promise<void>;
+
 	protected _canDragDrop(): boolean;
 }
 interface ChoiceSetPrompt extends PickAThingPrompt<string | number | object> {

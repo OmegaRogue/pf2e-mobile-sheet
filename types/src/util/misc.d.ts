@@ -108,7 +108,6 @@ declare function isImageFilePath(path: unknown): path is ImageFilePath;
 /** Does the parameter look like a video file path? */
 declare function isVideoFilePath(path: unknown): path is ImageFilePath;
 declare function isImageOrVideoPath(path: unknown): path is ImageFilePath | VideoFilePath;
-
 declare const SORTABLE_BASE_OPTIONS: Sortable.Options;
 export {
 	ErrorPF2e,
@@ -139,5 +138,5 @@ export {
 	sortObjByKey,
 	sortStringRecord,
 	tupleHasValue,
-	type SlugCamel,
+	ype SlugCamel,
 };

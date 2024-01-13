@@ -23,6 +23,7 @@ declare global {
 
 		/* -------------------------------------------- */
 		/*  Methods                                     */
+
 		/* -------------------------------------------- */
 
 		override close(options?: { force?: boolean }): Promise<void>;
@@ -35,6 +36,7 @@ declare global {
 
 		/* -------------------------------------------- */
 		/*  Event Listeners                             */
+
 		/* -------------------------------------------- */
 
 		/** Handle requests to configure the prototype Token for the Actor */
@@ -52,6 +54,7 @@ declare global {
 
 		/* -------------------------------------------- */
 		/*  Drag and Drop                               */
+
 		/* -------------------------------------------- */
 
 		protected override _canDragStart(selector: string): boolean;

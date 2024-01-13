@@ -92,7 +92,6 @@ interface WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extend
     system: WeaponSystemData;
     get traits(): Set<WeaponTrait>;
 }
-
 interface WeaponConstructionContext<TParent extends ActorPF2e | null> extends PhysicalItemConstructionContext<TParent> {
 	shield?: ShieldPF2e<TParent>;
 }

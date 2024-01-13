@@ -4,12 +4,10 @@ declare class UserVisibilityPF2e {
     static process(html: HTMLElement, options?: ProcessOptions): void;
     static processMessageSender(message: ChatMessagePF2e, html: HTMLElement): void;
 }
-
 declare const USER_VISIBILITIES: Set<"none" | "all" | "owner" | "gm">;
 type UserVisibility = SetElement<typeof USER_VISIBILITIES>;
 interface ProcessOptions {
     document?: ClientDocument | null;
     message?: ChatMessagePF2e | null;
 }
-
 export { USER_VISIBILITIES, UserVisibilityPF2e, type UserVisibility };

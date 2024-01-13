@@ -11,7 +11,6 @@ declare class SenseRuleElement extends RuleElementPF2e<SenseRuleSchema> {
     static defineSchema(): SenseRuleSchema;
     beforePrepareData(): void;
 }
-
 interface SenseRuleElement extends RuleElementPF2e<SenseRuleSchema>, ModelPropsFromRESchema<SenseRuleSchema> {
 	get actor(): CharacterPF2e | FamiliarPF2e;
 }

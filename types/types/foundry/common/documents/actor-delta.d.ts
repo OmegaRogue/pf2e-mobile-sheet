@@ -12,10 +12,7 @@ import type * as documents from "./module.d.ts";
  * @param data    Initial data used to construct the ActorDelta.
  * @param context Construction context options.
  */
-export default class BaseActorDelta<TParent extends documents.BaseToken | null> extends abstract.Document<
-	TParent,
-	ActorDeltaSchema
-> {
+export default class BaseActorDelta<TParent extends documents.BaseToken | null> extends abstract.Document<TParent, ActorDeltaSchema> {
 	/* -------------------------------------------- */
 	/*  Model Configuration                         */
 	/* -------------------------------------------- */
@@ -32,7 +29,7 @@ export default class BaseActorDelta<TParent extends documents.BaseToken | null> 
 		{ exact }?: { exact?: boolean },
 	): boolean;
 
-	/* ------------------------------------------- */
+	/* -------------------------------------------- */
 	/*  Methods                                     */
 
 	/* -------------------------------------------- */
@@ -54,7 +51,7 @@ export default class BaseActorDelta<TParent extends documents.BaseToken | null> 
 		delta: BaseActorDelta<documents.BaseToken | null>,
 		baseActor: documents.BaseActor,
 		context?: DocumentConstructionContext<documents.BaseToken | null>,
-	): documents.BaseAtor;
+	): documents.BaseActor;
 }
 
 export default interface BaseActorDelta<TParent extends documents.BaseToken | null>

@@ -17,7 +17,6 @@ interface ArmorSheetData extends PhysicalItemSheetData<ArmorPF2e> {
 	runeTypes: typeof RUNE_DATA.armor;
 	specificMagicData: SpecificArmorData;
 }
-
 interface PropertyRuneSheetSlot {
 	slug: string | null;
 	label: string | null;

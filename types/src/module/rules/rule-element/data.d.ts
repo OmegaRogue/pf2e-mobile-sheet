@@ -46,7 +46,6 @@ declare class ResolvableValueField<TRequired extends boolean, TNullable extends 
     protected _cast(value: unknown): unknown;
     protected _cleanType(value: RuleValue): RuleValue;
 }
-
 type ModelPropsFromRESchema<TSchema extends RuleElementSchema> = Omit<ModelPropsFromSchema<TSchema>, "label">;
 export { ResolvableValueField };
 export type { Bracket, BracketedValue, ModelPropsFromRESchema, RuleElementSchema, RuleElementSource, RuleValue };

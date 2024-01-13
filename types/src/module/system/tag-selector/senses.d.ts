@@ -15,7 +15,6 @@ declare class SenseSelector<TActor extends ActorPF2e> extends BaseTagSelector<TA
     protected _onSubmit(event: Event, options?: OnSubmitFormOptions | undefined): Promise<Record<string, unknown> | false>;
     protected _updateObject(event: Event, formData: SenseFormData): Promise<void>;
 }
-
 interface SenseSelector<TActor extends ActorPF2e> extends BaseTagSelector<TActor> {
 	choices: Record<SenseType, string>;
 }
@@ -38,7 +37,6 @@ interface SenseChoiceData {
 	canSetRange: boolean;
 	source: string | null;
 }
-
 type SenseFormData = {
 	"system.perception.vision"?: boolean;
 } & Record<string, [boolean, string, number | null]>;

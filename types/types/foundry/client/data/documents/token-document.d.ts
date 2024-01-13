@@ -43,6 +43,7 @@ declare global {
 
 		/* -------------------------------------------- */
 		/*  Methods                                     */
+
 		/* -------------------------------------------- */
 
 		override prepareBaseData(): void;
@@ -87,6 +88,7 @@ declare global {
 
 		/* -------------------------------------------- */
 		/*  Actor Data Operations                       */
+
 		/* -------------------------------------------- */
 
 		/**
@@ -104,6 +106,7 @@ declare global {
 
 		/* -------------------------------------------- */
 		/*  Event Handlers                              */
+
 		/* -------------------------------------------- */
 
 		protected override _preUpdate(
@@ -201,14 +204,16 @@ declare global {
 		delta: ActorDelta<this> | null;
 
 		get object(): Token<this> | null;
+
 		get sheet(): TokenConfig<this>;
+
 		get uuid(): TokenDocumentUUID;
 	}
 
-    interface TokenDocumentConstructionContext<TParent extends Scene | null, TActor extends Actor<TokenDocument> | null>
-        extends DocumentConstructionContext<TParent> {
-        actor?: TActor;
-    }
+	interface TokenDocumentConstructionContext<TParent extends Scene | null, TActor extends Actor<TokenDocument> | null>
+		extends DocumentConstructionContext<TParent> {
+		actor?: TActor;
+	}
 
     interface TokenUpdateContext<TParent extends Scene | null> extends DocumentModificationContext<TParent> {
         action?: "create" | "update" | "delete";

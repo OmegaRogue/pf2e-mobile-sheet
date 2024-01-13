@@ -26,24 +26,32 @@ import { CHARACTER_SHEET_TABS } from "./values.ts";
 declare class CharacterSheetPF2e<TActor extends CharacterPF2e> extends CreatureSheetPF2e<TActor> {
 	#private;
 	protected readonly actorConfigClass: typeof CharacterConfig;
+
 	static get defaultOptions(): ActorSheetOptions;
+
 	get template(): string;
+
 	getData(options?: ActorSheetOptions): Promise<CharacterSheetData<TActor>>;
+
 	/** Organize and classify Items for Character sheets */
 	prepareItems(sheetData: ActorSheetDataPF2e<CharacterPF2e>): Promise<void>;
+
 	protected prepareInventoryItem(item: PhysicalItemPF2e): InventoryItem;
 
 	/** Overriden to open sub-tabs if requested */
 	protected openTab(name: string): void;
+
 	activateListeners($html: JQuery): void;
 
 	protected activateClickListener(html: HTMLElement): SheetClickActionHandlers;
+
 	/** Toggle availability of the roll-initiative link on the sidebar */
 	toggleInitiativeLink(link?: HTMLElement | null): void;
 
 	protected _onDropItem(event: DragEvent, data: DropCanvasItemDataPF2e): Promise<ItemPF2e[]>;
 
 	protected _onDrop(event: DragEvent): Promise<boolean | void>;
+
 	/** Handle a drop event for an existing Owned Item to sort that item */
 	protected _onSortItem(event: DragEvent, itemData: ItemSourcePF2e): Promise<ItemPF2e[]>;
 
@@ -141,14 +149,12 @@ interface CharacterSheetData<TActor extends CharacterPF2e = CharacterPF2e> exten
 	senses: Sense[];
 	speeds: SpeedSheetData[];
 }
-
 type LanguageSheetData = {
 	slug: Language | null;
 	label: string;
 	tooltip: string | null;
 	overLimit: boolean;
 };
-
 interface SpeedSheetData {
 	slug: string;
 	icon: string;

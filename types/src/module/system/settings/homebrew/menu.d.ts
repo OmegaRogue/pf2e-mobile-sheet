@@ -18,8 +18,11 @@ declare class HomebrewElements extends SettingsMenuPF2e {
 	#private;
 	static readonly namespace = "homebrew";
 	languagesManager: LanguagesManager;
+
 	static get reservedTerms(): ReservedTermsRecord;
+
 	static get SETTINGS(): string[];
+
 	static get defaultOptions(): FormApplicationOptions;
 
 	protected static campaignSettings: {
@@ -39,17 +42,24 @@ declare class HomebrewElements extends SettingsMenuPF2e {
 			onChange: () => Promise<void>;
 		};
 	};
+
 	protected static get traitSettings(): Record<HomebrewTraitKey, PartialSettingsData>;
+
 	protected static get settings(): Record<HomebrewKey, PartialSettingsData>;
+
 	activateListeners($html: JQuery): void;
+
 	getData(): Promise<HomebrewElementsSheetData>;
+
 	/** Tagify sets an empty input field to "" instead of "[]", which later causes the JSON parse to throw an error */
 	protected _onSubmit(event: Event, options?: OnSubmitFormOptions): Promise<Record<string, unknown> | false>;
+
 	protected _getSubmitData(updateData?: Record<string, unknown> | undefined): Record<string, unknown>;
+
 	protected _updateObject(event: Event, data: Record<HomebrewTraitKey, HomebrewTag[]>): Promise<void>;
+
 	onInit(): void;
 }
-
 /** A helper class for managing languages and their rarities */
 declare class LanguagesManager {
 	#private;

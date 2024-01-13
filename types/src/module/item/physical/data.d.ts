@@ -55,7 +55,6 @@ interface ItemMaterialSource {
     grade: PreciousMaterialGrade | null;
     type: PreciousMaterialType | null;
 }
-
 interface PhysicalSystemData extends Omit<PhysicalSystemSource, "description">, Omit<ItemSystemData, "level"> {
 	apex?: {
 		attribute: AttributeString;

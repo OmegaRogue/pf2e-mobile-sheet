@@ -88,7 +88,6 @@ interface MartialProficiencySource {
 	rank: ZeroToFour;
 	custom?: boolean;
 }
-
 interface CharacterAttributesSource extends ActorAttributesSource {
 	hp: {
 		value: number;
@@ -251,7 +250,6 @@ interface CharacterSystemData extends Omit<CharacterSystemSource, SourceOmission
 	};
 	exploration: string[];
 }
-
 type SourceOmission = "customModifiers" | "perception" | "resources" | "saves" | "traits";
 interface CharacterSkillData extends SkillData {
 	attribute: AttributeString;
@@ -269,15 +267,13 @@ interface CharacterAbilityData extends AbilityData {
     base: number;
 }
 interface CharacterBuildData {
-    attributes: AttributeBoosts;
+	attributes: AttributeBoosts;
 	languages: LanguageBuildData;
 }
-
 interface LanguageBuildData extends ValueAndMax {
 	/** Specific languages granted by ancestry, feats, etc., that do not count against the character's maximum */
 	granted: GrantedLanguage[];
 }
-
 /** A language added by some freature (typically ancestry) that doesn't count against the character's maximum */
 interface GrantedLanguage {
 	slug: Language;
@@ -394,7 +390,6 @@ interface CharacterResources extends CreatureResources {
     };
     resolve?: ValueAndMax;
 }
-
 interface CharacterPerceptionData extends CreaturePerceptionData {
 	rank: ZeroToFour;
 }

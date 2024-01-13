@@ -11,7 +11,6 @@ export declare class WeaponSheetPF2e extends PhysicalItemSheetPF2e<WeaponPF2e> {
     activateListeners($html: JQuery): void;
     protected _updateObject(event: Event, formData: Record<string, unknown>): Promise<void>;
 }
-
 interface PropertyRuneSheetSlot {
 	slug: string | null;
 	label: string | null;

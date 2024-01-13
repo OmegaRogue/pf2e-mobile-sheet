@@ -2,9 +2,13 @@ import { log } from "./utils.js";
 import { id as MODULE_ID } from "../../static/module.json";
 
 async function getDistance(sourceId: string, targetId: string): Promise<number> {
-	return canvas.grid.measureDistance(canvas.tokens.get(sourceId)?.center, canvas.tokens.get(targetId)?.center, {
-		gridSpaces: true,
-	});
+	return canvas.grid.measureDistance(
+		canvas.tokens.get(sourceId)?.center,
+		canvas.tokens.get(targetId)?.center,
+		// 	{
+		// 	gridSpaces: true,
+		// }
+	);
 }
 
 // async function socketTarget(tokenDocumentId: string, userSourceId: string, releaseOthers: boolean): Promise<void> {
@@ -18,25 +22,25 @@ async function getDistance(sourceId: string, targetId: string): Promise<number> 
 // 	token?.setTarget(doTarget, { user: user, releaseOthers: releaseOthers });
 // }
 
-// /**
-//  * Set this Token as an active target for the current game User
-//  * @param tokenId
-//  * @param targeted       Is the Token now targeted?
-//  * @param userId           Assign the token as a target for a specific User
-//  * @param releaseOthers  Release other active targets for the same player?
-//  * @param groupSelection Is this target being set as part of a group selection workflow?
-//  */
-// async function socketSetTarget(
-// 	tokenId: string,
-// 	userId: string,
-// 	targeted?: boolean,
-// 	releaseOthers?: boolean,
-// 	groupSelection?: boolean,
-// ): Promise<void> {
-// 	const token = canvas.tokens.get(tokenId);
-// 	const user = game.users.get(userId);
-// 	token?.setTarget(targeted, { user, releaseOthers, groupSelection });
-// }
+/**
+ * Set this Token as an active target for the current game User
+ * @param tokenId
+ * @param targeted       Is the Token now targeted?
+ * @param userId           Assign the token as a target for a specific User
+ * @param releaseOthers  Release other active targets for the same player?
+ * @param groupSelection Is this target being set as part of a group selection workflow?
+ */
+async function socketSetTarget(
+	tokenId: string,
+	userId: string,
+	targeted?: boolean,
+	releaseOthers?: boolean,
+	groupSelection?: boolea,
+): Promise<void> {
+	const token = canvas.tokens.get(tokenId);
+	const user = game.users.get(userId);
+	token?.setTarget(targeted, { user, releaseOthers, groupSelection });
+}
 
 async function socketPing(tokenDocumentId: string): Promise<boolean> {
 	const token = canvas.tokens.get(tokenDocumentId);
@@ -44,7 +48,7 @@ async function socketPing(tokenDocumentId: string): Promise<boolean> {
 		ui.notifications.warn(game.i18n.localize("COMBAT.PingInvisibleToken"));
 		return false;
 	}
-	return canvas.ping(token.center);
+	return canvas.ping(token.center, {});
 }
 
 async function checkTargets(userId: string, tokenId: string): Promise<boolean> {
@@ -68,5 +72,5 @@ Hooks.once("socketlib.ready", () => {
 	socket.register("distance", getDistance);
 	socket.register("checkTargets", checkTargets);
 	socket.register("getTargets", getTargets);
-	// socket.register("setTarget", socketSetTarget);
+	socket.register("setTarget", socketSetTarget);
 });

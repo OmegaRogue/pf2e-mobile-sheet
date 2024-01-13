@@ -6,6 +6,9 @@ $vehicle-sheet-breakpoint: 585px;
 $hazard-sheet-breakpoint: 495px;
 $global-breakpoint: 930px;
 $npc-sheet-breakpoint: 548px;
+$mej-breakpoint: 700px;
+$journal-breakpoint: 600px;
+$settings-breakpoint: 477px;
 
 :root {
 	--send-button-gap: 0.5em;
@@ -34,11 +37,12 @@ $npc-sheet-breakpoint: 548px;
 }
 
 .sheet {
+	container: sheet / inline-size;
+
 	&.actor {
-		container: actor-sheet / inline-size;
 
 
-		@container actor-sheet (width < #{$familiar-breakpoint}) {
+		@container sheet (width < #{$familiar-breakpoint}) {
 			&.familiar {
 				.header-content {
 					overflow: hidden;
@@ -72,7 +76,7 @@ $npc-sheet-breakpoint: 548px;
 			}
 		}
 
-		@container actor-sheet (width < #{$party-breakpoint}) {
+		@container sheet (width < #{$party-breakpoint}) {
 			&.party {
 				[data-tab="overview"] .member {
 					height: unset;
@@ -106,7 +110,7 @@ $npc-sheet-breakpoint: 548px;
 				}
 			}
 		}
-		@container actor-sheet (width < #{$player-character-breakpoint}) {
+		@container sheet (width < #{$player-character-breakpoint}) {
 			&.character {
 				.crb-style {
 					grid-template-columns: initial !important;
@@ -133,7 +137,6 @@ $npc-sheet-breakpoint: 548px;
 						&[data-tab=character] {
 							.character-details {
 								.abcd {
-									grid-template-columns: repeat(2, 1fr);
 
 									.detail.deity {
 										grid-column: span 2;
@@ -181,7 +184,7 @@ $npc-sheet-breakpoint: 548px;
 				}
 			}
 		}
-		@container actor-sheet (width < #{$loot-sheet-breakpoint}) {
+		@container sheet (width < #{$loot-sheet-breakpoint}) {
 			&.loot form {
 				flex-direction: column-reverse;
 				overflow: hidden scroll;
@@ -222,7 +225,7 @@ $npc-sheet-breakpoint: 548px;
 				}
 			}
 		}
-		@container actor-sheet (width < #{$vehicle-sheet-breakpoint}) {
+		@container sheet (width < #{$vehicle-sheet-breakpoint}) {
 			&.vehicle {
 				.crb-style {
 					grid-template-columns: initial !important;
@@ -263,7 +266,7 @@ $npc-sheet-breakpoint: 548px;
 				}
 			}
 		}
-		@container actor-sheet (width < #{$hazard-sheet-breakpoint}) {
+		@container sheet (width < #{$hazard-sheet-breakpoint}) {
 			&.hazard .container {
 				display: block;
 				overflow: hidden scroll;
@@ -279,7 +282,7 @@ $npc-sheet-breakpoint: 548px;
 				}
 			}
 		}
-		@container actor-sheet (width < #{$npc-sheet-breakpoint}) {
+		@container sheet (width < #{$npc-sheet-breakpoint}) {
 			&.npc {
 				form {
 					overflow: hidden scroll;
@@ -296,6 +299,7 @@ $npc-sheet-breakpoint: 548px;
 
 					.npc-body {
 						overflow-y: visible;
+						height: unset;
 					}
 
 					nav.sheet-tabs .item {
@@ -304,6 +308,7 @@ $npc-sheet-breakpoint: 548px;
 
 					.attacks-list li.attack .button-group button {
 						height: unset !important;
+						//noinspection CssInvalidPropertyValue
 						text-wrap: wrap !important;
 					}
 
@@ -329,14 +334,14 @@ $npc-sheet-breakpoint: 548px;
 				}
 			}
 		}
-		@container actor-sheet (width >= #{$player-character-breakpoint}) {
+		@container sheet (width >= #{$player-character-breakpoint}) {
 			&.character {
 				a#sidebar-tab {
 					display: none;
 				}
 			}
 		}
-		@container actor-sheet (width >= #{$vehicle-sheet-breakpoint}) {
+		@container sheet (width >= #{$vehicle-sheet-breakpoint}) {
 			&.vehicle {
 				a#sidebar-tab {
 					display: none;
@@ -349,15 +354,92 @@ $npc-sheet-breakpoint: 548px;
 	&.journal-entry {
 		min-width: unset;
 	}
+
+	&.journal-entry {
+		@container sheet (width < #{$journal-breakpoint}) {
+			.journal-sheet-container {
+				--sidebar-width-expanded: 100%;
+			}
+		}
+	}
+}
+
+#client-settings {
+	container: settings / inline-size;
+	@container settings (width < #{$settings-breakpoint}) {
+		&.package-configuration {
+			div:not(#mps-view-group).flexcol {
+			}
+
+			.window-content {
+				overflow: hidden;
+			}
+
+			.sidebar {
+				padding-left: 3rem;
+				padding-right: 3rem;
+				height: unset;
+			}
+
+			footer {
+				position: sticky;
+				bottom: 0;
+				width: inherit;
+				max-width: inherit;
+				flex-grow: 0;
+			}
+
+			.scrollable {
+				overflow: hidden auto;
+			}
+
+			form {
+				padding-left: 1em;
+				padding-right: 1em;
+			}
+
+			footer button {
+				height: 2rem;
+				flex-basis: max-content;
+			}
+		}
+	}
+}
+
+.monks-enhanced-journal {
+	container: mej-sheet / inline-size;
+
+	.enhanced-journal .sheet {
+		@container sheet (width < #{$journal-breakpoint}) {
+			--sidebar-width-collapsed: 0;
+			--sidebar-width-expanded: 100%;
+			.journal-sidebar:not(.collapsed) {
+				width: 100%;
+			}
+		}
+	}
+
+	@container mej-sheet (width < #{$mej-breakpoint}) {
+		.enhanced-journal-header .tab-row {
+			overflow: hidden;
+		}
+
+		.directory-sidebar {
+			width: 100%;
+		}
+	}
 }
 
 
 @media screen and (min-width: #{$global-breakpoint}) {
-	.collapse-mobile {
-		display: none;
-	}
-	.send-button {
-		display: none;
+	#sidebar {
+		.collapse-mobile {
+			display: none;
+		}
+
+		.send-button {
+			display: none;
+		}
 	}
 
 }
@@ -367,8 +449,11 @@ $npc-sheet-breakpoint: 548px;
 }
 
 @media screen and (max-width: #{$global-breakpoint}) {
-	.collapse:not(.collapse-mobile) {
-		display: none;
+
+	#sidebar {
+		.collapse:not(.collapse-mobile) {
+			display: none;
+		}
 	}
 	.app {
 		margin: 0;
@@ -430,7 +515,7 @@ $npc-sheet-breakpoint: 548px;
 		font-size: 2em;
 	}
 
-	.sheet.actor.character .popout-module-button, .pathmuncher-open, .configure-token, .configure-creature, .send-to-taskbar, .configure-theatre, .console-print, .document-id-link, .document-image-link, .simple-calendar, #tokenbar {
+	.sheet.actor.character .popout-module-button, .pathmuncher-open, .configure-token, .configure-creature, .configure-theatre, .console-print, .document-id-link, .document-image-link, .simple-calendar, #tokenbar, .header-button.control.pf2e-action-support-engine {
 		display: none !important;
 	}
 
@@ -438,8 +523,36 @@ $npc-sheet-breakpoint: 548px;
 		display: none !important;
 	}
 
-	div#taskbar.taskbar {
-		display: none;
+	div.taskbar#taskbar {
+		//display: none;
+		width: 100% !important;
+
+		.taskbar-tray {
+			flex-wrap: wrap;
+		}
+
+		#taskbarQuickInsert h3 {
+			padding: 0;
+		}
+
+		.taskbar-items {
+			overflow: scroll hidden;
+		}
+
+		.taskbar-hidden-mobile {
+			display: none;
+		}
+	}
+	.start-menu {
+		width: 100%;
+		min-width: unset;
+	}
+	.start-menu-apps {
+		min-width: unset;
+	}
+	.start-menu-options.expanded {
+		width: 100%;
+		max-width: 70%;
 	}
 
 
@@ -462,6 +575,7 @@ $npc-sheet-breakpoint: 548px;
 	#ui-right {
 		#sidebar {
 			height: 100%;
+			background: rgba(0, 0, 0, 0.8);
 
 			&.collapsed {
 				height: unset;
@@ -480,43 +594,6 @@ $npc-sheet-breakpoint: 548px;
 			> .dorako-resize {
 				display: none;
 			}
-		}
-	}
-
-
-	#client-settings {
-		div:not(#mps-view-group).flexcol {
-		}
-
-		.window-content {
-			overflow: hidden;
-		}
-
-		.sidebar {
-			padding-left: 3rem;
-			padding-right: 3rem;
-		}
-
-		footer {
-			position: sticky;
-			bottom: 0;
-			width: inherit;
-			max-width: inherit;
-			flex-grow: 0;
-		}
-
-		.scrollable {
-			overflow: hidden auto;
-		}
-
-		form {
-			padding-left: 1em;
-			padding-right: 1em;
-		}
-
-		footer button {
-			height: 2rem;
-			flex-basis: max-content;
 		}
 	}
 

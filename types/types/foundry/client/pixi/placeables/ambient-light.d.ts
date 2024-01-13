@@ -32,6 +32,7 @@ declare class AmbientLight<
 
 	/* -------------------------------------------- */
 	/* Rendering                                    */
+
 	/* -------------------------------------------- */
 
 	protected override _destroy(options?: boolean | PIXI.IDestroyOptions): void;
@@ -53,6 +54,7 @@ declare class AmbientLight<
 
 	/* -------------------------------------------- */
 	/*  Light Source Management                     */
+
 	/* -------------------------------------------- */
 
 	/** The named identified for the source object associated with this light */
@@ -67,6 +69,7 @@ declare class AmbientLight<
 
 	/* -------------------------------------------- */
 	/*  Socket Listeners and Handlers               */
+
 	/* -------------------------------------------- */
 
 	protected override _onCreate(
@@ -78,13 +81,14 @@ declare class AmbientLight<
 	protected override _onUpdate(
 		changed: DeepPartial<TDocument["_source"]>,
 		options: DocumentModificationContext<TDocument["parent"]>,
-		userId: string,
+		userId: strin,
 	): void;
 
 	protected override _onDelete(options: DocumentModificationContext<TDocument["parent"]>, userId: string): void;
 
 	/* -------------------------------------------- */
 	/*  Mouse Interaction Handlers                  */
+
 	/* -------------------------------------------- */
 
 	protected override _canHUD(user: User, event: PIXI.FederatedEvent): boolean;

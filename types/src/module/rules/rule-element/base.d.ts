@@ -22,26 +22,37 @@ declare abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleE
 	protected suppressWarnings: boolean;
 	/** A list of actor types on which this rule element can operate (all unless overridden) */
 	protected static validActorTypes: ActorType[];
+
 	/**
 	 * @param source unserialized JSON data from the actual rule input
 	 * @param item where the rule is persisted on
 	 */
 	constructor(source: RuleElementSource, options: RuleElementOptions);
+
 	static defineSchema(): RuleElementSchema;
+
 	/** Use a "lax" schema field that preserves properties not defined in the `DataSchema` */
 	static get schema(): LaxSchemaField<RuleElementSchema>;
+
 	get item(): this["parent"];
+
 	get actor(): ActorPF2e;
+
 	/** Retrieves the token from the actor, or from the active tokens. */
 	get token(): TokenDocumentPF2e | null;
+
 	/** Generate a label without a leading title (such as "Effect:") */
 	protected getReducedLabel(label?: string): string;
+
 	/** Include parent item's name and UUID in `DataModel` validation error messages */
 	validate(options?: DataModelValidationOptions): boolean;
+
 	/** Test this rule element's predicate, if present */
 	protected test(rollOptions?: string[] | Set<string>): boolean;
+
 	/** Send a deferred warning to the console indicating that a rule element's validation failed */
 	protected failValidation(...message: string[]): void;
+
 	/**
 	 * Callback used to parse and look up values when calculating rules. Parses strings that look like
 	 * {actor|x.y.z}, {item|x.y.z} or {rule|x.y.z} where x.y.z is the path on the current actor, item or rule.
@@ -68,6 +79,7 @@ declare abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleE
 			warn?: boolean;
 		},
 	): T;
+
 	/**
 	 * Parses the value attribute on a rule.
 	 *
@@ -88,6 +100,7 @@ declare abstract class RuleElementPF2e<TSchema extends RuleElementSchema = RuleE
 		defaultValue?: Exclude<RuleValue, BracketedValue>,
 		{ evaluate, resolvables, warn }?: ResolveValueParams,
 	): number | string | boolean | object | null;
+
 	protected isBracketedValue(value: unknown): value is BracketedValue;
 }
 interface RuleElementPF2e<TSchema extends RuleElementSchema> extends foundry.abstract.DataModel<ItemPF2e<ActorPF2e>, TSchema>, ModelPropsFromSchema<RuleElementSchema> {

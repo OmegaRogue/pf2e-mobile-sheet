@@ -25,6 +25,7 @@ import {
 } from "./data.ts";
 import { CharacterFeats } from "./feats.ts";
 import { CharacterHitPointsSummary, CharacterSkills, GuaranteedGetStatisticSlug } from "./types.ts";
+
 declare class CharacterPF2e<
 	TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null,
 > extends CreaturePF2e<TParent> {
@@ -46,73 +47,105 @@ declare class CharacterPF2e<
 	/** Skills for the character, built during data prep */
 	skills: CharacterSkills;
 	initiative: ActorInitiative;
+
 	get allowedItemTypes(): (ItemType | "physical")[];
+
 	get keyAttribute(): AttributeString;
+
 	/** @deprecated */
 	get keyAbility(): AttributeString;
+
 	/** This PC's ability scores */
 	get abilities(): CharacterAbilities;
+
 	get handsFree(): ZeroToTwo;
+
 	/** The number of hands this PC "really" has free: this is, ignoring allowances for the Free Hand trait */
 	get handsReallyFree(): ZeroToTwo;
+
 	get hitPoints(): CharacterHitPointsSummary;
+
 	get heroPoints(): {
 		value: number;
 		max: number;
 	};
+
 	/** Retrieve lore skills, class statistics, and tradition-specific spellcasting */
 	getStatistic(slug: GuaranteedGetStatisticSlug): Statistic;
 	getStatistic(slug: string): Statistic | null;
+
 	getCraftingFormulas(): Promise<CraftingFormula[]>;
+
 	getCraftingEntries(formulas?: CraftingFormula[]): Promise<CraftingEntry[]>;
+
 	getCraftingEntry(selector: string): Promise<CraftingEntry | null>;
+
 	performDailyCrafting(): Promise<void>;
+
 	protected _initialize(options?: Record<string, unknown>): void;
+
 	/** If one exists, prepare this character's familiar */
 	prepareData(): void;
+
 	/** Setup base ephemeral data to be modified by active effects and derived-data preparation */
 	prepareBaseData(): void;
+
 	/** After AE-likes have been applied, set numeric roll options */
 	prepareEmbeddedDocuments(): void;
+
 	/**
 	 * Immediately after boosts from this PC's ancestry, background, and class have been acquired, set attribute
 	 * modifiers according to them.
 	 */
 	prepareDataFromItems(): void;
+
 	prepareDerivedData(): void;
 
 	private prepareBuildData;
+
 	/** Set roll operations for ability scores, proficiency ranks, and number of hands free */
 	protected setNumericRollOptions(): void;
+
 	private createArmorStatistic;
 	private prepareSaves;
 	private prepareSkills;
+
 	prepareSpeed(movementType: "land"): CreatureSpeeds;
 	prepareSpeed(movementType: Exclude<MovementType, "land">): (LabeledSpeed & StatisticModifier) | null;
 	prepareSpeed(movementType: MovementType): CreatureSpeeds | (LabeledSpeed & StatisticModifier) | null;
+
 	private prepareFeats;
 	private prepareClassDC;
+
 	/** Prepare this character's strike actions */
 	prepareStrikes({ includeBasicUnarmed }?: { includeBasicUnarmed?: boolean | undefined }): CharacterStrike[];
+
 	/** Prepare a strike action from a weapon */
 	private prepareStrike;
+
 	getStrikeDescription(weapon: WeaponPF2e): {
 		description: string;
 		criticalSuccess: string;
 		success: string;
 	};
+
 	/** Modify this weapon from AdjustStrike rule elements */
 	protected getRollContext<
 		TStatistic extends StatisticCheck | StrikeData | null,
 		TItem extends ItemPF2e<ActorPF2e> | null,
 	>(params: RollContextParams<TStatistic, TItem>): Promise<RollContext<this, TStatistic, TItem>>;
+
 	consumeAmmo(weapon: WeaponPF2e<this>, params: RollParameters): boolean;
+
 	/** Prepare stored and synthetic martial proficiencies */
 	prepareMartialProficiencies(): void;
+
 	/** Toggle the invested state of an owned magical item */
 	toggleInvested(itemId: string): Promise<boolean>;
+
 	/** Add a proficiency in a weapon group or base weapon */
 	addAttackProficiency(key: BaseWeaponProficiencyKey | WeaponGroupProficiencyKey): Promise<void>;
+
 	protected _preUpdate(
 		changed: DeepPartial<CharacterSource>,
 		options: CreatureUpdateContext<TParent>,

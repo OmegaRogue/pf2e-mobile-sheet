@@ -1,5 +1,6 @@
 import type { ActorPF2e } from "@actor";
-import { ConsumablePF2e, SpellcastingEntryPF2e } from "@item";
+import type { ConsumablePF2e, SpellPF2e } from "@item";
+import { SpellcastingEntryPF2e } from "@item";
 import { SpellCollection } from "@item/spellcasting-entry/collection.ts";
 import { SpellcastingEntrySource } from "@item/spellcasting-entry/index.ts";
 import { RitualSpellcasting } from "@item/spellcasting-entry/rituals.ts";
@@ -13,11 +14,18 @@ export declare class ActorSpellcasting<TActor extends ActorPF2e> extends Delegat
 	base: Statistic;
 	/** All available spell lists on this actor */
 	collections: Collection<SpellCollection<TActor, BaseSpellcastingEntry<TActor>>>;
+
 	constructor(actor: TActor, entries: BaseSpellcastingEntry<TActor>[]);
+
 	/** Returns a list of entries pre-filtered to SpellcastingEntryPF2e */
 	get regular(): SpellcastingEntryPF2e<TActor>[];
+
 	/** Get this actor's ritual casting ability */
 	get ritual(): RitualSpellcasting<TActor> | null;
+
+	/** Spells not belonging to any collection */
+	get orphanedSpells(): SpellPF2e<TActor>[];
+
 	/**
 	 * All spellcasting entries that count as prepared/spontaneous, which qualify as a
 	 * full fledged spellcasting feature for wands and scrolls.
@@ -26,10 +34,13 @@ export declare class ActorSpellcasting<TActor extends ActorPF2e> extends Delegat
 
 	/** Returns an existing spellcasting entry or trick magic item if given "trick-{skillName}" */
 	get(id: string): BaseSpellcastingEntry<TActor> | undefined;
+
 	canCastConsumable(item: ConsumablePF2e): boolean;
+
 	refocus(options?: { all?: boolean }): {
 		"system.resources.focus.value": number;
 	} | null;
+
 	/**
 	 * Recharges all spellcasting entries based on the type of entry it is
 	 * @todo Support a timespan property of some sort and handle 1/hour innate spells

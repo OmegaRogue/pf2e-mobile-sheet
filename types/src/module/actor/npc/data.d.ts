@@ -77,11 +77,9 @@ interface NPCAttributesSource extends Required<ActorAttributesSource> {
 		value: string;
 	};
 }
-
 interface NPCHitPointsSource extends Required<CreatureHitPointsSource> {
 	details: string;
 }
-
 interface NPCPerceptionSource {
 	details: string;
 	mod: number;
@@ -132,11 +130,9 @@ interface NPCSystemData extends Omit<NPCSystemSource, "attributes" | "perception
 	};
 	customModifiers: Record<string, ModifierPF2e[]>;
 }
-
 interface NPCPerceptionData extends CreaturePerceptionData {
 	mod: number;
 }
-
 interface NPCAttributes extends Omit<NPCAttributesSource, AttributesSourceOmission>, CreatureAttributes {
 	adjustment: "elite" | "weak" | null;
 	hp: NPCHitPoints;
@@ -164,7 +160,6 @@ interface NPCAttributes extends Omit<NPCAttributesSource, AttributesSourceOmissi
 		value: number;
 	};
 }
-
 type AttributesSourceOmission = "ac" | "initiative" | "immunities" | "weaknesses" | "resistances";
 interface NPCDetails extends NPCDetailsSource, CreatureDetails {
 	level: {

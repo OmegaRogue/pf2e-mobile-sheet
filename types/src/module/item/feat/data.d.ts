@@ -47,7 +47,6 @@ interface FeatLevelSource {
 	value: number;
 	taken?: number | null;
 }
-
 interface FeatSystemData extends Omit<FeatSystemSource, "description" | "maxTaken">, Omit<ItemSystemData, "traits"> {
 	level: FeatLevelData;
 	/** `null` is set to `Infinity` during data preparation */
@@ -72,14 +71,12 @@ interface FeatSubfeatures {
 		[K in SenseType]?: SenseSubfeature;
 	};
 }
-
 interface LanguagesSubfeature {
 	/** A number of open slots fillable with any language */
 	slots: number;
 	/** Additional specific languages the character knows */
 	granted: Language[];
 }
-
 interface SenseSubfeature {
 	acuity?: SenseAcuity;
 	/** The radius of the sense in feet: `null` indicates no limit. */
@@ -97,7 +94,6 @@ interface SenseSubfeature {
 		second: boolean;
 	};
 }
-
 type IncreasableProficiency = ArmorCategory | ClassTrait | SaveType | WeaponCategory | "perception" | "spellcasting";
 type FeatTraits = ItemTraits<FeatTrait>;
 export type { FeatSource, FeatSubfeatures, FeatSystemData, FeatSystemSource, FeatTraits, PrerequisiteTagData };

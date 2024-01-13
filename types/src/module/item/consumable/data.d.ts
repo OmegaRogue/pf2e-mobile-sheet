@@ -24,7 +24,6 @@ interface ConsumableSystemSource extends PhysicalSystemSource {
 	};
 	stackGroup: AmmoStackGroup | null;
 }
-
 type ConsumableUses = {
 	value: number;
 	max: number;
@@ -43,6 +42,5 @@ interface ConsumableSystemData
 	apex?: never;
 	stackGroup: AmmoStackGroup | null;
 }
-
 type SourceOmission = "bulk" | "description" | "hp" | "identification" | "material" | "price" | "temporary" | "usage";
 export type { ConsumableDamageHealing, ConsumableSource, ConsumableSystemData, ConsumableSystemSource, ConsumableTrit };

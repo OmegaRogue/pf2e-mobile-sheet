@@ -14,11 +14,13 @@ import { ItemAlteration } from "./item-alteration/alteration.ts";
 /** A Pathfinder 2e aura, capable of transmitting effects and with a visual representation on the canvas */
 declare class AuraRuleElement extends RuleElementPF2e<AuraSchema> {
 	#private;
+
 	constructor(source: AuraRuleElementSource, options: RuleElementOptions);
+
 	static defineSchema(): AuraSchema;
+
 	afterPrepareData(): void;
 }
-
 interface AuraRuleElement extends RuleElementPF2e<AuraSchema>, ModelPropsFromRESchema<AuraSchema> {
 	slug: string;
 	effects: AuraEffectREData[];

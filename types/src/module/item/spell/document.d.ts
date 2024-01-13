@@ -26,13 +26,18 @@ declare class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> ext
 	/** The overlays that were applied to create this variant */
 	appliedOverlays?: Map<SpellOverlayType, string>;
 	overlays: SpellOverlayCollection;
+
 	constructor(data: PreCreate<ItemSourcePF2e>, context?: SpellConstructionContext<TParent>);
+
 	/** The id of the override overlay that constitutes this variant */
 	get variantId(): string | null;
+
 	/** The spell's "base" rank; that is, before heightening */
 	get baseRank(): OneToTen;
+
 	/** Legacy getter, though not yet deprecated */
 	get baseLevel(): OneToTen;
+
 	/**
 	 * Heightened rank of the spell if heightened, otherwise base.
 	 * This applies for spontaneous or innate spells usually, but not prepared ones.
@@ -44,36 +49,58 @@ declare class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> ext
 	 * @deprecated
 	 */
 	get level(): number;
+
 	get traits(): Set<SpellTrait>;
+
 	get rarity(): Rarity;
+
 	get traditions(): Set<MagicTradition>;
+
 	get actionGlyph(): string | null;
+
 	get spellcasting(): BaseSpellcastingEntry<NonNullable<TParent>> | null;
+
 	get isAttack(): boolean;
+
 	get isCantrip(): boolean;
+
 	get isFocusSpell(): boolean;
+
 	get isRitual(): boolean;
+
 	get attribute(): AttributeString;
+
 	/** @deprecated */
 	get ability(): AttributeString;
+
 	/** Whether this spell has unlimited uses */
 	get atWill(): boolean;
+
 	get isVariant(): boolean;
+
 	get hasVariants(): boolean;
+
 	get area():
 		| (SpellArea & {
 				label: string;
 		  })
 		| null;
+
 	/** Dummy getter for interface alignment with weapons and actions */
 	get range(): RangeData | null;
+
 	/** Whether the "damage" roll of this spell deals damage or heals (or both, depending on the target) */
 	get damageKinds(): Set<DamageKind>;
+
 	get uuid(): ItemUUID;
+
 	/** Given a slot level, compute the actual level the spell will be cast at */
 	computeCastRank(slotNumber?: number): OneToTen;
+
 	getRollData(rollOptions?: { castRank?: number | string }): NonNullable<EnrichmentOptions["rollData"]>;
+
 	getDamage(params?: SpellDamageOptions): Promise<SpellDamage | null>;
+
 	/**
 	 * Loads an alternative version of this spell, called a variant.
 	 * The variant is created via the application of one or more overlays based on parameters.
@@ -81,18 +108,26 @@ declare class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> ext
 	 * If there's nothing to apply, returns null.
 	 */
 	loadVariant(options?: SpellVariantOptions): this | null;
+
 	getHeightenLayers(rank?: number): SpellHeightenLayer[];
+
 	placeTemplate(message?: ChatMessagePF2e): Promise<MeasuredTemplatePF2e>;
+
 	prepareBaseData(): void;
+
 	prepareSiblingData(this: SpellPF2e<ActorPF2e>): void;
+
 	prepareActorData(): void;
+
 	onPrepareSynthetics(this: SpellPF2e<ActorPF2e>): void;
+
 	getRollOptions(prefix?: string): string[];
 
 	toMessage(
 		event?: Maybe<MouseEvent | JQuery.TriggeredEvent>,
 		{ create, data, rollMode }?: SpellToMessageOptions,
 	): Promise<ChatMessagePF2e | undefined>;
+
 	getChatData(
 		this: SpellPF2e<ActorPF2e>,
 		htmlOptions?: EnrichmentOptionsPF2e,
@@ -101,26 +136,33 @@ declare class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> ext
 			groupId?: SpellSlotGroupId;
 		},
 	): Promise<Omit<ItemSummaryData, "traits">>;
+
 	rollAttack(
 		this: SpellPF2e<ActorPF2e>,
 		event: MouseEvent | JQuery.ClickEvent,
 		attackNumber?: number,
 		context?: StatisticRollParameters,
 	): Promise<void>;
+
 	rollDamage(
 		this: SpellPF2e<ActorPF2e>,
 		event: MouseEvent | JQuery.ClickEvent,
 		mapIncreases?: ZeroToTwo,
 	): Promise<Rolled<DamageRoll> | null>;
+
 	/** Roll counteract check */
 	rollCounteract(event?: MouseEvent | JQuery.ClickEvent): Promise<Rolled<CheckRoll> | null>;
+
 	getOriginData(): ItemOriginFlag;
+
 	update(data: Record<string, unknown>, options?: DocumentUpdateContext<TParent>): Promise<this | undefined>;
+
 	protected _preCreate(
 		data: this["_source"],
 		options: DocumentModificationContext<TParent>,
 		user: UserPF2e,
 	): Promise<boolean | void>;
+
 	protected _preUpdate(
 		changed: DeepPartial<SpellSource>,
 		options: DocumentUpdateContext<TParent>,
@@ -131,7 +173,6 @@ interface SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
     readonly _source: SpellSource;
     system: SpellSystemData;
 }
-
 interface SpellConstructionContext<TParent extends ActorPF2e | null> extends DocumentConstructionContext<TParent> {
 	fromConsumable?: boolean;
 }
@@ -151,7 +192,6 @@ interface SpellDamageOptions {
     skipDialog?: boolean;
     target?: Maybe<TokenDocumentPF2e>;
 }
-
 interface SpellVariantOptions {
 	castRank?: number;
 	overlayIds?: string[];

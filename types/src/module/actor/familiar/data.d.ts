@@ -33,9 +33,9 @@ interface FamiliarAttributesSource {
 	resistances?: never;
 }
 interface FamiliarDetailsSource extends CreatureDetailsSource {
-    creature: {
-        value: string;
-    };
+	creature: {
+		value: string;
+	};
 	alliance?: never;
 	languages?: never;
 	level?: never;

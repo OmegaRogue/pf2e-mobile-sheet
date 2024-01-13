@@ -6,18 +6,26 @@ declare abstract class SettingsMenuPF2e extends FormApplication {
 	protected cache: Record<string, unknown> & {
 		clear(): void;
 	};
+
 	static get defaultOptions(): FormApplicationOptions;
+
 	static readonly SETTINGS: readonly string[];
+
 	/** Settings to be registered and also later referenced during user updates */
 	protected static get settings(): Record<string, PartialSettingsData>;
+
 	static registerSettings(): void;
 
 	get namespace(): string;
+
 	getData(): Promise<MenuTemplateData>;
 
 	close(options?: { force?: boolean }): Promise<void>;
+
 	activateListeners($html: JQuery): void;
+
 	protected _updateObject(event: Event, data: Record<string, unknown>): Promise<void>;
+
 	/** Overriden to add some additional first-render behavior */
 	protected _injectHTML($html: JQuery<HTMLElement>): void;
 }
@@ -25,15 +33,14 @@ interface SettingsMenuPF2e extends FormApplication {
     constructor: typeof SettingsMenuPF2e;
     options: SettingsMenuOptions;
 }
-
 interface PartialSettingsData extends Omit<SettingRegistration, "scope" | "config"> {
 	prefix?: string;
 }
 interface SettingsTemplateData extends PartialSettingsData {
-    key: string;
-    value: unknown;
-    isSelect: boolean;
-    isCheckbox: boolean;
+	key: string;
+	value: unknown;
+	isSelect: boolean;
+	isCheckbox: boolean;
 }
 interface MenuTemplateData extends FormApplicationData {
     settings: Record<string, SettingsTemplateData>;

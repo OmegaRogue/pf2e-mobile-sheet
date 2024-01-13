@@ -11,7 +11,9 @@ import { SkillActionOptions } from "../index.ts";
 declare function escape(options: SkillActionOptions): void;
 declare class EscapeActionVariant extends SingleCheckActionVariant {
 	#private;
+
 	get statistic(): string;
+
 	protected checkContext<ItemType extends ItemPF2e<ActorPF2e>>(
 		opts: CheckContextOptions<ItemType>,
 		data: CheckContextData<ItemType>,

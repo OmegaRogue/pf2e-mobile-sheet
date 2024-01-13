@@ -16,13 +16,20 @@ declare class CompendiumBrowser extends Application {
 	tabs: BrowserTabs;
 	packLoader: PackLoader;
 	activeTab: TabName;
+
 	constructor(options?: {});
+
 	get title(): string;
+
 	static get defaultOptions(): ApplicationOptions;
+
 	/** Reset initial filtering */
 	close(options?: { force?: boolean }): Promise<void>;
+
 	hookTab(): Tabs;
+
 	initCompendiumList(): void;
+
 	openTab(name: "action", filter?: ActionFilters): Promise<void>;
 	openTab(name: "bestiary", filter?: BestiaryFilters): Promise<void>;
 	openTab(name: "equipment", filter?: EquipmentFilters): Promise<void>;
@@ -30,22 +37,32 @@ declare class CompendiumBrowser extends Application {
 	openTab(name: "hazard", filter?: HazardFilters): Promise<void>;
 	openTab(name: "spell", filter?: SpellFilters): Promise<void>;
 	openTab(name: "settings"): Promise<void>;
+
 	openActionTab(options: {
 		types?: ActionType[];
 		categories?: ActionCategory[];
 		traits?: ActionTrait[];
 	}): Promise<void>;
+
 	openSpellTab(entry: BaseSpellcastingEntry, maxRank?: number, category?: string | null): Promise<void>;
+
 	loadTab(tabName: TabName): Promise<void>;
+
 	loadedPacks(tab: TabName): string[];
+
 	loadedPacksAll(): string[];
+
 	activateListeners($html: JQuery): void;
+
 	protected _canDragStart(): boolean;
+
 	protected _canDragDrop(): boolean;
+
 	/** Set drag data and lower opacity of the application window to reveal any tokens */
 	protected _onDragStart(event: DragEvent): void;
 
 	protected _onDragOver(event: DragEvent): void;
+
 	getData(): CompendiumBrowserSheetData;
 }
 type CompendiumBrowserSettings = Omit<TabData<Record<string, PackInfo | undefined>>, "settings">;

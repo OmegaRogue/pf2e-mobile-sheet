@@ -1564,6 +1564,7 @@ export class ClientBaseActorDelta<TParent extends CanvasBaseToken<ClientBaseScen
 
 	/* -------------------------------------------- */
 	/*  Properties                                  */
+
 	/* -------------------------------------------- */
 
 	/** Return a reference to the parent Collection instance which contains this Document. */
@@ -1614,6 +1615,7 @@ export class ClientBaseActorDelta<TParent extends CanvasBaseToken<ClientBaseScen
 
 	/* -------------------------------------------- */
 	/*  Methods                                     */
+
 	/* -------------------------------------------- */
 
 	/** Obtain the FormApplication class constructor which should be used to configure this Document. */
@@ -1674,6 +1676,7 @@ export class ClientBaseActorDelta<TParent extends CanvasBaseToken<ClientBaseScen
 
 	/* -------------------------------------------- */
 	/*  Event Handlers                              */
+
 	/* -------------------------------------------- */
 
 	protected override _onCreate(
@@ -1685,7 +1688,7 @@ export class ClientBaseActorDelta<TParent extends CanvasBaseToken<ClientBaseScen
 	protected override _onUpdate(
 		data: DeepPartial<this["_source"]>,
 		options: DocumentModificationContext<TParent>,
-		userId: string,
+		userId: strin,
 	): void;
 
 	protected override _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
@@ -1719,7 +1722,7 @@ export class ClientBaseActorDelta<TParent extends CanvasBaseToken<ClientBaseScen
 		collection: string,
 		data: object[],
 		options: DocumentModificationContext<this>,
-		userId: string,
+		userId: strin,
 	): void;
 
 	/**
@@ -1753,7 +1756,7 @@ export class ClientBaseActorDelta<TParent extends CanvasBaseToken<ClientBaseScen
 		collection: string,
 		changes: object[],
 		options: DocumentModificationContext<this>,
-		userId: string,
+		userId: strin,
 	): void;
 
 	/**
@@ -1787,7 +1790,7 @@ export class ClientBaseActorDelta<TParent extends CanvasBaseToken<ClientBaseScen
 		collection: string,
 		ids: string[],
 		options: DocumentModificationContext<this>,
-		userId: string,
+		userId: strin,
 	): void;
 
 	/**
@@ -1813,6 +1816,7 @@ export class ClientBaseActorDelta<TParent extends CanvasBaseToken<ClientBaseScen
 
 	/* -------------------------------------------- */
 	/*  Importing and Exporting                     */
+
 	/* -------------------------------------------- */
 
 	/**
@@ -10377,6 +10381,7 @@ export class CanvasBaseToken<TParent extends ClientBaseScene | null> extends Cli
 
 	/* -------------------------------------------- */
 	/*  Properties                                  */
+
 	/* -------------------------------------------- */
 
 	/** A lazily constructed PlaceableObject instance which can represent this Document on the game canvas. */
@@ -10390,6 +10395,7 @@ export class CanvasBaseToken<TParent extends ClientBaseScene | null> extends Cli
 
 	/* -------------------------------------------- */
 	/*  Event Handlers                              */
+
 	/* -------------------------------------------- */
 
 	/**
@@ -10407,7 +10413,7 @@ export class CanvasBaseToken<TParent extends ClientBaseScene | null> extends Cli
 	protected override _onUpdate(
 		changed: DeepPartial<this["_source"]>,
 		options: DocumentUpdateContext<TParent>,
-		userId: string,
+		userId: strin,
 	): void;
 
 	/**

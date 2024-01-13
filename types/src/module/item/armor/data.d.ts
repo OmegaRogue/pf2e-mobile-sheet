@@ -29,7 +29,6 @@ interface ArmorSystemSource extends Investable<PhysicalSystemSource> {
 	/** Usage for armor isn't stored. */
 	readonly usage?: never;
 }
-
 type ArmorRuneSource = {
 	potency: ZeroToFour;
 	resilient: ZeroToThree;
@@ -63,9 +62,7 @@ type SourceOmission =
 interface ArmorTraits extends PhysicalItemTraits<ArmorTrait> {
 	otherTags: OtherArmorTag[];
 }
-
 interface ArmorRuneData extends ArmorRuneSource {
 	effects: ArmorPropertyRuneType[];
 }
-
 export type { ArmorSource, ArmorSystemData, ArmorSystemSource, SpecificArmorData };

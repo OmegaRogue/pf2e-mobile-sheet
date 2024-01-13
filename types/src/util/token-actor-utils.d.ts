@@ -6,7 +6,6 @@ import type { ActorPF2e, ActorType } from "@actor";
  * @returns An array of ActorPF2E instances filtered by the requested types.
  */
 declare function getSelectedActors(params?: GetSelectedActorsParams): ActorPF2e[];
-
 interface GetSelectedActorsParams {
 	/** Actor types that should be included (defaults to all) */
 	include?: (ActorType | "creature")[];
@@ -15,5 +14,4 @@ interface GetSelectedActorsParams {
 	/** Given no qualifying actor is selected, fall back to the user's assigned character if it also qualifies. */
 	assignedFallback?: boolean;
 }
-
 export { getSelectedActors };

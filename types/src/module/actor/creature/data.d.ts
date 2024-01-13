@@ -32,24 +32,21 @@ interface CreatureSystemSource extends ActorSystemSource {
 	saves?: Record<SaveType, object | undefined>;
 	resources?: CreatureResourcesSource;
 }
-
 interface CreatureAttributesSource extends ActorAttributesSource {
 	hp: CreatureHitPointsSource;
 }
-
 interface CreatureHitPointsSource extends ActorHitPointsSource {
 	temp: number;
 }
-
 interface CreatureDetailsSource extends ActorDetailsSource {
 	/** Languages this creature knows and (probably) can speak */
 	languages?: CreatureLanguagesData;
 }
-
 interface CreatureLanguagesData {
 	value: Language[];
 	details: string;
 }
+
 interface CreatureTraitsSource extends ActorTraitsSource<CreatureTrait> {}
 interface CreatureResourcesSource {
     focus?: {
@@ -89,7 +86,6 @@ type SenseData =
 			range: number;
 			source?: Maybe<string>;
 	  };
-
 interface CreaturePerceptionData extends PerceptionTraceData {
 	attribute: AttributeString;
 }
@@ -103,7 +99,6 @@ interface AbilityData {
 	shortLabel: string;
 }
 type Abilities = Record<AttributeString, AbilityData>;
-
 interface CreatureTraitsData extends Required<CreatureTraitsSource> {
 	size: ActorSizePF2e;
 }
@@ -142,7 +137,6 @@ interface CreatureAttributes extends ActorAttributes {
 	/** Whether this creature emits sound */
 	emitsSound: boolean;
 }
-
 interface CreatureACData extends ArmorClassTraceData {
 	attribute: AttributeString;
 }

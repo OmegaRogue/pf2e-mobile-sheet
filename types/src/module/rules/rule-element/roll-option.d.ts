@@ -32,7 +32,6 @@ declare class RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema> {
     /** Remove the parent effect if configured so */
     afterRoll({ domains, rollOptions }: RuleElementPF2e.AfterRollParams): Promise<void>;
 }
-
 interface RollOptionRuleElement extends RuleElementPF2e<RollOptionSchema>, ModelPropsFromRESchema<RollOptionSchema> {
 	value: boolean | string;
 }

@@ -1,6 +1,3 @@
-/// <reference types="jquery" resolution-mode="require"/>
-/// <reference types="jquery" resolution-mode="require"/>
-/// <reference types="tooltipster" />
 import type { PhysicalItemPF2e } from "@item";
 import { ItemSheetDataPF2e, ItemSheetOptions, ItemSheetPF2e } from "@item/base/sheet/sheet.ts";
 import { SheetOptions } from "@module/sheet/helpers.ts";
@@ -12,7 +9,6 @@ declare class PhysicalItemSheetPF2e<TItem extends PhysicalItemPF2e> extends Item
     /** If the item is unidentified, prevent players from opening this sheet. */
     render(force?: boolean, options?: RenderOptions): this | Promise<this>;
     protected getMaterialSheetData(item: PhysicalItemPF2e, valuationData: MaterialValuationData): MaterialSheetData;
-    activateListeners($html: JQuery): void;
     protected _updateObject(event: Event, formData: Record<string, unknown>): Promise<void>;
 }
 interface PhysicalItemSheetData<TItem extends PhysicalItemPF2e> extends ItemSheetDataPF2e<TItem> {

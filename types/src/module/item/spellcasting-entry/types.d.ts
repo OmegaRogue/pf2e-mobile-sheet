@@ -63,7 +63,6 @@ interface SpellcastingSheetData
 	usesSpellProficiency: boolean;
 	showSlotlessLevels?: boolean;
 }
-
 interface SpellcastingSlotGroup {
 	id: SpellSlotGroupId;
 	label: string;

@@ -4,7 +4,6 @@ import { MagicTradition } from "@item/spell/types.ts";
 import { OneToTen, ZeroToFour, ZeroToTen } from "@module/data.ts";
 import type { RollNotePF2e } from "@module/notes.ts";
 import { SpellcastingCategory } from "./types.ts";
-
 type SlotKey = `slot${ZeroToTen}`;
 type SpellcastingEntrySource = BaseItemSourcePF2e<"spellcastingEntry", SpellcastingEntrySystemSource>;
 interface SpellAttackRollModifier {

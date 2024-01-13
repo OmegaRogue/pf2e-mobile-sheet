@@ -26,6 +26,7 @@ export default abstract class Document<
 
 	/* -------------------------------------------- */
 	/*  Model Configuration                         */
+
 	/* -------------------------------------------- */
 
 	/** Default metadata which applies to each instance of this Document type. */
@@ -42,11 +43,13 @@ export default abstract class Document<
 
 	/** The named collection to which this Document belongs. */
 	static get collectionName(): string;
+
 	/** The named collection to which this Document belongs. */
 	get collectionName(): string;
 
 	/** The canonical name of this Document type, for example "Actor". */
 	static get documentName(): string;
+
 	/** The canonical name of this Document type, for example "Actor". */
 	get documentName(): string;
 
@@ -55,6 +58,7 @@ export default abstract class Document<
 
 	/* -------------------------------------------- */
 	/*  Model Properties                            */
+
 	/* -------------------------------------------- */
 
 	/** The Embedded Document hierarchy for this Document. */
@@ -74,6 +78,7 @@ export default abstract class Document<
 
 	/* ---------------------------------------- */
 	/*  Model Permissions                       */
+
 	/* ---------------------------------------- */
 
 	/**
@@ -117,6 +122,7 @@ export default abstract class Document<
 
 	/* ---------------------------------------- */
 	/*  Model Methods                           */
+
 	/* ---------------------------------------- */
 
 	/**
@@ -144,6 +150,7 @@ export default abstract class Document<
 
 	/* -------------------------------------------- */
 	/*  Database Operations                         */
+
 	/* -------------------------------------------- */
 
 	/**
@@ -178,6 +185,7 @@ export default abstract class Document<
 
 	/* -------------------------------------------- */
 	/*  Database Operations                         */
+
 	/* -------------------------------------------- */
 
 	/**
@@ -239,7 +247,7 @@ export default abstract class Document<
 	static updateDocuments<TDocument extends Document>(
 		this: ConstructorOf<TDocument>,
 		updates?: Record<string, unknown>[],
-		context?: DocumentModificationContext<TDocument["parent"]>,
+		context?: DocumentModificationContext<TDocument["parent"],
 	): Promise<TDocument[]>;
 
 	/**
@@ -272,7 +280,7 @@ export default abstract class Document<
 	static deleteDocuments<TDocument extends Document>(
 		this: ConstructorOf<TDocument>,
 		ids?: string[],
-		context?: DocumentModificationContext<TDocument["parent"]>,
+		context?: DocumentModificationContext<TDocument["parent"]>
 	): Promise<TDocument[]>;
 
 	/**
@@ -298,17 +306,17 @@ export default abstract class Document<
 	static create<TDocument extends Document>(
 		this: ConstructorOf<TDocument>,
 		data: PreCreate<TDocument["_source"]>,
-		context?: DocumentModificationContext<TDocument["parent"]>,
+		context?: DocumentModificationContext<TDocument["parent"]>
 	): Promise<TDocument | undefined>;
 	static create<TDocument extends Document>(
 		this: ConstructorOf<TDocument>,
 		data: PreCreate<TDocument["_source"]>[],
-		context?: DocumentModificationContext<TDocument["parent"]>,
+		context?: DocumentModificationContext<TDocument["parent"]>
 	): Promise<TDocument[]>;
 	static create<TDocument extends Document>(
 		this: ConstructorOf<TDocument>,
 		data: PreCreate<TDocument["_source"]> | PreCreate<TDocument["_source"]>[],
-		context?: DocumentModificationContext<TDocument["parent"]>,
+		context?: DocumentModificationContext<TDocument["parent"]>
 	): Promise<TDocument[] | TDocument | undefined>;
 
 	/**
@@ -344,6 +352,7 @@ export default abstract class Document<
 
 	/* -------------------------------------------- */
 	/*  Embedded Operations                         */
+
 	/* -------------------------------------------- */
 
 	/**
@@ -395,7 +404,7 @@ export default abstract class Document<
 	createEmbeddedDocuments(
 		embeddedName: string,
 		data: object[],
-		context?: DocumentModificationContext<this>,
+		context?: DocumentModificationContext<this>
 	): Promise<Document[]>;
 
 	/**
@@ -412,7 +421,7 @@ export default abstract class Document<
 	updateEmbeddedDocuments(
 		embeddedName: string,
 		updateData: EmbeddedDocumentUpdateData[],
-		context?: DocumentUpdateContext<this>,
+		context?: DocumentUpdateContext<this>
 	): Promise<Document[]>;
 
 	/**
@@ -426,11 +435,12 @@ export default abstract class Document<
 	deleteEmbeddedDocuments(
 		embeddedName: string,
 		dataId: string[],
-		context?: DocumentModificationContext<this>,
+		context?: DocumentModificationContext<this>
 	): Promise<Document<this>[]>;
 
 	/* -------------------------------------------- */
 	/*  Flag Operations                             */
+
 	/* -------------------------------------------- */
 
 	/**
@@ -473,6 +483,7 @@ export default abstract class Document<
 
 	/* -------------------------------------------- */
 	/*  Event Handlers                              */
+
 	/* -------------------------------------------- */
 
 	/**
@@ -487,7 +498,7 @@ export default abstract class Document<
 	protected _preCreate(
 		data: this["_source"],
 		options: DocumentModificationContext<TParent>,
-		user: BaseUser,
+		user: BaseUser
 	): Promise<boolean | void>;
 
 	/**
@@ -501,7 +512,7 @@ export default abstract class Document<
 	protected _preUpdate(
 		changed: DeepPartial<this["_source"]>,
 		options: DocumentUpdateContext<TParent>,
-		user: BaseUser,
+		user: BaseUser
 	): Promise<boolean | void>;
 
 	/**
@@ -531,7 +542,7 @@ export default abstract class Document<
 	protected _onUpdate(
 		changed: DeepPartial<this["_source"]>,
 		options: DocumentUpdateContext<TParent>,
-		userId: string,
+		userId: string
 	): void;
 
 	/**
@@ -551,7 +562,7 @@ export default abstract class Document<
 	 */
 	protected static _onCreateDocuments(
 		documents: Document[],
-		context: DocumentModificationContext<Document | null>,
+		context: DocumentModificationContext<Document | null>
 	): void;
 
 	/**
@@ -563,7 +574,7 @@ export default abstract class Document<
 	 */
 	protected static _onUpdateDocuments(
 		documents: Document[],
-		context: DocumentModificationContext<Document | null>,
+		context: DocumentModificationContext<Document | null>
 	): void;
 
 	/**
@@ -575,11 +586,12 @@ export default abstract class Document<
 	 */
 	protected static _onDeleteDocuments(
 		documents: Document[],
-		context: DocumentModificationContext<Document | null>,
+		context: DocumentModificationContext<Document | null>
 	): void;
 
 	/* ---------------------------------------- */
 	/*  Serialization and Storage               */
+
 	/* ---------------------------------------- */
 
 	/**

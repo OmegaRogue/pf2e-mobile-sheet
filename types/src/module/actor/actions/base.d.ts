@@ -39,6 +39,7 @@ declare abstract class BaseActionVariant implements ActionVariant {
     toMessage(options?: Partial<ActionMessageOptions>): Promise<ChatMessagePF2e | undefined>;
     abstract use(options?: Partial<ActionVariantUseOptions>): Promise<unknown>;
 }
+
 declare abstract class BaseAction<TData extends BaseActionVariantData, TAction extends BaseActionVariant>
 	implements Action
 {
@@ -51,12 +52,19 @@ declare abstract class BaseAction<TData extends BaseActionVariantData, TAction e
 	readonly section?: ActionSection;
 	readonly slug: string;
 	readonly traits: string[];
+
 	protected constructor(data: BaseActionData<TData>);
+
 	get glyph(): string;
+
 	get variants(): Collection<TAction>;
+
 	protected getDefaultVariant(options?: { variant?: string }): TAction;
+
 	toMessage(options?: Partial<ActionMessageOptions>): Promise<ChatMessagePF2e | undefined>;
+
 	use(options?: Partial<ActionUseOptions>): Promise<unknown>;
+
 	protected abstract toActionVariant(data?: TData): TAction;
 }
 export { BaseAction, BaseActionVariant };

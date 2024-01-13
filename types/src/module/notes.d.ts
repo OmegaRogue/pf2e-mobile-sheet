@@ -17,12 +17,16 @@ declare class RollNotePF2e {
 	visibility: UserVisibility | null;
 	/** The originating rule element of this modifier, if any: used to retrieve "parent" item roll options */
 	rule: RuleElementPF2e | null;
+
 	constructor(params: RollNoteParams);
 
 	/** Convert an array of notes to a UL element, or null if the array is empty. */
 	static notesToHTML(notes: RollNotePF2e[]): HTMLUListElement | null;
+
 	toHTML(): HTMLLIElement;
+
 	clone(): RollNotePF2e;
+
 	toObject(): RollNoteSource;
 }
 interface RollNoteSource {

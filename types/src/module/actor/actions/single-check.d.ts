@@ -24,15 +24,12 @@ interface SingleCheckActionData extends BaseActionData<SingleCheckActionVariantD
 	rollOptions?: string[];
 	statistic: string | string[];
 }
-
 interface ActionVariantCheckPreviewOptions {
 	actor: ActorPF2e;
 }
-
 interface ActionCheckPreviewOptions extends ActionVariantCheckPreviewOptions {
 	variant: string;
 }
-
 interface ActionCheckPreview {
 	label: string;
 	modifier?: number;
@@ -48,16 +45,23 @@ interface SingleCheckActionUseOptions extends ActionUseOptions {
 }
 declare class SingleCheckActionVariant extends BaseActionVariant {
 	#private;
+
 	constructor(action: SingleCheckAction, data?: SingleCheckActionVariantData);
+
 	get difficultyClass(): CheckDC | DCSlug | undefined;
+
 	get modifiers(): RawModifier[];
+
 	get notes(): RollNoteSource[];
+
 	get rollOptions(): string[];
 
 	get statistic(): string | string[];
 
 	preview(options?: Partial<ActionVariantCheckPreviewOptions>): ActionCheckPreview[];
+
 	use(options?: Partial<SingleCheckActionUseOptions>): Promise<CheckResultCallback[]>;
+
 	protected checkContext<ItemType extends ItemPF2e<ActorPF2e>>(
 		opts: CheckContextOptions<ItemType>,
 		data: CheckContextData<ItemType>,
@@ -75,9 +79,11 @@ declare class SingleCheckAction extends BaseAction<SingleCheckActionVariantData,
 	readonly notes: RollNoteSource[];
 	readonly rollOptions: string[];
 	readonly statistic: string | string[];
+
 	constructor(data: SingleCheckActionData);
 
 	preview(options?: Partial<ActionCheckPreviewOptions>): ActionCheckPreview[];
+
 	protected toActionVariant(data?: SingleCheckActionVariantData): SingleCheckActionVariant;
 }
 export { SingleCheckAction, SingleCheckActionVariant };

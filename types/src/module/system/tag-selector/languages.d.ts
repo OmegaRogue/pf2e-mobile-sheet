@@ -6,13 +6,12 @@ import type { Language } from "@actor/creature/types.ts";
 import type { ItemPF2e } from "@item";
 import { TagSelectorBasicData } from "./basic.ts";
 import { TagSelectorBasic, type SelectableTagField, type TagSelectorOptions } from "./index.ts";
-
 declare class LanguageSelector extends TagSelectorBasic<ActorPF2e | ItemPF2e> {
+	static get defaultOptions(): TagSelectorOptions;
+
 	choices: typeof CONFIG.PF2E.languages;
 
 	constructor(document: ActorPF2e | ItemPF2e, options?: Partial<TagSelectorOptions>);
-
-	static get defaultOptions(): TagSelectorOptions;
 
 	protected get configTypes(): readonly SelectableTagField[];
 
@@ -22,12 +21,10 @@ declare class LanguageSelector extends TagSelectorBasic<ActorPF2e | ItemPF2e> {
 
 	protected _updateObject(event: Event, formData: Record<string, unknown>): Promise<void>;
 }
-
 interface LanguageSelectorData extends TagSelectorBasicData<ActorPF2e | ItemPF2e> {
 	choices: Record<Language, ChoiceData>;
 	hasRarity: true;
 }
-
 interface ChoiceData {
 	disabled: boolean;
 	label: string;
@@ -38,5 +35,4 @@ interface ChoiceData {
 	selected: boolean;
 	source: string | null;
 }
-
 export { LanguageSelector };

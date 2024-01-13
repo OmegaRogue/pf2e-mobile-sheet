@@ -40,6 +40,7 @@ declare class ChatLog<TChatMessage extends ChatMessage = ChatMessage> extends Si
 
 	/* -------------------------------------------- */
 	/*  Application Rendering                       */
+
 	/* -------------------------------------------- */
 
 	override getData(options?: ChatLogOptions): {
@@ -60,6 +61,7 @@ declare class ChatLog<TChatMessage extends ChatMessage = ChatMessage> extends Si
 
 	/* -------------------------------------------- */
 	/*  Chat Sidebar Methods                        */
+
 	/* -------------------------------------------- */
 
 	/**
@@ -110,6 +112,7 @@ declare class ChatLog<TChatMessage extends ChatMessage = ChatMessage> extends Si
 
 	/* -------------------------------------------- */
 	/*  Event Listeners and Handlers                */
+
 	/* -------------------------------------------- */
 
 	/**

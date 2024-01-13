@@ -78,9 +78,10 @@ interface ArmyResourcesSource {
     potions: ValueAndMaybeMax;
 }
 interface ArmyResourcesData extends ArmyResourcesSource {
-    potions: ValueAndMax;
+	potions: ValueAndMax;
 }
 
 interface ArmyTraits extends Omit<ArmyTraitsSource, "size">, Required<ActorTraitsData<string>> {}
+
 interface ArmyDetails extends ArmyDetailsSource, ActorDetails {}
 export type { ArmySource, ArmySystemData };

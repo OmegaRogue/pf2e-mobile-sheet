@@ -19,23 +19,31 @@ declare abstract class CreatureSheetPF2e<TActor extends CreaturePF2e> extends Ac
 	#private;
 	/** A DocumentSheet class presenting additional, per-actor settings */
 	protected abstract readonly actorConfigClass: ConstructorOf<CreatureConfig<CreaturePF2e>> | null;
+
 	getData(options?: Partial<ActorSheetOptions>): Promise<CreatureSheetData<TActor>>;
+
 	protected prepareSpellcasting(): Promise<SpellcastingSheetData[]>;
+
 	/** Get the font-awesome icon used to display a certain level of skill proficiency */
 	protected getProficiencyIcon(level: ZeroToFour): string;
+
 	activateListeners($html: JQuery): void;
 
 	protected activateClickListener(html: HTMLElement): SheetClickActionHandlers;
+
 	/** Adds support for moving spells between spell levels, spell collections, and spell preparation */
 	protected _onSortItem(event: DragEvent, itemData: ItemSourcePF2e): Promise<ItemPF2e[]>;
+
 	/** Handle dragging spells onto spell slots. */
 	protected _handleDroppedItem(
 		event: DragEvent,
 		item: ItemPF2e<ActorPF2e | null>,
 		data: DropCanvasItemDataPF2e,
 	): Promise<ItemPF2e<ActorPF2e | null>[]>;
+
 	/** Replace sheet config with a special PC config form application */
 	protected _getHeaderButtons(): ApplicationHeaderButton[];
+
 	/** Redirect an update to shield HP to the actual item */
 	protected _updateObject(event: Event, formData: Record<string, unknown>): Promise<void>;
 }

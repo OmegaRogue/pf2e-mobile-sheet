@@ -21,6 +21,7 @@ declare global {
 
 		/* -------------------------------------------- */
 		/*  Properties                                  */
+
 		/* -------------------------------------------- */
 
 		/** Token objects on this layer utilize the TokenHUD */
@@ -31,6 +32,7 @@ declare global {
 
 		/* -------------------------------------------- */
 		/*  Methods                                     */
+
 		/* -------------------------------------------- */
 
 		protected override _tearDown(): Promise<void>;
@@ -54,6 +56,7 @@ declare global {
 			releaseOptions?: object;
 			controlOptions?: object;
 		}): number;
+
 		/**
 		 * Target all Token instances which fall within a coordinate rectangle.
 		 * @param x             The top-left x-coordinate of the selection rectangle
@@ -99,6 +102,7 @@ declare global {
 
 		/* -------------------------------------------- */
 		/*  Event Listeners and Handlers                */
+
 		/* -------------------------------------------- */
 
 		/** Handle dropping of Actor data onto the Scene canvas */

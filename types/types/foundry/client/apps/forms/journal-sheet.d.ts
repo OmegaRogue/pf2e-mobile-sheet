@@ -7,22 +7,13 @@ declare global {
 	 * @param [options] Application options
 	 */
 	class JournalSheet<TJournalEntry extends JournalEntry> extends DocumentSheet<TJournalEntry> {
-		/** Available view modes for journal entries. */
-		static VIEW_MODES: { SINGLE: 1; MULTIPLE: 2 };
-		/**
-		 * The minimum amount of content that must be visible before the next page is marked as in view. Cannot be less than
-		 * 25% without also modifying the IntersectionObserver threshold.
-		 */
-		static INTERSECTION_RATIO: number;
-		/** Icons for page ownership. */
-		static OWNERSHIP_ICONS: Record<DocumentOwnershipLevel, string | undefined>;
+		static override get defaultOptions(): DocumentSheetOptions;
+
 		/**
 		 * The cached list of processed page entries.
 		 * This array is populated in the getData method.
 		 */
 		protected _pages: JournalEntryPage<TJournalEntry>["_source"][];
-
-		static override get defaultOptions(): DocumentSheetOptions;
 
 		/**
 		 * Get the journal entry's current view mode.
@@ -33,6 +24,9 @@ declare global {
 
 		/** The current search mode for this journal */
 		get searchMode(): DirectorySearchMode;
+
+		/** Toggle the search mode for this journal between "name" and "full" text search */
+		toggleSearchMode(): void;
 
 		/** The pages that are currently scrolled into view and marked as 'active' in the sidebar. */
 		get pagesInView(): HTMLElement[];
@@ -46,53 +40,27 @@ declare global {
 		/** Is the table-of-contents sidebar currently collapsed? */
 		get sidebarCollapsed(): boolean;
 
+		/** Available view modes for journal entries. */
+		static VIEW_MODES: { SINGLE: 1; MULTIPLE: 2 };
+
+		/**
+		 * The minimum amount of content that must be visible before the next page is marked as in view. Cannot be less than
+		 * 25% without also modifying the IntersectionObserver threshold.
+		 */
+		static INTERSECTION_RATIO: number;
+
+		/** Icons for page ownership. */
+		static OWNERSHIP_ICONS: Record<DocumentOwnershipLevel, string | undefined>;
+
 		get title(): string;
 
-		override get template(): string;
-
-		/** Toggle the search mode for this journal between "name" and "full" text search */
-		toggleSearchMode(): void;
+		protected override _getHeaderButtons(): ApplicationHeaderButton[];
 
 		override getData(
 			options?: Partial<DocumentSheetOptions>,
 		): JournalSheetData<TJournalEntry> | Promise<JournalSheetData<TJournalEntry>>;
 
-		override activateListeners(html: JQuery): void;
-
-		override close(options?: { force?: boolean }): Promise<void>;
-
-		/** Prompt the user with a Dialog for creation of a new JournalEntryPage */
-		createPage(): Promise<JournalEntryPage<TJournalEntry> | null>;
-
-		/** Turn to the previous page. */
-		previousPage(): Promise<this> | void;
-
-		/** Turn to the next page. */
-		nextPage(): Promise<this> | void;
-
-		/**
-		 * Turn to a specific page.
-		 * @param pageId   The ID of the page to turn to.
-		 * @param [anchor] Optionally an anchor slug to focus within that page.
-		 */
-		goToPage(pageId: string, anchor?: string): void;
-
-		/**
-		 * Retrieve the sheet instance for rendering this page inline.
-		 * @param pageId The ID of the page.
-		 */
-		getPageSheet(pageId: string): JournalEntryPage<TJournalEntry> | undefined;
-
-		/**
-		 * Determine whether a page is visible to the current user.
-		 * @param page  The page.
-		 */
-		isPageVisible(page: JournalEntryPage<TJournalEntry>): boolean;
-
-		/** Toggle the collapsed or expanded state of the Journal Entry table-of-contents sidebar. */
-		toggleSidebar(): void;
-
-		protected override _getHeaderButtons(): ApplicationHeaderButton[];
+		override get template(): string;
 
 		/** Guess the default view mode for the sheet based on the player's permissions to the Entry */
 		protected _inferDefaultMode(): string;
@@ -116,6 +84,8 @@ declare global {
 		 * @returns The currently displayed page index
 		 */
 		protected _getCurrentPage(options?: { pageIndex?: number; pageId?: string }): number;
+
+		override activateListeners(html: JQuery): void;
 
 		/** Activate listeners after page content has been injected. */
 		protected _activatePageListeners(): void;
@@ -148,11 +118,44 @@ declare global {
 		 */
 		protected _observeHeadings(): void;
 
+		override close(options?: { force?: boolean }): Promise<void>;
+
 		/**
 		 * Handle clicking the previous and next page buttons.
 		 * @param event  The button click event.
 		 */
 		protected _onAction(event: JQuery.TriggeredEvent): void;
+
+		/** Prompt the user with a Dialog for creation of a new JournalEntryPage */
+		createPage(): Promise<JournalEntryPage<TJournalEntry> | null>;
+
+		/** Turn to the previous page. */
+		previousPage(): Promise<this> | void;
+
+		/** Turn to the next page. */
+		nextPage(): Promise<this> | void;
+
+		/**
+		 * Turn to a specific page.
+		 * @param pageId   The ID of the page to turn to.
+		 * @param [anchor] Optionally an anchor slug to focus within that page.
+		 */
+		goToPage(pageId: string, anchor?: string): void;
+
+		/**
+		 * Retrieve the sheet instance for rendering this page inline.
+		 * @param pageId The ID of the page.
+		 */
+		getPageSheet(pageId: string): JournalEntryPage<TJournalEntry> | undefined;
+
+		/**
+		 * Determine whether a page is visible to the current user.
+		 * @param page  The page.
+		 */
+		isPageVisible(page: JournalEntryPage<TJournalEntry>): boolean;
+
+		/** Toggle the collapsed or expanded state of the Journal Entry table-of-contents sidebar. */
+		toggleSidebar(): void;
 
 		/** Update the disabled state of the previous and next page buttons. */
 		protected _updateButtonState(): void;

@@ -76,20 +76,16 @@ type ItemSystemSource = {
 		lastMigration: object | null;
 	}>;
 };
-
 interface ItemDescriptionSource {
 	gm: string;
 	value: string;
 }
-
 interface ItemSystemData extends ItemSystemSource {
 	description: ItemDescriptionData;
 }
-
 interface ItemDescriptionData extends ItemDescriptionSource {
 	addenda: string[];
 }
-
 type FrequencyInterval = keyof typeof CONFIG.PF2E.frequencies;
 interface FrequencySource {
 	value?: number;

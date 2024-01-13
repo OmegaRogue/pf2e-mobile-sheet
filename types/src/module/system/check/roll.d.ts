@@ -8,11 +8,17 @@ declare class CheckRoll extends Roll {
 	static CHAT_TEMPLATE: string;
 
 	constructor(formula: string, data?: Record<string, unknown>, options?: CheckRollDataPF2e);
+
 	get roller(): UserPF2e | null;
+
 	get type(): CheckType;
+
 	get degreeOfSuccess(): DegreeOfSuccessIndex | null;
+
 	get isReroll(): boolean;
+
 	get isRerollable(): boolean;
+
 	render(this: Rolled<CheckRoll>, options?: RollRenderOptions): Promise<string>;
 
 	getTooltip(): Promise<string>;

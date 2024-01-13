@@ -35,6 +35,6 @@ type SourceOmission =
 	| "price"
 	| "temporary"
 	| "usage";
-interface ContainerBulkData extends ContainerBulkSource, BulkData {}
 
+interface ContainerBulkData extends ContainerBulkSource, BulkData {}
 export type { ContainerBulkData, ContainerSource, ContainerSystemData };

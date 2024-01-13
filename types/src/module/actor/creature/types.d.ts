@@ -41,5 +41,5 @@ export type {
 	ModeOfBeing,
 	SenseAcuity,
 	SenseType,
-	SpecialVisionype,
+	SpecialVisionType,
 };

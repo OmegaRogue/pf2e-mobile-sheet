@@ -36,7 +36,6 @@ interface HomebrewElementsSheetData extends MenuTemplateData {
 	damageCategories: Record<MainDamageCategories, string>;
 	customDamageTypes: CustomDamageData[];
 }
-
 interface LanguageRaritiesSheetData {
 	commonLanguage: LanguageNotCommon | null;
 	common: {
@@ -56,9 +55,7 @@ interface LanguageRaritiesSheetData {
 		label: string;
 	}[];
 }
-
 type LanguageNotCommon = Exclude<Language, "common">;
-
 declare class LanguageRaritiesData extends foundry.abstract.DataModel<null, LanguageRaritiesSchema> {
 	/** Common-rarity languages: those not classified among the subsequent rarities */
 	common: Set<LanguageNotCommon>;
@@ -79,7 +76,6 @@ declare class LanguageRaritiesData extends foundry.abstract.DataModel<null, Lang
 interface LanguageRaritiesData
 	extends foundry.abstract.DataModel<null, LanguageRaritiesSchema>,
 		ModelPropsFromSchema<LanguageRaritiesSchema> {}
-
 type LanguageRaritiesSchema = {
 	/** The "common" tongue of the region, rather than languages of common rarity */
 	commonLanguage: StringField<LanguageNotCommon, LanguageNotCommon, true, true, true>;

@@ -1,6 +1,4 @@
 import type { ClientBaseScene } from "./client-base-mixes.d.ts";
-import type { NoteSource } from "../../../common/documents/note.js";
-import { TokenSource } from "../../../common/documents/token.js";
 
 declare global {
 	/**
@@ -29,6 +27,7 @@ declare global {
 
 		/* -------------------------------------------- */
 		/*  Scene Methods                               */
+
 		/* -------------------------------------------- */
 
 		/**
@@ -68,7 +67,7 @@ declare global {
 		protected override _onCreate(
 			data: this["_source"],
 			options: DocumentModificationContext<null>,
-			userId: string,
+			userId: strin,
 		): void;
 
 		protected override _preUpdate(
@@ -102,7 +101,7 @@ declare global {
 			collection: string,
 			changes: object[],
 			options: SceneEmbeddedModificationContext<this>,
-			userId: string,
+			userId: strin,
 		): void;
 
 		protected override _onUpdateDescendantDocuments(
@@ -116,6 +115,7 @@ declare global {
 
 		/* -------------------------------------------- */
 		/*  Importing and Exporting                     */
+
 		/* -------------------------------------------- */
 
 		override toCompendium(pack: CompendiumCollection<this>): this["_source"];
@@ -157,52 +157,54 @@ declare global {
 
 		update(data: Record<string, unknown>, options?: SceneUpdateContext): Promise<this>;
 
-		createEmbeddedDocuments(
-			embeddedName: "Note",
-			data: PreCreate<NoteSource>[],
-			context?: DocumentModificationContext<this>,
-		): Promise<NoteDocument<this>[]>;
-
 		updateEmbeddedDocuments(
 			embeddedName: "Token",
 			updateData: EmbeddedDocumentUpdateData[],
 			options?: SceneTokenModificationContext<this>,
 		): Promise<CollectionValue<this["tokens"]>[]>;
+
 		updateEmbeddedDocuments(
 			embeddedName: "AmbientLight",
 			updateData: EmbeddedDocumentUpdateData[],
 			options?: SceneEmbeddedModificationContext<this>,
 		): Promise<CollectionValue<this["lights"]>[]>;
+
 		updateEmbeddedDocuments(
 			embeddedName: "AmbientSound",
 			updateData: EmbeddedDocumentUpdateData[],
-			options?: SceeEmbeddedModificationContext<this>,
+			options?: SceneEmbeddedModificationContext<this>,
 		): Promise<CollectionValue<this["sounds"]>[]>;
+
 		updateEmbeddedDocuments(
 			embeddedName: "Drawing",
 			updateData: EmbeddedDocumentUpdateData[],
 			options?: SceneEmbeddedModificationContext<this>,
 		): Promise<CollectionValue<this["drawings"]>[]>;
+
 		updateEmbeddedDocuments(
 			embeddedName: "MeasuredTemplate",
 			updateData: EmbeddedDocumentUpdateData[],
 			options?: SceneEmbeddedModificationContext<this>,
 		): Promise<CollectionValue<this["tokens"]>[]>;
+
 		updateEmbeddedDocuments(
 			embeddedName: "Note",
 			updateData: EmbeddedDocumentUpdateData[],
 			options?: SceneEmbeddedModificationContext<this>,
 		): Promise<CollectionValue<this["notes"]>[]>;
+
 		updateEmbeddedDocuments(
 			embeddedName: "Tile",
 			updateData: EmbeddedDocumentUpdateData[],
 			options?: SceneEmbeddedModificationContext<this>,
 		): Promise<CollectionValue<this["tiles"]>[]>;
+
 		updateEmbeddedDocuments(
 			embeddedName: "Wall",
 			updateData: EmbeddedDocumentUpdateData[],
 			options?: SceneEmbeddedModificationContext<this>,
 		): Promise<CollectionValue<this["walls"]>[]>;
+
 		updateEmbeddedDocuments(
 			embeddedName:
 				| "Token"

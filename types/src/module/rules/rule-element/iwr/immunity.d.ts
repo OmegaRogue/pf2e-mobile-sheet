@@ -12,7 +12,6 @@ declare class ImmunityRuleElement extends IWRRuleElement<ImmunityRuleSchema> {
     get property(): Immunity[];
     getIWR(): Immunity[];
 }
-
 interface ImmunityRuleElement extends IWRRuleElement<ImmunityRuleSchema>, ModelPropsFromRESchema<ImmunityRuleSchema> {
 	type: ImmunityType[];
 	exceptions: IWRException<ImmunityType>[];

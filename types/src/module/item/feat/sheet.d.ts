@@ -8,12 +8,17 @@ import type { FeatPF2e } from "@item/feat/document.ts";
 import { OneToFour } from "@module/data.ts";
 declare class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
 	#private;
+
 	static get defaultOptions(): ItemSheetOptions;
+
 	get validTraits(): Record<string, string>;
+
 	getData(options?: Partial<ItemSheetOptions>): Promise<FeatSheetData>;
+
 	activateListeners($html: JQuery<HTMLElement>): void;
 
 	_onDrop(event: DragEvent): Promise<void>;
+
 	protected _updateObject(event: Event, formData: Record<string, unknown>): Promise<void>;
 }
 interface FeatSheetData extends ItemSheetDataPF2e<FeatPF2e> {
@@ -34,7 +39,6 @@ interface FeatSheetData extends ItemSheetDataPF2e<FeatPF2e> {
 	senses: SenseOption[];
 	showPrerequisites: boolean;
 }
-
 interface LanguageOptions {
 	slots: number;
 	granted: {
@@ -48,7 +52,6 @@ interface LanguageOptions {
 		}[];
 	};
 }
-
 interface ProficiencyOptions {
 	other: ProficiencyOptionGroup<null>;
 	saves: ProficiencyOptionGroup;
@@ -56,7 +59,6 @@ interface ProficiencyOptions {
 	defenses: ProficiencyOptionGroup;
 	classes: ProficiencyOptionGroup;
 }
-
 interface ProficiencyOptionGroup<TGroup extends string | null = string> {
 	group: TGroup;
 	options: {
@@ -65,7 +67,6 @@ interface ProficiencyOptionGroup<TGroup extends string | null = string> {
 		rank: OneToFour | null;
 	}[];
 }
-
 interface SenseOption {
 	acuity?: SenseAcuity | null;
 	canSetAcuity: boolean;

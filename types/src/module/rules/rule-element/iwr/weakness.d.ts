@@ -10,7 +10,6 @@ declare class WeaknessRuleElement extends IWRRuleElement<WeaknessRuleSchema> {
     get property(): Weakness[];
     getIWR(value: number): Weakness[];
 }
-
 interface WeaknessRuleElement extends IWRRuleElement<WeaknessRuleSchema>, ModelPropsFromRESchema<WeaknessRuleSchema> {
 	type: WeaknessType[];
 	exceptions: IWRException<WeaknessType>[];

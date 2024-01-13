@@ -17,10 +17,15 @@ import {
  */
 declare class FlatModifierRuleElement extends RuleElementPF2e<FlatModifierSchema> {
 	constructor(source: FlatModifierSource, options: RuleElementOptions);
+
 	static validateJoint(data: SourceFromSchema<FlatModifierSchema>): void;
+
 	static defineSchema(): FlatModifierSchema;
+
 	get selectors(): string[];
+
 	beforePrepareData(): void;
+
 	/** Remove this rule element's parent item after a roll */
 	afterRoll({ check, rollOptions }: RuleElementPF2e.AfterRollParams): Promise<void>;
 }
