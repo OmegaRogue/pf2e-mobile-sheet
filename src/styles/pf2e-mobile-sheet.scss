@@ -9,6 +9,8 @@ $npc-sheet-breakpoint: 548px;
 $mej-breakpoint: 700px;
 $journal-breakpoint: 600px;
 $settings-breakpoint: 477px;
+$compendium-browser-breakpoint: 652px;
+$item-sheet-breakpoint: 500px;
 
 :root {
 	--send-button-gap: 0.5em;
@@ -351,11 +353,16 @@ $settings-breakpoint: 477px;
 
 	}
 
-	&.journal-entry {
-		min-width: unset;
+	&.item {
+		@container sheet (width < #{$item-sheet-breakpoint}) {
+			.sheet-content {
+				flex-direction: column !important;
+			}
+		}
 	}
 
 	&.journal-entry {
+		min-width: unset;
 		@container sheet (width < #{$journal-breakpoint}) {
 			.journal-sheet-container {
 				--sidebar-width-expanded: 100%;
@@ -401,6 +408,35 @@ $settings-breakpoint: 477px;
 			footer button {
 				height: 2rem;
 				flex-basis: max-content;
+			}
+		}
+	}
+}
+
+#compendium-browser {
+	container: compendium-browser / inline-size;
+	@container compendium-browser (width < #{$compendium-browser-breakpoint}) {
+		.window-header {
+			//border: 1px solid hotpink !important;
+		}
+
+		> section.window-content > .content-box {
+			> section.content > .tab.browser.active > div {
+				display: flex;
+				flex-direction: column;
+			}
+
+			.control-area {
+				width: unset !important;
+			}
+
+			.list-buttons {
+				justify-content: space-around !important;
+				width: 95% !important;
+			}
+
+			.filter-conjunction {
+				display: flex;
 			}
 		}
 	}
@@ -605,25 +641,7 @@ $settings-breakpoint: 477px;
 		flex-basis: 100%;
 	}
 
-	#compendium-browser > section.window-content > .content-box {
-		> section.content > .tab.browser.active > div {
-			grid-template-columns: auto auto;
-		}
 
-		.control-area {
-			min-width: unset;
-			width: unset;
-		}
-
-		:is(.filtercontainer, .sortcontainer) div.title {
-			height: unset;
-			flex-direction: column;
-		}
-
-		.list-buttons {
-			display: none;
-		}
-	}
 
 	.app.window-app:not(.minimized,.dialog) {
 		height: 100% !important;
