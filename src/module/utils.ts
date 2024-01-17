@@ -35,7 +35,7 @@ export function checkMobile(): boolean {
 	}
 }
 
-export function checkMobileWithOverride(settingId: string): boolean {
+export function checkMobileWithOverride(settingId: "send-button" | "header-button-text"): boolean {
 	switch (game.settings.get(MODULE_ID, settingId)) {
 		case "on":
 			return true;

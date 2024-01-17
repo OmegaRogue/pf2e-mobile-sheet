@@ -1,0 +1,89 @@
+@use "familiar";
+@use "party";
+@use "character";
+@use "loot";
+@use "vehicle";
+@use "hazard";
+@use "npc";
+@use "item";
+@use "journal";
+@import "../../breakpoints";
+
+.sheet {
+	container: sheet / inline-size;
+
+	&.actor {
+		body:not([data-mobile-force-mobile=true],[data-mobile-force-mobile=false]) & {
+			@container sheet (width < #{$familiar-breakpoint}) {
+				@include familiar.mobile;
+			}
+			@container sheet (width < #{$party-breakpoint}) {
+				@include party.mobile;
+			}
+			@container sheet (width < #{$player-character-breakpoint}) {
+				@include character.mobile;
+			}
+			@container sheet (width < #{$loot-sheet-breakpoint}) {
+				@include loot.mobile;
+			}
+			@container sheet (width < #{$vehicle-sheet-breakpoint}) {
+				@include vehicle.mobile;
+			}
+			@container sheet (width < #{$hazard-sheet-breakpoint}) {
+				@include hazard.mobile;
+			}
+			@container sheet (width < #{$npc-sheet-breakpoint}) {
+				@include npc.mobile;
+			}
+			@container sheet (width >= #{$player-character-breakpoint}) {
+				@include character.desktop;
+			}
+			@container sheet (width >= #{$vehicle-sheet-breakpoint}) {
+				@include vehicle.desktop;
+			}
+		}
+
+		body[data-mobile-force-mobile=false] & {
+			@include character.desktop;
+			@include vehicle.desktop;
+		}
+
+		body[data-mobile-force-mobile=true] & {
+			@include familiar.mobile;
+			@include party.mobile;
+			@include character.mobile;
+			@include loot.mobile;
+			@include vehicle.mobile;
+			@include hazard.mobile;
+			@include npc.mobile;
+			@include character.desktop;
+			@include vehicle.desktop;
+		}
+	}
+
+	&.item {
+		body:not([data-mobile-force-mobile=true],[data-mobile-force-mobile=false]) & {
+			@container sheet (width < #{$item-sheet-breakpoint}) {
+				@include item.mobile;
+			}
+		}
+
+		body[data-mobile-force-mobile=true] & {
+			@include item.mobile;
+		}
+	}
+
+	&.journal-entry {
+		min-width: unset;
+
+		body:not([data-mobile-force-mobile=true],[data-mobile-force-mobile=false]) & {
+			@container sheet (width < #{$journal-breakpoint}) {
+				@include journal.mobile;
+			}
+		}
+
+		body[data-mobile-force-mobile=true] & {
+			@include journal.mobile;
+		}
+	}
+}

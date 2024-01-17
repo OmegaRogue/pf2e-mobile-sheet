@@ -1,0 +1,34 @@
+@mixin mobile {
+	&.party {
+		[data-tab="overview"] .member {
+			height: unset;
+			padding-right: 0.2em;
+
+			.main-stats {
+				display: grid;
+				gap: 0.3rem;
+				grid-template-columns: repeat(3, 1fr);
+			}
+
+			.name a {
+				max-width: 10em;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+		}
+
+		.tab.active {
+			flex-direction: column;
+			overflow: hidden scroll;
+		}
+
+		.sidebar {
+			overflow: unset;
+			width: unset;
+		}
+
+		.content {
+			overflow: unset;
+		}
+	}
+}

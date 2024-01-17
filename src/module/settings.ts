@@ -15,9 +15,9 @@ export function registerSettings() {
 		default: "auto",
 		requiresReload: true,
 	});
-	game.settings.register(MODULE_ID, "close-button-text", {
-		name: `${MODULE_ID}.settings.close-button-text.name`,
-		hint: `${MODULE_ID}.settings.close-button-text.hint`,
+	game.settings.register(MODULE_ID, "header-button-text", {
+		name: `${MODULE_ID}.settings.header-button-text.name`,
+		hint: `${MODULE_ID}.settings.header-button-text.hint`,
 		config: true,
 		scope: "client",
 		type: String,
@@ -27,6 +27,20 @@ export function registerSettings() {
 			auto: `${MODULE_ID}.settings.toggle.auto`,
 		},
 		default: "auto",
-		requiresReload: true,
+		requiresReload: false,
+		onChange: (value) => {
+			const body = $("body");
+			switch (value) {
+				case "off":
+					body.data("mobile-force-hide-header-button-text", false);
+					break;
+				case "on":
+					body.data("mobile-force-hide-header-button-text", true);
+					break;
+				case "auto":
+					body.removeData("mobile-force-hide-header-button-text");
+					break;
+			}
+		},
 	});
 }

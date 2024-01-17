@@ -1,0 +1,5 @@
+@mixin mobile {
+	.sheet-content {
+		flex-direction: column !important;
+	}
+}

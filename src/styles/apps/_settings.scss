@@ -1,0 +1,54 @@
+@import "../breakpoints";
+
+@mixin mobile {
+	&.package-configuration {
+		div:not(#mps-view-group).flexcol {
+		}
+
+		.window-content {
+			overflow: hidden;
+		}
+
+		.sidebar {
+			padding-left: 3rem;
+			padding-right: 3rem;
+			height: unset;
+		}
+
+		footer {
+			position: sticky;
+			bottom: 0;
+			width: inherit;
+			max-width: inherit;
+			flex-grow: 0;
+		}
+
+		.scrollable {
+			overflow: hidden auto;
+		}
+
+		form {
+			padding-left: 1em;
+			padding-right: 1em;
+		}
+
+		footer button {
+			height: 2rem;
+			flex-basis: max-content;
+		}
+	}
+}
+
+#client-settings {
+	container: settings / inline-size;
+
+	body:not([data-mobile-force-mobile=true],[data-mobile-force-mobile=false]) & {
+		@container settings (width < #{$settings-breakpoint}) {
+			@include mobile;
+		}
+	}
+
+	body[data-mobile-force-mobile=true] & {
+		@include mobile;
+	}
+}

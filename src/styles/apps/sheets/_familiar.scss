@@ -1,0 +1,33 @@
+@mixin mobile {
+	&.familiar {
+		.header-content {
+			overflow: hidden;
+
+			.sub-header {
+				flex-direction: column;
+			}
+
+			.details-section {
+				flex-direction: column;
+			}
+		}
+
+		.main-section {
+			flex-direction: column;
+			overflow: hidden scroll;
+
+			.skills-content {
+				width: unset;
+
+				.skills-list {
+					display: grid;
+					grid-template-columns: repeat(2, 1fr);
+				}
+			}
+
+			.main-container {
+				overflow: initial;
+			}
+		}
+	}
+}

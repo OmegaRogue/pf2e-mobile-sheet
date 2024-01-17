@@ -1,0 +1,51 @@
+@use "../../mixins";
+
+@mixin mobile {
+	&.vehicle {
+		.crb-style {
+			grid-template-columns: initial !important;
+			grid-template-areas: "header " "nav    " "content" !important;
+
+			.sheet-navigation {
+				min-width: unset;
+			}
+
+			@include mixins.sheet-nav-bar;
+
+			aside {
+				background-image: none;
+
+				.logo {
+					display: none;
+				}
+			}
+
+			.tab {
+				&[data-tab=details] {
+					.vehicle-details .detail-sheet {
+						grid: repeat(2, 1fr)/3fr 2fr !important;
+
+						.detail-small {
+							display: grid !important;
+							grid-template-columns: repeat(2, 0.5fr);
+							grid-column-gap: 0.5em;
+
+						}
+					}
+				}
+			}
+		}
+
+		&:not([data-color-scheme=dark]) .sheet-content .tab.sidebar {
+			background-color: var(--primary);
+		}
+	}
+}
+
+@mixin desktop {
+	&.vehicle {
+		a#sidebar-tab {
+			display: none;
+		}
+	}
+}

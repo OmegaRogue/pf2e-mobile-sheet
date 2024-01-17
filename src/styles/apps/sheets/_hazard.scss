@@ -1,0 +1,16 @@
+@mixin mobile {
+	&.hazard .container {
+		display: block;
+		overflow: hidden scroll;
+
+		.sidebar {
+			overflow: hidden;
+			height: unset;
+			width: unset;
+		}
+
+		.content {
+			overflow: hidden;
+		}
+	}
+}

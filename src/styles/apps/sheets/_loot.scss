@@ -1,0 +1,41 @@
+@mixin mobile {
+	&.loot form {
+		flex-direction: column-reverse;
+		overflow: hidden scroll;
+
+		section {
+			&.sidebar {
+				position: sticky;
+				display: grid;
+				grid-template-areas: "a b"
+									"c c";
+				width: 100%;
+
+				img.actor-image {
+					border-bottom: unset !important;
+				}
+
+				.gm-settings {
+					border-bottom: unset;
+					margin: auto 0;
+
+					.loot-distribution {
+						flex-direction: row;
+					}
+				}
+			}
+
+			&.sheet-header {
+				position: sticky;
+			}
+
+			&.content {
+				height: unset;
+			}
+		}
+
+		.inventory .inventory-list {
+			overflow: hidden;
+		}
+	}
+}

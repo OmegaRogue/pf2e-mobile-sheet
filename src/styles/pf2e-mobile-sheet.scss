@@ -1,473 +1,36 @@
-$familiar-breakpoint: 535px;
-$party-breakpoint: 660px;
-$player-character-breakpoint: 745px;
-$loot-sheet-breakpoint: 445px;
-$vehicle-sheet-breakpoint: 585px;
-$hazard-sheet-breakpoint: 495px;
-$global-breakpoint: 930px;
-$npc-sheet-breakpoint: 548px;
-$mej-breakpoint: 700px;
-$journal-breakpoint: 600px;
-$settings-breakpoint: 477px;
-$compendium-browser-breakpoint: 652px;
-$item-sheet-breakpoint: 500px;
+@use "mixins";
+@import "breakpoints";
+@import "apps";
 
 :root {
 	--send-button-gap: 0.5em;
+	//--familiar-breakpoint: $familiar-breakpoint;
+	//--party-breakpoint: $party-breakpoint;
+	//--player-character-breakpoint: $player-character-breakpoint;
+	//--loot-sheet-breakpoint: $loot-sheet-breakpoint;
+	//--vehicle-sheet-breakpoint: $vehicle-sheet-breakpoint;
+	//--hazard-sheet-breakpoint: $hazard-sheet-breakpoint;
+	//--global-breakpoint: $global-breakpoint;
+	//--npc-sheet-breakpoint: $npc-sheet-breakpoint;
+	//--mej-breakpoint: $mej-breakpoint;
+	//--journal-breakpoint: $journal-breakpoint;
+	//--settings-breakpoint: $settings-breakpoint;
+	//--compendium-browser-breakpoint: $compendium-browser-breakpoint;
+	//--item-sheet-breakpoint: $item-sheet-breakpoint;
 }
 
-@mixin sheet-nav-bar {
-	nav.sheet-navigation {
-		flex-wrap: wrap;
-		height: unset;
-
-		.item {
-			font-size: 1.5em;
-			height: 2rem;
-			width: 2rem;
-
-			.action-glyph {
-				font-size: 1.5rem;
-			}
-		}
-
-		.panel-title {
-			display: none;
-			width: unset;
-		}
-	}
-}
-
-.sheet {
-	container: sheet / inline-size;
-
-	&.actor {
-
-
-		@container sheet (width < #{$familiar-breakpoint}) {
-			&.familiar {
-				.header-content {
-					overflow: hidden;
-
-					.sub-header {
-						flex-direction: column;
-					}
-
-					.details-section {
-						flex-direction: column;
-					}
-				}
-
-				.main-section {
-					flex-direction: column;
-					overflow: hidden scroll;
-
-					.skills-content {
-						width: unset;
-
-						.skills-list {
-							display: grid;
-							grid-template-columns: repeat(2, 1fr);
-						}
-					}
-
-					.main-container {
-						overflow: initial;
-					}
-				}
-			}
-		}
-
-		@container sheet (width < #{$party-breakpoint}) {
-			&.party {
-				[data-tab="overview"] .member {
-					height: unset;
-					padding-right: 0.2em;
-
-					.main-stats {
-						display: grid;
-						gap: 0.3rem;
-						grid-template-columns: repeat(3, 1fr);
-					}
-
-					.name a {
-						max-width: 10em;
-						overflow: hidden;
-						text-overflow: ellipsis;
-					}
-				}
-
-				.tab.active {
-					flex-direction: column;
-					overflow: hidden scroll;
-				}
-
-				.sidebar {
-					overflow: unset;
-					width: unset;
-				}
-
-				.content {
-					overflow: unset;
-				}
-			}
-		}
-		@container sheet (width < #{$player-character-breakpoint}) {
-			&.character {
-				.crb-style {
-					grid-template-columns: initial !important;
-					grid-template-areas: "header " "nav    " "content" !important;
-
-					aside {
-						background-image: none;
-
-						.logo {
-							display: none;
-						}
-					}
-
-					.pf-rank {
-						width: 4em;
-						text-overflow: ellipsis;
-						overflow: hidden;
-						display: inline-block;
-					}
-
-					@include sheet-nav-bar;
-
-					.sheet-body .sheet-content .tab {
-						&[data-tab=character] {
-							.character-details {
-								.abcd {
-
-									.detail.deity {
-										grid-column: span 2;
-									}
-								}
-							}
-
-							.attributes .attribute .label {
-								display: none;
-							}
-						}
-
-						&[data-tab=actions] {
-							.button-group {
-								flex-wrap: wrap !important;
-							}
-
-							button.tag.damage:after {
-								content: '(' attr(data-tooltip) ')';
-							}
-						}
-
-						&[data-tab=proficiencies] {
-							ul.proficiencies-list li .button-group button {
-								width: 4em;
-								text-overflow: ellipsis;
-								overflow: hidden;
-								display: inline-block;
-							}
-						}
-					}
-
-					header.char-header .char-level {
-						.exp-data {
-							padding: initial !important;
-						}
-
-						flex-wrap: wrap !important;
-						justify-content: center !important;
-					}
-				}
-
-				&:not([data-color-scheme=dark]) .sheet-content .tab.sidebar {
-					background-color: var(--primary);
-				}
-			}
-		}
-		@container sheet (width < #{$loot-sheet-breakpoint}) {
-			&.loot form {
-				flex-direction: column-reverse;
-				overflow: hidden scroll;
-
-				section {
-					&.sidebar {
-						position: sticky;
-						display: grid;
-						grid-template-areas: "a b"
-									"c c";
-						width: 100%;
-
-						img.actor-image {
-							border-bottom: unset !important;
-						}
-
-						.gm-settings {
-							border-bottom: unset;
-							margin: auto 0;
-
-							.loot-distribution {
-								flex-direction: row;
-							}
-						}
-					}
-
-					&.sheet-header {
-						position: sticky;
-					}
-
-					&.content {
-						height: unset;
-					}
-				}
-
-				.inventory .inventory-list {
-					overflow: hidden;
-				}
-			}
-		}
-		@container sheet (width < #{$vehicle-sheet-breakpoint}) {
-			&.vehicle {
-				.crb-style {
-					grid-template-columns: initial !important;
-					grid-template-areas: "header " "nav    " "content" !important;
-
-					.sheet-navigation {
-						min-width: unset;
-					}
-
-					@include sheet-nav-bar;
-
-					aside {
-						background-image: none;
-
-						.logo {
-							display: none;
-						}
-					}
-
-					.tab {
-						&[data-tab=details] {
-							.vehicle-details .detail-sheet {
-								grid: repeat(2, 1fr)/3fr 2fr !important;
-
-								.detail-small {
-									display: grid !important;
-									grid-template-columns: repeat(2, 0.5fr);
-									grid-column-gap: 0.5em;
-
-								}
-							}
-						}
-					}
-				}
-
-				&:not([data-color-scheme=dark]) .sheet-content .tab.sidebar {
-					background-color: var(--primary);
-				}
-			}
-		}
-		@container sheet (width < #{$hazard-sheet-breakpoint}) {
-			&.hazard .container {
-				display: block;
-				overflow: hidden scroll;
-
-				.sidebar {
-					overflow: hidden;
-					height: unset;
-					width: unset;
-				}
-
-				.content {
-					overflow: hidden;
-				}
-			}
-		}
-		@container sheet (width < #{$npc-sheet-breakpoint}) {
-			&.npc {
-				form {
-					overflow: hidden scroll;
-					flex-direction: column-reverse;
-
-					.sidebar {
-						overflow: visible;
-						height: unset;
-					}
-
-					.sheet-body .tab {
-						overflow: visible;
-					}
-
-					.npc-body {
-						overflow-y: visible;
-						height: unset;
-					}
-
-					nav.sheet-tabs .item {
-						padding: 8px 0;
-					}
-
-					.attacks-list li.attack .button-group button {
-						height: unset !important;
-						//noinspection CssInvalidPropertyValue
-						text-wrap: wrap !important;
-					}
-
-					ol.spell-list > li.spell {
-						grid-template-columns: 50% auto fit-content(5rem) 3rem;
-					}
-
-					//.labeled-field input[type=text] {
-					//	min-width: unset;
-					//
-					//}
-
-					.attribute-modifiers {
-						.list {
-							grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-							grid-column-gap: 0.5em;
-						}
-
-						.labeled-field {
-							justify-content: center;
-						}
-					}
-				}
-			}
-		}
-		@container sheet (width >= #{$player-character-breakpoint}) {
-			&.character {
-				a#sidebar-tab {
-					display: none;
-				}
-			}
-		}
-		@container sheet (width >= #{$vehicle-sheet-breakpoint}) {
-			&.vehicle {
-				a#sidebar-tab {
-					display: none;
-				}
-			}
-		}
-
-	}
-
-	&.item {
-		@container sheet (width < #{$item-sheet-breakpoint}) {
-			.sheet-content {
-				flex-direction: column !important;
-			}
-		}
-	}
-
-	&.journal-entry {
-		min-width: unset;
-		@container sheet (width < #{$journal-breakpoint}) {
-			.journal-sheet-container {
-				--sidebar-width-expanded: 100%;
-			}
-		}
-	}
-}
-
-#client-settings {
-	container: settings / inline-size;
-	@container settings (width < #{$settings-breakpoint}) {
-		&.package-configuration {
-			div:not(#mps-view-group).flexcol {
-			}
-
-			.window-content {
-				overflow: hidden;
-			}
-
-			.sidebar {
-				padding-left: 3rem;
-				padding-right: 3rem;
-				height: unset;
-			}
-
-			footer {
-				position: sticky;
-				bottom: 0;
-				width: inherit;
-				max-width: inherit;
-				flex-grow: 0;
-			}
-
-			.scrollable {
-				overflow: hidden auto;
-			}
-
-			form {
-				padding-left: 1em;
-				padding-right: 1em;
-			}
-
-			footer button {
-				height: 2rem;
-				flex-basis: max-content;
-			}
-		}
-	}
-}
-
-#compendium-browser {
-	container: compendium-browser / inline-size;
-	@container compendium-browser (width < #{$compendium-browser-breakpoint}) {
-		.window-header {
-			//border: 1px solid hotpink !important;
-		}
-
-		> section.window-content > .content-box {
-			> section.content > .tab.browser.active > div {
-				display: flex;
-				flex-direction: column;
-			}
-
-			.control-area {
-				width: unset !important;
-			}
-
-			.list-buttons {
-				justify-content: space-around !important;
-				width: 95% !important;
-			}
-
-			.filter-conjunction {
-				display: flex;
-			}
-		}
-	}
-}
-
-.monks-enhanced-journal {
-	container: mej-sheet / inline-size;
-
-	.enhanced-journal .sheet {
-		@container sheet (width < #{$journal-breakpoint}) {
-			--sidebar-width-collapsed: 0;
-			--sidebar-width-expanded: 100%;
-			.journal-sidebar:not(.collapsed) {
-				width: 100%;
-			}
-		}
-	}
-
-	@container mej-sheet (width < #{$mej-breakpoint}) {
-		.enhanced-journal-header .tab-row {
-			overflow: hidden;
-		}
-
-		.directory-sidebar {
-			width: 100%;
+[data-mobile-force-hide-header-button-text=true] {
+	a:is(.pf2e-item-revitalizer-initiate-single-actor, .pathmuncher-open, .header-button.control) {
+		font-size: 0;
+
+		> i {
+			font-size: var(--font-size-14);
 		}
 	}
 }
 
 
-@media screen and (min-width: #{$global-breakpoint}) {
+@mixin desktop {
 	#sidebar {
 		.collapse-mobile {
 			display: none;
@@ -477,32 +40,22 @@ $item-sheet-breakpoint: 500px;
 			display: none;
 		}
 	}
-
 }
 
-#mobile-chat-row {
-	height: 100%;
-}
-
-@media screen and (max-width: #{$global-breakpoint}) {
-
-	#sidebar {
-		.collapse:not(.collapse-mobile) {
-			display: none;
-		}
-	}
+@mixin mobile {
 	.app {
 		margin: 0;
+
+		&.window-app:not(.minimized,.dialog) {
+			height: 100% !important;
+			left: 0 !important;
+			top: 0 !important;
+			width: 100% !important;
+		}
 	}
 
-	:is(#ui-left, #ui-middle, #ui-bottom) {
+	#ui-left, #ui-middle, #ui-bottom {
 		display: none;
-	}
-
-	:is(#ui-right, #ui-right #sidebar) {
-		margin: 0;
-		padding: 0;
-		width: 100%;
 	}
 
 	#chat-form textarea {
@@ -518,25 +71,26 @@ $item-sheet-breakpoint: 500px;
 		color: var(--color-text-light-heading);
 		font-size: 2em;
 		background-color: var(--glass-bg-light);
+
+		.chatcommander-active & {
+			height: 100%;
+			position: absolute;
+			top: 0;
+		}
+
+		body:not(.chatcommander-active) & {
+			flex-basis: auto;
+			height: unset;
+			top: -2em;
+		}
 	}
 
 
-	.dorako-ui .send-button {
-		border: unset;
-		border-radius: var(--border-radius);
-	}
+	//.dorako-ui .send-button {
+	//	border: unset;
+	//	border-radius: var(--border-radius);
+	//}
 
-	.chatcommander-active .send-button {
-		height: 100%;
-		position: absolute;
-		top: 0;
-	}
-
-	body:not(.chatcommander-active) .send-button {
-		flex-basis: auto;
-		height: unset;
-		top: -2em;
-	}
 
 	#chat-message {
 		flex-basis: auto;
@@ -547,9 +101,6 @@ $item-sheet-breakpoint: 500px;
 		gap: var(--send-button-gap);
 	}
 
-	#sidebar-tabs {
-		font-size: 2em;
-	}
 
 	.sheet.actor.character .popout-module-button, .pathmuncher-open, .configure-token, .configure-creature, .configure-theatre, .console-print, .document-id-link, .document-image-link, .simple-calendar, #tokenbar, .header-button.control.pf2e-action-support-engine {
 		display: none !important;
@@ -592,11 +143,6 @@ $item-sheet-breakpoint: 500px;
 	}
 
 
-	.pf2e-ui #sidebar-tabs > .item {
-		flex-basis: 2em !important;
-		height: 2em !important;
-	}
-
 	.window-app.fullscreen-window {
 		width: 100%;
 		height: 100%;
@@ -609,7 +155,14 @@ $item-sheet-breakpoint: 500px;
 	}
 
 	#ui-right {
+		margin: 0;
+		padding: 0;
+		width: 100%;
+
 		#sidebar {
+			margin: 0;
+			padding: 0;
+			width: 100%;
 			height: 100%;
 			background: rgba(0, 0, 0, 0.8);
 
@@ -627,6 +180,19 @@ $item-sheet-breakpoint: 500px;
 				}
 			}
 
+			#sidebar-tabs {
+				font-size: 2em;
+
+				.pf2e-ui & > .item {
+					flex-basis: 2em !important;
+					height: 2em !important;
+				}
+			}
+
+			.collapse:not(#collapse-mobile) {
+				display: none;
+			}
+
 			> .dorako-resize {
 				display: none;
 			}
@@ -640,17 +206,33 @@ $item-sheet-breakpoint: 500px;
 	.mseCharacterName {
 		flex-basis: 100%;
 	}
+}
 
-
-
-	.app.window-app:not(.minimized,.dialog) {
-		height: 100% !important;
-		left: 0 !important;
-		top: 0 !important;
-		width: 100% !important;
-	}
+#mobile-chat-row {
+	height: 100%;
 }
 
 #combat .combatant .distance {
 	padding: 0 0.3em;
+}
+
+
+@media screen and (min-width: #{$global-breakpoint}) {
+	@at-root body:not([data-mobile-force-mobile=true],[data-mobile-force-mobile=false]) {
+		@include desktop;
+	}
+}
+
+@at-root body[data-mobile-force-mobile=true] {
+	@include mobile;
+}
+
+@at-root body[data-mobile-force-mobile=false] {
+	@include desktop;
+}
+
+@media screen and (max-width: #{$global-breakpoint}) {
+	@at-root body:not([data-mobile-force-mobile=true],[data-mobile-force-mobile=false]) {
+		@include mobile;
+	}
 }

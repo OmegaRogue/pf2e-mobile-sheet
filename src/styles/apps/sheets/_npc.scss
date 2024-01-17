@@ -1,0 +1,52 @@
+@mixin mobile {
+	&.npc {
+		form {
+			overflow: hidden scroll;
+			flex-direction: column-reverse;
+
+			.sidebar {
+				overflow: visible;
+				height: unset;
+			}
+
+			.sheet-body .tab {
+				overflow: visible;
+			}
+
+			.npc-body {
+				overflow-y: visible;
+				height: unset;
+			}
+
+			nav.sheet-tabs .item {
+				padding: 8px 0;
+			}
+
+			.attacks-list li.attack .button-group button {
+				height: unset !important;
+				//noinspection CssInvalidPropertyValue
+				text-wrap: wrap !important;
+			}
+
+			ol.spell-list > li.spell {
+				grid-template-columns: 50% auto fit-content(5rem) 3rem;
+			}
+
+			//.labeled-field input[type=text] {
+			//	min-width: unset;
+			//
+			//}
+
+			.attribute-modifiers {
+				.list {
+					grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+					grid-column-gap: 0.5em;
+				}
+
+				.labeled-field {
+					justify-content: center;
+				}
+			}
+		}
+	}
+}

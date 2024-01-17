@@ -1,0 +1,84 @@
+@use "../../mixins";
+
+@mixin mobile {
+	&.character {
+		.crb-style {
+			grid-template-columns: initial !important;
+			grid-template-areas: "header " "nav    " "content" !important;
+
+			aside {
+				background-image: none !important;
+
+				.logo {
+					display: none;
+				}
+			}
+
+			.pf-rank {
+				width: 4em;
+				text-overflow: ellipsis;
+				overflow: hidden;
+				display: inline-block;
+			}
+
+			@include mixins.sheet-nav-bar;
+
+			.sheet-body .sheet-content .tab {
+				&[data-tab=character] {
+					.character-details {
+						.abcd {
+
+							.detail.deity {
+								grid-column: span 2;
+							}
+						}
+					}
+
+					.attributes .attribute .label {
+						display: none;
+					}
+				}
+
+				&[data-tab=actions] {
+					.button-group {
+						flex-wrap: wrap !important;
+					}
+
+					button.tag.damage:after {
+						content: '(' attr(data-tooltip) ')';
+					}
+				}
+
+				&[data-tab=proficiencies] {
+					ul.proficiencies-list li .button-group button {
+						width: 4em;
+						text-overflow: ellipsis;
+						overflow: hidden;
+						display: inline-block;
+					}
+				}
+			}
+
+			header.char-header .char-level {
+				.exp-data {
+					padding: initial !important;
+				}
+
+				flex-wrap: wrap !important;
+				justify-content: center !important;
+			}
+		}
+
+		&:not([data-color-scheme=dark]) .sheet-content .tab.sidebar {
+			background-color: var(--primary);
+		}
+	}
+}
+
+@mixin desktop {
+	&.character {
+		a#sidebar-tab {
+			display: none;
+		}
+	}
+}

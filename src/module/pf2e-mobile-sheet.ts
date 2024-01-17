@@ -7,7 +7,7 @@ import { CombatantPF2e } from "@module/encounter/combatant.js";
 import { EncounterPF2e } from "@module/encounter/document.js";
 import { TokenDocumentPF2e } from "@scene/token-document/document.js";
 import { ScenePF2e } from "@scene/document.js";
-import { checkMobile, checkMobileWithOverride, getDebug, log } from "./utils.js";
+import { checkMobile, getDebug, log } from "./utils.js";
 
 import "styles/pf2e-mobile-sheet.scss";
 import "./resizeObservers.js";
@@ -33,10 +33,10 @@ Hooks.once("init", async () => {
 
 Hooks.once("ready", async () => {
 	const collapse = $("#sidebar > nav#sidebar-tabs > a.collapse").clone();
-	collapse.addClass("collapse-mobile");
+	collapse.prop("id", "collapse-mobile");
 	const collapseButton = collapse.find("i");
 	collapse.on("click", () => {
-		$("#sidebar > nav#sidebar-tabs > a.collapse:not(.collapse-mobile)")[0].click();
+		$("#sidebar > nav#sidebar-tabs > a.collapse:not(#collapse-mobile)")[0].click();
 		setTimeout(() => {
 			collapseButton.removeClass("fa-caret-left");
 		}, 450);
@@ -46,8 +46,21 @@ Hooks.once("ready", async () => {
 	collapseButton.addClass("fa-bars");
 	collapse.prependTo($("#sidebar-tabs"));
 
-	if (!checkMobile()) return;
 	const body = $("body");
+
+	switch (game.settings.get(MODULE_ID, "header-button-text")) {
+		case "off":
+			body.data("mobile-force-hide-header-button-text", false);
+			break;
+		case "on":
+			body.data("mobile-force-hide-header-button-text", true);
+			break;
+		case "auto":
+			body.removeData("mobile-force-hide-header-button-text");
+			break;
+	}
+
+	if (!checkMobile()) return;
 	if (game.modules.get("pathfinder-ui")?.active) body.addClass("pf2e-ui");
 	if (game.modules.get("_chatcommands")?.active) body.addClass("chatcommander-active");
 	// $(".taskbar-workspaces, .taskbar-docking-container, .taskbar, .simple-calendar").remove();
@@ -98,23 +111,7 @@ Hooks.on("renderChatLog", async () => {
 // 	}
 // });
 
-async function renderFullscreenWindow(_app: Application, html: JQuery): Promise<void> {
-	if (checkMobileWithOverride("close-button-text")) {
-		const closeButton = html.find(".header-button.control.close");
-		closeButton
-			.contents()
-			.filter(function () {
-				return this.nodeType === 3;
-			})
-			.last()
-			.replaceWith("");
-	}
-}
-
 // document.querySelector("#combat-tracker > li.combatant.actor.directory-item.flexrow.hidden-name.gm-draggable > div.token-name.flexcol > h4 > span.name")
-
-Hooks.on("renderActorSheet", renderFullscreenWindow);
-Hooks.on("renderApplication", renderFullscreenWindow);
 
 const headings = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
 

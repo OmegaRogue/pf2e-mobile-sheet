@@ -1,0 +1,21 @@
+@mixin sheet-nav-bar {
+	nav.sheet-navigation {
+		flex-wrap: wrap;
+		height: unset;
+
+		.item {
+			font-size: 1.5em;
+			height: 2rem;
+			width: 2rem;
+
+			.action-glyph {
+				font-size: 1.5rem;
+			}
+		}
+
+		.panel-title {
+			display: none;
+			width: unset;
+		}
+	}
+}

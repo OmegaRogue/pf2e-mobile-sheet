@@ -1621,6 +1621,9 @@
 				}
 			},
 			"Bard": {
+				"DiscordantVoice": {
+					"Label": "Discordant Voice"
+				},
 				"Muse": {
 					"Enigma": "Enigma",
 					"Maestro": "Maestro",
@@ -2054,6 +2057,9 @@
 				"Prompt": "Treat Cards as darts or daggers?"
 			},
 			"Feat": {
+				"CharmingLiar": {
+					"Note": "When you get a critical success using the Lie action, the target's attitude toward you improves by one step, as though you'd succeeded at using Diplomacy to Make an Impression."
+				},
 				"FeyInfluence": {
 					"Anteater": "Anteater",
 					"CatSith": "Cat Sith",
