@@ -1,9 +1,13 @@
 {
 	"pf2e-mobile-sheet": {
 		"settings": {
-			"mobile-mode": {
-				"name": "Mobile Mode",
-				"hint": "Allows overriding the detected device type"
+			"mobile-layout": {
+				"name": "Mobile Layout",
+				"hint": "Force foundry to use the Mobile layout"
+			},
+			"mobile-windows": {
+				"name": "Mobile Windows",
+				"hint": "Force the Window layout to Mobile"
 			},
 			"send-button": {
 				"name": "Show Send Button",
@@ -14,9 +18,9 @@
 				"off": "Off",
 				"auto": "Auto"
 			},
-			"close-button-text": {
-				"name": "Remove Close Button Text",
-				"hint": "Removes the 'Close' Text on the close window button."
+			"header-button-text": {
+				"name": "Remove Window Header Button Text",
+				"hint": "Removes the Text on the window header button."
 			}
 		},
 		"sidebar-tab": "Sidebar"

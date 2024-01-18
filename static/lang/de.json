@@ -1,9 +1,13 @@
 {
 	"pf2e-mobile-sheet": {
 		"settings": {
-			"mobile-mode": {
-				"name": "Handy-Modus",
-				"hint": "Erlaubt es, den Handy-Modus manuell an und auszuschalten"
+			"mobile-layout": {
+				"name": "Mobile Layout",
+				"hint": "Erzwingt den Handy-Modus in Foundry"
+			},
+			"mobile-windows": {
+				"name": "Handy-Fenster",
+				"hint": "Erzwingt Fenster, den Handy-Modus zu benutzen"
 			},
 			"send-button": {
 				"name": "Senden-Knopf anzeigen",
@@ -14,9 +18,9 @@
 				"off": "Aus",
 				"auto": "Auto"
 			},
-			"close-button-text": {
-				"name": "Fenster Schließen Text entfernen",
-				"hint": "Entfernt den Text des 'Fenster Schließen' Knopfes"
+			"header-button-text": {
+				"name": "Text von Kopfzeilenknöpfen entfernen",
+				"hint": "Entfernt den Text von Buttons in den Kopfzeilen von Fenstern"
 			}
 		},
 		"sidebar-tab": "Seitenleiste"

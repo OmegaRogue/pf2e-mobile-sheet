@@ -26,7 +26,11 @@ const characterSheetResizeObserver = new ResizeObserver((entries) => {
 	for (const entry of entries) {
 		if (!entry.target.id.startsWith("CharacterSheetPF2e")) continue;
 		const html = $(entry.target) as JQuery<HTMLElement>;
-		if (entry.contentRect.width < 745 && !html.hasClass("mobile")) {
+		if (
+			(entry.contentRect.width < 745 || $("body[data-mobile-force-mobile-window=true]").length > 0) &&
+			!html.hasClass("mobile") &&
+			$("body[data-mobile-force-mobile-window=false]").length === 0
+		) {
 			log(false, "sidebar found", html.find("aside").length);
 
 			moveSidebarToTab(html);
@@ -34,7 +38,11 @@ const characterSheetResizeObserver = new ResizeObserver((entries) => {
 			html.addClass("mobile");
 			log(false, "mobile", entry);
 			log(false, "sidebar found", html.find("aside").length);
-		} else if (entry.contentRect.width >= 745 && html.hasClass("mobile")) {
+		} else if (
+			(entry.contentRect.width >= 745 || $("body[data-mobile-force-mobile-window=false]").length > 0) &&
+			html.hasClass("mobile") &&
+			$("body[data-mobile-force-mobile-window=true]").length === 0
+		) {
 			log(false, "sidebar found off", html.find("aside").length);
 			html.removeClass("mobile");
 			const sidebar = html.find(".tab.sidebar aside");
@@ -54,14 +62,22 @@ const vehicleSheetResizeObserver = new ResizeObserver((entries) => {
 	for (const entry of entries) {
 		if (!entry.target.id.startsWith("VehicleSheetPF2e")) continue;
 		const html = $(entry.target) as JQuery<HTMLElement>;
-		if (entry.contentRect.width < 585 && !html.hasClass("mobile")) {
+		if (
+			(entry.contentRect.width < 585 || $("body[data-mobile-force-mobile-window=true]").length > 0) &&
+			!html.hasClass("mobile") &&
+			$("body[data-mobile-force-mobile-window=false]").length === 0
+		) {
 			log(false, "sidebar found", html.find("aside").length);
 
 			moveSidebarToTab(html);
 			html.addClass("mobile");
 			log(false, "mobile", entry);
 			log(false, "sidebar found", html.find("aside").length);
-		} else if (entry.contentRect.width >= 585 && html.hasClass("mobile")) {
+		} else if (
+			(entry.contentRect.width >= 585 || $("body[data-mobile-force-mobile-window=false]").length > 0) &&
+			html.hasClass("mobile") &&
+			$("body[data-mobile-force-mobile-window=true]").length === 0
+		) {
 			log(false, "sidebar found off", html.find("aside").length);
 			html.removeClass("mobile");
 			const sidebar = html.find(".tab.sidebar aside");
@@ -80,7 +96,11 @@ const vehicleSheetResizeObserver = new ResizeObserver((entries) => {
 const settingsResizeObserver = new ResizeObserver((entries) => {
 	for (const entry of entries) {
 		const html = $(entry.target) as JQuery<HTMLElement>;
-		if (entry.contentRect.width < 477 && !html.hasClass("mobile")) {
+		if (
+			(entry.contentRect.width < 477 || $("body[data-mobile-force-mobile-window=true]").length > 0) &&
+			!html.hasClass("mobile") &&
+			$("body[data-mobile-force-mobile-window=false]").length === 0
+		) {
 			html.addClass("mobile");
 			const content = html.find("section.window-content > div:not(#mps-view-group).flexrow");
 			if (content.length === 1) {
@@ -103,7 +123,12 @@ const settingsResizeObserver = new ResizeObserver((entries) => {
 				submitButton.removeAttr("type").attr("type", "button");
 				submitButton.on("click", () => form.trigger("submit"));
 			}
-		} else if (entry.contentRect.width >= 477 && html.hasClass("mobile")) {
+		} else if (
+			(entry.contentRect.width >= 477 || $("body[data-mobile-force-mobile-window=false]").length > 0) &&
+			html.hasClass("mobile") &&
+			$("body[data-mobile-force-mobile-window=true]").length === 0
+		) {
+			if ($("body[data-mobile-force-mobile-window=true]").length >= 0) return;
 			html.removeClass("mobile");
 			ui.windows[html.data("appid")].render(false);
 		}

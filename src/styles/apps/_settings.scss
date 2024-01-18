@@ -42,13 +42,13 @@
 #client-settings {
 	container: settings / inline-size;
 
-	body:not([data-mobile-force-mobile=true],[data-mobile-force-mobile=false]) & {
+	body:not([data-mobile-force-mobile-window=true],[data-mobile-force-mobile-window=false]) & {
 		@container settings (width < #{$settings-breakpoint}) {
 			@include mobile;
 		}
 	}
 
-	body[data-mobile-force-mobile=true] & {
+	body[data-mobile-force-mobile-window=true] & {
 		@include mobile;
 	}
 }

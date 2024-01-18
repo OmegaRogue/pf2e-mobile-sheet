@@ -46,3 +46,18 @@ export function checkMobileWithOverride(settingId: "send-button" | "header-butto
 			return checkMobile();
 	}
 }
+
+export function setBodyData(tag: string, value: "on" | "off" | "auto") {
+	const body = $("body");
+	switch (value) {
+		case "off":
+			body.attr("data-" + tag, "false");
+			break;
+		case "on":
+			body.attr("data-" + tag, "true");
+			break;
+		case "auto":
+			body.removeAttr("data-" + tag);
+			break;
+	}
+}

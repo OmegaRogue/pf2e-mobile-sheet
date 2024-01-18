@@ -22,24 +22,24 @@
 	container: mej-sheet / inline-size;
 
 	.enhanced-journal .sheet {
-		body:not([data-mobile-force-mobile=true],[data-mobile-force-mobile=false]) & {
+		body:not([data-mobile-force-mobile-window=true],[data-mobile-force-mobile-window=false]) & {
 			@container sheet (width < #{$journal-breakpoint}) {
 				@include mobile-sheet;
 			}
 		}
 
-		body[data-mobile-force-mobile=true] & {
+		body[data-mobile-force-mobile-window=true] & {
 			@include mobile-sheet;
 		}
 	}
 
-	body:not([data-mobile-force-mobile=true],[data-mobile-force-mobile=false]) & {
+	body:not([data-mobile-force-mobile-window=true],[data-mobile-force-mobile-window=false]) & {
 		@container mej-sheet (width < #{$mej-breakpoint}) {
 			@include mobile-base;
 		}
 	}
 
-	body[data-mobile-force-mobile=true] & {
+	body[data-mobile-force-mobile-window=true] & {
 		@include mobile-base;
 	}
 }

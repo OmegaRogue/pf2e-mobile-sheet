@@ -32,7 +32,7 @@
 
 @mixin desktop {
 	#sidebar {
-		.collapse-mobile {
+		#collapse-mobile {
 			display: none;
 		}
 
@@ -129,6 +129,10 @@
 		.taskbar-hidden-mobile {
 			display: none;
 		}
+
+		#hotbar {
+			display: none;
+		}
 	}
 	.start-menu {
 		width: 100%;
@@ -218,21 +222,21 @@
 
 
 @media screen and (min-width: #{$global-breakpoint}) {
-	@at-root body:not([data-mobile-force-mobile=true],[data-mobile-force-mobile=false]) {
+	@at-root body:not([data-mobile-force-mobile-layout=true],[data-mobile-force-mobile-layout=false]) {
 		@include desktop;
 	}
 }
 
-@at-root body[data-mobile-force-mobile=true] {
+@at-root body[data-mobile-force-mobile-layout=true] {
 	@include mobile;
 }
 
-@at-root body[data-mobile-force-mobile=false] {
+@at-root body[data-mobile-force-mobile-layout=false] {
 	@include desktop;
 }
 
 @media screen and (max-width: #{$global-breakpoint}) {
-	@at-root body:not([data-mobile-force-mobile=true],[data-mobile-force-mobile=false]) {
+	@at-root body:not([data-mobile-force-mobile-layout=true],[data-mobile-force-mobile-layout=false]) {
 		@include mobile;
 	}
 }

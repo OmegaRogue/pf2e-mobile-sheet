@@ -7,7 +7,7 @@ import { CombatantPF2e } from "@module/encounter/combatant.js";
 import { EncounterPF2e } from "@module/encounter/document.js";
 import { TokenDocumentPF2e } from "@scene/token-document/document.js";
 import { ScenePF2e } from "@scene/document.js";
-import { checkMobile, getDebug, log } from "./utils.js";
+import { checkMobile, getDebug, log, setBodyData } from "./utils.js";
 
 import "styles/pf2e-mobile-sheet.scss";
 import "./resizeObservers.js";
@@ -48,17 +48,9 @@ Hooks.once("ready", async () => {
 
 	const body = $("body");
 
-	switch (game.settings.get(MODULE_ID, "header-button-text")) {
-		case "off":
-			body.data("mobile-force-hide-header-button-text", false);
-			break;
-		case "on":
-			body.data("mobile-force-hide-header-button-text", true);
-			break;
-		case "auto":
-			body.removeData("mobile-force-hide-header-button-text");
-			break;
-	}
+	setBodyData("mobile-force-hide-header-button-text", game.settings.get(MODULE_ID, "header-button-text"));
+	setBodyData("mobile-force-mobile-window", game.settings.get(MODULE_ID, "mobile-windows"));
+	setBodyData("mobile-force-mobile-layout", game.settings.get(MODULE_ID, "mobile-layout"));
 
 	if (!checkMobile()) return;
 	if (game.modules.get("pathfinder-ui")?.active) body.addClass("pf2e-ui");
