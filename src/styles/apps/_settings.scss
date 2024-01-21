@@ -42,6 +42,12 @@
 #client-settings {
 	container: settings / inline-size;
 
+	.form-fields {
+		select {
+			width: 100%;
+		}
+	}
+
 	body:not([data-mobile-force-mobile-window=true],[data-mobile-force-mobile-window=false]) & {
 		@container settings (width < #{$settings-breakpoint}) {
 			@include mobile;

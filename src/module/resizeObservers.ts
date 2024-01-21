@@ -97,7 +97,7 @@ const settingsResizeObserver = new ResizeObserver((entries) => {
 	for (const entry of entries) {
 		const html = $(entry.target) as JQuery<HTMLElement>;
 		if (
-			(entry.contentRect.width < 477 || $("body[data-mobile-force-mobile-window=true]").length > 0) &&
+			(entry.contentRect.width < 534 || $("body[data-mobile-force-mobile-window=true]").length > 0) &&
 			!html.hasClass("mobile") &&
 			$("body[data-mobile-force-mobile-window=false]").length === 0
 		) {
@@ -124,11 +124,10 @@ const settingsResizeObserver = new ResizeObserver((entries) => {
 				submitButton.on("click", () => form.trigger("submit"));
 			}
 		} else if (
-			(entry.contentRect.width >= 477 || $("body[data-mobile-force-mobile-window=false]").length > 0) &&
+			(entry.contentRect.width >= 534 || $("body[data-mobile-force-mobile-window=false]").length > 0) &&
 			html.hasClass("mobile") &&
 			$("body[data-mobile-force-mobile-window=true]").length === 0
 		) {
-			if ($("body[data-mobile-force-mobile-window=true]").length >= 0) return;
 			html.removeClass("mobile");
 			ui.windows[html.data("appid")].render(false);
 		}
