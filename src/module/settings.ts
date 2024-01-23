@@ -97,7 +97,7 @@ export class EnableShareRecieveTargets extends FormApplication {
 	 * Default Options for this FormApplication
 	 */
 	static override get defaultOptions() {
-		return mergeObject(super.defaultOptions, {
+		return foundry.utils.mergeObject(super.defaultOptions, {
 			id: "enableShareRecieveTargets",
 			title: "Mobile Share Targets",
 			template: "./modules/LockView/templates/enableShareRecieveTargets.html",
