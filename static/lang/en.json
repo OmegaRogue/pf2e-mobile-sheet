@@ -21,6 +21,14 @@
 			"header-button-text": {
 				"name": "Remove Window Header Button Text",
 				"hint": "Removes the Text on the window header button."
+			},
+			"mobile-share-targets": {
+				"name": "Share Targets",
+				"hint": "Share Targets to other players"
+			},
+			"mobile-recieve-targets": {
+				"name": "Recieve Targets",
+				"hint": "Recieve Shared Targets from other players"
 			}
 		},
 		"sidebar-tab": "Sidebar"

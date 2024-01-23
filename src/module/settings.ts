@@ -68,4 +68,32 @@ export function registerSettings() {
 			}
 		},
 	});
+	game.settings.register(MODULE_ID, "mobile-share-targets", {
+		name: `${MODULE_ID}.settings.mobile-share-targets.name`,
+		hint: `${MODULE_ID}.settings.mobile-share-targets.hint`,
+		config: true,
+		scope: "world",
+		type: String,
+		choices: {
+			off: `${MODULE_ID}.settings.toggle.off`,
+			on: `${MODULE_ID}.settings.toggle.on`,
+			auto: `${MODULE_ID}.settings.toggle.auto`,
+		},
+		default: "auto",
+		requiresReload: true,
+	});
+	game.settings.register(MODULE_ID, "mobile-recieve-targets", {
+		name: `${MODULE_ID}.settings.mobile-recieve-targets.name`,
+		hint: `${MODULE_ID}.settings.mobile-recieve-targets.hint`,
+		config: true,
+		scope: "world",
+		type: String,
+		choices: {
+			off: `${MODULE_ID}.settings.toggle.off`,
+			on: `${MODULE_ID}.settings.toggle.on`,
+			auto: `${MODULE_ID}.settings.toggle.auto`,
+		},
+		default: "auto",
+		requiresReload: true,
+	});
 }
