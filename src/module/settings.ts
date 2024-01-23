@@ -1,4 +1,3 @@
-import { mergeObject } from "types/types/foundry/common/utils/helpers.js";
 import { id as MODULE_ID } from "../../static/module.json";
 import { setBodyData } from "./utils.js";
 import { ShareTargetSettingsOptions } from "src/types/settings.ts";
