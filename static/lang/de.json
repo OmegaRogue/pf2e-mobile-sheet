@@ -21,10 +21,6 @@
 			"header-button-text": {
 				"name": "Text von Kopfzeilenknöpfen entfernen",
 				"hint": "Entfernt den Text von Buttons in den Kopfzeilen von Fenstern"
-			},
-			"mobile-share-targets": {
-				"name": "Ziele teilen",
-				"hint": "Ziele mit anderen Spielern teilen"
 			}
 		},
 		"sidebar-tab": "Seitenleiste"
