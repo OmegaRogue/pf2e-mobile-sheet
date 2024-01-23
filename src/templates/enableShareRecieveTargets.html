@@ -19,73 +19,31 @@
     <table>
         <thread>
             <tr>
-                <th class="lockView_userConfig_table_name">{{localize "LockView.EnMenu.Name"}}</th>
-                <th class="lockView_userConfig_table_role">{{localize "LockView.EnMenu.Role"}}</th>
-                <th class="lockView_userConfig_table_checkbox">{{localize "LockView.EnMenu.Enable"}}</th>
-                <th class="lockView_userConfig_table_checkbox">{{localize "LockView.EnMenu.Viewbox"}}</th>
-                <th class="lockView_userConfig_table_checkbox">{{localize "LockView.EnMenu.Control"}}</th>
+				<th class="">{{localize "pf2e-mobile-sheet.mobile-share-targets.table.name"}}</th>
+				<th class="">{{localize "pf2e-mobile-sheet.mobile-share-targets.table.role"}}</th>
+				<th class="">{{localize "pf2e-mobile-sheet.mobile-share-targets.send.name"}}</th>
+				<th class="">{{localize "pf2e-mobile-sheet.mobile-share-targets.recieve.name"}}</th>
             </tr>
         </thread>
 
         <tbody>
             {{#each data as |d|}}
                 <tr index="{{d.index}}">
-                    <td class="lockView_userConfig_table_name">{{d.name}}</td>
-                    <td class="lockView_userConfig_table_role">{{d.role}}</td>
-                    <td class="lockView_userConfig_table_checkbox"><input type="checkbox" name="enable-{{d.id}}" data-dtype="Boolean" {{#if d.enable}}checked{{/if}}></td>
-                    <td class="lockView_userConfig_table_checkbox"><input type="checkbox" name="viewbox-{{d.id}}" data-dtype="Boolean" {{#if d.viewbox}}checked{{/if}}></td>
-                    <td class="lockView_userConfig_table_checkbox"><input type="checkbox" name="control-{{d.id}}" data-dtype="Boolean" {{#if d.control}}checked{{/if}}></td>
+                    <td class="">{{d.name}}</td>
+                    <td class="">{{d.role}}</td>
+                    <td class=""><input type="checkbox" name="send-{{d.id}}" data-dtype="Boolean" {{#if d.enable}}checked{{/if}}></td>
+                    <td class=""><input type="checkbox" name="recieve-{{d.id}}" data-dtype="Boolean" {{#if d.viewbox}}checked{{/if}}></td>
                 </tr>
                 <input type="text" name="id" value={{d.id}} style="display:none">
             {{/each}}
             <tr><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr>
-                <td class="lockView_userConfig_table_name"><i>{{localize "LockView.EnMenu.Default"}}</i></td>
-                <td class="lockView_userConfig_table_role"></td>
-                <td class="lockView_userConfig_table_checkbox"><input type="checkbox" name="enable-defaultUserSettings" data-dtype="Boolean" {{#if defaultUserSettings.enable}}checked{{/if}}></td>
-                <td class="lockView_userConfig_table_checkbox"><input type="checkbox" name="viewbox-defaultUserSettings" data-dtype="Boolean" {{#if defaultUserSettings.viewbox}}checked{{/if}}></td>
-                <td class="lockView_userConfig_table_checkbox"><input type="checkbox" name="control-defaultUserSettings" data-dtype="Boolean" {{#if defaultUserSettings.control}}checked{{/if}}></td>
-            </tr>
         </tbody>
     </table>
 
     <br>
 
-    <h3><b>{{localize "LockView.EnMenu.Overrides"}}</b></h3>
-
-    <p class="notes">
-        {{localize "LockView.EnMenu.Overrides_Note"}}
-    </p>
-
-    <table>
-        <thread>
-            <tr>
-                <th class="lockView_userConfig_table_name">{{localize "LockView.EnMenu.Role"}}</th>
-                <td class="lockView_userConfig_table_role"></td>
-                <th class="lockView_userConfig_table_checkbox">{{localize "LockView.EnMenu.Enable"}}</th>
-                <th class="lockView_userConfig_table_checkbox">{{localize "LockView.EnMenu.Viewbox"}}</th>
-                <th class="lockView_userConfig_table_checkbox">{{localize "LockView.EnMenu.Control"}}</th>
-            </tr>
-        </thread>
-
-        <tbody>
-            {{#each overrides as |o|}}
-                <tr index="{{o.index}}">
-                    <td class="lockView_userConfig_table_name">{{o.role}}</td>
-                    <td class="lockView_userConfig_table_role"></td>
-                    <td class="lockView_userConfig_table_checkbox"><input type="checkbox" name="enableOverride-{{o.roleNr}}" data-dtype="Boolean" {{#if o.enable}}checked{{/if}}></td>
-                    <td class="lockView_userConfig_table_checkbox"><input type="checkbox" name="viewboxOverride-{{o.roleNr}}" data-dtype="Boolean" {{#if o.viewbox}}checked{{/if}}></td>
-                    <td class="lockView_userConfig_table_checkbox"><input type="checkbox" name="controlOverride-{{o.roleNr}}" data-dtype="Boolean" {{#if o.control}}checked{{/if}}></td>
-
-                </tr>
-                <input type="text" name="roleOverride" value={{o.roleNr}} style="display:none">
-            {{/each}}
-        </tbody>
-
-    </table>
-
     <button type="submit" name="submit">
-        <i class="fas fa-save"></i> {{localize "LockView.EnMenu.Save"}}
+        <i class="fas fa-save"></i> Save
     </button>
 
 </form>

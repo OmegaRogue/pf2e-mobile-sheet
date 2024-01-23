@@ -32,6 +32,10 @@
 				"recieve": {
 					"name": "Recieve",
 					"hint": "Recieve target data from other players"
+				},
+				"table":{
+					"name":"Table",
+					"role":"Role"
 				}
 			}
 		},
