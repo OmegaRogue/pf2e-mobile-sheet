@@ -24,11 +24,15 @@
 			},
 			"mobile-share-targets": {
 				"name": "Share Targets",
-				"hint": "Share Targets to other players"
-			},
-			"mobile-recieve-targets": {
-				"name": "Recieve Targets",
-				"hint": "Recieve Shared Targets from other players"
+				"hint": "Share Targets with other players",
+				"send": {
+					"name": "Send",
+					"hint": "Send target data to other players"
+				},
+				"recieve": {
+					"name": "Recieve",
+					"hint": "Recieve target data from other players"
+				}
 			}
 		},
 		"sidebar-tab": "Sidebar"

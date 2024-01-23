@@ -25,10 +25,6 @@
 			"mobile-share-targets": {
 				"name": "Ziele teilen",
 				"hint": "Ziele mit anderen Spielern teilen"
-			},
-			"mobile-recieve-targets": {
-				"name": "Ziele empfangen",
-				"hint": "Geteilte Ziele von anderen Spielern empfangen"
 			}
 		},
 		"sidebar-tab": "Seitenleiste"
