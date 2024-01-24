@@ -1,0 +1,51 @@
+<form autocomplete="off" onsubmit="event.preventDefault()">
+
+  <div class="notes">{{localize "pf2e-mobile-sheet.settings.mobile-share-targets.hint"}}
+    <ul>
+      <li class="notes"><b>{{localize "pf2e-mobile-sheet.settings.mobile-share-targets.send.name"}}</b>: {{localize
+        "pf2e-mobile-sheet.settings.mobile-share-targets.send.hint"}}</li>
+      <li class="notes"><b>{{localize "pf2e-mobile-sheet.settings.mobile-share-targets.receive.name"}}</b>: {{localize
+        "pf2e-mobile-sheet.settings.mobile-share-targets.receive.hint"}}</li>
+    </ul>
+  </div>
+
+  <hr>
+
+  <h3><b>{{localize "pf2e-mobile-sheet.settings.mobile-share-targets.title"}}</b></h3>
+
+  <table>
+    <thead>
+    <tr>
+      <th class="">{{localize "pf2e-mobile-sheet.settings.mobile-share-targets.table.name"}}</th>
+      <th class="">{{localize "pf2e-mobile-sheet.settings.mobile-share-targets.send.name"}}</th>
+      <th class="">{{localize "pf2e-mobile-sheet.settings.mobile-share-targets.receive.name"}}</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    {{#each data as |d|}}
+      <tr index="{{d.index}}">
+        <td class="">{{d.name}}</td>
+        <td style="text-align: center;"><input type="checkbox" name="send-{{d.id}}" data-dtype="Boolean"
+                                               {{#if d.enable}}checked{{/if}}></td>
+        <td style="text-align: center;"><input type="checkbox" name="receive-{{d.id}}" data-dtype="Boolean"
+                                               {{#if d.viewbox}}checked{{/if}}></td>
+      </tr>
+      <input type="text" name="id" value={{d.id}} style="display:none">
+    {{/each}}
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    </tbody>
+  </table>
+
+  <br>
+
+  <button type="submit" name="submit">
+    <i class="fas fa-save"></i> Save
+  </button>
+
+</form>

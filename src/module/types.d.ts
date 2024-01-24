@@ -10,6 +10,22 @@ declare global {
 
 		get(module: MODULE_ID, setting: "header-button-text"): "on" | "off" | "auto";
 
+		get(module: MODULE_ID, setting: "mobile-share-targets"): ShareTargetSettingsOptions;
+
+		set(module: MODULE_ID, key: "mobile-layout", value: "on" | "off" | "auto"): Promise<"on" | "off" | "auto">;
+
+		set(module: MODULE_ID, key: "mobile-windows", value: "on" | "off" | "auto"): Promise<"on" | "off" | "auto">;
+
+		set(module: MODULE_ID, key: "send-button", value: "on" | "off" | "auto"): Promise<"on" | "off" | "auto">;
+
+		set(module: MODULE_ID, key: "header-button-text", value: "on" | "off" | "auto"): Promise<"on" | "off" | "auto">;
+
+		set(
+			module: MODULE_ID,
+			key: "mobile-share-targets",
+			value: ShareTargetSettingsOptions,
+		): Promise<ShareTargetSettingsOptions>;
+
 		// get(module: MODULE_ID, setting: "share-targets"): boolean;
 
 		// get(module: MODULE_ID, setting: "receive-targets"): boolean;
@@ -295,9 +311,8 @@ declare global {
 }
 export type ShareTargetSettingsOptions = {
 	send: boolean;
-	recieve: boolean;
+	receive: boolean;
 	index: number;
 	name: string;
-	role: string;
 	color: string;
 } & Partial<FormApplicationOptions>;

@@ -23,19 +23,20 @@
 				"hint": "Removes the Text on the window header button."
 			},
 			"mobile-share-targets": {
+				"title": "User Settings",
 				"name": "Share Targets",
 				"hint": "Share Targets with other players",
 				"send": {
 					"name": "Send",
 					"hint": "Send target data to other players"
 				},
-				"recieve": {
-					"name": "Recieve",
-					"hint": "Recieve target data from other players"
+				"receive": {
+					"name": "Receive",
+					"hint": "Receive target data from other players"
 				},
-				"table":{
-					"name":"Table",
-					"role":"Role"
+				"table": {
+					"name": "Table",
+					"role": "Role"
 				}
 			}
 		},

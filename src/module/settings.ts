@@ -75,7 +75,7 @@ export function registerSettings() {
 		name: `${MODULE_ID}.settings.mobile-share-targets.name`,
 		hint: `${MODULE_ID}.settings.mobile-share-targets.hint`,
 		label: `${MODULE_ID}.settings.mobile-share-targets.name`,
-		type: EnableShareRecieveTargets,
+		type: EnableShareReceiveTargets,
 		restricted: true,
 		icon: "fas fa-bullseye",
 	});
@@ -89,7 +89,7 @@ export function registerSettings() {
 		requiresReload: true,
 	});
 }
-export class EnableShareRecieveTargets extends FormApplication {
+export class EnableShareReceiveTargets extends FormApplication {
 	static readonly namespace: string;
 
 	/**
@@ -97,14 +97,15 @@ export class EnableShareRecieveTargets extends FormApplication {
 	 */
 	static override get defaultOptions() {
 		return foundry.utils.mergeObject(super.defaultOptions, {
-			id: "enableShareRecieveTargets",
+			id: "enableShareReceiveTargets",
 			title: "Mobile Share Targets",
-			template: "./modules/LockView/templates/enableShareRecieveTargets.html",
+			template: "./modules/pf2e-mobile-sheet/templates/enableShareReceiveTargets.hbs",
+			resizable: true,
 		});
 	}
 
 	get namespace(): string {
-		return (this.constructor as typeof EnableShareRecieveTargets).namespace;
+		return (this.constructor as typeof EnableShareReceiveTargets).namespace;
 	}
 
 	/** Settings to be registered and also later referenced during user updates */
@@ -124,23 +125,16 @@ export class EnableShareRecieveTargets extends FormApplication {
 
 		for (let i = 0; i < users.length; i++) {
 			const userData = users[i];
-			let role;
-			if (userData.role === 0) role = game.i18n.localize("USER.RoleNone");
-			else if (userData.role === 1) role = game.i18n.localize("USER.RolePlayer");
-			else if (userData.role === 2) role = game.i18n.localize("USER.RoleTrusted");
-			else if (userData.role === 3) role = game.i18n.localize("USER.RoleAssistant");
-			else if (userData.role === 4) role = game.i18n.localize("USER.RoleGamemaster");
 
 			const userSettings = settings.filter((u) => u.id === userData._id)[0];
 
 			const dataNew: ShareTargetSettingsOptions = {
 				index: i,
 				name: userData.name,
-				role: role,
 				color: userData.color,
 				id: userData._id ? userData._id : undefined,
 				send: userSettings?.send ? userSettings.send : false,
-				recieve: userSettings?.recieve ? userSettings.recieve : false,
+				receive: userSettings?.receive ? userSettings.receive : false,
 			};
 			data.push(dataNew);
 		}
@@ -171,10 +165,10 @@ export class EnableShareRecieveTargets extends FormApplication {
 			const settingsNew = {
 				id: id as string,
 				send: data?.[`send-${id}`] as boolean,
-				recieve: data?.[`recieve-${id}`] as boolean,
+				receive: data?.[`receive-${id}`] as boolean,
 			};
 			settings.push(settingsNew);
 		}
-		await game.settings.set(MODULE_ID, "mobile-share-targets-settings", settings);
+		await game.settings.set(MODULE_ID, "mobile-share-targets", settings);
 	}
 }
