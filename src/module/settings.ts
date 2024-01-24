@@ -1,6 +1,6 @@
 import { id as MODULE_ID } from "../../static/module.json";
+import { ShareTargetSettingsOptions } from "./types.js";
 import { setBodyData } from "./utils.js";
-import { ShareTargetSettingsOptions } from "src/types/settings.ts";
 import { PartialSettingsData } from "@module/system/settings/menu.js";
 
 export function registerSettings() {
@@ -117,7 +117,9 @@ export class EnableShareRecieveTargets extends FormApplication {
 	 */
 	override getData() {
 		const users = game.users.players;
-		const settings = game.settings.get(MODULE_ID, "mobile-share-targets") as Partial<ShareTargetSettingsOptions>[];
+		const settings = [
+			game.settings.get(MODULE_ID, "mobile-share-targets"),
+		] as Partial<ShareTargetSettingsOptions>[];
 		const data = [] as Partial<FormApplicationOptions>[];
 
 		for (let i = 0; i < users.length; i++) {
@@ -149,7 +151,7 @@ export class EnableShareRecieveTargets extends FormApplication {
 	}
 
 	static registerSettings(): void {
-		const settings = this.settings;
+		const settings = [this.settings];
 		for (const setting of Object.keys(settings)) {
 			game.settings.register(MODULE_ID, setting, {
 				...settings[setting],
