@@ -18,6 +18,54 @@ export function log(force: boolean, ...args: any[]) {
 	}
 }
 
+export function warn(force: boolean, ...args: any[]) {
+	try {
+		const isDebugging = getDebug();
+
+		if (force || isDebugging) {
+			console.warn(MODULE_ID, "|", ...args);
+		}
+	} catch (e) {
+		/* empty */
+	}
+}
+
+export function error(force: boolean, ...args: any[]) {
+	try {
+		const isDebugging = getDebug();
+
+		if (force || isDebugging) {
+			console.error(MODULE_ID, "|", ...args);
+		}
+	} catch (e) {
+		/* empty */
+	}
+}
+
+export function info(force: boolean, ...args: any[]) {
+	try {
+		const isDebugging = getDebug();
+
+		if (force || isDebugging) {
+			console.info(MODULE_ID, "|", ...args);
+		}
+	} catch (e) {
+		/* empty */
+	}
+}
+
+export function debug(force: boolean, ...args: any[]) {
+	try {
+		const isDebugging = getDebug();
+
+		if (force || isDebugging) {
+			console.debug(MODULE_ID, "|", ...args);
+		}
+	} catch (e) {
+		/* empty */
+	}
+}
+
 const isMobile = window.screen.width < 930;
 
 export function checkMobile(): boolean {
@@ -60,4 +108,9 @@ export function setBodyData(tag: string, value: "on" | "off" | "auto") {
 			body.removeAttr("data-" + tag);
 			break;
 	}
+}
+
+export function toggleRender(value: boolean) {
+	if (value) canvas.ready && canvas.app.start();
+	else canvas.ready && canvas.app.stop();
 }

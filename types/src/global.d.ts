@@ -149,7 +149,14 @@ declare global {
     namespace globalThis {
         var game: GamePF2e;
         var fu: typeof foundry.utils;
-        var ui: FoundryUI<ActorDirectoryPF2e, ItemDirectory<ItemPF2e<null>>, ChatLogPF2e, CompendiumDirectoryPF2e, EncounterTrackerPF2e<EncounterPF2e | null>>;
+	    var ui: FoundryUI<
+			ActorDirectoryPF2e,
+			ItemDirectory<ItemPF2e<null>>,
+			ChatLogPF2e,
+			CompendiumDirectoryPF2e,
+			EncounterTrackerPF2e<EncounterPF2e | null>,
+			HotbarPF2e
+		>;
         interface Math {
             eq: (a: number, b: number) => boolean;
             gt: (a: number, b: number) => boolean;

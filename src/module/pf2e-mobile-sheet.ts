@@ -7,10 +7,46 @@ import { CombatantPF2e } from "@module/encounter/combatant.js";
 import { EncounterPF2e } from "@module/encounter/document.js";
 import { TokenDocumentPF2e } from "@scene/token-document/document.js";
 import { ScenePF2e } from "@scene/document.js";
-import { checkMobile, getDebug, log, setBodyData } from "./utils.js";
+import { checkMobile, debug, getDebug, info, setBodyData } from "./utils.js";
+import * as windowMgr from "./apps/windowManager.js";
 
 import "styles/pf2e-mobile-sheet.scss";
 import "./resizeObservers.js";
+import { MobileUI } from "./apps/MobileUI.js";
+
+abstract class MobileMode {
+	static enabled = false;
+	static navigation: MobileUI;
+
+	static enter() {
+		if (MobileMode.enabled) return;
+		MobileMode.enabled = true;
+		document.body.classList.add("mobile-improvements");
+		// ui.nav?.collapse();
+		// viewHeight();
+		Hooks.call("mobile-improvements:enter");
+	}
+
+	static leave() {
+		if (!MobileMode.enabled) return;
+		MobileMode.enabled = false;
+		document.body.classList.remove("mobile-improvements");
+		Hooks.call("mobile-improvements:leave");
+	}
+
+	static viewResize() {
+		// if (MobileMode.enabled) viewHeight();
+		// if (game.settings && getSetting(settings.PIN_MOBILE_MODE))
+		// 	return MobileMode.enter();
+		// if (localStorage.getItem("mobile-improvements.pinMobileMode") === "true")
+		// 	return MobileMode.enter();
+		// if (window.innerWidth <= 800) {
+		// 	MobileMode.enter();
+		// } else {
+		// 	MobileMode.leave();
+		// }
+	}
+}
 
 Hooks.once("devModeReady", async ({ registerPackageDebugFlag }) => {
 	await registerPackageDebugFlag(MODULE_ID);
@@ -19,9 +55,13 @@ Hooks.once("devModeReady", async ({ registerPackageDebugFlag }) => {
 
 // Initialize module
 Hooks.once("init", async () => {
-	log(true, "pf2e-mobile-sheet | Initializing pf2e-mobile-sheet");
+	info(true, "Initializing " + MODULE_ID);
 	// Assign custom classes and constants here
+	windowMgr.activate();
 
+	if (MobileMode.navigation === undefined) {
+		MobileMode.navigation = new MobileUI();
+	}
 	// Register custom module settings
 	registerSettings();
 
@@ -32,6 +72,12 @@ Hooks.once("init", async () => {
 });
 
 Hooks.once("ready", async () => {
+	if (!game.modules.get("lib-wrapper")?.active && game.user.isGM)
+		ui.notifications.error(
+			"Module Pf2e Mobile Sheet requires the 'libWrapper' module. Please install and activate it.",
+		);
+	// @ts-ignore
+	game.mobilemode = MobileUI;
 	const collapse = $("#sidebar > nav#sidebar-tabs > a.collapse").clone();
 	collapse.prop("id", "collapse-mobile");
 	const collapseButton = collapse.find("i");
@@ -88,8 +134,12 @@ Hooks.on("renderChatLog", async () => {
 		$("#chat-message").appendTo(chatContainer);
 		sendButton.appendTo(chatContainer);
 	}
-	log(false, "Add Send Button");
+	debug(false, "Add Send Button");
 });
+
+// abstract class MobileMode {
+// 	static navigation: MobileUI;
+// }
 
 // Hooks.on("targetToken", (user, token, targeted) => {
 // 	game.settings.
@@ -152,3 +202,5 @@ Hooks.on("collapseSidebar", (_, collapsed: boolean) => {
 	if (collapsed) collapseButton.removeClass("fa-caret-left");
 	else collapseButton.removeClass("fa-caret-right");
 });
+
+globalThis.MobileMode = MobileMode;

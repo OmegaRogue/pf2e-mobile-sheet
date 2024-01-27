@@ -1,4 +1,4 @@
-import { log } from "./utils.js";
+import { debug } from "./utils.js";
 
 function moveSidebarToTab(html: JQuery) {
 	if (html.find(".sheet-navigation #sidebar-tab").length === 0) {
@@ -31,19 +31,19 @@ const characterSheetResizeObserver = new ResizeObserver((entries) => {
 			!html.hasClass("mobile") &&
 			$("body[data-mobile-force-mobile-window=false]").length === 0
 		) {
-			log(false, "sidebar found", html.find("aside").length);
+			debug(false, "sidebar found", html.find("aside").length);
 
 			moveSidebarToTab(html);
 
 			html.addClass("mobile");
-			log(false, "mobile", entry);
-			log(false, "sidebar found", html.find("aside").length);
+			debug(false, "mobile", entry);
+			debug(false, "sidebar found", html.find("aside").length);
 		} else if (
 			(entry.contentRect.width >= 745 || $("body[data-mobile-force-mobile-window=false]").length > 0) &&
 			html.hasClass("mobile") &&
 			$("body[data-mobile-force-mobile-window=true]").length === 0
 		) {
-			log(false, "sidebar found off", html.find("aside").length);
+			debug(false, "sidebar found off", html.find("aside").length);
 			html.removeClass("mobile");
 			const sidebar = html.find(".tab.sidebar aside");
 			html.find(".window-content form").prepend(sidebar.detach());
@@ -52,8 +52,8 @@ const characterSheetResizeObserver = new ResizeObserver((entries) => {
 				sidebarTab.removeClass("active");
 				html.find('a[data-tab="character"]')[0].click();
 			}
-			log(false, "no mobile");
-			log(false, "sidebar found", html.find("aside").length);
+			debug(false, "no mobile");
+			debug(false, "sidebar found", html.find("aside").length);
 		}
 	}
 });
@@ -67,18 +67,18 @@ const vehicleSheetResizeObserver = new ResizeObserver((entries) => {
 			!html.hasClass("mobile") &&
 			$("body[data-mobile-force-mobile-window=false]").length === 0
 		) {
-			log(false, "sidebar found", html.find("aside").length);
+			debug(false, "sidebar found", html.find("aside").length);
 
 			moveSidebarToTab(html);
 			html.addClass("mobile");
-			log(false, "mobile", entry);
-			log(false, "sidebar found", html.find("aside").length);
+			debug(false, "mobile", entry);
+			debug(false, "sidebar found", html.find("aside").length);
 		} else if (
 			(entry.contentRect.width >= 585 || $("body[data-mobile-force-mobile-window=false]").length > 0) &&
 			html.hasClass("mobile") &&
 			$("body[data-mobile-force-mobile-window=true]").length === 0
 		) {
-			log(false, "sidebar found off", html.find("aside").length);
+			debug(false, "sidebar found off", html.find("aside").length);
 			html.removeClass("mobile");
 			const sidebar = html.find(".tab.sidebar aside");
 			html.find(".window-content form").prepend(sidebar.detach());
@@ -87,8 +87,8 @@ const vehicleSheetResizeObserver = new ResizeObserver((entries) => {
 				sidebarTab.removeClass("active");
 				html.find('a[data-tab="details"]')[0].click();
 			}
-			log(false, "no mobile");
-			log(false, "sidebar found", html.find("aside").length);
+			debug(false, "no mobile");
+			debug(false, "sidebar found", html.find("aside").length);
 		}
 	}
 });

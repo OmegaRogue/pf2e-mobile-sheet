@@ -1,45 +1,27 @@
+@use "../mixins";
 @import "../breakpoints";
 
-@mixin mobile-sheet {
-	--sidebar-width-collapsed: 0;
-	--sidebar-width-expanded: 100%;
-	.journal-sidebar:not(.collapsed) {
-		width: 100%;
-	}
-}
-
-@mixin mobile-base {
-	.enhanced-journal-header .tab-row {
-		overflow: hidden;
-	}
-
-	.directory-sidebar {
-		width: 100%;
-	}
-}
 
 .monks-enhanced-journal {
 	container: mej-sheet / inline-size;
 
 	.enhanced-journal .sheet {
-		body:not([data-mobile-force-mobile-window=true],[data-mobile-force-mobile-window=false]) & {
-			@container sheet (width < #{$journal-breakpoint}) {
-				@include mobile-sheet;
+		@include mixins.local-mobile($journal-breakpoint, sheet) {
+			--sidebar-width-collapsed: 0;
+			--sidebar-width-expanded: 100%;
+			.journal-sidebar:not(.collapsed) {
+				width: 100%;
 			}
 		}
-
-		body[data-mobile-force-mobile-window=true] & {
-			@include mobile-sheet;
-		}
 	}
 
-	body:not([data-mobile-force-mobile-window=true],[data-mobile-force-mobile-window=false]) & {
-		@container mej-sheet (width < #{$mej-breakpoint}) {
-			@include mobile-base;
+	@include mixins.local-mobile($mej-breakpoint, mej-sheet) {
+		.enhanced-journal-header .tab-row {
+			overflow: hidden;
 		}
-	}
 
-	body[data-mobile-force-mobile-window=true] & {
-		@include mobile-base;
+		.directory-sidebar {
+			width: 100%;
+		}
 	}
 }
