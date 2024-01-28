@@ -37,7 +37,7 @@
 		"fs-extra": "^11.2.0",
 		"handlebars": "^4.7.8",
 		"jquery": "^3.7.1",
-		"jsdom": "^23.2.0",
+		"jsdom": "^24.0.0",
 		"lint-staged": "^15.2.0",
 		"prettier": "^3.1.1",
 		"sass": "^1.69.7",
@@ -54,7 +54,7 @@
 		"yargs": "^17.7.2"
 	},
 	"homepage": "https://github.com/OmegaRogue/pf2e-mobile-sheet",
-	"license": "MIT",
+	"license": "GPL-3.0-or-later",
 	"lint-staged": {
 		"*.(js|cjs|mjs)": "eslint --fix",
 		"*.(json|yml|css)": "prettier --write"
