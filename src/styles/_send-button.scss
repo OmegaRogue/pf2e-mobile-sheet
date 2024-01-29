@@ -1,8 +1,5 @@
 @use "mixins";
 
-:root {
-	--send-button-gap: 0.5em;
-}
 
 @mixin mobile {
 	.send-button {

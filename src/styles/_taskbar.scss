@@ -47,6 +47,22 @@
 
 @include mixins.tab("map") {
 	div.taskbar#taskbar {
-		display: none !important;
+		//display: none !important;
+		background: none;
+		height: var(--navigationHeight);
+
+		.start-menu-btn, .taskbar-tray, .taskbar-item, #taskbar-showdesktop {
+			display: none;
+		}
+
+		.start-menu {
+			//margin-bottom: calc(var(--navigationHeight)*2.2);
+			//bottom: var(--navigationHeight) !important;
+			//bottom: 0;
+			//padding: unset;
+			&.active {
+				//height: 50vh;
+			}
+		}
 	}
 }

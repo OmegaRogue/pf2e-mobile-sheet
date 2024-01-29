@@ -21,6 +21,13 @@
 	//--settings-breakpoint: $settings-breakpoint;
 	//--compendium-browser-breakpoint: $compendium-browser-breakpoint;
 	//--item-sheet-breakpoint: $item-sheet-breakpoint;
+	--navigationHeight: 2rem;
+	--vh: 1vh;
+	--viewHeight: calc(calc(var(--vh) * 100) - var(--navigationHeight));
+	--send-button-gap: 0.5em;
+	--mobile-sheet-dark-background: #333;
+	--mobile-sheet-dark-background-transparent: #333333ee;
+
 }
 
 [data-mobile-force-hide-header-button-text=true] {
@@ -32,7 +39,6 @@
 		}
 	}
 }
-
 
 
 @include mixins.hide-hud {
@@ -58,8 +64,31 @@
 }
 
 @include mixins.global-mobile {
-	body {
-		display: none !important;
+
+	:root {
+		--carousel-alignment: right;
+	}
+
+	#ui-top {
+		left: 50%;
+		margin: 0 auto;
+		position: fixed;
+		top: 0;
+		transform: translateX(-50%);
+		width: 100%;
+	}
+
+	#ui-bottom {
+		bottom: 0;
+		left: 50%;
+		margin: 0 auto;
+		position: fixed;
+		transform: translateX(-50%);
+		width: 100%;
+
+		&.centered {
+			display: block;
+		}
 	}
 	.app {
 		margin: 0;
@@ -80,6 +109,9 @@
 	}
 
 	#hurry-up {
+		display: none;
+	}
+	#token-action-hud {
 		display: none;
 	}
 }
@@ -108,11 +140,23 @@
 }
 
 @include mixins.tab("map") {
+	#logo {
+		display: none !important;
+		opacity: 0;
+	}
 	#ui-right, #fps {
 		display: none !important;
 	}
-	:not([data-mobile-hide-player-list=true]) #players {
+	nav#controls {
+		padding-top: 80px;
+
+		#party-monitor-dock {
+			display: none;
+		}
+	}
+	&:not([data-mobile-hide-player-list=true]) #players {
 		margin: 0 0.5em 3em 1em;
+		opacity: 1 !important;
 	}
 
 	#players h3 {

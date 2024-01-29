@@ -14,6 +14,7 @@ enum DrawerState {
 	Macros = "macros",
 	Menu = "menu",
 	Windows = "windows",
+	Start = "startmenu",
 }
 
 function isTabletMode() {
@@ -63,6 +64,15 @@ export class MobileUI extends Application {
 		const r = super.render(force, options);
 		this.windowMenu.render(force);
 		this.mobileMenu.render(force);
+
+		setTimeout(() => {
+			if (game.modules.get("foundry-taskbar")?.active) {
+				$(".navigation-menu").detach();
+			} else {
+				$(".navigation-startmenu").detach();
+			}
+		}, 500);
+
 		return r;
 	}
 
@@ -115,6 +125,17 @@ export class MobileUI extends Application {
 		setBodyData("hotbar", "false");
 	}
 
+	showStartMenu(): void {
+		if ($(".start-menu-options .start-menu-option.canvas").length === 0) {
+			$($(".mobile-navigation template").html().trim()).appendTo(".start-menu-options");
+		}
+		$("div#start-menu.start-menu").addClass("active");
+	}
+
+	hideStartMenu(): void {
+		$("div#start-menu.start-menu").removeClass("active");
+	}
+
 	setWindowCount(count: number): void {
 		this.element.find(".navigation-windows .count").html(count.toString());
 		if (count === 0) {
@@ -131,6 +152,7 @@ export class MobileUI extends Application {
 		$(`body > .drawer`).removeClass("open");
 		this.element.find(".toggle.active").removeClass("active");
 		this.hideHotbar();
+		this.hideStartMenu();
 		if (state === DrawerState.None || state === this.drawerState) {
 			this.drawerState = DrawerState.None;
 			return;
@@ -139,9 +161,12 @@ export class MobileUI extends Application {
 		this.drawerState = state;
 		if (state === DrawerState.Macros) {
 			this.showHotbar();
+		} else if (state === DrawerState.Start) {
+			this.showStartMenu();
 		} else {
 			$(`body > .drawer.drawer-${state}`).addClass("open");
 		}
+
 		this.element.find(`.navigation-${state}`).addClass("active");
 	}
 

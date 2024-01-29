@@ -1,20 +1,17 @@
 @use "../mixins";
 @import "../breakpoints";
 
-:root {
-	--miDarkBackground: #333;
-	--miDarkBackgroundTransparent: #333333ee;
-	--navigationHeight: 2rem;
-	--vh: 1vh;
-	--viewHeight: calc(calc(var(--vh) * 100) - var(--navigationHeight));
-}
-
 .mobile-navigation {
 	@include mixins.hide-animation;
 }
+
+.start-menu-button {
+	background-image: url("../../foundry-taskbar/assets/d20.svg");
+}
+
 .mobile-navigation {
 	align-items: stretch;
-	background-color: #242424;
+	background-color: var(--mobile-sheet-dark-background);
 	box-shadow: 0 0 10px #000c;
 	color: #f0f0e0;
 	display: none !important; /* Spawns before CSS with inline style */

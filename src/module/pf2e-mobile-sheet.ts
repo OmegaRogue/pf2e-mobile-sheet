@@ -67,6 +67,25 @@ Hooks.once("init", async () => {
 	// Register custom sheets (if any)
 });
 
+Hooks.on("getSceneControlButtons", (hudButtons: SceneControl[]) => {
+	const hud = hudButtons.find((value: any) => {
+		return value.name === "token";
+	});
+
+	const tool: SceneControlTool = {
+		name: "touch-pan",
+		title: "pf2e-mobile-sheet.PanToggle",
+		icon: "fa-regular fa-arrows",
+		visible: true,
+		toggle: true,
+		onClick: async () => {
+			info(true, tool.active);
+		},
+	};
+
+	hud?.tools?.push(tool);
+});
+
 Hooks.once("ready", async () => {
 	if (!game.modules.get("lib-wrapper")?.active && game.user.isGM)
 		ui.notifications.error(
@@ -85,6 +104,41 @@ Hooks.once("ready", async () => {
 	toggleRender(!game.settings.get(MODULE_ID, "disable-canvas"));
 	MobileMode.navigation.render(true);
 	// MobileMode.viewResize();
+	libWrapper.register(
+		MODULE_ID,
+		"Canvas.prototype._onDragSelect",
+		function(wrapped: any, event: PIXI.FederatedEvent) {
+			if (!ui.controls?.control?.tools.find((a) => a.name === "touch-pan")?.active) return wrapped(event);
+			// @ts-ignore
+
+			// Extract event data
+			const cursorTime = event.interactionData.cursorTime;
+			// @ts-ignore
+			const { origin, destination } = event.interactionData;
+			const dx = destination.x - origin.x;
+			const dy = destination.y - origin.y;
+
+			// Update the client's cursor position every 100ms
+			const now = Date.now();
+			if (now - (cursorTime || 0) > 100) {
+				if (this.controls) this.controls._onMouseMove(event, destination);
+				// @ts-ignore
+				event.interactionData.cursorTime = now;
+			}
+
+			// Pan the canvas
+			this.pan({
+				// @ts-ignore
+				x: canvas.stage.pivot.x - dx * CONFIG.Canvas.dragSpeedModifier,
+				// @ts-ignore
+				y: canvas.stage.pivot.y - dy * CONFIG.Canvas.dragSpeedModifie,
+			});
+
+			// Reset Token tab cycling
+			this.tokens._tabIndex = null;
+		},
+		"MIXED,
+	);
 
 	if (!checkMobile()) return;
 	if (game.modules.get("pathfinder-ui")?.active) body.addClass("pf2e-ui");
@@ -146,6 +200,9 @@ Hooks.on("renderChatLog", async () => {
 // 		socket.executeAsUser(socketTarget, sharedUserId, targeted, token.id);
 // 	}
 // });
+
+// const touchInput = new TouchInput();
+// Hooks.on("canvasReady", () => touchInput.hook());
 
 // document.querySelector("#combat-tracker > li.combatant.actor.directory-item.flexrow.hidden-name.gm-draggable > div.token-name.flexcol > h4 > span.name")
 

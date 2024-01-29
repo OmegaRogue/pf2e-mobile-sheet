@@ -13,12 +13,12 @@
 }
 
 @include mixins.tab("app") {
-	#sidebar {
+	#ui-right > #sidebar {
 		background: rgba(0, 0, 0, 0.8);
 		height: 100%;
 		margin: 0;
 		padding: 0;
-		width: 100%;
+		width: 100% !important;
 
 		&.collapsed {
 			height: unset;

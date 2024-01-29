@@ -1,17 +1,14 @@
 import { info, setBodyData } from "../utils.js";
+import { FederatedEventTarget } from "pixi.js";
 
 export class TouchInput {
 	cancelled = false;
 	tapMaxTime = 400;
 	tapStart = -1;
 
-	getTarget(evt: PIXI.FederatedPointerEvent): PlaceableObject {
-		// let target = evt.target;
-		// while (target && !(target as PlaceableObject)) {
-		// 	target = target.parent;
-		// }
-		// return target ?? null;
-		return evt.target as PlaceableObject;
+	getTarget(evt: PIXI.FederatedPointerEvent): PlaceableObject | null {
+		let target: FederatedEventTarget | undefined = evt.target;
+		return (target as PlaceableObject) ?? null;
 	}
 
 	hook(): void {
@@ -19,12 +16,16 @@ export class TouchInput {
 		canvas.stage.on("touchstart", (_evt) => {
 			this.tapStart = Date.now();
 			// TODO
-			// if (evt.originalEvent.touches.length > 1) {
-			// 	this.cancelled = true;
-			// }
+			// console.debug(evt);
+			// // if (evt.originalEvent.touches.length > 1) {
+			// // 	this.cancelled = true;
+			// // }
 		});
 
-		canvas.stage.on("touchmove", () => (this.cancelled = true));
+		canvas.stage.on("touchmove", (e) => {
+			console.debug(e);
+			this.cancelled = true;
+		});
 
 		canvas.stage.on("touchend", (evt) => {
 			if (!this.cancelled && Date.now() - this.tapStart < this.tapMaxTime) {

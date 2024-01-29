@@ -15,7 +15,7 @@
 
 .window-selector {
 	nav {
-		background: var(--miDarkBackground);
+		background: var(--mobile-sheet-dark-background);
 		max-height: calc(100vh - var(--navigationHeight));
 		overflow-y: auto;
 		padding: 0 1em;

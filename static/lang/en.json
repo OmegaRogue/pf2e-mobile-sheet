@@ -27,10 +27,12 @@
 		"MenuCanvas": "Toggle Canvas",
 		"MenuPlayerList": "Toggle Player List",
 		"MenuFullscreen": "Toggle fullscreen",
+		"NavigationStart": "Start",
 		"NavigationScene": "Scene",
 		"NavigationApp": "App",
 		"NavigationActions": "Actions",
 		"NavigationMore": "More",
-		"NavigationWindows": "Windows"
+		"NavigationWindows": "Windows",
+		"PanToggle": "Pan with left click"
 	}
 }
