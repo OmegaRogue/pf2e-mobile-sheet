@@ -57,7 +57,7 @@ export class MobileUI extends Application {
 	}
 
 	override render(force?: boolean, options?: RenderOptions): this | Promise<this> {
-		this.noCanvas = game.settings.get("core", "noCanvas") as boolean;
+		this.noCanvas = game.settings.get(MODULE_ID, "disable-canvas") as boolean;
 		this.state = this.noCanvas ? ViewState.App : ViewState.Map;
 
 		const r = super.render(force, options);
@@ -77,9 +77,6 @@ export class MobileUI extends Application {
 		// html.siblings("#show-mobile-navigation").on("click", () => {
 		// 	$(document.body).toggleClass("hide-hud");
 		// });
-		// if (this.noCanvas) {
-		// 	this.element.find(".navigation-map").detach();
-		// }
 	}
 
 	closeDrawer(): void {

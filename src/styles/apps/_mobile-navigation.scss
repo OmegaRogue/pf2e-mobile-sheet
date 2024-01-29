@@ -17,7 +17,7 @@
 	background-color: #242424;
 	box-shadow: 0 0 10px #000c;
 	color: #f0f0e0;
-	display: flex !important; /* Spawns before CSS with inline style */
+	display: none !important; /* Spawns before CSS with inline style */
 	font-size: 80%;
 	font-weight: normal;
 	list-style: none;
@@ -83,7 +83,7 @@
 		}
 	}
 
-	@include mixins.global-mobile {
+	@include mixins.global-mobile(false) {
 		& {
 			display: flex !important;
 		}

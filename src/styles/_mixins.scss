@@ -47,13 +47,15 @@
 }
 
 @mixin tab($tab, $root: true) {
-	@if $root {
-		@at-root body[data-mobile-tab=#{$tab}] {
-			@content;
-		}
-	} @else {
-		body[data-mobile-tab=#{$tab}] & {
-			@content;
+	@include global-mobile($root) {
+		@if $root {
+			&[data-mobile-tab=#{$tab}] {
+				@content;
+			}
+		} @else {
+			&[data-mobile-tab=#{$tab}] & {
+				@content;
+			}
 		}
 	}
 }

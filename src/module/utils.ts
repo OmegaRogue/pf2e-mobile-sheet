@@ -66,20 +66,15 @@ export function debug(force: boolean, ...args: any[]) {
 	}
 }
 
-const isMobile = window.screen.width < 930;
-
 export function checkMobile(): boolean {
-	if (getDebug()) {
-		return false;
-	}
-	switch (game.settings.get(MODULE_ID, "mobile-mode")) {
+	switch (game.settings.get(MODULE_ID, "mobile-layout")) {
 		case "off":
 			return false;
 		case "on":
 			return true;
 		case "auto":
 		default:
-			return isMobile;
+			return window.screen.width < 930;
 	}
 }
 

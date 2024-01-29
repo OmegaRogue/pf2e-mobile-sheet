@@ -44,7 +44,7 @@ export function registerSettings() {
 		},
 		default: "auto",
 		requiresReload: false,
-		onChange: (value) => setBodyData("force-mobile-layout", value,
+		onChange: (value) => setBodyData("force-mobile-layout", value),
 	});
 	game.settings.register(MODULE_ID, "mobile-windows", {
 		name: `${MODULE_ID}.settings.mobile-windows.name`,
@@ -77,8 +77,8 @@ export function registerSettings() {
 		default: false,
 		requiresReload: false,
 		onChange: (value: boolean) => {
-			toggleRender(value);
-		}
+			toggleRender(!value);
+		},
 	});
 	game.settings.register(MODULE_ID, "show-player-list", {
 		name: `${MODULE_ID}.settings.show-player-list.name`,
@@ -90,6 +90,6 @@ export function registerSettings() {
 		requiresReload: false,
 		onChange: (value: boolean) => {
 			setBodyData("hide-player-list", value);
-		}
+		},
 	});
 }

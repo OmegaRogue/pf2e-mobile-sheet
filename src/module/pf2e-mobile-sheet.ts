@@ -21,8 +21,8 @@ abstract class MobileMode {
 	static enter() {
 		if (MobileMode.enabled) return;
 		MobileMode.enabled = true;
-		document.body.classList.add("mobile-improvements");
-		// ui.nav?.collapse();
+		// @ts-ignore
+		ui.nav?.collapse();
 		// viewHeight();
 		Hooks.call("mobile-improvements:enter");
 	}
@@ -30,7 +30,6 @@ abstract class MobileMode {
 	static leave() {
 		if (!MobileMode.enabled) return;
 		MobileMode.enabled = false;
-		document.body.classList.remove("mobile-improvements");
 		Hooks.call("mobile-improvements:leave");
 	}
 
@@ -40,11 +39,8 @@ abstract class MobileMode {
 		// 	return MobileMode.enter();
 		// if (localStorage.getItem("mobile-improvements.pinMobileMode") === "true")
 		// 	return MobileMode.enter();
-		// if (window.innerWidth <= 800) {
-		// 	MobileMode.enter();
-		// } else {
-		// 	MobileMode.leave();
-		// }
+		if (checkMobile()) MobileMode.enter();
+		else MobileMode.leave();
 	}
 }
 
@@ -78,19 +74,6 @@ Hooks.once("ready", async () => {
 		);
 	// @ts-ignore
 	game.mobilemode = MobileMode;
-	const collapse = $("#sidebar > nav#sidebar-tabs > a.collapse").clone();
-	collapse.prop("id", "collapse-mobile");
-	const collapseButton = collapse.find("i");
-	collapse.on("click", () => {
-		$("#sidebar > nav#sidebar-tabs > a.collapse:not(#collapse-mobile)")[0].click();
-		setTimeout(() => {
-			collapseButton.removeClass("fa-caret-left");
-		}, 450);
-	});
-	collapseButton.removeClass("fa-caret-left");
-	collapseButton.removeClass("fa-caret-right");
-	collapseButton.addClass("fa-bars");
-	collapse.prependTo($("#sidebar-tabs"));
 
 	const body = $("body");
 
@@ -98,8 +81,11 @@ Hooks.once("ready", async () => {
 	setBodyData("force-mobile-window", game.settings.get(MODULE_ID, "mobile-windows"));
 	setBodyData("force-mobile-layout", game.settings.get(MODULE_ID, "mobile-layout"));
 	setBodyData("hide-player-list", game.settings.get(MODULE_ID, "show-player-list"));
-	toggleRender(game.settings.get(MODULE_ID, "disable-canvas"));
+	setBodyData("hotbar", false);
+	toggleRender(!game.settings.get(MODULE_ID, "disable-canvas"));
 	MobileMode.navigation.render(true);
+	// MobileMode.viewResize();
+
 	if (!checkMobile()) return;
 	if (game.modules.get("pathfinder-ui")?.active) body.addClass("pf2e-ui");
 	if (game.modules.get("_chatcommands")?.active) body.addClass("chatcommander-active");
@@ -107,6 +93,12 @@ Hooks.once("ready", async () => {
 	// $("tokenbar").remove();
 	// $("canvas#board").remove();
 });
+
+// Trigger the recalculation of viewheight often. Not great performance,
+// but required to work on different mobile browsers
+// document.addEventListener("fullscreenchange", () => setTimeout(MobileMode.viewResize, 100));
+// window.addEventListener("resize", MobileMode.viewResize);
+// window.addEventListener("scroll", MobileMode.viewResize);
 
 Hooks.on("renderApplication", async (app: Application) => {
 	if (app.id !== "fsc-ng") return;
@@ -195,14 +187,6 @@ Hooks.on("changeSidebarTab", async (tab: SidebarTab) => {
 Hooks.on("refreshToken", async () => {
 	if (!game.combat?.turns) return;
 	await updateCombatTracker(game.combat?.turns);
-});
-
-Hooks.on("collapseSidebar", (_, collapsed: boolean) => {
-	if (!checkMobile()) return;
-	const sidebar = $("#sidebar");
-	const collapseButton = sidebar.find(".collapse > i");
-	if (collapsed) collapseButton.removeClass("fa-caret-left");
-	else collapseButton.removeClass("fa-caret-right");
 });
 
 globalThis.MobileMode = MobileMode;

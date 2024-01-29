@@ -33,18 +33,7 @@
 	}
 }
 
-:not([data-mobile-hide-player-list=true]) #players {
-	margin: 0 0.5em 3em 1em;
-}
 
-#players h3 {
-	margin: 0;
-}
-
-[data-mobile-hide-player-list=true] #players {
-	display: none;
-	transform: translateX(-110%);
-}
 
 @include mixins.hide-hud {
 	#ui-center, #ui-left, #ui-middle, #fps {
@@ -60,8 +49,18 @@
 	@include mixins.hide-animation;
 }
 
+#mobile-chat-row {
+	height: 100%;
+}
 
-@mixin mobile {
+#combat .combatant .distance {
+	padding: 0 0.3em;
+}
+
+@include mixins.global-mobile {
+	body {
+		display: none !important;
+	}
 	.app {
 		margin: 0;
 
@@ -72,15 +71,6 @@
 			width: 100% !important;
 		}
 	}
-
-	#ui-left, #ui-middle, #ui-bottom {
-		display: none;
-	}
-
-	#chat-message {
-		flex-basis: auto;
-	}
-
 	.sheet.actor.character .popout-module-button, .pathmuncher-open, .configure-token, .configure-creature, .configure-theatre, .console-print, .document-id-link, .document-image-link, .simple-calendar, #tokenbar, .header-button.control.pf2e-action-support-engine {
 		display: none !important;
 	}
@@ -89,28 +79,27 @@
 		display: none !important;
 	}
 
-	.window-app.fullscreen-window {
-		width: 100%;
-		height: 100%;
-		top: 0;
-		left: 0;
-
-		.window-resizable-handle {
-			/*display: none;*/
-		}
+	#hurry-up {
+		display: none;
 	}
+}
+
+@include mixins.tab("app") {
+	#ui-left, #ui-middle, #ui-bottom {
+		display: none;
+	}
+
 	#token-action-hud {
 		display: none;
 	}
 
 	#ui-right {
-		margin: 0;
+		margin: 0 0 var(--navigationHeight);
 		padding: 0;
 		width: 100%;
 	}
-
-	#hurry-up {
-		display: none;
+	#chat-message {
+		flex-basis: auto;
 	}
 
 	.mseCharacterName {
@@ -118,28 +107,20 @@
 	}
 }
 
-#mobile-chat-row {
-	height: 100%;
-}
-
-#combat .combatant .distance {
-	padding: 0 0.3em;
-}
-
-@include mixins.global-mobile {
-	@include mobile;
-}
-
-@include mixins.tab("app") {
-	@include mobile;
-
-	#ui-right {
-		margin-bottom: var(--navigationHeight);
-	}
-}
-
 @include mixins.tab("map") {
 	#ui-right, #fps {
 		display: none !important;
+	}
+	:not([data-mobile-hide-player-list=true]) #players {
+		margin: 0 0.5em 3em 1em;
+	}
+
+	#players h3 {
+		margin: 0;
+	}
+
+	&[data-mobile-hide-player-list=true] #players {
+		display: none;
+		transform: translateX(-110%);
 	}
 }
