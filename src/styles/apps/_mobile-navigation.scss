@@ -4,12 +4,14 @@
 :root {
 	--miDarkBackground: #333;
 	--miDarkBackgroundTransparent: #333333ee;
-	--navigationHeight: 35px;
+	--navigationHeight: 2rem;
 	--vh: 1vh;
 	--viewHeight: calc(calc(var(--vh) * 100) - var(--navigationHeight));
 }
 
-
+.mobile-navigation {
+	@include mixins.hide-animation;
+}
 .mobile-navigation {
 	align-items: stretch;
 	background-color: #242424;

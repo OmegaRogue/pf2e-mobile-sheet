@@ -14,6 +14,7 @@
 
 	&.open {
 		transform: translateY(0);
+		visibility: unset;
 		z-index: 1001;
 	}
 

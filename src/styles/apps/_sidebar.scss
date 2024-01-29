@@ -1,0 +1,69 @@
+@use "../mixins";
+
+@mixin mobile {
+	#sidebar {
+		margin: 0;
+		padding: 0;
+		width: 100%;
+		height: 100%;
+		background: rgba(0, 0, 0, 0.8);
+
+		&.collapsed {
+			height: unset;
+
+			#sidebar-tabs .item {
+				display: none;
+			}
+		}
+
+		&:not(.collapsed) {
+			.fa-bars {
+				transform: rotate(-90deg);
+			}
+		}
+
+		#sidebar-tabs {
+			font-size: 2em;
+
+			.pf2e-ui & > .item {
+				flex-basis: 2em !important;
+				height: 2em !important;
+			}
+		}
+
+		.collapse:not(#collapse-mobile) {
+			display: none;
+		}
+
+		> .dorako-resize {
+			display: none;
+		}
+	}
+}
+
+@include mixins.hide-hud {
+	#sidebar {
+		display: none !important;
+		transform: translateX(150%);
+	}
+}
+
+#sidebar {
+	@include mixins.hide-animation;
+}
+
+@include mixins.global-mobile {
+	@include mobile;
+}
+
+@include mixins.tab("app") {
+	@include mobile;
+}
+
+@include mixins.global-desktop {
+	#sidebar {
+		#collapse-mobile {
+			display: none;
+		}
+	}
+}

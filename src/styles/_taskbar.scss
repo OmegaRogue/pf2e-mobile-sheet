@@ -1,0 +1,52 @@
+@use "mixins";
+
+@include mixins.global-mobile {
+	div.taskbar#taskbar {
+		//display: none;
+		width: 100% !important;
+
+		.taskbar-tray {
+			flex-wrap: wrap;
+		}
+
+		#taskbarQuickInsert h3 {
+			padding: 0;
+		}
+
+		.taskbar-items {
+			overflow: scroll hidden;
+		}
+
+		.taskbar-hidden-mobile {
+			display: none;
+		}
+
+		#hotbar {
+			display: none;
+		}
+	}
+
+	.start-menu {
+		min-width: unset;
+		width: 100%;
+	}
+	.start-menu-apps {
+		min-width: unset;
+	}
+	.start-menu-options.expanded {
+		max-width: 70%;
+		width: 100%;
+	}
+}
+
+@include mixins.tab("app") {
+	div.taskbar#taskbar {
+		display: none !important;
+	}
+}
+
+@include mixins.tab("map") {
+	div.taskbar#taskbar {
+		display: none !important;
+	}
+}

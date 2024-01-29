@@ -95,18 +95,35 @@ export function checkMobileWithOverride(settingId: "send-button" | "header-butto
 	}
 }
 
-export function setBodyData(tag: string, value: "on" | "off" | "auto") {
+export function setBodyData(tag: string, value: any) {
 	const body = $("body");
+	const fullTag = "data-mobile-" + tag;
 	switch (value) {
 		case "off":
-			body.attr("data-" + tag, "false");
+			body.attr(fullTag, "false");
 			break;
 		case "on":
-			body.attr("data-" + tag, "true");
+			body.attr(fullTag, "true");
 			break;
 		case "auto":
-			body.removeAttr("data-" + tag);
+			body.removeAttr(fullTag);
 			break;
+		case "":
+			body.removeAttr(fullTag);
+			break;
+		case "toggle":
+			switch (body.attr(fullTag)) {
+				case "true":
+					body.attr(fullTag, "false");
+					break;
+				default:
+				case "false":
+					body.attr(fullTag, "true");
+					break;
+			}
+			break;
+		default:
+			body.attr(fullTag, value.toString());
 	}
 }
 

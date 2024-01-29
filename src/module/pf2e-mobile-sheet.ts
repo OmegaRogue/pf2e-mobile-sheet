@@ -7,7 +7,7 @@ import { CombatantPF2e } from "@module/encounter/combatant.js";
 import { EncounterPF2e } from "@module/encounter/document.js";
 import { TokenDocumentPF2e } from "@scene/token-document/document.js";
 import { ScenePF2e } from "@scene/document.js";
-import { checkMobile, debug, getDebug, info, setBodyData } from "./utils.js";
+import { checkMobile, debug, getDebug, info, setBodyData, toggleRender } from "./utils.js";
 import * as windowMgr from "./apps/windowManager.js";
 
 import "styles/pf2e-mobile-sheet.scss";
@@ -77,7 +77,7 @@ Hooks.once("ready", async () => {
 			"Module Pf2e Mobile Sheet requires the 'libWrapper' module. Please install and activate it.",
 		);
 	// @ts-ignore
-	game.mobilemode = MobileUI;
+	game.mobilemode = MobileMode;
 	const collapse = $("#sidebar > nav#sidebar-tabs > a.collapse").clone();
 	collapse.prop("id", "collapse-mobile");
 	const collapseButton = collapse.find("i");
@@ -94,10 +94,12 @@ Hooks.once("ready", async () => {
 
 	const body = $("body");
 
-	setBodyData("mobile-force-hide-header-button-text", game.settings.get(MODULE_ID, "header-button-text"));
-	setBodyData("mobile-force-mobile-window", game.settings.get(MODULE_ID, "mobile-windows"));
-	setBodyData("mobile-force-mobile-layout", game.settings.get(MODULE_ID, "mobile-layout"));
-
+	setBodyData("force-hide-header-button-text", game.settings.get(MODULE_ID, "header-button-text"));
+	setBodyData("force-mobile-window", game.settings.get(MODULE_ID, "mobile-windows"));
+	setBodyData("force-mobile-layout", game.settings.get(MODULE_ID, "mobile-layout"));
+	setBodyData("hide-player-list", game.settings.get(MODULE_ID, "show-player-list"));
+	toggleRender(game.settings.get(MODULE_ID, "disable-canvas"));
+	MobileMode.navigation.render(true);
 	if (!checkMobile()) return;
 	if (game.modules.get("pathfinder-ui")?.active) body.addClass("pf2e-ui");
 	if (game.modules.get("_chatcommands")?.active) body.addClass("chatcommander-active");

@@ -1,4 +1,4 @@
-import { info } from "../utils.js";
+import { info, setBodyData } from "../utils.js";
 
 export class TouchInput {
 	cancelled = false;
@@ -30,7 +30,7 @@ export class TouchInput {
 			if (!this.cancelled && Date.now() - this.tapStart < this.tapMaxTime) {
 				const target = this.getTarget(evt);
 				if (!target) {
-					$(document.body).toggleClass("hide-hud");
+					setBodyData("hide-hud", "toggle");
 				}
 			}
 			this.cancelled = false;

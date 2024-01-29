@@ -59,11 +59,17 @@ declare global {
 
 		get(module: MODULE_ID, setting: "header-button-text"): "on" | "off" | "auto";
 
+		get(module: MODULE_ID, setting: "show-player-list"): boolean;
+
 		// get(module: MODULE_ID, setting: "share-targets"): boolean;
 
 		// get(module: MODULE_ID, setting: "receive-targets"): boolean;
 
-		// get(module: MODULE_ID, setting: "disable-canvas"): boolean;
+		get(module: MODULE_ID, setting: "disable-canvas"): boolean;
+
+		set(module: MODULE_ID, key: "disable-canvas", value: boolean): Promise<boolean>;
+
+		set(module: MODULE_ID, key: "show-player-list", value: boolean): Promise<boolean>;
 	}
 
 	interface SocketlibSocket {

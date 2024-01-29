@@ -1,7 +1,7 @@
 import { WindowMenu } from "./windowMenu.js";
 import { MobileMenu } from "./mobileMenu.js";
 import { id as MODULE_ID } from "../../../static/module.json";
-import { toggleRender } from "../utils.js";
+import { setBodyData, toggleRender } from "../utils.js";
 
 export enum ViewState {
 	Unloaded,
@@ -38,14 +38,14 @@ export class MobileUI extends Application {
 		this.mobileMenu = new MobileMenu(this);
 
 		// Ensure HUD shows on opening a new window
-		// Hooks.on("WindowManager:NewRendered", () => this._onShowWindow());
-		// Hooks.on("WindowManager:BroughtToTop", () => this._onShowWindow());
-		// Hooks.on("WindowManager:NoneVisible", () => this._onHideAllWindows());
+		Hooks.on("WindowManager:NewRendered", () => this._onShowWindow());
+		Hooks.on("WindowManager:BroughtToTop", () => this._onShowWindow());
+		Hooks.on("WindowManager:NoneVisible", () => this._onHideAllWindows());
 	}
 
 	_onShowWindow(): void {
-		$(document.body).removeClass("hide-hud");
-		$(document.body).addClass("windows-open");
+		setBodyData("hide-hud", false);
+		setBodyData("windows-open", true);
 
 		if (isTabletMode()) {
 			this.showSidebar();
@@ -53,7 +53,7 @@ export class MobileUI extends Application {
 	}
 
 	_onHideAllWindows(): void {
-		$(document.body).removeClass("windows-open");
+		setBodyData("windows-open", false);
 	}
 
 	override render(force?: boolean, options?: RenderOptions): this | Promise<this> {
@@ -61,7 +61,7 @@ export class MobileUI extends Application {
 		this.state = this.noCanvas ? ViewState.App : ViewState.Map;
 
 		const r = super.render(force, options);
-		// this.windowMenu.render(force);
+		this.windowMenu.render(force);
 		this.mobileMenu.render(force);
 		return r;
 	}
@@ -73,13 +73,13 @@ export class MobileUI extends Application {
 			this.selectItem(name);
 		});
 		this.updateMode();
-		html.before(`<div id="show-mobile-navigation"><i class="fas fa-chevron-up"></i></div>`);
-		html.siblings("#show-mobile-navigation").on("click", () => {
-			$(document.body).toggleClass("hide-hud");
-		});
-		if (this.noCanvas) {
-			this.element.find(".navigation-map").detach();
-		}
+		// html.before(`<div id="show-mobile-navigation"><i class="fas fa-chevron-up"></i></div>`);
+		// html.siblings("#show-mobile-navigation").on("click", () => {
+		// 	$(document.body).toggleClass("hide-hud");
+		// });
+		// if (this.noCanvas) {
+		// 	this.element.find(".navigation-map").detach();
+		// }
 	}
 
 	closeDrawer(): void {
@@ -89,7 +89,7 @@ export class MobileUI extends Application {
 	showMap(): void {
 		const minimized = window.WindowManager.minimizeAll();
 		if (!minimized && this.state === ViewState.Map) {
-			$(document.body).toggleClass("hide-hud");
+			setBodyData("hide-hud", "toggle");
 		}
 		this.state = ViewState.Map;
 		toggleRender(true);
@@ -99,23 +99,23 @@ export class MobileUI extends Application {
 
 	showSidebar(): void {
 		this.state = ViewState.App;
-		$(document.body).removeClass("hide-hud");
+		setBodyData("hide-hud", false);
 		ui.sidebar?.expand();
 		if (!isTabletMode()) window.WindowManager.minimizeAll();
-		if (game.settings.get(MODULE_ID, "sidebar-pauses-render") === true) {
-			toggleRender(false);
-		}
+		// if (game.settings.get(MODULE_ID, "sidebar-pauses-render") === true) {
+		// 	toggleRender(false);
+		// }
 		this.setDrawerState(DrawerState.None);
 		this.updateMode();
 	}
 
 	showHotbar(): void {
-		$(document.body).addClass("show-hotbar");
+		setBodyData("hotbar", "true");
 		ui.hotbar.expand();
 	}
 
 	hideHotbar(): void {
-		$(document.body).removeClass("show-hotbar");
+		setBodyData("hotbar", "false");
 	}
 
 	setWindowCount(count: number): void {
@@ -163,17 +163,15 @@ export class MobileUI extends Application {
 
 	updateMode(): void {
 		this.element.find(".active:not(.toggle)").removeClass("active");
-		$(document.body).removeClass("mobile-app");
-		$(document.body).removeClass("mobile-map");
 
 		switch (this.state) {
 			case ViewState.Map:
 				this.element.find(".navigation-map").addClass("active");
-				$(document.body).addClass("mobile-map");
+				setBodyData("tab", "map");
 				break;
 			case ViewState.App:
 				this.element.find(".navigation-sidebar").addClass("active");
-				$(document.body).addClass("mobile-app");
+				setBodyData("tab", "app");
 				break;
 			default:
 				break;

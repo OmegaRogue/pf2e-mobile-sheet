@@ -13,6 +13,10 @@
 .sheet {
 	container: sheet / inline-size;
 
+	&:is(.actor,.item,.journal-entry) {
+
+	}
+
 	&.actor {
 		@include mixins.local-mobile($familiar-breakpoint, sheet) {
 			@include familiar.mobile;

@@ -35,10 +35,10 @@ export class MobileMenu extends Application {
 				}
 				break;
 			case "players":
-				// TODO setSetting(settings.SHOW_PLAYER_LIST, !getSetting(settings.SHOW_PLAYER_LIST));
+				game.settings.set(MODULE_ID, "show-player-list", !game.settings.get(MODULE_ID, "show-player-list"));
 				break;
 			case "canvas":
-				game.settings.set("core", "noCanvas", !game.settings.get("core", "noCanvas"));
+				game.settings.set(MODULE_ID, "disable-canvas", !game.settings.get(MODULE_ID, "disable-canvas"));
 				break;
 			case "exit":
 				// TODO setSetting(settings.PIN_MOBILE_MODE, false);
