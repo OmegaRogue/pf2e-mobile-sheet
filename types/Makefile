@@ -16,7 +16,7 @@ update_types:
 
 clean_types:
 	cd types
-	rm -rf {build,foundry,src,tests,types,vite.config.d.ts,*.json}
+	rm -rf {build,foundry,src,tests,types/foundry,vite.config.d.ts,*.json}
 
 build_types:
 	cd ${PF2E_REPO_PATH}

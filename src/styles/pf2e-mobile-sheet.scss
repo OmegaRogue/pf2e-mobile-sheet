@@ -168,3 +168,15 @@
 		transform: translateX(-110%);
 	}
 }
+
+
+#navigation .monks-scene-navigation {
+	.scene-list {
+		flex-wrap: wrap;
+
+		> li {
+			min-width: 100px;
+		}
+	}
+}
+

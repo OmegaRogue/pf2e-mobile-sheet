@@ -107,7 +107,7 @@ Hooks.once("ready", async () => {
 	libWrapper.register(
 		MODULE_ID,
 		"Canvas.prototype._onDragSelect",
-		function(wrapped: any, event: PIXI.FederatedEvent) {
+		function (wrapped: any, event: PIXI.FederatedEvent) {
 			if (!ui.controls?.control?.tools.find((a) => a.name === "touch-pan")?.active) return wrapped(event);
 			// @ts-ignore
 

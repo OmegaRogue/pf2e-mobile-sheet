@@ -6,9 +6,6 @@
 		"import/export": "off",
 		// import plugin isn't wise to node16 module resolution
 		"import/no-unresolved": "off",
-		"no-var": "off",
-		"indent": "off",
-		"prettier/prettier": "off",
-		"@typescript-eslint/no-unsafe-declaration-merging": "off"
+		"no-var": "off"
 	}
 }

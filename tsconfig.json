@@ -44,7 +44,13 @@
 		"strictNullChecks": true,
 		"strictPropertyInitialization": true,
 		"target": "es2022",
-		"typeRoots": ["node_modules/@types", "types/types/foundry"],
+		"typeRoots": [
+			"node_modules/@types",
+			"types/types/foundry",
+			"types/types/dev-mode",
+			"types/types/libWrapper",
+			"types/types/socketlib"
+		],
 		"types": ["jquery", "node", "tooltipster"],
 		"useDefineForClassFields": true
 		//		"allowJs": true

@@ -1,4 +1,3 @@
-import { DevModeModule, LogLevel } from "./devMode.js";
 import { id as MODULE_ID } from "../../static/module.json";
 
 export function getDebug(): boolean | LogLevel {
