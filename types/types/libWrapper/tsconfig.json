@@ -9,8 +9,10 @@
 		"noEmit": true,
 		"esModuleInterop": true,
 		"allowImportingTsExtensions": true,
-		"typeRoots": ["../../../node_modules/@types", "../foundry"],
-		"skipLibCheck": true
+      "typeRoots": [
+        "../../../node_modules/@types",
+        "../foundry"
+      ]
 	},
 	"files": ["index.d.ts"]
 }

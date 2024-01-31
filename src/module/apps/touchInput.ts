@@ -7,7 +7,7 @@ export class TouchInput {
 	tapStart = -1;
 
 	getTarget(evt: PIXI.FederatedPointerEvent): PlaceableObject | null {
-		let target: FederatedEventTarget | undefined = evt.target;
+		const target: FederatedEventTarget | undefined = evt.target;
 		return (target as PlaceableObject) ?? null;
 	}
 

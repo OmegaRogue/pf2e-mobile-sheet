@@ -27,7 +27,8 @@
 	--send-button-gap: 0.5em;
 	--mobile-sheet-dark-background: #333;
 	--mobile-sheet-dark-background-transparent: #333333ee;
-
+	--mobile-max-window-height: calc(100% - var(--navigationHeight));
+	--bam-items-per-row: 14;
 }
 
 [data-mobile-force-hide-header-button-text=true] {
@@ -39,7 +40,6 @@
 		}
 	}
 }
-
 
 @include mixins.hide-hud {
 	#ui-center, #ui-left, #ui-middle, #fps {
@@ -93,14 +93,14 @@
 	.app {
 		margin: 0;
 
-		&.window-app:not(.minimized,.dialog) {
-			height: calc(100% - var(--navigationHeight)) !important;
+		&.window-app:not(.minimized,.dialog,.simple-calendar) {
+			height: var(--mobile-max-window-height) !important;
 			left: 0 !important;
 			top: 0 !important;
 			width: 100% !important;
 		}
 	}
-	.sheet.actor.character .popout-module-button, .pathmuncher-open, .configure-token, .configure-creature, .configure-theatre, .console-print, .document-id-link, .document-image-link, .simple-calendar, #tokenbar, .header-button.control.pf2e-action-support-engine {
+	.sheet.actor.character .popout-module-button, .pathmuncher-open, .configure-token, .configure-creature, .configure-theatre, .console-print, .document-id-link, .document-image-link, #tokenbar, .header-button.control.pf2e-action-support-engine {
 		display: none !important;
 	}
 

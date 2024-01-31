@@ -1,4 +1,4 @@
-import type { ActorPF2e } from "@actor";
+import { ActorPF2e } from "@actor";
 import { ModifierPF2e, RawModifier } from "@actor/modifiers.ts";
 import { DCSlug } from "@actor/types.ts";
 import type { ItemPF2e } from "@item";
@@ -36,7 +36,7 @@ interface ActionCheckPreview {
     slug: string;
 }
 interface SingleCheckActionUseOptions extends ActionUseOptions {
-    difficultyClass: CheckDC | string;
+	difficultyClass: CheckDC | DCSlug | number;
     modifiers: ModifierPF2e[];
     multipleAttackPenalty: number;
     notes: SingleCheckActionRollNoteData[];

@@ -5,7 +5,6 @@
 	"type": "module",
 	"types": "index.d.ts",
 	"devDependencies": {
-		"foundry-types": "file:../foundry",
 		"typescript": "^5.3.3"
 	}
 }

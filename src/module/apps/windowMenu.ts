@@ -1,6 +1,6 @@
 import { Window } from "./windowManager.js";
 import type { MobileUI } from "./MobileUI.js";
-import { id as MODULE_ID } from "../../../static/module.json";
+import { id as MODULE_ID } from "@static/module.json";
 
 const icons = {
 	"": "",
@@ -43,12 +43,17 @@ export class WindowMenu extends Application {
 	}
 
 	// Attempt to discern the title and icon of the window
-	winIcon(win: any): string {
+	winIcon(win: Application): string {
 		let windowType: string =
+			// @ts-expect-error
 			win.icon ||
+			// @ts-expect-error
 			win.tabName ||
+			// @ts-expect-error
 			win?.object?.data?.type ||
+			// @ts-expect-error
 			win?.object?.data?.entity ||
+			// @ts-expect-error
 			(win.metadata ? "compendium" : "") ||
 			"";
 		windowType = windowType.toLowerCase();

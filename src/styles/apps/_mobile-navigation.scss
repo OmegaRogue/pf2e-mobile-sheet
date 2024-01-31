@@ -5,10 +5,6 @@
 	@include mixins.hide-animation;
 }
 
-.start-menu-button {
-	background-image: url("../../foundry-taskbar/assets/d20.svg");
-}
-
 .mobile-navigation {
 	align-items: stretch;
 	background-color: var(--mobile-sheet-dark-background);

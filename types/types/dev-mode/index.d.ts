@@ -1,7 +1,4 @@
-// @ts-ignore
-import { Module } from "../foundry/client/core/packages.js";
-// @ts-ignore
-import { HookParameters } from "../foundry/client/core/hooks.js";
+import "foundry-types";
 
 export {};
 
@@ -48,9 +45,9 @@ declare global {
 		runPerformanceTest({ type, iterations }: { type: string; iterations?: number }): Promise<void>;
 	}
 
-	type HookParamsDevModeReady = HookParameters<"devModeReady", DevModeApi>;
+	type HookParamsDevModeReady = HookParameters<"devModeReady", [DevModeApi]>;
 
-	// @ts-ignore
+	// @ts-expect-error
 	class Hooks {
 		/**
 		 * Register a callback handler which should be triggered when a hook is triggered.

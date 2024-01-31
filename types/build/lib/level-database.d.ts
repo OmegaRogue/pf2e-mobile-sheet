@@ -1,7 +1,7 @@
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { ClassicLevel, type DatabaseOptions } from "classic-level";
-import type { JournalEntryPageSchema } from "types/foundry/common/documents/journal-entry-page.d.ts";
-import type { TableResultSource } from "types/foundry/common/documents/module.d.ts";
+import type { JournalEntryPageSchema } from "foundry-types/common/documents/journal-entry-page.d.ts";
+import type { TableResultSource } from "foundry-types/common/documents/module.d.ts";
 import { PackEntry } from "./types.ts";
 declare class LevelDatabase extends ClassicLevel<string, DBEntry> {
     #private;

@@ -3,14 +3,8 @@ export {};
 declare global {
 	/** The standard application window that is rendered for a large variety of UI elements in Foundry VTT */
 	class Application<TOptions extends ApplicationOptions = ApplicationOptions> {
-		static readonly RENDER_STATES: {
-			CLOSING: -2;
-			CLOSED: -1;
-			NONE: 0;
-			RENDERING: 1;
-			RENDERED: 2;
-			ERROR: 3;
-		};
+		constructor(options?: Partial<TOptions>);
+
 		/** The options provided to this application upon initialization */
 		options: TOptions;
 
@@ -22,23 +16,51 @@ declare global {
 
 		/** Track the current position and dimensions of the Application UI */
 		position: ApplicationPosition;
+
+		/** An internal reference to the HTML element this application renders */
+		protected _element: JQuery;
+
+		/** DragDrop workflow handlers which are active for this Application */
+		protected _dragDrop: DragDrop[];
+
+		/** Tab navigation handlers which are active for this Application */
+		protected _tabs: Tabs[];
+
+		/** SearchFilter handlers which are active for this Application */
+		protected _searchFilters: SearchFilter[];
+
 		/** Track whether the Application is currently minimized */
 		_minimized: boolean;
+
 		/**
 		 * Track the render state of the Application
 		 * @see {Application.RENDER_STATES}
 		 */
 		_state: ApplicationRenderState;
-		/** DragDrop workflow handlers which are active for this Application */
-		protected _dragDrop: DragDrop[];
-		/** Tab navigation handlers which are active for this Application */
-		protected _tabs: Tabs[];
-		/** SearchFilter handlers which are active for this Application */
-		protected _searchFilters: SearchFilter[];
+
 		/** Track the most recent scroll positions for any vertically scrolling containers */
 		protected _scrollPositions: Record<string, unknown> | null;
 
-		constructor(options?: Partial<TOptions>);
+		static readonly RENDER_STATES: {
+			CLOSING: -2;
+			CLOSED: -1;
+			NONE: 0;
+			RENDERING: 1;
+			RENDERED: 2;
+			ERROR: 3;
+		};
+
+		/**
+		 * Create drag-and-drop workflow handlers for this Application
+		 * @return An array of DragDrop handlers
+		 */
+		protected _createDragDropHandlers(): DragDrop[];
+
+		/**
+		 * Create tabbed navigation handlers for this Application
+		 * @return An array of Tabs handlers
+		 */
+		protected _createTabHandlers(): Tabs[];
 
 		/**
 		 * Assign the default options which are supported by all Application classes.
@@ -47,18 +69,15 @@ declare global {
 		 */
 		static get defaultOptions(): ApplicationOptions;
 
-		/** An internal reference to the HTML element this application renders */
-		protected _element: JQuery;
+		/**
+		 * Return the CSS application ID which uniquely references this UI element
+		 */
+		get id(): string;
 
 		/**
 		 * Return the active application element, if it currently exists in the DOM
 		 */
 		get element(): JQuery;
-
-		/**
-		 * Return the CSS application ID which uniquely references this UI element
-		 */
-		get id(): string;
 
 		/**
 		 * The path to the HTML template file which should be used to render the inner content of the app
@@ -81,6 +100,11 @@ declare global {
 		 */
 		get title(): string;
 
+		/* -------------------------------------------- */
+		/* Application rendering                        */
+
+		/* -------------------------------------------- */
+
 		/**
 		 * An application should define the data object used to render its template.
 		 * This function may either return an Object directly, or a Promise which resolves to an Object
@@ -100,62 +124,6 @@ declare global {
 		 */
 		render(force?: boolean, options?: RenderOptions): this | Promise<this>;
 
-		/* -------------------------------------------- */
-		/* Application rendering                        */
-
-		/* -------------------------------------------- */
-
-		/**
-		 * After rendering, activate event listeners which provide interactivity for the Application.
-		 * This is where user-defined Application subclasses should attach their event-handling logic.
-		 */
-		activateListeners(html: JQuery): void;
-
-		/**
-		 * Close the application and un-register references to it within UI mappings
-		 * This function returns a Promise which resolves once the window closing animation concludes
-		 * @fires closeApplication
-		 * @param options Options which affect how the Application is closed
-		 * @returns A Promise which resolves once the application is closed
-		 */
-		close(options?: { force?: boolean }): Promise<void>;
-
-		/**
-		 * Minimize the pop-out window, collapsing it to a small tab
-		 * Take no action for applications which are not of the pop-out variety or apps which are already minimized
-		 * @return  A Promise which resolves to true once the minimization action has completed
-		 */
-		minimize(): Promise<boolean>;
-
-		/**
-		 * Maximize the pop-out window, expanding it to its original size
-		 * Take no action for applications which are not of the pop-out variety or are already maximized
-		 * @return  A Promise which resolves to true once the maximization action has completed
-		 */
-		maximize(): Promise<boolean>;
-
-		/**
-		 * Bring the application to the top of the rendering stack
-		 */
-		bringToTop(): void;
-
-		/**
-		 * Set the application position and store it's new location
-		 */
-		setPosition({ left, top, width, height, scale }?: ApplicationPosition): ApplicationPosition | undefined;
-
-		/**
-		 * Create drag-and-drop workflow handlers for this Application
-		 * @return An array of DragDrop handlers
-		 */
-		protected _createDragDropHandlers(): DragDrop[];
-
-		/**
-		 * Create tabbed navigation handlers for this Application
-		 * @return An array of Tabs handlers
-		 */
-		protected _createTabHandlers(): Tabs[];
-
 		/**
 		 * An asynchronous inner function which handles the rendering of the Application
 		 * @param force   Render and display the application even if it is not currently displayed.
@@ -168,11 +136,6 @@ declare global {
 		 * Persist the scroll positions of containers within the app before re-rendering the content
 		 */
 		protected _saveScrollPositions(html: HTMLElement | JQuery): void;
-
-		/* -------------------------------------------- */
-		/* Event Listeners and Handlers                 */
-
-		/* -------------------------------------------- */
 
 		/**
 		 * Restore the scroll positions of containers within the app after re-rendering the content
@@ -212,11 +175,22 @@ declare global {
 		 */
 		protected _getHeaderButtons(): ApplicationHeaderButton[];
 
+		/* -------------------------------------------- */
+		/* Event Listeners and Handlers                 */
+
+		/* -------------------------------------------- */
+
 		/**
 		 * Activate required listeners which must be enabled on every Application.
 		 * These are internal interactions which should not be overridden by downstream subclasses.
 		 */
 		protected _activateCoreListeners(html: JQuery): void;
+
+		/**
+		 * After rendering, activate event listeners which provide interactivity for the Application.
+		 * This is where user-defined Application subclasses should attach their event-handling logic.
+		 */
+		activateListeners(html: JQuery): void;
 
 		/**
 		 * Handle changes to the active tab in a configured Tabs controller
@@ -234,11 +208,6 @@ declare global {
 		 * @param html  The HTML element which should be filtered
 		 */
 		protected _onSearchFilter(event: KeyboardEvent, query: string, rgx: RegExp, html: HTMLElement | null): void;
-
-		/* -------------------------------------------- */
-		/*  Methods                                     */
-
-		/* -------------------------------------------- */
 
 		/**
 		 * Define whether a user is able to begin a dragstart workflow for a given drag selector
@@ -271,6 +240,44 @@ declare global {
 		 * @param event The originating DragEvent
 		 */
 		protected _onDrop(event: DragEvent): void;
+
+		/* -------------------------------------------- */
+		/*  Methods                                     */
+
+		/* -------------------------------------------- */
+
+		/**
+		 * Close the application and un-register references to it within UI mappings
+		 * This function returns a Promise which resolves once the window closing animation concludes
+		 * @fires closeApplication
+		 * @param options Options which affect how the Application is closed
+		 * @returns A Promise which resolves once the application is closed
+		 */
+		close(options?: { force?: boolean }): Promise<void>;
+
+		/**
+		 * Minimize the pop-out window, collapsing it to a small tab
+		 * Take no action for applications which are not of the pop-out variety or apps which are already minimized
+		 * @return  A Promise which resolves to true once the minimization action has completed
+		 */
+		minimize(): Promise<boolean>;
+
+		/**
+		 * Maximize the pop-out window, expanding it to its original size
+		 * Take no action for applications which are not of the pop-out variety or are already maximized
+		 * @return  A Promise which resolves to true once the maximization action has completed
+		 */
+		maximize(): Promise<boolean>;
+
+		/**
+		 * Bring the application to the top of the rendering stack
+		 */
+		bringToTop(): void;
+
+		/**
+		 * Set the application position and store it's new location
+		 */
+		setPosition({ left, top, width, height, scale }?: ApplicationPosition): ApplicationPosition | undefined;
 
 		/**
 		 * Handle application minimization behavior - collapsing content and reducing the size of the header

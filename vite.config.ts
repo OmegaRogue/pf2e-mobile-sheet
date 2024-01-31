@@ -1,6 +1,7 @@
 import fs from "fs-extra";
 import * as Vite from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
+import hq from "alias-hq";
 // eslint-disable-next-line import/default
 import checker from "vite-plugin-checker";
 import path from "path";
@@ -49,7 +50,19 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
 				name: "hmr-handler",
 				apply: "serve",
 				handleHotUpdate(context) {
-					if (context.file.endsWith(".hbs") && !context.file.startsWith(outDir)) {
+					if (context.file.startsWith(outDir)) return;
+
+					if (context.file.endsWith("en.json")) {
+						const basePath = context.file.slice(context.file.indexOf("lang/"));
+						console.log(`Updating lang file at ${basePath}`);
+						fs.promises.copyFile(context.file, `${outDir}/${basePath}`).then(() => {
+							context.server.ws.send({
+								type: "custom",
+								event: "lang-update",
+								data: { path: `modules/pf2e-mobile-sheet/pf2e/${basePath}` },
+							});
+						});
+					} else if (context.file.endsWith(".hbs") && !context.file.startsWith(outDir)) {
 						const basePath = context.file.slice(context.file.indexOf("templates/"));
 						console.log(`Updating template at ${basePath}`);
 						fs.promises.copyFile(context.file, `${outDir}/${basePath}`).then(() => {
@@ -81,6 +94,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
 		publicDir: "static",
 		define: {
 			BUILD_MODE: JSON.stringify(buildMode),
+			fu: "foundry.utils,
 		},
 		esbuild: { keepNames: true },
 		build: {
@@ -122,6 +136,9 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
 		css: {
 			devSourcemap: true,
 		},
+		resolve: {
+			alias: hq.get("rollup")
+		}
 	};
 });
 

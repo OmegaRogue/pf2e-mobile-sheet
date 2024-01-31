@@ -1,9 +1,24 @@
 import { PredicatePF2e, PredicateStatement, RawPredicate } from "@system/predication.ts";
 import { SlugCamel } from "@util";
-import type DataModel from "types/foundry/common/abstract/data.d.ts";
-import type { ArrayFieldOptions, CleanFieldOptions, DataField, DataFieldOptions, DataFieldValidationOptions, DataSchema, MaybeSchemaProp, ModelPropFromDataField, NumberField, ObjectFieldOptions, SourcePropFromDataField, StringField, StringFieldOptions } from "types/foundry/common/data/fields.d.ts";
-import type { DataModelValidationFailure } from "types/foundry/common/data/validation-failure.d.ts";
-declare const fields: typeof import("types/foundry/common/data/fields.d.ts");
+import type DataModel from "foundry-types/common/abstract/data.d.ts";
+import type {
+	ArrayFieldOptions,
+	CleanFieldOptions,
+	DataField,
+	DataFieldOptions,
+	DataFieldValidationOptions,
+	DataSchema,
+	MaybeSchemaProp,
+	ModelPropFromDataField,
+	NumberField,
+	ObjectFieldOptions,
+	SourcePropFromDataField,
+	StringField,
+	StringFieldOptions
+} from "foundry-types/common/data/fields.d.ts";
+import type { DataModelValidationFailure } from "foundry-types/common/data/validation-failure.d.ts";
+
+declare const fields: typeof import("foundry-types/common/data/fields.d.ts");
 /** A `SchemaField` that preserves fields not declared in its `DataSchema` */
 declare class LaxSchemaField<TDataSchema extends DataSchema> extends fields.SchemaField<TDataSchema> {
     protected _cleanType(data: Record<string, unknown>, options?: CleanFieldOptions): SourceFromSchema<TDataSchema>;

@@ -11,10 +11,10 @@
 @import "../../breakpoints";
 
 .sheet {
-	container: sheet / inline-size;
+
 
 	&:is(.actor,.item,.journal-entry) {
-
+		container: sheet / inline-size;
 	}
 
 	&.actor {

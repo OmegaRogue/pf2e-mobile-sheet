@@ -1,4 +1,4 @@
-import { debug } from "./utils.js";
+import { debug, getBodyData } from "./utils.js";
 
 function moveSidebarToTab(html: JQuery) {
 	if (html.find(".sheet-navigation #sidebar-tab").length === 0) {
@@ -27,9 +27,8 @@ const characterSheetResizeObserver = new ResizeObserver((entries) => {
 		if (!entry.target.id.startsWith("CharacterSheetPF2e")) continue;
 		const html = $(entry.target) as JQuery<HTMLElement>;
 		if (
-			(entry.contentRect.width < 745 || $("body[data-mobile-force-mobile-window=true]").length > 0) &&
-			!html.hasClass("mobile") &&
-			$("body[data-mobile-force-mobile-window=false]").length === 0
+			(entry.contentRect.width < 745 || getBodyData("force-mobile-window") === true) &&
+			!html.hasClass("mobile")
 		) {
 			debug(false, "sidebar found", html.find("aside").length);
 
@@ -39,15 +38,14 @@ const characterSheetResizeObserver = new ResizeObserver((entries) => {
 			debug(false, "mobile", entry);
 			debug(false, "sidebar found", html.find("aside").length);
 		} else if (
-			(entry.contentRect.width >= 745 || $("body[data-mobile-force-mobile-window=false]").length > 0) &&
-			html.hasClass("mobile") &&
-			$("body[data-mobile-force-mobile-window=true]").length === 0
+			(entry.contentRect.width >= 745 || getBodyData("force-mobile-window") === false) &&
+			html.hasClass("mobile")
 		) {
 			debug(false, "sidebar found off", html.find("aside").length);
 			html.removeClass("mobile");
 			const sidebar = html.find(".tab.sidebar aside");
 			html.find(".window-content form").prepend(sidebar.detach());
-			const sidebarTab = html.find(".tab.sidebar.active");
+			const sidebarTab: JQuery = html.find(".tab.sidebar.active");
 			if (sidebarTab.length > 0) {
 				sidebarTab.removeClass("active");
 				html.find('a[data-tab="character"]')[0].click();
@@ -63,9 +61,8 @@ const vehicleSheetResizeObserver = new ResizeObserver((entries) => {
 		if (!entry.target.id.startsWith("VehicleSheetPF2e")) continue;
 		const html = $(entry.target) as JQuery<HTMLElement>;
 		if (
-			(entry.contentRect.width < 585 || $("body[data-mobile-force-mobile-window=true]").length > 0) &&
-			!html.hasClass("mobile") &&
-			$("body[data-mobile-force-mobile-window=false]").length === 0
+			(entry.contentRect.width < 585 || getBodyData("force-mobile-window") === true) &&
+			!html.hasClass("mobile")
 		) {
 			debug(false, "sidebar found", html.find("aside").length);
 
@@ -74,15 +71,14 @@ const vehicleSheetResizeObserver = new ResizeObserver((entries) => {
 			debug(false, "mobile", entry);
 			debug(false, "sidebar found", html.find("aside").length);
 		} else if (
-			(entry.contentRect.width >= 585 || $("body[data-mobile-force-mobile-window=false]").length > 0) &&
-			html.hasClass("mobile") &&
-			$("body[data-mobile-force-mobile-window=true]").length === 0
+			(entry.contentRect.width >= 585 || getBodyData("force-mobile-window") === false) &&
+			html.hasClass("mobile")
 		) {
 			debug(false, "sidebar found off", html.find("aside").length);
 			html.removeClass("mobile");
 			const sidebar = html.find(".tab.sidebar aside");
 			html.find(".window-content form").prepend(sidebar.detach());
-			const sidebarTab = html.find(".tab.sidebar.active");
+			const sidebarTab: JQuery = html.find(".tab.sidebar.active");
 			if (sidebarTab.length > 0) {
 				sidebarTab.removeClass("active");
 				html.find('a[data-tab="details"]')[0].click();
@@ -95,38 +91,36 @@ const vehicleSheetResizeObserver = new ResizeObserver((entries) => {
 
 const settingsResizeObserver = new ResizeObserver((entries) => {
 	for (const entry of entries) {
-		const html = $(entry.target) as JQuery<HTMLElement>;
+		const html: JQuery<HTMLElement> = $(entry.target) as JQuery<HTMLElement>;
 		if (
-			(entry.contentRect.width < 534 || $("body[data-mobile-force-mobile-window=true]").length > 0) &&
-			!html.hasClass("mobile") &&
-			$("body[data-mobile-force-mobile-window=false]").length === 0
+			(entry.contentRect.width < 534 || getBodyData("force-mobile-window") === true) &&
+			!html.hasClass("mobile")
 		) {
 			html.addClass("mobile");
-			const content = html.find("section.window-content > div:not(#mps-view-group).flexrow");
+			const content: JQuery = html.find("section.window-content > div:not(#mps-view-group).flexrow");
 			if (content.length === 1) {
 				content.removeClass("flexrow");
 				content.addClass("flexcol");
 			}
-			const scrollable = html.find(".scrollable");
+			const scrollable: JQuery = html.find(".scrollable");
 			scrollable.appendTo(content);
-			const form = html.find(".categories");
+			const form: JQuery = html.find(".categories");
 			scrollable.children().appendTo(form);
-			const sidebar = html.find("aside.sidebar");
+			const sidebar: JQuery = html.find("aside.sidebar");
 			sidebar.appendTo(scrollable);
 			form.appendTo(scrollable);
-			const footer = form.find("footer");
+			const footer: JQuery = form.find("footer");
 			if (footer.length === 1) {
 				html.find(".reset-all").prependTo(footer);
 				footer.addClass("flexrow");
 				footer.appendTo(content);
-				const submitButton = footer.find("button[type=submit]");
+				const submitButton: JQuery = footer.find("button[type=submit]");
 				submitButton.removeAttr("type").attr("type", "button");
 				submitButton.on("click", () => form.trigger("submit"));
 			}
 		} else if (
-			(entry.contentRect.width >= 534 || $("body[data-mobile-force-mobile-window=false]").length > 0) &&
-			html.hasClass("mobile") &&
-			$("body[data-mobile-force-mobile-window=true]").length === 0
+			(entry.contentRect.width >= 534 || getBodyData("force-mobile-window") === false) &&
+			html.hasClass("mobile")
 		) {
 			html.removeClass("mobile");
 			ui.windows[html.data("appid")].render(false);

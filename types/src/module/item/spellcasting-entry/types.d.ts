@@ -20,16 +20,23 @@ interface BaseSpellcastingEntry<TActor extends ActorPF2e | null = ActorPF2e | nu
     isPrepared: boolean;
     isRitual: boolean;
     isSpontaneous: boolean;
+	isEphemeral: boolean;
     statistic?: Statistic | null;
     tradition: MagicTradition | null;
-    spells: SpellCollection<NonNullable<TActor>, this> | null;
+	spells: SpellCollection<NonNullable<TActor>> | null;
     system?: SpellcastingEntrySystemData;
-    getSheetData(): Promise<SpellcastingSheetData>;
+
+	getSheetData(options?: GetSheetDataOptions<NonNullable<TActor>>): Promise<SpellcastingSheetData>;
     getRollOptions?(prefix: "spellcasting"): string[];
     canCast(spell: SpellPF2e, options?: {
         origin?: PhysicalItemPF2e;
     }): boolean;
     cast(spell: SpellPF2e, options: CastOptions): Promise<void>;
+}
+
+interface GetSheetDataOptions<TActor extends ActorPF2e> {
+	spells?: Maybe<SpellCollection<TActor>>;
+	prepList?: boolean;
 }
 interface SpellcastingEntry<TActor extends ActorPF2e | null> extends BaseSpellcastingEntry<TActor> {
     attribute: AttributeString;
@@ -40,11 +47,9 @@ interface CastOptions {
     slotId?: number;
     /** The rank at which to cast the spell */
     rank?: OneToTen;
+	consume?: boolean;
     message?: boolean;
     rollMode?: RollMode;
-}
-interface SpellcastingEntryPF2eCastOptions extends CastOptions {
-    consume?: boolean;
 }
 type UnusedProperties = "actor" | "spells" | "getSheetData" | "cast" | "canCast";
 type OptionalProperties = "isFlexible" | "isFocusPool" | "isInnate" | "isPrepared" | "isRitual" | "isSpontaneous";
@@ -93,4 +98,14 @@ interface ActiveSpell {
     /** Is the spell not actually of this rank? */
     virtual?: boolean;
 }
-export type { ActiveSpell, BaseSpellcastingEntry, CastOptions, SpellPrepEntry, SpellcastingCategory, SpellcastingEntry, SpellcastingEntryPF2eCastOptions, SpellcastingSheetData, SpellcastingSlotGroup, };
+
+export type {
+	ActiveSpell,
+	BaseSpellcastingEntry,
+	CastOptions,
+	SpellPrepEntry,
+	SpellcastingCategory,
+	SpellcastingEntry,
+	SpellcastingSheetData,
+	SpellcastingSlotGroup
+};

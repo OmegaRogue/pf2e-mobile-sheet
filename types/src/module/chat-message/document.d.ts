@@ -10,7 +10,7 @@ import { ChatMessageFlagsPF2e, ChatMessageSourcePF2e } from "./data.ts";
 declare class ChatMessagePF2e extends ChatMessage {
     #private;
     /** The chat log doesn't wait for data preparation before rendering, so set some data in the constructor */
-    constructor(data?: DeepPartial<ChatMessageSourcePF2e>, context?: DocumentConstructionContext<null>);
+    constructor(data?: DeepPartial<ChatMessageSourcePF2e>, context?: MessageConstructionContext);
     /** Is this a damage (or a manually-inputed non-D20) roll? */
     get isDamageRoll(): boolean;
     /** Get the actor associated with this chat message */

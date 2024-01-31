@@ -1,7 +1,7 @@
 import { UserVisibility } from "@scripts/ui/user-visibility.ts";
 import { DegreeOfSuccessString } from "@system/degree-of-success.ts";
 import { DataUnionField, StrictStringField } from "@system/schema-data-fields.ts";
-import type { ArrayField, StringField } from "types/foundry/common/data/fields.d.ts";
+import type { ArrayField, StringField } from "foundry-types/common/data/fields.d.ts";
 import { RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
 declare class RollNoteRuleElement extends RuleElementPF2e<RollNoteSchema> {
@@ -22,11 +22,13 @@ type RollNoteSchema = RuleElementSchema & {
     /** The main text of the note */
     text: DataUnionField<StrictStringField<string, string, true, false, false> | ResolvableValueField<true, false, false>>;
 };
-interface RollNoteSource extends RuleElementSource {
+
+interface NoteRESource extends RuleElementSource {
     selector?: unknown;
     outcome?: unknown;
     title?: unknown;
     text?: unknown;
     visibility?: unknown;
 }
-export { RollNoteRuleElement, type RollNoteSource };
+
+export { RollNoteRuleElement, type NoteRESource };

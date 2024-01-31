@@ -59,9 +59,6 @@ declare global {
 
 		static get InvalidWrapperChainError(): Error;
 
-		/* Undocumented on purpose, do not use */
-		static get onUnhandledError(): (error: Error, prepend_stack: any = undefined) => void;
-
 		// Enums - First introduced in v1.9.0.0
 		static get WRAPPER(): WRAPPER_TYPES.WRAPPER;
 
@@ -86,7 +83,7 @@ declare global {
 		 * @param suffix
 		 * @returns {boolean}      Returns true if the libWrapper version is at least the queried version, otherwise false.
 		 */
-		static get version_at_least(major: number, minor: number = 0, patch: number = 0, suffix: number = 0): boolean;
+		static version_at_least(major: number, minor?: number, patch?: number, suffix?: number): boolean;
 
 		/**
 		 * Register a new wrapper.
@@ -182,13 +179,13 @@ declare global {
 		static register(
 			package_id: string,
 			target: number | string,
-			fn: function,
-			type: string | WRAPPER_TYPES = "MIXED",
-			options: {
-				chain: boolean;
-				perf_mode: string | PERF_MODES;
-				bind: any[];
-			} = {},
+			fn: Function,
+			type?: string | WRAPPER_TYPES,
+			options?: {
+				chain?: boolean;
+				perf_mode?: string | PERF_MODES;
+				bind?: any[];
+			},
 		): number;
 
 		/**
@@ -209,7 +206,7 @@ declare global {
 		 *
 		 * @param fail         If true, this method will throw an exception if it fails to find the method to unwrap. Default is 'true'.
 		 */
-		static unregister(package_id: string, target: number | string, fail: function = true);
+		static unregister(package_id: string, target: number | string, fail?: boolean): void;
 
 		/**
 		 * Unregister all wrappers created by a given package.
@@ -218,7 +215,7 @@ declare global {
 		 *
 		 * @param {string} package_id  The package identifier, i.e. the 'id' field in your module/system/world's manifest.
 		 */
-		static unregister_all(package_id: string);
+		static unregister_all(package_id: string): void;
 
 		/**
 		 * Ignore conflicts matching specific filters when detected, instead of warning the user.
@@ -247,7 +244,7 @@ declare global {
 			package_id: string,
 			ignore_ids: string | string[],
 			targets: string | string[],
-			options: { ignore_errors: boolean } = {},
-		);
+			options?: { ignore_errors?: boolean },
+		): void;
 	}
 }

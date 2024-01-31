@@ -1,5 +1,4 @@
-// @ts-ignore
-import { System } from "../foundry/client/core/packages.js";
+import "foundry-types";
 
 declare global {
 	namespace globalThis {

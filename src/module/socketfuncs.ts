@@ -1,5 +1,5 @@
 import { log } from "./utils.js";
-import { id as MODULE_ID } from "../../static/module.json";
+import { id as MODULE_ID } from "@static/module.json";
 
 async function getDistance(sourceId: string, targetId: string): Promise<number> {
 	return canvas.grid.measureDistance(

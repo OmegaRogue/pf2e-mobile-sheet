@@ -1,4 +1,4 @@
-import { id as MODULE_ID } from "../../../static/module.json";
+import { id as MODULE_ID } from "@static/module.json";
 import { info } from "../utils.js";
 
 // WindowManager is a singleton that allows management of application windows
@@ -31,11 +31,25 @@ export class Window {
 	}
 
 	get minimized(): boolean {
-		// @ts-ignore
 		return this.app._minimized;
 	}
 
+	get taskbarButton(): JQuery {
+		return $(".taskbar-items").find(`div[data-tiappid="${this.app.appId}"]`);
+	}
+
+	get hidden(): boolean {
+		return this.taskbarButton.hasClass("open");
+	}
+
+	toggleHidden(): void {
+		this.taskbarButton.click();
+	}
+
 	show(): void {
+		if (this.hidden) {
+			this.toggleHidden();
+		}
 		if (this.minimized) {
 			this.app.maximize();
 		}
@@ -95,6 +109,22 @@ export class WindowManager {
 			r.then(() => windowMaximized(this.appId));
 			return r;
 		});
+		if (game.modules.get("foundry-taskbar")?.active)
+			libWrapper.register(
+				MODULE_ID,
+				"Taskbar.createTaskbarButton",
+				function (wrapped: (app: Application) => void, app: Application) {
+					wrapped(app);
+					// @ts-expect-error
+					const button = ui.taskbar.buttons.filter((a) => a.app === app)[0].el;
+					button.off("click");
+					button.on("click", async () => {
+						if (app._minimized) await app.maximize();
+						else await app.minimize();
+						button.toggleClass("open", app._minimized);
+					});
+				},
+			);
 
 		info(true, "Window Manager | Initiated");
 		Hooks.call("WindowManager:Init");
@@ -122,10 +152,12 @@ export class WindowManager {
 	windowMinimized(appId: number): void {
 		Hooks.call("WindowManager:Minimized", appId);
 		this.checkEmpty();
+		if (game.modules.get("foundry-taskbar")?.active) $(`.taskbar-item[data-tiappid=${appId}]`).removeClass("open");
 	}
 
 	windowMaximized(appId: number): void {
 		Hooks.call("WindowManager:Maximized", appId);
+		if (game.modules.get("foundry-taskbar")?.active) $(`.taskbar-item[data-tiappid=${appId}]`).addClass("open");
 	}
 
 	checkEmpty(): void {

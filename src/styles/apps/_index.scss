@@ -1,3 +1,4 @@
+@use "../mixins";
 @import "sheets";
 @import "compendium-browser";
 @import "enhanced-journal";
@@ -6,3 +7,13 @@
 @import "mobile-menu";
 @import "window-selector";
 @import "sidebar";
+@import "dialogs";
+
+.app {
+	//@include mixins.global-mobile(false) {
+	&.minimized {
+		display: none !important;
+	}
+
+	//}
+}

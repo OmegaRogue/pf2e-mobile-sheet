@@ -27,6 +27,7 @@
 		"@types/tooltipster": "^0.0.35",
 		"@typescript-eslint/eslint-plugin": "^6.18.1",
 		"@typescript-eslint/parser": "^6.18.1",
+		"alias-hq": "^6.2.3",
 		"eslint": "^8.56.0",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-import-resolver-typescript": "^3.6.1",
@@ -34,11 +35,7 @@
 		"eslint-plugin-json": "^3.1.0",
 		"eslint-plugin-prettier": "^5.1.2",
 		"esno": "^4.0.0",
-		"foundry-types": "file:types/types/foundry",
-		"dev-mode-types": "file:types/types/dev-mode",
-		"lib-wrapper-types": "file:types/types/libWrapper",
 		"foundryvtt-socketlib": "github:manuelVo/foundryvtt-socketlib",
-		"socketlib-types": "file:types/types/socketlib",
 		"fs-extra": "^11.2.0",
 		"handlebars": "^4.7.8",
 		"jquery": "^3.7.1",
@@ -57,7 +54,8 @@
 		"vite-plugin-checker": "^0.6.2",
 		"vite-plugin-static-copy": "^1.0.0",
 		"vite-tsconfig-paths": "^4.2.3",
-		"yargs": "^17.7.2"
+		"yargs": "^17.7.2",
+		"classic-level": "^1.4.1"
 	},
 	"homepage": "https://github.com/OmegaRogue/pf2e-mobile-sheet",
 	"license": "GPL-3.0-or-later",
@@ -82,5 +80,12 @@
 		"lint:json": "eslint --no-error-on-unmatched-pattern ./static --ext .json --no-eslintrc --plugin json --rule \"json/*: error\"",
 		"lint:fix": "eslint --no-error-on-unmatched-pattern ./build ./src --ext .ts --fix"
 	},
-	"type": "module"
+	"type": "module",
+	"workspaces": [
+		"types/types/foundry",
+		"types/types/",
+		"types/types/dev-mode",
+		"types/types/libWrapper",
+		"types/types/socketlib"
+	]
 }

@@ -31,5 +31,6 @@ declare global {
 		tables: RollTableDirectory;
 		windows: Record<number, Application>;
 		hotbar: THotbar;
+		nav: SceneNavigation;
 	}
 }

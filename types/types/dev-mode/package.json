@@ -5,6 +5,8 @@
 	"type": "module",
 	"devDependencies": {
 		"foundry-types": "file:../foundry",
-		"typescript": "^5.3.3"
-	}
+		"typescript": "^5.3.3",
+		"alias-hq": "^6.2.3"
+	},
+	"types": "index.d.ts"
 }

@@ -1,11 +1,11 @@
-import { id as MODULE_ID } from "../../static/module.json";
+import { id as MODULE_ID } from "@static/module.json";
 
 export function getDebug(): boolean | LogLevel {
 	// const devMode: DevModeModule | undefined = game.modules.get("_dev-mode") as DevModeModule | undefined;
 	return (game.modules.get("_dev-mode") as DevModeModule | undefined)?.api?.getPackageDebugValue(MODULE_ID) ?? false;
 }
 
-export function log(force: boolean, ...args: any[]) {
+export function log(force: boolean, ...args: any[]): void {
 	try {
 		const isDebugging = getDebug();
 
@@ -17,7 +17,7 @@ export function log(force: boolean, ...args: any[]) {
 	}
 }
 
-export function warn(force: boolean, ...args: any[]) {
+export function warn(force: boolean, ...args: any[]): void {
 	try {
 		const isDebugging = getDebug();
 
@@ -29,7 +29,7 @@ export function warn(force: boolean, ...args: any[]) {
 	}
 }
 
-export function error(force: boolean, ...args: any[]) {
+export function error(force: boolean, ...args: any[]): void {
 	try {
 		const isDebugging = getDebug();
 
@@ -41,7 +41,7 @@ export function error(force: boolean, ...args: any[]) {
 	}
 }
 
-export function info(force: boolean, ...args: any[]) {
+export function info(force: boolean, ...args: any[]): void {
 	try {
 		const isDebugging = getDebug();
 
@@ -53,7 +53,7 @@ export function info(force: boolean, ...args: any[]) {
 	}
 }
 
-export function debug(force: boolean, ...args: any[]) {
+export function debug(force: boolean, ...args: any[]): void {
 	try {
 		const isDebugging = getDebug();
 
@@ -89,7 +89,7 @@ export function checkMobileWithOverride(settingId: "send-button" | "header-butto
 	}
 }
 
-export function setBodyData(tag: string, value: any) {
+export function setBodyData(tag: string, value: any): void {
 	const body = $("body");
 	const fullTag = "data-mobile-" + tag;
 	switch (value) {
@@ -121,7 +121,21 @@ export function setBodyData(tag: string, value: any) {
 	}
 }
 
-export function toggleRender(value: boolean) {
+export function getBodyData(tag: string): boolean | string | undefined {
+	const body = $("body");
+	const fullTag = "data-mobile-" + tag;
+	const value = body.attr(fullTag);
+	switch (value) {
+		case "true":
+			return true;
+		case "false":
+			return false;
+		default:
+			return value;
+	}
+}
+
+export function toggleRender(value: boolean): void {
 	if (value) canvas.ready && canvas.app.start();
 	else canvas.ready && canvas.app.stop();
 }

@@ -1,7 +1,7 @@
 import type { ActorType, CreaturePF2e } from "@actor";
 import { Size } from "@module/data.ts";
 import { RecordField } from "@system/schema-data-fields.ts";
-import type { BooleanField, StringField } from "types/foundry/common/data/fields.d.ts";
+import type { BooleanField, StringField } from "foundry-types/common/data/fields.d.ts";
 import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
 /**

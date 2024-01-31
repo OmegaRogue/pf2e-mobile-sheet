@@ -1,6 +1,6 @@
 import { WindowMenu } from "./windowMenu.js";
 import { MobileMenu } from "./mobileMenu.js";
-import { id as MODULE_ID } from "../../../static/module.json";
+import { id as MODULE_ID } from "@static/module.json";
 import { setBodyData, toggleRender } from "../utils.js";
 
 export enum ViewState {

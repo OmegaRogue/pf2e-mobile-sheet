@@ -1,6 +1,6 @@
 import { registerSettings } from "./settings.ts";
 import { preloadTemplates } from "./preloadTemplates.ts";
-import { id as MODULE_ID } from "../../static/module.json";
+import { id as MODULE_ID } from "@static/module.json";
 import * as math from "@pixi/math";
 import type { EncounterTrackerPF2e } from "@module/apps/sidebar/index.ts";
 import { CombatantPF2e } from "@module/encounter/combatant.js";
@@ -21,7 +21,6 @@ abstract class MobileMode {
 	static enter() {
 		if (MobileMode.enabled) return;
 		MobileMode.enabled = true;
-		// @ts-ignore
 		ui.nav?.collapse();
 		// viewHeight();
 		Hooks.call("mobile-improvements:enter");
@@ -68,22 +67,20 @@ Hooks.once("init", async () => {
 });
 
 Hooks.on("getSceneControlButtons", (hudButtons: SceneControl[]) => {
-	const hud = hudButtons.find((value: any) => {
-		return value.name === "token";
-	});
+	for (const hud of hudButtons) {
+		const tool: SceneControlTool = {
+			name: "touch-pan",
+			title: "pf2e-mobile-sheet.PanToggle",
+			icon: "fa-regular fa-arrows",
+			visible: true,
+			toggle: true,
+			onClick: async () => {
+				info(true, tool.active);
+			},
+		};
 
-	const tool: SceneControlTool = {
-		name: "touch-pan",
-		title: "pf2e-mobile-sheet.PanToggle",
-		icon: "fa-regular fa-arrows",
-		visible: true,
-		toggle: true,
-		onClick: async () => {
-			info(true, tool.active);
-		},
-	};
-
-	hud?.tools?.push(tool);
+		hud?.tools?.push(tool);
+	}
 });
 
 Hooks.once("ready", async () => {
@@ -91,7 +88,6 @@ Hooks.once("ready", async () => {
 		ui.notifications.error(
 			"Module Pf2e Mobile Sheet requires the 'libWrapper' module. Please install and activate it.",
 		);
-	// @ts-ignore
 	game.mobilemode = MobileMode;
 
 	const body = $("body");
@@ -107,13 +103,12 @@ Hooks.once("ready", async () => {
 	libWrapper.register(
 		MODULE_ID,
 		"Canvas.prototype._onDragSelect",
-		function (wrapped: any, event: PIXI.FederatedEvent) {
+		function (this: Canvas, wrapped: any, event: PIXI.FederatedEvent) {
 			if (!ui.controls?.control?.tools.find((a) => a.name === "touch-pan")?.active) return wrapped(event);
-			// @ts-ignore
-
+			// @ts-expect-error
 			// Extract event data
 			const cursorTime = event.interactionData.cursorTime;
-			// @ts-ignore
+			// @ts-expect-error
 			const { origin, destination } = event.interactionData;
 			const dx = destination.x - origin.x;
 			const dy = destination.y - origin.y;
@@ -121,23 +116,23 @@ Hooks.once("ready", async () => {
 			// Update the client's cursor position every 100ms
 			const now = Date.now();
 			if (now - (cursorTime || 0) > 100) {
+				// @ts-expect-error
 				if (this.controls) this.controls._onMouseMove(event, destination);
-				// @ts-ignore
+				// @ts-expect-error
 				event.interactionData.cursorTime = now;
 			}
 
 			// Pan the canvas
 			this.pan({
-				// @ts-ignore
 				x: canvas.stage.pivot.x - dx * CONFIG.Canvas.dragSpeedModifier,
-				// @ts-ignore
-				y: canvas.stage.pivot.y - dy * CONFIG.Canvas.dragSpeedModifie,
+				y: canvas.stage.pivot.y - dy * CONFIG.Canvas.dragSpeedModifier,
 			});
 
 			// Reset Token tab cycling
+			// @ts-expect-error
 			this.tokens._tabIndex = null;
 		},
-		"MIXED,
+		libWrapper.MIXED,
 	);
 
 	if (!checkMobile()) return;
@@ -184,27 +179,6 @@ Hooks.on("renderChatLog", async () => {
 	}
 	debug(false, "Add Send Button");
 });
-
-// abstract class MobileMode {
-// 	static navigation: MobileUI;
-// }
-
-// Hooks.on("targetToken", (user, token, targeted) => {
-// 	game.settings.
-// 	if (!game.settings.get(MODULE_ID, "share-targets")) return;
-// 	if (user.id === sharedUserId) {
-// 		for (const userId in sharingUsers) {
-// 			socket.executeAsUser(socketTarget, userId, targeted, token.id);
-// 		}
-// 	} else {
-// 		socket.executeAsUser(socketTarget, sharedUserId, targeted, token.id);
-// 	}
-// });
-
-// const touchInput = new TouchInput();
-// Hooks.on("canvasReady", () => touchInput.hook());
-
-// document.querySelector("#combat-tracker > li.combatant.actor.directory-item.flexrow.hidden-name.gm-draggable > div.token-name.flexcol > h4 > span.name")
 
 const headings = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
 
