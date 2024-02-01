@@ -157,11 +157,11 @@ export class EnableShareReceiveTargets extends FormApplication {
 	protected override async _updateObject(_event: Event, data: Record<string, unknown>): Promise<void> {
 		for (const key of Object.keys(data)) {
 			let datum = data[key];
-			// "null" check is due to a previous bug that may have left invalid data in text fields
+
 			if (datum === null || datum === "null") {
 				datum = "";
 			}
-			// If statement handles bug in foundry
+
 			if (!["submit", "reset"].includes(key)) {
 				await game.settings.set(MODULE_ID, key, datum);
 			}
