@@ -6,7 +6,6 @@ import type { PredicatePF2e } from "@system/predication.ts";
 import type { Statistic } from "@system/statistic/statistic.ts";
 import { SpellCollection } from "./collection.ts";
 import type { BaseSpellcastingEntry, CastOptions, SpellcastingSheetData } from "./types.ts";
-
 /** An in-memory spellcasting entry for items-only spellcasting */
 declare class ItemSpellcasting<TActor extends CreaturePF2e = CreaturePF2e> implements BaseSpellcastingEntry<TActor> {
 	id: string;
@@ -51,7 +50,6 @@ declare class ItemSpellcasting<TActor extends CreaturePF2e = CreaturePF2e> imple
 		spells?: SpellCollection<TActor>;
 	}): Promise<SpellcastingSheetData>;
 }
-
 interface ItemsSpellcastingConstructorParams<TActor extends CreaturePF2e> {
 	id: string;
 	name: string;
@@ -60,5 +58,4 @@ interface ItemsSpellcastingConstructorParams<TActor extends CreaturePF2e> {
 	tradition?: Maybe<MagicTradition>;
 	castPredicate: PredicatePF2e;
 }
-
 export { ItemSpellcasting };

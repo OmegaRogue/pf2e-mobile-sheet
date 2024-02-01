@@ -31,11 +31,9 @@ declare class ChoiceSetPrompt extends PickAThingPrompt<ItemPF2e<ActorPF2e>, stri
     protected _onDrop(event: DragEvent): Promise<void>;
     protected _canDragDrop(): boolean;
 }
-
 interface ChoiceSetPrompt extends PickAThingPrompt<ItemPF2e<ActorPF2e>, string | number | object> {
 	getSelection(event: MouseEvent): ChoiceSetChoice | null;
 }
-
 interface ChoiceSetPromptData extends PickAThingConstructorArgs<ItemPF2e<ActorPF2e>, string | number | object> {
     prompt: string;
     containsItems: boolean;

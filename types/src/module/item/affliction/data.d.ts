@@ -37,7 +37,6 @@ interface AfflictionSystemSource extends AbstractEffectSystemSource {
     /** Origin, target, and roll context of the action that spawned this effect */
     context: EffectContextData | null;
 }
-
 interface AfflictionSystemData extends Omit<AfflictionSystemSource, "description" | "fromSpell">, Omit<AbstractEffectSystemData, "level"> {
 }
 interface AfflictionOnset {

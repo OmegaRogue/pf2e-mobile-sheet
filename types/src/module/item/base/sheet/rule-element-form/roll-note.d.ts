@@ -7,7 +7,6 @@ declare class RollNoteForm extends RuleElementForm<NoteRESource, RollNoteRuleEle
     activateListeners(html: HTMLElement): void;
     updateObject(ruleData: Partial<Record<string, unknown>>): void;
 }
-
 interface RollNoteFormSheetData extends RuleElementFormSheetData<NoteRESource, RollNoteRuleElement> {
     selectorIsArray: boolean;
 }

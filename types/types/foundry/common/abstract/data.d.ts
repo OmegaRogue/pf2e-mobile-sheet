@@ -242,6 +242,7 @@ declare global {
 		fallback?: boolean;
 		/** Allow partial source data, ignoring absent fields? */
 		partial?: boolean;
+
 		[key: string]: unknown;
 	}
 }

@@ -5,6 +5,7 @@ declare interface Set<T> {
 	 * @returns The difference defined as objects in this which are not present in other
 	 */
 	difference(other: Set<T>): Set<T>;
+
 	difference<U>(other: Set<U>): Set<T | U>;
 
 	/**
@@ -13,6 +14,7 @@ declare interface Set<T> {
 	 * @returns The set of elements that exist in this or other, but not both.
 	 */
 	symmetricDifference(other: Set<T>): Set<T>;
+
 	symmetricDifference<U>(other: Set<U>): Set<T | U>;
 
 	/**
@@ -35,6 +37,7 @@ declare interface Set<T> {
 	 * @returns The intersection of both sets
 	 */
 	intersection(other: Set<T>): Set<T>;
+
 	intersection<U>(other: Set<U>): Set<T | U>;
 
 	/**
@@ -49,6 +52,7 @@ declare interface Set<T> {
 	 * @param other  The other set.
 	 */
 	union(other: Set<T>): Set<T>;
+
 	union<U>(other: Set<U>): Set<T | U>;
 
 	/**
@@ -73,6 +77,7 @@ declare interface Set<T> {
 	 * @returns {boolean}  Does every element in the set satisfy the test criterion?
 	 */
 	every<U extends T = T>(test: (value: T, index: number, set: Set<T>) => value is U): this is Set<U>;
+
 	every(test: (value: T, index: number, set: Set<T>) => boolean): boolean;
 
 	/**
@@ -83,6 +88,7 @@ declare interface Set<T> {
 	 * @returns {Set}  A new Set containing only elements which satisfy the test criterion.
 	 */
 	filter<U extends T = T>(test: (value: T, index: number, set: Set<T>) => value is U): Set<U>;
+
 	filter(test: (value: T, index: number, set: Set<T>) => boolean): Set<T>;
 
 	/**
@@ -92,6 +98,7 @@ declare interface Set<T> {
 	 * @returns The first element in the set which satisfies the test criterion, or undefined.
 	 */
 	find<U extends T = T>(test: (value: T, index: number, obj: Set<T>) => value is U): U | undefined;
+
 	find(test: (value: T, index: number, obj: Set<T>) => boolean): T | undefined;
 
 	/**
@@ -112,6 +119,7 @@ declare interface Set<T> {
 	 * @returns The final value of the accumulator.
 	 */
 	reduce<U>(reducer: (previousValue: U, currentValue: T, currentIndex: number, set: Set<T>) => U, accumulator: U): U;
+
 	reduce(reducer: (previousValue: T, currentValue: T, currentIndex: number, set: Set<T>) => T, accumulator: T): T;
 
 	/**

@@ -32,7 +32,6 @@ type SpecificArmorData = {
     material: ItemMaterialSource;
     runes: ArmorRuneSource;
 };
-
 interface ArmorSystemData extends Omit<ArmorSystemSource, SourceOmission>, Omit<Investable<PhysicalSystemData>, "baseItem" | "subitems" | "traits"> {
     runes: ArmorRuneData;
     /** Armor is always worn in the "armor" slot. */

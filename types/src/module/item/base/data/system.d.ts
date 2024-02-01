@@ -88,7 +88,6 @@ interface ItemDescriptionData extends ItemDescriptionSource {
 	}[];
 	override: AlteredDescriptionContent[] | null;
 }
-
 interface AlteredDescriptionContent {
 	title: string | null;
 	text: string;

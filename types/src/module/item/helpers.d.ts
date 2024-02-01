@@ -11,7 +11,6 @@ declare function itemIsOfType<TParent extends ActorPF2e | null, TType extends "p
 declare function itemIsOfType<TParent extends ActorPF2e | null>(item: ItemOrSource, type: "physical"): item is PhysicalItemPF2e<TParent> | PhysicalItemPF2e["_source"];
 /** Create a "reduced" item name; that is, one without an "Effect:" or similar prefix */
 declare function reduceItemName(label: string): string;
-
 /** A helper class to finalize data for item summaries and chat cards */
 declare class ItemChatData {
 	#private;
@@ -23,11 +22,9 @@ declare class ItemChatData {
 
 	process(): Promise<RawItemChatData>;
 }
-
 interface ItemChatDataConstructorOptions {
 	item: ItemPF2e;
 	data: RawItemChatData;
 	htmlOptions?: EnrichmentOptionsPF2e;
 }
-
 export { ItemChatData, itemIsOfType, reduceItemName };

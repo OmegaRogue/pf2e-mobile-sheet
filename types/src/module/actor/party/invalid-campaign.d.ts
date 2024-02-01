@@ -1,7 +1,6 @@
 import type { DataSchema } from "foundry-types/common/data/fields.d.ts";
 import { PartyPF2e } from "./document.ts";
 import { PartyCampaign } from "./types.ts";
-
 declare const DataModel: typeof import("../../../../foundry-types/common/abstract/data.js").default;
 /**
  * Exists if the party's campaign type does not match the configured setting.

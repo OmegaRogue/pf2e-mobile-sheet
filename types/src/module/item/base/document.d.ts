@@ -130,7 +130,6 @@ interface ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
 }
 /** A `Proxy` to to get Foundry to construct `ItemPF2e` subclasses */
 declare const ItemProxyPF2e: typeof ItemPF2e;
-
 interface RefreshFromCompendiumParams {
 	/** Whether to overwrite the name if it is different */
 	name?: boolean;

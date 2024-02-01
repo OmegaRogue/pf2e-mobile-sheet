@@ -18,7 +18,6 @@ declare function generateItemName(item: PhysicalItemPF2e): string;
 declare function handleHPChange(item: PhysicalItemPF2e, changed: DeepPartial<PhysicalItemSource>): void;
 /** Add and adjust properties on an item's bulk data object */
 declare function prepareBulkData<TItem extends PhysicalItemPF2e>(item: TItem): TItem extends ContainerPF2e ? ContainerBulkData : BulkData;
-
 /**
  * Detach a subitem from another physical item, either creating it as a new, independent item or incrementing the
  * quantity of aan existing stack.

@@ -11,13 +11,11 @@ declare class SpecialStatisticRuleElement extends RuleElementPF2e<SpecialStatist
 	static defineSchema(): SpecialStatisticSchema;
     afterPrepareData(): void;
 }
-
 interface SpecialStatisticRuleElement extends RuleElementPF2e<SpecialStatisticSchema>, Omit<ModelPropsFromSchema<SpecialStatisticSchema>, "label"> {
     slug: string;
 
 	get actor(): CharacterPF2e;
 }
-
 type SpecialStatisticSchema = RuleElementSchema & {
     type: StringField<StatisticType, StatisticType, true, false, true>;
     extends: StringField<string, string, true, true, true>;

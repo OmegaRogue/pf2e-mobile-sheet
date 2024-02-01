@@ -1,6 +1,7 @@
 {
 	"compilerOptions": {
-		//		"allowSyntheticDefaultImports": true, //Do I need this?
+		"allowSyntheticDefaultImports": true,
+		//Do I need this?
 		"allowImportingTsExtensions": true,
 		"allowUnusedLabels": false,
 		"baseUrl": ".",

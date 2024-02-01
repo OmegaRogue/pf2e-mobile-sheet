@@ -90,30 +90,42 @@ export class WindowManager {
 		ui.windows = new Proxy(ui.windows, this.windowChangeHandler);
 		// Override Application bringToTop
 		const windowBroughtToTop = this.windowBroughtToTop.bind(this);
-		libWrapper.register(MODULE_ID, "Application.prototype.bringToTop", function (wrapped: () => void) {
-			wrapped();
-			windowBroughtToTop(this.appId);
-		});
+		libWrapper.register(
+			MODULE_ID,
+			"Application.prototype.bringToTop",
+			function (this: Application, wrapped: () => void) {
+				wrapped();
+				windowBroughtToTop(this.appId);
+			},
+		);
 		// Override Application minimize
 		const windowMinimized = this.windowMinimized.bind(this);
-		libWrapper.register(MODULE_ID, "Application.prototype.minimize", function (wrapped: () => Promise<boolean>) {
-			const r = wrapped();
-			r.then(() => windowMinimized(this.appId));
-			return r;
-		});
+		libWrapper.register(
+			MODULE_ID,
+			"Application.prototype.minimize",
+			function (this: Application, wrapped: () => Promise<boolean>) {
+				const r = wrapped();
+				r.then(() => windowMinimized(this.appId));
+				return r;
+			},
+		);
 
 		// Override Application maximize
 		const windowMaximized = this.windowMaximized.bind(this);
-		libWrapper.register(MODULE_ID, "Application.prototype.maximize", function (wrapped: () => Promise<boolean>) {
-			const r = wrapped();
-			r.then(() => windowMaximized(this.appId));
-			return r;
-		});
+		libWrapper.register(
+			MODULE_ID,
+			"Application.prototype.maximize",
+			function (this: Application, wrapped: () => Promise<boolean>) {
+				const r = wrapped();
+				r.then(() => windowMaximized(this.appId));
+				return r;
+			},
+		);
 		if (game.modules.get("foundry-taskbar")?.active)
 			libWrapper.register(
 				MODULE_ID,
 				"Taskbar.createTaskbarButton",
-				function (wrapped: (app: Application) => void, app: Application) {
+				function (this: Application, wrapped: (app: Application) => void, app: Application) {
 					wrapped(app);
 					// @ts-expect-error
 					const button = ui.taskbar.buttons.filter((a) => a.app === app)[0].el;

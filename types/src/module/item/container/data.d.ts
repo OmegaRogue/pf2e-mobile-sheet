@@ -18,7 +18,6 @@ interface ContainerBulkSource {
     capacity: number;
     ignored: number;
 }
-
 interface ContainerSystemData extends Omit<ContainerSystemSource, SourceOmission>, Omit<Investable<PhysicalSystemData>, "subitems" | "traits"> {
     bulk: ContainerBulkData;
     stackGroup: null;

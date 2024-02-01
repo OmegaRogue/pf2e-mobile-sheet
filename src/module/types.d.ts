@@ -10,16 +10,6 @@ import { ChatMessagePF2e } from "@module/chat-message/document.js";
 import { ActorsPF2e } from "@module/collection/actors.js";
 
 declare global {
-	type HookParamsWindowManagerInit = HookParameters<"WindowManager:Init", never>;
-	type HookParamsWindowManagerNewRendered = HookParameters<"WindowManager:NewRendered", [number]>;
-	type HookParamsWindowManagerAdded = HookParameters<"WindowManager:Added", [number]>;
-	type HookParamsWindowManagerRemoved = HookParameters<"WindowManager:Removed", [number]>;
-	type HookParamsWindowManagerBroughtToTop = HookParameters<"WindowManager:BroughtToTop", [number]>;
-	type HookParamsWindowManagerMinimized = HookParameters<"WindowManager:Minimized", [number]>;
-	type HookParamsWindowManagerMaximized = HookParameters<"WindowManager:Maximized", [number]>;
-	type HookParamsWindowManagerNoneVisible = HookParameters<"WindowManager:NoneVisible", never>;
-	type HookParamsI18nInit = HookParameters<"i18nInit", never>;
-
 	interface GamePF2e
 		extends Game<
 			ActorPF2e<null>,
@@ -34,23 +24,30 @@ declare global {
 		mobilemode: MobileMode;
 	}
 
-	// @ts-expect-error
-	class Hooks {
+	declare namespace Hooks {
+		type HookParamsWindowManagerInit = HookParameters<"WindowManager:Init", never>;
+		type HookParamsWindowManagerNewRendered = HookParameters<"WindowManager:NewRendered", [number]>;
+		type HookParamsWindowManagerAdded = HookParameters<"WindowManager:Added", [number]>;
+		type HookParamsWindowManagerRemoved = HookParameters<"WindowManager:Removed", [number]>;
+		type HookParamsWindowManagerBroughtToTop = HookParameters<"WindowManager:BroughtToTop", [number]>;
+		type HookParamsWindowManagerMinimized = HookParameters<"WindowManager:Minimized", [number]>;
+		type HookParamsWindowManagerMaximized = HookParameters<"WindowManager:Maximized", [number]>;
+		type HookParamsWindowManagerNoneVisible = HookParameters<"WindowManager:NoneVisible", never>;
+
 		/**
 		 * Register a callback handler which should be triggered when a hook is triggered.
 		 *
 		 * @param hook The unique name of the hooked event
 		 * @param fn   The callback function which should be triggered when the hook event occurs
 		 */
-		static on(...args: HookParamsWindowManagerInit): number;
-		static on(...args: HookParamsWindowManagerNewRendered): number;
-		static on(...args: HookParamsWindowManagerAdded): number;
-		static on(...args: HookParamsWindowManagerRemoved): number;
-		static on(...args: HookParamsWindowManagerBroughtToTop): number;
-		static on(...args: HookParamsWindowManagerMinimized): number;
-		static on(...args: HookParamsWindowManagerMaximized): number;
-		static on(...args: HookParamsWindowManagerNoneVisible): number;
-		static on(...args: HookParamsI18nInit): number;
+		function on(...args: HookParamsWindowManagerInit): number;
+		function on(...args: HookParamsWindowManagerNewRendered): number;
+		function on(...args: HookParamsWindowManagerAdded): number;
+		function on(...args: HookParamsWindowManagerRemoved): number;
+		function on(...args: HookParamsWindowManagerBroughtToTop): number;
+		function on(...args: HookParamsWindowManagerMinimized): number;
+		function on(...args: HookParamsWindowManagerMaximized): number;
+		function on(...args: HookParamsWindowManagerNoneVisible): number;
 
 		/**
 		 * Register a callback handler for an event which is only triggered once the first time the event occurs.
@@ -59,15 +56,14 @@ declare global {
 		 * @param hook  The unique name of the hooked event
 		 * @param fn    The callback function which should be triggered when the hook event occurs
 		 */
-		static once(...args: HookParamsWindowManagerInit): number;
-		static once(...args: HookParamsWindowManagerNewRendered): number;
-		static once(...args: HookParamsWindowManagerAdded): number;
-		static once(...args: HookParamsWindowManagerRemoved): number;
-		static once(...args: HookParamsWindowManagerBroughtToTop): number;
-		static once(...args: HookParamsWindowManagerMinimized): number;
-		static once(...args: HookParamsWindowManagerMaximized): number;
-		static once(...args: HookParamsWindowManagerNoneVisible): number;
-		static once(...args: HookParamsI18nInit): number;
+		function once(...args: HookParamsWindowManagerInit): number;
+		function once(...args: HookParamsWindowManagerNewRendered): number;
+		function once(...args: HookParamsWindowManagerAdded): number;
+		function once(...args: HookParamsWindowManagerRemoved): number;
+		function once(...args: HookParamsWindowManagerBroughtToTop): number;
+		function once(...args: HookParamsWindowManagerMinimized): number;
+		function once(...args: HookParamsWindowManagerMaximized): number;
+		function once(...args: HookParamsWindowManagerNoneVisible): number;
 	}
 
 	interface Window {

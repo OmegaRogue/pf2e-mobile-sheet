@@ -31,7 +31,6 @@ type ConsumableDamageHealing = {
     type: DamageType;
     kind: DamageKind;
 };
-
 interface ConsumableSystemData extends Omit<ConsumableSystemSource, SourceOmission>, Omit<PhysicalSystemData, "subitems" | "traits"> {
     apex?: never;
     stackGroup: AmmoStackGroup | null;

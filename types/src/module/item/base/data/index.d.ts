@@ -48,7 +48,6 @@ type ItemSourcePF2e =
 	| SpellSource
 	| SpellcastingEntrySource;
 type MagicItemSource = Exclude<PhysicalItemSource, ConsumableSource | TreasureSource>;
-
 interface RawItemChatData {
     [key: string]: unknown;
 

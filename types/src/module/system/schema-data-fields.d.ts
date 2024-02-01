@@ -17,7 +17,6 @@ import type {
 	StringFieldOptions
 } from "foundry-types/common/data/fields.d.ts";
 import type { DataModelValidationFailure } from "foundry-types/common/data/validation-failure.d.ts";
-
 declare const fields: typeof import("foundry-types/common/data/fields.d.ts");
 /** A `SchemaField` that preserves fields not declared in its `DataSchema` */
 declare class LaxSchemaField<TDataSchema extends DataSchema> extends fields.SchemaField<TDataSchema> {

@@ -1,7 +1,6 @@
 import { ActionType, BaseItemSourcePF2e, Frequency, FrequencySource, ItemSystemData, ItemSystemSource, ItemTraitsNoRarity } from "@item/base/data/system.ts";
 import { OneToThree } from "@module/data.ts";
 import { ActionCategory, ActionTrait } from "./types.ts";
-
 type AbilitySource = BaseItemSourcePF2e<"action", AbilitySystemSource>;
 interface AbilityTraits extends ItemTraitsNoRarity<ActionTrait> {
 }
@@ -32,5 +31,4 @@ interface AbilitySystemData extends Omit<AbilitySystemSource, "description">, Om
 interface SelfEffectReference extends SelfEffectReferenceSource {
     img?: Maybe<ImageFilePath>;
 }
-
 export type { AbilitySource, AbilitySystemData, AbilityTraits, SelfEffectReference, SelfEffectReferenceSource };

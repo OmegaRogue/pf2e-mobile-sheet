@@ -158,6 +158,7 @@ Hooks.on("renderApplication", async (app: Application) => {
 		}
 	}, 500);
 });
+
 Hooks.on("renderChatLog", async () => {
 	// if (!checkMobileWithOverride("send-button")) return;
 	const sendButton = $(`<button type="button" class="button send-button"><i class="fas fa-paper-plane"/></button>`);

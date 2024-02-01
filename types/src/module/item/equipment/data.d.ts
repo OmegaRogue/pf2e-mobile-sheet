@@ -16,10 +16,8 @@ interface EquipmentSystemSource extends Investable<PhysicalSystemSource> {
     /** Doubly-embedded adjustments, attachments, talismans etc. */
     subitems: PhysicalItemSource[];
 }
-
 interface EquipmentTraits extends PhysicalItemTraits<EquipmentTrait> {
 }
-
 interface EquipmentSystemData extends Omit<EquipmentSystemSource, SourceOmission>, Omit<Investable<PhysicalSystemData>, "subitems" | "traits"> {
     stackGroup: null;
 }

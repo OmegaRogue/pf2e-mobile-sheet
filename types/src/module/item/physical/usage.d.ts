@@ -11,7 +11,6 @@ interface WornUsage {
     where?: string | null;
     hands?: 0;
 }
-
 interface AttachedUsage {
 	value: string;
 	type: "attached";
@@ -24,7 +23,6 @@ interface CarriedUsage {
     where?: never;
     hands?: 0;
 }
-
 type UsageDetails = HeldUsage | WornUsage | AttachedUsage | CarriedUsage;
 type UsageType = UsageDetails["type"];
 declare function isEquipped(usage: UsageDetails, equipped: EquippedData): boolean;

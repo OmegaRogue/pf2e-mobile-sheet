@@ -28,6 +28,7 @@ declare global {
 
 		/* -------------------------------------------- */
 		/*  Scene Methods                               */
+
 		/* -------------------------------------------- */
 
 		/**
@@ -112,6 +113,7 @@ declare global {
 
 		/* -------------------------------------------- */
 		/*  Importing and Exporting                     */
+
 		/* -------------------------------------------- */
 
 		override toCompendium(pack: CompendiumCollection<this>): this["_source"];
@@ -185,41 +187,49 @@ declare global {
 			updateData: EmbeddedDocumentUpdateData[],
 			context?: SceneTokenModificationContext<this>,
 		): Promise<CollectionValue<this["tokens"]>[]>;
+
 		updateEmbeddedDocuments(
 			embeddedName: "AmbientLight",
 			updateData: EmbeddedDocumentUpdateData[],
-			context?: ScneEmbeddedModificationContext<this>,
+			context?: SceneEmbeddedModificationContext<this>,
 		): Promise<CollectionValue<this["lights"]>[]>;
+
 		updateEmbeddedDocuments(
 			embeddedName: "AmbientSound",
 			updateData: EmbeddedDocumentUpdateData[],
 			context?: SceneEmbeddedModificationContext<this>,
 		): Promise<CollectionValue<this["sounds"]>[]>;
+
 		updateEmbeddedDocuments(
 			embeddedName: "Drawing",
 			updateData: EmbeddedDocumentUpdateData[],
 			context?: SceneEmbeddedModificationContext<this>,
 		): Promise<CollectionValue<this["drawings"]>[]>;
+
 		updateEmbeddedDocuments(
 			embeddedName: "MeasuredTemplate",
 			updateData: EmbeddedDocumentUpdateData[],
 			context?: SceneEmbeddedModificationContext<this>,
 		): Promise<CollectionValue<this["tokens"]>[]>;
+
 		updateEmbeddedDocuments(
 			embeddedName: "Note",
 			updateData: EmbeddedDocumentUpdateData[],
 			context?: SceneEmbeddedModificationContext<this>,
 		): Promise<CollectionValue<this["notes"]>[]>;
+
 		updateEmbeddedDocuments(
 			embeddedName: "Tile",
 			updateData: EmbeddedDocumentUpdateData[],
 			context?: SceneEmbeddedModificationContext<this>,
 		): Promise<CollectionValue<this["tiles"]>[]>;
+
 		updateEmbeddedDocuments(
 			embeddedName: "Wall",
 			updateData: EmbeddedDocumentUpdateData[],
 			context?: SceneEmbeddedModificationContext<this>,
 		): Promise<CollectionValue<this["walls"]>[]>;
+
 		updateEmbeddedDocuments(
 			embeddedName: SceneEmbeddedName,
 			updateData: EmbeddedDocumentUpdateData[],

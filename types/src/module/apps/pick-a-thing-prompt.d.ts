@@ -35,7 +35,6 @@ declare abstract class PickAThingPrompt<TItem extends ItemPF2e, TThing extends s
         force?: boolean;
     }): Promise<void>;
 }
-
 interface PickAThingConstructorArgs<TItem extends ItemPF2e, TThing extends string | number | object> {
     title?: string;
     prompt?: string;

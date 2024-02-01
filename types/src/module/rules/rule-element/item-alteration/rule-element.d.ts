@@ -21,7 +21,6 @@ type ItemAlterationRuleSchema = RuleElementSchema & ItemAlterationSchema & {
     /** As an alternative to specifying item types, an exact item ID can be provided */
     itemId: StringField<string, string, false, false, false>;
 };
-
 interface ApplyAlterationOptions {
 	/** A single item to on which to run alterations instead of all qualifying items owned by the actor */
 	singleItem?: ItemPF2e<ActorPF2e> | null;

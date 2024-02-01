@@ -87,6 +87,7 @@ declare global {
 			actor: string | null;
 			alias: string;
 		};
+
 		/**
 		 * A helper to prepare the speaker object based on a target Actor
 		 * @private
@@ -94,7 +95,7 @@ declare global {
 		protected static _getSpeakerFromActor({
 			scene,
 			actor,
-			alias,
+			alia,
 		}: {
 			scene?: Scene;
 			actor: Actor;
@@ -156,6 +157,7 @@ declare global {
 
 		/* -------------------------------------------- */
 		/*  Event Handlers                              */
+
 		/* -------------------------------------------- */
 
 		protected override _preCreate(
@@ -167,7 +169,7 @@ declare global {
 		protected override _onCreate(
 			data: this["_source"],
 			options: DocumentModificationContext<null>,
-			userId: string,
+			userId: strin,
 		): void;
 
 		protected override _onUpdate(
@@ -180,6 +182,7 @@ declare global {
 
 		/* -------------------------------------------- */
 		/*  Importing and Exporting                     */
+
 		/* -------------------------------------------- */
 
 		/** Export the content of the chat message into a standardized log format */

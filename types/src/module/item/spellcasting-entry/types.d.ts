@@ -33,7 +33,6 @@ interface BaseSpellcastingEntry<TActor extends ActorPF2e | null = ActorPF2e | nu
     }): boolean;
     cast(spell: SpellPF2e, options: CastOptions): Promise<void>;
 }
-
 interface GetSheetDataOptions<TActor extends ActorPF2e> {
 	spells?: Maybe<SpellCollection<TActor>>;
 	prepList?: boolean;

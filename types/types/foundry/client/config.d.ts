@@ -279,8 +279,8 @@ declare global {
 			blurStrength: number;
 			darknessColor: number;
 			darknessLightPenalty: number;
-			dragSpeedModifier: number;
 			daylightColor: number;
+			dragSpeedModifier: number;
 			dispositionColors: {
 				HOSTILE: number;
 				NEUTRAL: number;

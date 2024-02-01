@@ -101,7 +101,6 @@ interface CreaturePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentP
     deleteEmbeddedDocuments(embeddedName: "Item", ids: string[], context?: DocumentModificationContext<this>): Promise<ItemPF2e<this>[]>;
     deleteEmbeddedDocuments(embeddedName: "ActiveEffect" | "Item", ids: string[], context?: DocumentModificationContext<this>): Promise<ActiveEffectPF2e<this>[] | ItemPF2e<this>[]>;
 }
-
 interface ChangeCarryTypeOptions {
 	/** Whether the item is held, worn, stowed, etc. */
 	carryType: ItemCarryType;

@@ -25,7 +25,5 @@ interface SpellcastingCreateAndEditDialogSheetData extends FormApplicationData<S
     isAttributeConfigurable: boolean;
     selectedAttribute: AttributeString;
 }
-
 declare function createSpellcastingDialog(object: ActorPF2e | SpellcastingEntryPF2e<ActorPF2e>): Promise<SpellcastingCreateAndEditDialog>;
-
 export { createSpellcastingDialog };

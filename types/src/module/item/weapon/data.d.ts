@@ -132,7 +132,6 @@ type WeaponRuneSource = {
     striking: ZeroToThree;
     property: WeaponPropertyRuneType[];
 };
-
 interface WeaponSystemData extends Omit<WeaponSystemSource, SourceOmission>, Omit<Investable<PhysicalSystemData>, "material" | "subitems"> {
     traits: WeaponTraits;
     baseItem: BaseWeaponType | null;

@@ -94,7 +94,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
 		publicDir: "static",
 		define: {
 			BUILD_MODE: JSON.stringify(buildMode),
-			fu: "foundry.utils,
+			fu: "foundry.utils",
 		},
 		esbuild: { keepNames: true },
 		build: {
@@ -137,8 +137,8 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
 			devSourcemap: true,
 		},
 		resolve: {
-			alias: hq.get("rollup")
-		}
+			alias: hq.get("rollup"),
+		},
 	};
 });
 

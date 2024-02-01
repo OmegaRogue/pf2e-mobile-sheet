@@ -18,6 +18,7 @@ declare class ClientBaseAmbientLight<TParent extends ClientBaseScene | null> ext
 
 	/* -------------------------------------------- */
 	/*  Properties                                  */
+
 	/* -------------------------------------------- */
 
 	/** Return a reference to the parent Collection instance which contains this Document. */
@@ -68,6 +69,7 @@ declare class ClientBaseAmbientLight<TParent extends ClientBaseScene | null> ext
 
 	/* -------------------------------------------- */
 	/*  Methods                                     */
+
 	/* -------------------------------------------- */
 
 	/** Obtain the FormApplication class constructor which should be used to configure this Document. */
@@ -128,6 +130,7 @@ declare class ClientBaseAmbientLight<TParent extends ClientBaseScene | null> ext
 
 	/* -------------------------------------------- */
 	/*  Event Handlers                              */
+
 	/* -------------------------------------------- */
 
 	protected override _onCreate(
@@ -251,6 +254,7 @@ declare class ClientBaseAmbientLight<TParent extends ClientBaseScene | null> ext
 
 	/* -------------------------------------------- */
 	/*  Importing and Exporting                     */
+
 	/* -------------------------------------------- */
 
 	/**
@@ -431,6 +435,7 @@ declare class ClientBaseAmbientSound<TParent extends ClientBaseScene | null> ext
 
 	/* -------------------------------------------- */
 	/*  Properties                                  */
+
 	/* -------------------------------------------- */
 
 	/** Return a reference to the parent Collection instance which contains this Document. */
@@ -481,6 +486,7 @@ declare class ClientBaseAmbientSound<TParent extends ClientBaseScene | null> ext
 
 	/* -------------------------------------------- */
 	/*  Methods                                     */
+
 	/* -------------------------------------------- */
 
 	/** Obtain the FormApplication class constructor which should be used to configure this Document. */
@@ -541,6 +547,7 @@ declare class ClientBaseAmbientSound<TParent extends ClientBaseScene | null> ext
 
 	/* -------------------------------------------- */
 	/*  Event Handlers                              */
+
 	/* -------------------------------------------- */
 
 	protected override _onCreate(
@@ -664,6 +671,7 @@ declare class ClientBaseAmbientSound<TParent extends ClientBaseScene | null> ext
 
 	/* -------------------------------------------- */
 	/*  Importing and Exporting                     */
+
 	/* -------------------------------------------- */
 
 	/**
@@ -825,8 +833,7 @@ export class CanvasBaseAmbientSound<TParent extends ClientBaseScene | null> exte
 }
 
 export class ClientBaseActiveEffect<
-	TParent extends
-		| ClientBaseActor<CanvasBaseToken<ClientBaseScene | null> | null>
+	TParent extends | ClientBaseActor<CanvasBaseToken<ClientBaseScene | null> | null>
 		| ClientBaseItem<ClientBaseActor<CanvasBaseToken<ClientBaseScene | null> | null> | null>
 		| null,
 > extends foundry.documents.BaseActiveEffect<TParent> {
@@ -848,6 +855,7 @@ export class ClientBaseActiveEffect<
 
 	/* -------------------------------------------- */
 	/*  Properties                                  */
+
 	/* -------------------------------------------- */
 
 	/** Return a reference to the parent Collection instance which contains this Document. */
@@ -898,6 +906,7 @@ export class ClientBaseActiveEffect<
 
 	/* -------------------------------------------- */
 	/*  Methods                                     */
+
 	/* -------------------------------------------- */
 
 	/** Obtain the FormApplication class constructor which should be used to configure this Document. */
@@ -958,6 +967,7 @@ export class ClientBaseActiveEffect<
 
 	/* -------------------------------------------- */
 	/*  Event Handlers                              */
+
 	/* -------------------------------------------- */
 
 	protected override _onCreate(
@@ -1081,6 +1091,7 @@ export class ClientBaseActiveEffect<
 
 	/* -------------------------------------------- */
 	/*  Importing and Exporting                     */
+
 	/* -------------------------------------------- */
 
 	/**
@@ -1206,6 +1217,7 @@ export class ClientBaseActor<TParent extends CanvasBaseToken<ClientBaseScene | n
 
 	/* -------------------------------------------- */
 	/*  Properties                                  */
+
 	/* -------------------------------------------- */
 
 	/** Return a reference to the parent Collection instance which contains this Document. */
@@ -1256,6 +1268,7 @@ export class ClientBaseActor<TParent extends CanvasBaseToken<ClientBaseScene | n
 
 	/* -------------------------------------------- */
 	/*  Methods                                     */
+
 	/* -------------------------------------------- */
 
 	/** Obtain the FormApplication class constructor which should be used to configure this Document. */
@@ -1316,6 +1329,7 @@ export class ClientBaseActor<TParent extends CanvasBaseToken<ClientBaseScene | n
 
 	/* -------------------------------------------- */
 	/*  Event Handlers                              */
+
 	/* -------------------------------------------- */
 
 	protected override _onCreate(
@@ -1439,6 +1453,7 @@ export class ClientBaseActor<TParent extends CanvasBaseToken<ClientBaseScene | n
 
 	/* -------------------------------------------- */
 	/*  Importing and Exporting                     */
+
 	/* -------------------------------------------- */
 
 	/**
@@ -1544,8 +1559,8 @@ export class ClientBaseActor<TParent extends CanvasBaseToken<ClientBaseScene | n
 	): this["_source"];
 }
 
-export class ClientBaseActorDelta<TParent extends CanvasBaseToken<ClientBaseScene | null> | null> extends foundry.documents
-	.BaseActorDelta<TParent> {
+export class ClientBaseActorDelta<TParent extends CanvasBaseToken<ClientBaseScene | null> | null> extends foundry
+	.documents.BaseActorDelta<TParent> {
 	protected _sheet: DocumentSheet<this> | null;
 
 	/**
@@ -1564,6 +1579,7 @@ export class ClientBaseActorDelta<TParent extends CanvasBaseToken<ClientBaseScen
 
 	/* -------------------------------------------- */
 	/*  Properties                                  */
+
 	/* -------------------------------------------- */
 
 	/** Return a reference to the parent Collection instance which contains this Document. */
@@ -1614,6 +1630,7 @@ export class ClientBaseActorDelta<TParent extends CanvasBaseToken<ClientBaseScen
 
 	/* -------------------------------------------- */
 	/*  Methods                                     */
+
 	/* -------------------------------------------- */
 
 	/** Obtain the FormApplication class constructor which should be used to configure this Document. */
@@ -1674,6 +1691,7 @@ export class ClientBaseActorDelta<TParent extends CanvasBaseToken<ClientBaseScen
 
 	/* -------------------------------------------- */
 	/*  Event Handlers                              */
+
 	/* -------------------------------------------- */
 
 	protected override _onCreate(
@@ -1813,6 +1831,7 @@ export class ClientBaseActorDelta<TParent extends CanvasBaseToken<ClientBaseScen
 
 	/* -------------------------------------------- */
 	/*  Importing and Exporting                     */
+
 	/* -------------------------------------------- */
 
 	/**
@@ -1937,6 +1956,7 @@ export class ClientBaseAdventure extends foundry.documents.BaseAdventure {
 
 	/* -------------------------------------------- */
 	/*  Properties                                  */
+
 	/* -------------------------------------------- */
 
 	/** Return a reference to the parent Collection instance which contains this Document. */
@@ -1987,6 +2007,7 @@ export class ClientBaseAdventure extends foundry.documents.BaseAdventure {
 
 	/* -------------------------------------------- */
 	/*  Methods                                     */
+
 	/* -------------------------------------------- */
 
 	/** Obtain the FormApplication class constructor which should be used to configure this Document. */
@@ -2047,6 +2068,7 @@ export class ClientBaseAdventure extends foundry.documents.BaseAdventure {
 
 	/* -------------------------------------------- */
 	/*  Event Handlers                              */
+
 	/* -------------------------------------------- */
 
 	protected override _onCreate(
@@ -2170,6 +2192,7 @@ export class ClientBaseAdventure extends foundry.documents.BaseAdventure {
 
 	/* -------------------------------------------- */
 	/*  Importing and Exporting                     */
+
 	/* -------------------------------------------- */
 
 	/**
@@ -2294,6 +2317,7 @@ export class ClientBaseCard<TParent extends ClientBaseCards | null> extends foun
 
 	/* -------------------------------------------- */
 	/*  Properties                                  */
+
 	/* -------------------------------------------- */
 
 	/** Return a reference to the parent Collection instance which contains this Document. */
@@ -2344,6 +2368,7 @@ export class ClientBaseCard<TParent extends ClientBaseCards | null> extends foun
 
 	/* -------------------------------------------- */
 	/*  Methods                                     */
+
 	/* -------------------------------------------- */
 
 	/** Obtain the FormApplication class constructor which should be used to configure this Document. */
@@ -2404,6 +2429,7 @@ export class ClientBaseCard<TParent extends ClientBaseCards | null> extends foun
 
 	/* -------------------------------------------- */
 	/*  Event Handlers                              */
+
 	/* -------------------------------------------- */
 
 	protected override _onCreate(
@@ -2527,6 +2553,7 @@ export class ClientBaseCard<TParent extends ClientBaseCards | null> extends foun
 
 	/* -------------------------------------------- */
 	/*  Importing and Exporting                     */
+
 	/* -------------------------------------------- */
 
 	/**
@@ -2651,6 +2678,7 @@ export class ClientBaseCards extends foundry.documents.BaseCards {
 
 	/* -------------------------------------------- */
 	/*  Properties                                  */
+
 	/* -------------------------------------------- */
 
 	/** Return a reference to the parent Collection instance which contains this Document. */
@@ -2701,6 +2729,7 @@ export class ClientBaseCards extends foundry.documents.BaseCards {
 
 	/* -------------------------------------------- */
 	/*  Methods                                     */
+
 	/* -------------------------------------------- */
 
 	/** Obtain the FormApplication class constructor which should be used to configure this Document. */
@@ -2761,6 +2790,7 @@ export class ClientBaseCards extends foundry.documents.BaseCards {
 
 	/* -------------------------------------------- */
 	/*  Event Handlers                              */
+
 	/* -------------------------------------------- */
 
 	protected override _onCreate(
@@ -2884,6 +2914,7 @@ export class ClientBaseCards extends foundry.documents.BaseCards {
 
 	/* -------------------------------------------- */
 	/*  Importing and Exporting                     */
+
 	/* -------------------------------------------- */
 
 	/**
@@ -3008,6 +3039,7 @@ export class ClientBaseChatMessage extends foundry.documents.BaseChatMessage {
 
 	/* -------------------------------------------- */
 	/*  Properties                                  */
+
 	/* -------------------------------------------- */
 
 	/** Return a reference to the parent Collection instance which contains this Document. */
@@ -3058,6 +3090,7 @@ export class ClientBaseChatMessage extends foundry.documents.BaseChatMessage {
 
 	/* -------------------------------------------- */
 	/*  Methods                                     */
+
 	/* -------------------------------------------- */
 
 	/** Obtain the FormApplication class constructor which should be used to configure this Document. */
@@ -3118,6 +3151,7 @@ export class ClientBaseChatMessage extends foundry.documents.BaseChatMessage {
 
 	/* -------------------------------------------- */
 	/*  Event Handlers                              */
+
 	/* -------------------------------------------- */
 
 	protected override _onCreate(
@@ -3241,6 +3275,7 @@ export class ClientBaseChatMessage extends foundry.documents.BaseChatMessage {
 
 	/* -------------------------------------------- */
 	/*  Importing and Exporting                     */
+
 	/* -------------------------------------------- */
 
 	/**
@@ -3365,6 +3400,7 @@ export class ClientBaseCombat extends foundry.documents.BaseCombat {
 
 	/* -------------------------------------------- */
 	/*  Properties                                  */
+
 	/* -------------------------------------------- */
 
 	/** Return a reference to the parent Collection instance which contains this Document. */
@@ -3415,6 +3451,7 @@ export class ClientBaseCombat extends foundry.documents.BaseCombat {
 
 	/* -------------------------------------------- */
 	/*  Methods                                     */
+
 	/* -------------------------------------------- */
 
 	/** Obtain the FormApplication class constructor which should be used to configure this Document. */
@@ -3475,6 +3512,7 @@ export class ClientBaseCombat extends foundry.documents.BaseCombat {
 
 	/* -------------------------------------------- */
 	/*  Event Handlers                              */
+
 	/* -------------------------------------------- */
 
 	protected override _onCreate(
@@ -3598,6 +3636,7 @@ export class ClientBaseCombat extends foundry.documents.BaseCombat {
 
 	/* -------------------------------------------- */
 	/*  Importing and Exporting                     */
+
 	/* -------------------------------------------- */
 
 	/**
@@ -3703,7 +3742,8 @@ export class ClientBaseCombat extends foundry.documents.BaseCombat {
 	): this["_source"];
 }
 
-export class ClientBaseCombatant<TParent extends ClientBaseCombat | null> extends foundry.documents.BaseCombatant<TParent> {
+export class ClientBaseCombatant<TParent extends ClientBaseCombat | null> extends foundry.documents
+	.BaseCombatant<TParent> {
 	protected _sheet: DocumentSheet<this> | null;
 
 	/**
@@ -3722,6 +3762,7 @@ export class ClientBaseCombatant<TParent extends ClientBaseCombat | null> extend
 
 	/* -------------------------------------------- */
 	/*  Properties                                  */
+
 	/* -------------------------------------------- */
 
 	/** Return a reference to the parent Collection instance which contains this Document. */
@@ -3772,6 +3813,7 @@ export class ClientBaseCombatant<TParent extends ClientBaseCombat | null> extend
 
 	/* -------------------------------------------- */
 	/*  Methods                                     */
+
 	/* -------------------------------------------- */
 
 	/** Obtain the FormApplication class constructor which should be used to configure this Document. */
@@ -3832,6 +3874,7 @@ export class ClientBaseCombatant<TParent extends ClientBaseCombat | null> extend
 
 	/* -------------------------------------------- */
 	/*  Event Handlers                              */
+
 	/* -------------------------------------------- */
 
 	protected override _onCreate(
@@ -3955,6 +3998,7 @@ export class ClientBaseCombatant<TParent extends ClientBaseCombat | null> extend
 
 	/* -------------------------------------------- */
 	/*  Importing and Exporting                     */
+
 	/* -------------------------------------------- */
 
 	/**
@@ -4079,6 +4123,7 @@ declare class ClientBaseDrawing<TParent extends ClientBaseScene | null> extends 
 
 	/* -------------------------------------------- */
 	/*  Properties                                  */
+
 	/* -------------------------------------------- */
 
 	/** Return a reference to the parent Collection instance which contains this Document. */
@@ -4129,6 +4174,7 @@ declare class ClientBaseDrawing<TParent extends ClientBaseScene | null> extends 
 
 	/* -------------------------------------------- */
 	/*  Methods                                     */
+
 	/* -------------------------------------------- */
 
 	/** Obtain the FormApplication class constructor which should be used to configure this Document. */
@@ -4189,6 +4235,7 @@ declare class ClientBaseDrawing<TParent extends ClientBaseScene | null> extends 
 
 	/* -------------------------------------------- */
 	/*  Event Handlers                              */
+
 	/* -------------------------------------------- */
 
 	protected override _onCreate(
@@ -4312,6 +4359,7 @@ declare class ClientBaseDrawing<TParent extends ClientBaseScene | null> extends 
 
 	/* -------------------------------------------- */
 	/*  Importing and Exporting                     */
+
 	/* -------------------------------------------- */
 
 	/**
@@ -4491,6 +4539,7 @@ export class ClientBaseFogExploration extends foundry.documents.BaseFogExplorati
 
 	/* -------------------------------------------- */
 	/*  Properties                                  */
+
 	/* -------------------------------------------- */
 
 	/** Return a reference to the parent Collection instance which contains this Document. */
@@ -4541,6 +4590,7 @@ export class ClientBaseFogExploration extends foundry.documents.BaseFogExplorati
 
 	/* -------------------------------------------- */
 	/*  Methods                                     */
+
 	/* -------------------------------------------- */
 
 	/** Obtain the FormApplication class constructor which should be used to configure this Document. */
@@ -4601,6 +4651,7 @@ export class ClientBaseFogExploration extends foundry.documents.BaseFogExplorati
 
 	/* -------------------------------------------- */
 	/*  Event Handlers                              */
+
 	/* -------------------------------------------- */
 
 	protected override _onCreate(
@@ -4724,6 +4775,7 @@ export class ClientBaseFogExploration extends foundry.documents.BaseFogExplorati
 
 	/* -------------------------------------------- */
 	/*  Importing and Exporting                     */
+
 	/* -------------------------------------------- */
 
 	/**
@@ -4848,6 +4900,7 @@ export class ClientBaseFolder extends foundry.documents.BaseFolder {
 
 	/* -------------------------------------------- */
 	/*  Properties                                  */
+
 	/* -------------------------------------------- */
 
 	/** Return a reference to the parent Collection instance which contains this Document. */
@@ -4898,6 +4951,7 @@ export class ClientBaseFolder extends foundry.documents.BaseFolder {
 
 	/* -------------------------------------------- */
 	/*  Methods                                     */
+
 	/* -------------------------------------------- */
 
 	/** Obtain the FormApplication class constructor which should be used to configure this Document. */
@@ -4958,6 +5012,7 @@ export class ClientBaseFolder extends foundry.documents.BaseFolder {
 
 	/* -------------------------------------------- */
 	/*  Event Handlers                              */
+
 	/* -------------------------------------------- */
 
 	protected override _onCreate(
@@ -5081,6 +5136,7 @@ export class ClientBaseFolder extends foundry.documents.BaseFolder {
 
 	/* -------------------------------------------- */
 	/*  Importing and Exporting                     */
+
 	/* -------------------------------------------- */
 
 	/**
@@ -5207,6 +5263,7 @@ export class ClientBaseItem<
 
 	/* -------------------------------------------- */
 	/*  Properties                                  */
+
 	/* -------------------------------------------- */
 
 	/** Return a reference to the parent Collection instance which contains this Document. */
@@ -5257,6 +5314,7 @@ export class ClientBaseItem<
 
 	/* -------------------------------------------- */
 	/*  Methods                                     */
+
 	/* -------------------------------------------- */
 
 	/** Obtain the FormApplication class constructor which should be used to configure this Document. */
@@ -5317,6 +5375,7 @@ export class ClientBaseItem<
 
 	/* -------------------------------------------- */
 	/*  Event Handlers                              */
+
 	/* -------------------------------------------- */
 
 	protected override _onCreate(
@@ -5440,6 +5499,7 @@ export class ClientBaseItem<
 
 	/* -------------------------------------------- */
 	/*  Importing and Exporting                     */
+
 	/* -------------------------------------------- */
 
 	/**
@@ -5564,6 +5624,7 @@ export class ClientBaseJournalEntry extends foundry.documents.BaseJournalEntry {
 
 	/* -------------------------------------------- */
 	/*  Properties                                  */
+
 	/* -------------------------------------------- */
 
 	/** Return a reference to the parent Collection instance which contains this Document. */
@@ -5614,6 +5675,7 @@ export class ClientBaseJournalEntry extends foundry.documents.BaseJournalEntry {
 
 	/* -------------------------------------------- */
 	/*  Methods                                     */
+
 	/* -------------------------------------------- */
 
 	/** Obtain the FormApplication class constructor which should be used to configure this Document. */
@@ -5674,6 +5736,7 @@ export class ClientBaseJournalEntry extends foundry.documents.BaseJournalEntry {
 
 	/* -------------------------------------------- */
 	/*  Event Handlers                              */
+
 	/* -------------------------------------------- */
 
 	protected override _onCreate(
@@ -5797,6 +5860,7 @@ export class ClientBaseJournalEntry extends foundry.documents.BaseJournalEntry {
 
 	/* -------------------------------------------- */
 	/*  Importing and Exporting                     */
+
 	/* -------------------------------------------- */
 
 	/**
@@ -5922,6 +5986,7 @@ export class ClientBaseJournalEntryPage<TParent extends ClientBaseJournalEntry |
 
 	/* -------------------------------------------- */
 	/*  Properties                                  */
+
 	/* -------------------------------------------- */
 
 	/** Return a reference to the parent Collection instance which contains this Document. */
@@ -5972,6 +6037,7 @@ export class ClientBaseJournalEntryPage<TParent extends ClientBaseJournalEntry |
 
 	/* -------------------------------------------- */
 	/*  Methods                                     */
+
 	/* -------------------------------------------- */
 
 	/** Obtain the FormApplication class constructor which should be used to configure this Document. */
@@ -6032,6 +6098,7 @@ export class ClientBaseJournalEntryPage<TParent extends ClientBaseJournalEntry |
 
 	/* -------------------------------------------- */
 	/*  Event Handlers                              */
+
 	/* -------------------------------------------- */
 
 	protected override _onCreate(
@@ -6155,6 +6222,7 @@ export class ClientBaseJournalEntryPage<TParent extends ClientBaseJournalEntry |
 
 	/* -------------------------------------------- */
 	/*  Importing and Exporting                     */
+
 	/* -------------------------------------------- */
 
 	/**
@@ -6279,6 +6347,7 @@ export class ClientBaseMacro extends foundry.documents.BaseMacro {
 
 	/* -------------------------------------------- */
 	/*  Properties                                  */
+
 	/* -------------------------------------------- */
 
 	/** Return a reference to the parent Collection instance which contains this Document. */
@@ -6329,6 +6398,7 @@ export class ClientBaseMacro extends foundry.documents.BaseMacro {
 
 	/* -------------------------------------------- */
 	/*  Methods                                     */
+
 	/* -------------------------------------------- */
 
 	/** Obtain the FormApplication class constructor which should be used to configure this Document. */
@@ -6389,6 +6459,7 @@ export class ClientBaseMacro extends foundry.documents.BaseMacro {
 
 	/* -------------------------------------------- */
 	/*  Event Handlers                              */
+
 	/* -------------------------------------------- */
 
 	protected override _onCreate(
@@ -6512,6 +6583,7 @@ export class ClientBaseMacro extends foundry.documents.BaseMacro {
 
 	/* -------------------------------------------- */
 	/*  Importing and Exporting                     */
+
 	/* -------------------------------------------- */
 
 	/**
@@ -6637,6 +6709,7 @@ declare class ClientBaseMeasuredTemplate<TParent extends ClientBaseScene | null>
 
 	/* -------------------------------------------- */
 	/*  Properties                                  */
+
 	/* -------------------------------------------- */
 
 	/** Return a reference to the parent Collection instance which contains this Document. */
@@ -6687,6 +6760,7 @@ declare class ClientBaseMeasuredTemplate<TParent extends ClientBaseScene | null>
 
 	/* -------------------------------------------- */
 	/*  Methods                                     */
+
 	/* -------------------------------------------- */
 
 	/** Obtain the FormApplication class constructor which should be used to configure this Document. */
@@ -6747,6 +6821,7 @@ declare class ClientBaseMeasuredTemplate<TParent extends ClientBaseScene | null>
 
 	/* -------------------------------------------- */
 	/*  Event Handlers                              */
+
 	/* -------------------------------------------- */
 
 	protected override _onCreate(
@@ -6870,6 +6945,7 @@ declare class ClientBaseMeasuredTemplate<TParent extends ClientBaseScene | null>
 
 	/* -------------------------------------------- */
 	/*  Importing and Exporting                     */
+
 	/* -------------------------------------------- */
 
 	/**
@@ -7054,6 +7130,7 @@ declare class ClientBaseNote<TParent extends ClientBaseScene | null> extends fou
 
 	/* -------------------------------------------- */
 	/*  Properties                                  */
+
 	/* -------------------------------------------- */
 
 	/** Return a reference to the parent Collection instance which contains this Document. */
@@ -7104,6 +7181,7 @@ declare class ClientBaseNote<TParent extends ClientBaseScene | null> extends fou
 
 	/* -------------------------------------------- */
 	/*  Methods                                     */
+
 	/* -------------------------------------------- */
 
 	/** Obtain the FormApplication class constructor which should be used to configure this Document. */
@@ -7164,6 +7242,7 @@ declare class ClientBaseNote<TParent extends ClientBaseScene | null> extends fou
 
 	/* -------------------------------------------- */
 	/*  Event Handlers                              */
+
 	/* -------------------------------------------- */
 
 	protected override _onCreate(
@@ -7287,6 +7366,7 @@ declare class ClientBaseNote<TParent extends ClientBaseScene | null> extends fou
 
 	/* -------------------------------------------- */
 	/*  Importing and Exporting                     */
+
 	/* -------------------------------------------- */
 
 	/**
@@ -7466,6 +7546,7 @@ export class ClientBasePlaylist extends foundry.documents.BasePlaylist {
 
 	/* -------------------------------------------- */
 	/*  Properties                                  */
+
 	/* -------------------------------------------- */
 
 	/** Return a reference to the parent Collection instance which contains this Document. */
@@ -7516,6 +7597,7 @@ export class ClientBasePlaylist extends foundry.documents.BasePlaylist {
 
 	/* -------------------------------------------- */
 	/*  Methods                                     */
+
 	/* -------------------------------------------- */
 
 	/** Obtain the FormApplication class constructor which should be used to configure this Document. */
@@ -7576,6 +7658,7 @@ export class ClientBasePlaylist extends foundry.documents.BasePlaylist {
 
 	/* -------------------------------------------- */
 	/*  Event Handlers                              */
+
 	/* -------------------------------------------- */
 
 	protected override _onCreate(
@@ -7699,6 +7782,7 @@ export class ClientBasePlaylist extends foundry.documents.BasePlaylist {
 
 	/* -------------------------------------------- */
 	/*  Importing and Exporting                     */
+
 	/* -------------------------------------------- */
 
 	/**
@@ -7824,6 +7908,7 @@ export class ClientBasePlaylistSound<TParent extends ClientBasePlaylist | null> 
 
 	/* -------------------------------------------- */
 	/*  Properties                                  */
+
 	/* -------------------------------------------- */
 
 	/** Return a reference to the parent Collection instance which contains this Document. */
@@ -7874,6 +7959,7 @@ export class ClientBasePlaylistSound<TParent extends ClientBasePlaylist | null> 
 
 	/* -------------------------------------------- */
 	/*  Methods                                     */
+
 	/* -------------------------------------------- */
 
 	/** Obtain the FormApplication class constructor which should be used to configure this Document. */
@@ -7934,6 +8020,7 @@ export class ClientBasePlaylistSound<TParent extends ClientBasePlaylist | null> 
 
 	/* -------------------------------------------- */
 	/*  Event Handlers                              */
+
 	/* -------------------------------------------- */
 
 	protected override _onCreate(
@@ -8057,6 +8144,7 @@ export class ClientBasePlaylistSound<TParent extends ClientBasePlaylist | null> 
 
 	/* -------------------------------------------- */
 	/*  Importing and Exporting                     */
+
 	/* -------------------------------------------- */
 
 	/**
@@ -8181,6 +8269,7 @@ export class ClientBaseRollTable extends foundry.documents.BaseRollTable {
 
 	/* -------------------------------------------- */
 	/*  Properties                                  */
+
 	/* -------------------------------------------- */
 
 	/** Return a reference to the parent Collection instance which contains this Document. */
@@ -8231,6 +8320,7 @@ export class ClientBaseRollTable extends foundry.documents.BaseRollTable {
 
 	/* -------------------------------------------- */
 	/*  Methods                                     */
+
 	/* -------------------------------------------- */
 
 	/** Obtain the FormApplication class constructor which should be used to configure this Document. */
@@ -8291,6 +8381,7 @@ export class ClientBaseRollTable extends foundry.documents.BaseRollTable {
 
 	/* -------------------------------------------- */
 	/*  Event Handlers                              */
+
 	/* -------------------------------------------- */
 
 	protected override _onCreate(
@@ -8414,6 +8505,7 @@ export class ClientBaseRollTable extends foundry.documents.BaseRollTable {
 
 	/* -------------------------------------------- */
 	/*  Importing and Exporting                     */
+
 	/* -------------------------------------------- */
 
 	/**
@@ -8538,6 +8630,7 @@ export class ClientBaseScene extends foundry.documents.BaseScene {
 
 	/* -------------------------------------------- */
 	/*  Properties                                  */
+
 	/* -------------------------------------------- */
 
 	/** Return a reference to the parent Collection instance which contains this Document. */
@@ -8588,6 +8681,7 @@ export class ClientBaseScene extends foundry.documents.BaseScene {
 
 	/* -------------------------------------------- */
 	/*  Methods                                     */
+
 	/* -------------------------------------------- */
 
 	/** Obtain the FormApplication class constructor which should be used to configure this Document. */
@@ -8648,6 +8742,7 @@ export class ClientBaseScene extends foundry.documents.BaseScene {
 
 	/* -------------------------------------------- */
 	/*  Event Handlers                              */
+
 	/* -------------------------------------------- */
 
 	protected override _onCreate(
@@ -8771,6 +8866,7 @@ export class ClientBaseScene extends foundry.documents.BaseScene {
 
 	/* -------------------------------------------- */
 	/*  Importing and Exporting                     */
+
 	/* -------------------------------------------- */
 
 	/**
@@ -8895,6 +8991,7 @@ export class ClientBaseSetting extends foundry.documents.BaseSetting {
 
 	/* -------------------------------------------- */
 	/*  Properties                                  */
+
 	/* -------------------------------------------- */
 
 	/** Return a reference to the parent Collection instance which contains this Document. */
@@ -8945,6 +9042,7 @@ export class ClientBaseSetting extends foundry.documents.BaseSetting {
 
 	/* -------------------------------------------- */
 	/*  Methods                                     */
+
 	/* -------------------------------------------- */
 
 	/** Obtain the FormApplication class constructor which should be used to configure this Document. */
@@ -9005,6 +9103,7 @@ export class ClientBaseSetting extends foundry.documents.BaseSetting {
 
 	/* -------------------------------------------- */
 	/*  Event Handlers                              */
+
 	/* -------------------------------------------- */
 
 	protected override _onCreate(
@@ -9128,6 +9227,7 @@ export class ClientBaseSetting extends foundry.documents.BaseSetting {
 
 	/* -------------------------------------------- */
 	/*  Importing and Exporting                     */
+
 	/* -------------------------------------------- */
 
 	/**
@@ -9253,6 +9353,7 @@ export class ClientBaseTableResult<TParent extends ClientBaseRollTable | null> e
 
 	/* -------------------------------------------- */
 	/*  Properties                                  */
+
 	/* -------------------------------------------- */
 
 	/** Return a reference to the parent Collection instance which contains this Document. */
@@ -9303,6 +9404,7 @@ export class ClientBaseTableResult<TParent extends ClientBaseRollTable | null> e
 
 	/* -------------------------------------------- */
 	/*  Methods                                     */
+
 	/* -------------------------------------------- */
 
 	/** Obtain the FormApplication class constructor which should be used to configure this Document. */
@@ -9363,6 +9465,7 @@ export class ClientBaseTableResult<TParent extends ClientBaseRollTable | null> e
 
 	/* -------------------------------------------- */
 	/*  Event Handlers                              */
+
 	/* -------------------------------------------- */
 
 	protected override _onCreate(
@@ -9486,6 +9589,7 @@ export class ClientBaseTableResult<TParent extends ClientBaseRollTable | null> e
 
 	/* -------------------------------------------- */
 	/*  Importing and Exporting                     */
+
 	/* -------------------------------------------- */
 
 	/**
@@ -9610,6 +9714,7 @@ declare class ClientBaseTile<TParent extends ClientBaseScene | null> extends fou
 
 	/* -------------------------------------------- */
 	/*  Properties                                  */
+
 	/* -------------------------------------------- */
 
 	/** Return a reference to the parent Collection instance which contains this Document. */
@@ -9660,6 +9765,7 @@ declare class ClientBaseTile<TParent extends ClientBaseScene | null> extends fou
 
 	/* -------------------------------------------- */
 	/*  Methods                                     */
+
 	/* -------------------------------------------- */
 
 	/** Obtain the FormApplication class constructor which should be used to configure this Document. */
@@ -9720,6 +9826,7 @@ declare class ClientBaseTile<TParent extends ClientBaseScene | null> extends fou
 
 	/* -------------------------------------------- */
 	/*  Event Handlers                              */
+
 	/* -------------------------------------------- */
 
 	protected override _onCreate(
@@ -9843,6 +9950,7 @@ declare class ClientBaseTile<TParent extends ClientBaseScene | null> extends fou
 
 	/* -------------------------------------------- */
 	/*  Importing and Exporting                     */
+
 	/* -------------------------------------------- */
 
 	/**
@@ -10022,6 +10130,7 @@ declare class ClientBaseToken<TParent extends ClientBaseScene | null> extends fo
 
 	/* -------------------------------------------- */
 	/*  Properties                                  */
+
 	/* -------------------------------------------- */
 
 	/** Return a reference to the parent Collection instance which contains this Document. */
@@ -10072,6 +10181,7 @@ declare class ClientBaseToken<TParent extends ClientBaseScene | null> extends fo
 
 	/* -------------------------------------------- */
 	/*  Methods                                     */
+
 	/* -------------------------------------------- */
 
 	/** Obtain the FormApplication class constructor which should be used to configure this Document. */
@@ -10132,6 +10242,7 @@ declare class ClientBaseToken<TParent extends ClientBaseScene | null> extends fo
 
 	/* -------------------------------------------- */
 	/*  Event Handlers                              */
+
 	/* -------------------------------------------- */
 
 	protected override _onCreate(
@@ -10255,6 +10366,7 @@ declare class ClientBaseToken<TParent extends ClientBaseScene | null> extends fo
 
 	/* -------------------------------------------- */
 	/*  Importing and Exporting                     */
+
 	/* -------------------------------------------- */
 
 	/**
@@ -10434,6 +10546,7 @@ export class ClientBaseUser<TCharacter extends ClientBaseActor<null>> extends fo
 
 	/* -------------------------------------------- */
 	/*  Properties                                  */
+
 	/* -------------------------------------------- */
 
 	/** Return a reference to the parent Collection instance which contains this Document. */
@@ -10484,6 +10597,7 @@ export class ClientBaseUser<TCharacter extends ClientBaseActor<null>> extends fo
 
 	/* -------------------------------------------- */
 	/*  Methods                                     */
+
 	/* -------------------------------------------- */
 
 	/** Obtain the FormApplication class constructor which should be used to configure this Document. */
@@ -10544,6 +10658,7 @@ export class ClientBaseUser<TCharacter extends ClientBaseActor<null>> extends fo
 
 	/* -------------------------------------------- */
 	/*  Event Handlers                              */
+
 	/* -------------------------------------------- */
 
 	protected override _onCreate(
@@ -10667,6 +10782,7 @@ export class ClientBaseUser<TCharacter extends ClientBaseActor<null>> extends fo
 
 	/* -------------------------------------------- */
 	/*  Importing and Exporting                     */
+
 	/* -------------------------------------------- */
 
 	/**
@@ -10791,6 +10907,7 @@ declare class ClientBaseWall<TParent extends ClientBaseScene | null> extends fou
 
 	/* -------------------------------------------- */
 	/*  Properties                                  */
+
 	/* -------------------------------------------- */
 
 	/** Return a reference to the parent Collection instance which contains this Document. */
@@ -10841,6 +10958,7 @@ declare class ClientBaseWall<TParent extends ClientBaseScene | null> extends fou
 
 	/* -------------------------------------------- */
 	/*  Methods                                     */
+
 	/* -------------------------------------------- */
 
 	/** Obtain the FormApplication class constructor which should be used to configure this Document. */
@@ -10901,6 +11019,7 @@ declare class ClientBaseWall<TParent extends ClientBaseScene | null> extends fou
 
 	/* -------------------------------------------- */
 	/*  Event Handlers                              */
+
 	/* -------------------------------------------- */
 
 	protected override _onCreate(
@@ -11024,6 +11143,7 @@ declare class ClientBaseWall<TParent extends ClientBaseScene | null> extends fou
 
 	/* -------------------------------------------- */
 	/*  Importing and Exporting                     */
+
 	/* -------------------------------------------- */
 
 	/**

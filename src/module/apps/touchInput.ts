@@ -1,4 +1,4 @@
-import { info, setBodyData } from "../utils.js";
+import { debug, info, setBodyData } from "../utils.js";
 import { FederatedEventTarget } from "pixi.js";
 
 export class TouchInput {
@@ -13,8 +13,10 @@ export class TouchInput {
 
 	hook(): void {
 		if (!canvas.ready) return;
-		canvas.stage.on("touchstart", (_evt) => {
+		canvas.stage.on("touchstart", (evt) => {
 			this.tapStart = Date.now();
+			// @ts-expect-error
+			debug(true, evt.originalEvent.touches);
 			// TODO
 			// console.debug(evt);
 			// // if (evt.originalEvent.touches.length > 1) {

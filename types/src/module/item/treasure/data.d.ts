@@ -7,7 +7,6 @@ import type {
 } from "@item/physical/data.ts";
 import type { CarriedUsage } from "@item/physical/usage.ts";
 type TreasureSource = BasePhysicalItemSource<"treasure", TreasureSystemSource>;
-
 interface TreasureSystemSource extends PhysicalSystemSource {
 	traits: PhysicalItemTraits<never>;
     stackGroup: "coins" | "gems" | null;
@@ -15,7 +14,6 @@ interface TreasureSystemSource extends PhysicalSystemSource {
 	subitems?: never;
 	usage?: never;
 }
-
 interface TreasureSystemData extends PhysicalSystemData {
 	traits: PhysicalItemTraits<never>;
     equipped: TreasureEquippedData;

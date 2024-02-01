@@ -186,14 +186,12 @@ interface CharacterResourcesSource {
         value: number;
     };
 }
-
 /** A Pathfinder Society Faction */
 type PFSFaction = "EA" | "GA" | "HH" | "VS" | "RO" | "VW";
 /** A Pathfinder Society School */
 type PFSSchool = "scrolls" | "spells" | "swords" | null;
 /** PFS faction reputation values */
 type PathfinderSocietyReputation = Record<PFSFaction, number | null>;
-
 /** Pathfinder Society Organized Play data fields */
 interface PathfinderSocietyData {
 	/** Number assigned to the player. */
@@ -353,7 +351,6 @@ interface VersatileWeaponOption {
     label: string;
     glyph: string | null;
 }
-
 interface CharacterCraftingData {
 	formulas: CraftingFormulaData[];
 	entries: Record<string, Partial<CraftingEntryData>>;
