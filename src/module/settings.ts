@@ -155,20 +155,16 @@ export class EnableShareReceiveTargets extends FormApplication {
 	}
 
 	protected override async _updateObject(_event: Event, data: Record<string, unknown>): Promise<void> {
-		const settings = [] as Partial<ShareTargetSettingsOptions>[];
-		let idArray = [data.id];
-		if (!Array.isArray(idArray)) {
-			idArray = [];
-			idArray[0] = data.id;
+		for (const key of Object.keys(data)) {
+			let datum = data[key];
+			// "null" check is due to a previous bug that may have left invalid data in text fields
+			if (datum === null || datum === "null") {
+				datum = "";
+			}
+			// If statement handles bug in foundry
+			if (!["submit", "reset"].includes(key)) {
+				await game.settings.set(MODULE_ID, key, datum);
+			}
 		}
-		for (const id of idArray) {
-			const settingsNew = {
-				id: id as string,
-				send: data?.[`send-${id}`] as boolean,
-				receive: data?.[`receive-${id}`] as boolean,
-			};
-			settings.push(settingsNew);
-		}
-		await game.settings.set(MODULE_ID, "mobile-share-targets", settings);
 	}
 }
