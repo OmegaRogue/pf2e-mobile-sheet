@@ -8,6 +8,7 @@ import { UserPF2e } from "@module/user/document.js";
 import { EncounterPF2e } from "@module/encounter/document.js";
 import { ChatMessagePF2e } from "@module/chat-message/document.js";
 import { ActorsPF2e } from "@module/collection/actors.js";
+import { WindowManager } from "./apps/windowManager.js";
 
 declare global {
 	interface GamePF2e
@@ -67,7 +68,7 @@ declare global {
 	}
 
 	interface Window {
-		WindowManager: any;
+		WindowManager: WindowManager;
 	}
 
 	interface ClientSettings {
