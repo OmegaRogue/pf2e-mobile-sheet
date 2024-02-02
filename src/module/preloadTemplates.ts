@@ -1,4 +1,4 @@
-import { id as MODULE_ID } from "@static/module.json";
+import { MODULE_ID } from "./utils.js";
 
 export async function preloadTemplates(): Promise<void> {
 	const templatePaths: string[] = [

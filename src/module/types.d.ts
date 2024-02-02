@@ -1,4 +1,3 @@
-import { id as MODULE_ID } from "@static/module.json";
 import { ActorPF2e } from "@actor/index.js";
 import { ItemPF2e } from "@item/index.js";
 import { ScenePF2e } from "@scene/index.js";
@@ -8,6 +7,7 @@ import { EncounterPF2e } from "@module/encounter/document.js";
 import { ChatMessagePF2e } from "@module/chat-message/document.js";
 import { ActorsPF2e } from "@module/collection/actors.js";
 import { WindowManager } from "./apps/windowManager.js";
+import { MODULE_ID } from "./utils.js";
 import "foundry-types";
 
 declare global {

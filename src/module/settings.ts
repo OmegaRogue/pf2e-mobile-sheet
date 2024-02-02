@@ -1,5 +1,4 @@
-import { id as MODULE_ID } from "@static/module.json";
-import { setBodyData, toggleRender } from "./utils.js";
+import { MODULE_ID, setBodyData, toggleRender } from "./utils.js";
 
 export function registerSettings() {
 	game.settings.register(MODULE_ID, "send-button", {

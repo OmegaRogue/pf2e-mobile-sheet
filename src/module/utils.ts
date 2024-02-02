@@ -1,4 +1,4 @@
-import { id as MODULE_ID } from "@static/module.json";
+export const MODULE_ID = "pf2e-mobile-sheet";
 
 export function getDebug(): boolean | LogLevel {
 	// const devMode: DevModeModule | undefined = game.modules.get("_dev-mode") as DevModeModule | undefined;
