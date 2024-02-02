@@ -1,6 +1,6 @@
 import type { Language } from "@actor/creature/index.ts";
 import type { BaseWeaponType } from "@item/weapon/types.ts";
-import type { SetField, StringField } from "foundry-types/common/data/fields.d.ts";
+import type { SetField, StringField } from "@typed-foundry/foundry/common/data/fields.d.ts";
 import type { MenuTemplateData, SettingsTemplateData } from "../menu.ts";
 declare const HOMEBREW_TRAIT_KEYS: readonly ["creatureTraits", "featTraits", "languages", "spellTraits", "weaponCategories", "weaponGroups", "baseWeapons", "weaponTraits", "equipmentTraits"];
 /** Homebrew elements from some of the above records are propagated to related records */

@@ -8,7 +8,7 @@ import type {
 	ColorField,
 	EmbeddedDataField,
 	SchemaField
-} from "foundry-types/common/data/fields.d.ts";
+} from "@typed-foundry/foundry/common/data/fields.d.ts";
 import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource, RuleValue } from "./data.ts";
 import { ItemAlteration } from "./item-alteration/alteration.ts";

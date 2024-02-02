@@ -2,7 +2,12 @@ import { IWRSource, Immunity, Resistance, Weakness } from "@actor/data/iwr.ts";
 import { IWRType } from "@actor/types.ts";
 import type { PredicatePF2e } from "@system/predication.ts";
 import { DataUnionField, PredicateField, StrictArrayField, StrictStringField } from "@system/schema-data-fields.ts";
-import type { ArrayField, BooleanField, SchemaField, StringField } from "foundry-types/common/data/fields.d.ts";
+import type {
+	ArrayField,
+	BooleanField,
+	SchemaField,
+	StringField
+} from "@typed-foundry/foundry/common/data/fields.d.ts";
 import { AELikeChangeMode } from "../ae-like.ts";
 import { RuleElementPF2e } from "../base.ts";
 import { ModelPropsFromRESchema, RuleElementSchema, RuleElementSource, RuleValue } from "../data.ts";

@@ -1,7 +1,7 @@
 import { UserVisibility } from "@scripts/ui/user-visibility.ts";
 import { DegreeOfSuccessString } from "@system/degree-of-success.ts";
 import { DataUnionField, StrictStringField } from "@system/schema-data-fields.ts";
-import type { ArrayField, StringField } from "foundry-types/common/data/fields.d.ts";
+import type { ArrayField, StringField } from "@typed-foundry/foundry/common/data/fields.d.ts";
 import { RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
 declare class RollNoteRuleElement extends RuleElementPF2e<RollNoteSchema> {

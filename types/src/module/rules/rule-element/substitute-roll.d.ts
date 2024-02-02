@@ -1,5 +1,5 @@
 import { DataUnionField, PredicateField, StrictBooleanField, StrictStringField } from "@system/schema-data-fields.ts";
-import type { BooleanField, StringField } from "foundry-types/common/data/fields.d.ts";
+import type { BooleanField, StringField } from "@typed-foundry/foundry/common/data/fields.d.ts";
 import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
 /** Substitute a pre-determined result for a check's D20 roll */
