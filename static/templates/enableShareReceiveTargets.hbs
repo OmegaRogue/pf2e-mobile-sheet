@@ -16,30 +16,23 @@
   <table>
     <thead>
     <tr>
-      <th class="">{{localize "pf2e-mobile-sheet.settings.mobile-share-targets.table.name"}}</th>
+		<th class="">{{localize "pf2e-mobile-sheet.settings.mobile-share-targets.player.name"}}</th>
       <th class="">{{localize "pf2e-mobile-sheet.settings.mobile-share-targets.send.name"}}</th>
       <th class="">{{localize "pf2e-mobile-sheet.settings.mobile-share-targets.receive.name"}}</th>
     </tr>
     </thead>
 
     <tbody>
-    {{#each data as |d|}}
-      <tr index="{{d.index}}">
-        <td class="">{{d.name}}</td>
-        <td style="text-align: center;"><input type="checkbox" name="send-{{d.id}}" data-dtype="Boolean"
-                                               {{#if d.enable}}checked{{/if}}></td>
-        <td style="text-align: center;"><input type="checkbox" name="receive-{{d.id}}" data-dtype="Boolean"
-                                               {{#if d.viewbox}}checked{{/if}}></td>
+	{{#each data}}
+		<tr index="{{this.id}}">
+			<td class="">{{this.name}}</td>
+			<td style="text-align: center;"><input type="checkbox" name="send-{{this.id}}" data-dtype="Boolean"
+				{{checked this.send}}></td>
+			<td style="text-align: center;"><input type="checkbox" name="receive-{{this.id}}"
+												   data-dtype="Boolean"{{checked this.receive}}></td>
       </tr>
-      <input type="text" name="id" value={{d.id}} style="display:none">
+		<input type="text" name="id" value={{this.id}} style="display:none">
     {{/each}}
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    </tbody>
   </table>
 
   <br>

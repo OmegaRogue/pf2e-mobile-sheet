@@ -1,5 +1,13 @@
 import { id as MODULE_ID } from "../../static/module.json";
 
+export type ShareTargetSettings = {
+	send: boolean;
+	receive: boolean;
+	id: string;
+};
+export type ShareTargetSettingsOptions = {} & Partial<FormApplicationOptions>;
+
+
 declare global {
 	interface ClientSettings {
 		get(module: MODULE_ID, setting: "mobile-layout"): "on" | "off" | "auto";
@@ -10,7 +18,7 @@ declare global {
 
 		get(module: MODULE_ID, setting: "header-button-text"): "on" | "off" | "auto";
 
-		get(module: MODULE_ID, setting: "mobile-share-targets"): ShareTargetSettingsOptions;
+		get(module: MODULE_ID, setting: "mobile-share-targets"): ShareTargetSettings[];
 
 		set(module: MODULE_ID, key: "mobile-layout", value: "on" | "off" | "auto"): Promise<"on" | "off" | "auto">;
 
@@ -23,8 +31,8 @@ declare global {
 		set(
 			module: MODULE_ID,
 			key: "mobile-share-targets",
-			value: ShareTargetSettingsOptions,
-		): Promise<ShareTargetSettingsOptions>;
+			value: ShareTargetSettings[],
+		): Promise<ShareTargetSettings[]>;
 
 		// get(module: MODULE_ID, setting: "share-targets"): boolean;
 
@@ -309,10 +317,3 @@ declare global {
 		);
 	}
 }
-export type ShareTargetSettingsOptions = {
-	send: boolean;
-	receive: boolean;
-	index: number;
-	name: string;
-	color: string;
-} & Partial<FormApplicationOptions>;

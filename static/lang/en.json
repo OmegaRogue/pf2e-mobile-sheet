@@ -34,9 +34,8 @@
 					"name": "Receive",
 					"hint": "Receive target data from other players"
 				},
-				"table": {
-					"name": "Table",
-					"role": "Role"
+				"player": {
+					"name": "Player"
 				}
 			}
 		},

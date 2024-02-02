@@ -1,7 +1,12 @@
-import { id as MODULE_ID } from "../../static/module.json";
-import { ShareTargetSettingsOptions } from "./types.js";
+import { ShareTargetSettings, ShareTargetSettingsOptions } from "./types.js";
 import { setBodyData } from "./utils.js";
-import { PartialSettingsData } from "@module/system/settings/menu.js";
+import { id as MODULE_ID } from "../../static/module.json";
+
+type OverrideSettings = {
+	off: `pf2e-mobile-sheet.settings.toggle.off`;
+	on: `pf2e-mobile-sheet.settings.toggle.on`;
+	auto: `pf2e-mobile-sheet.settings.toggle.auto`;
+};
 
 export function registerSettings() {
 	game.settings.register(MODULE_ID, "send-button", {
@@ -17,7 +22,7 @@ export function registerSettings() {
 		},
 		default: "auto",
 		requiresReload: true,
-	});
+	} as SettingRegistration<OverrideSettings>);
 	game.settings.register(MODULE_ID, "header-button-text", {
 		name: `${MODULE_ID}.settings.header-button-text.name`,
 		hint: `${MODULE_ID}.settings.header-button-text.hint`,
@@ -32,7 +37,7 @@ export function registerSettings() {
 		default: "auto",
 		requiresReload: false,
 		onChange: (value) => setBodyData("mobile-force-hide-header-button-text", value),
-	});
+	} as SettingRegistration<OverrideSettings>);
 	game.settings.register(MODULE_ID, "mobile-layout", {
 		name: `${MODULE_ID}.settings.mobile-layout.name`,
 		hint: `${MODULE_ID}.settings.mobile-layout.hint`,
@@ -47,7 +52,7 @@ export function registerSettings() {
 		default: "auto",
 		requiresReload: false,
 		onChange: (value) => setBodyData("mobile-force-mobile-layout", value),
-	});
+	} as SettingRegistration<OverrideSettings>);
 	game.settings.register(MODULE_ID, "mobile-windows", {
 		name: `${MODULE_ID}.settings.mobile-windows.name`,
 		hint: `${MODULE_ID}.settings.mobile-windows.hint`,
@@ -69,7 +74,7 @@ export function registerSettings() {
 				setTimeout(() => $(win).css("width", `${width}px`), 10);
 			}
 		},
-	});
+	} as SettingRegistration<OverrideSettings>);
 
 	game.settings.registerMenu(MODULE_ID, "mobile-share-targets-settings", {
 		name: `${MODULE_ID}.settings.mobile-share-targets.name`,
@@ -84,11 +89,12 @@ export function registerSettings() {
 		hint: `${MODULE_ID}.settings.mobile-share-targets.hint`,
 		scope: "world",
 		config: false,
-		type: Object,
-		default: {},
-		requiresReload: true,
-	});
+		type: Array<ShareTargetSettings>,
+		default: [],
+		requiresReload: false,
+	} as SettingRegistration<undefined>);
 }
+
 export class EnableShareReceiveTargets extends FormApplication {
 	static readonly namespace: string;
 
@@ -104,37 +110,27 @@ export class EnableShareReceiveTargets extends FormApplication {
 		});
 	}
 
-	get namespace(): string {
-		return (this.constructor as typeof EnableShareReceiveTargets).namespace;
-	}
-
-	/** Settings to be registered and also later referenced during user updates */
-	protected static get settings(): Record<string, PartialSettingsData> {
-		return {};
-	}
+	// noinspection JSUnusedGlobalSymbols
+	static registerSettings(): void {}
 
 	/**
 	 * Provide data to the template
 	 */
 	override getData() {
 		const users = game.users.players;
-		const settings = [
-			game.settings.get(MODULE_ID, "mobile-share-targets"),
-		] as Partial<ShareTargetSettingsOptions>[];
+		const settings = game.settings.get(MODULE_ID, "mobile-share-targets");
 		const data = [] as Partial<FormApplicationOptions>[];
 
 		for (let i = 0; i < users.length; i++) {
 			const userData = users[i];
 
-			const userSettings = settings.filter((u) => u.id === userData._id)[0];
+			const userSettings = settings.find((u) => u.id === userData.id);
 
-			const dataNew: ShareTargetSettingsOptions = {
-				index: i,
-				name: userData.name,
-				color: userData.color,
-				id: userData._id ? userData._id : undefined,
+			const dataNew: ShareTargetSettings & { name: string } = {
+				id: userData.id,
 				send: userSettings?.send ? userSettings.send : false,
 				receive: userSettings?.receive ? userSettings.receive : false,
+				name: userData.name,
 			};
 			data.push(dataNew);
 		}
@@ -144,27 +140,15 @@ export class EnableShareReceiveTargets extends FormApplication {
 		} as FormApplicationData<ShareTargetSettingsOptions>;
 	}
 
-	static registerSettings(): void {
-		const settings = [this.settings];
-		for (const setting of Object.keys(settings)) {
-			game.settings.register(MODULE_ID, setting, {
-				...settings[setting],
-				config: false,
+	protected override async _updateObject(_event: Event, data: Record<string, unknown>): Promise<void> {
+		const newData: any[] = [];
+		for (const id of data.id as string[]) {
+			newData.push({
+				id,
+				receive: data[`receive-${id}`],
+				send: data[`send-${id}`,
 			});
 		}
-	}
-
-	protected override async _updateObject(_event: Event, data: Record<string, unknown>): Promise<void> {
-		for (const key of Object.keys(data)) {
-			let datum = data[key];
-
-			if (datum === null || datum === "null") {
-				datum = "";
-			}
-
-			if (!["submit", "reset"].includes(key)) {
-				await game.settings.set(MODULE_ID, key, datum);
-			}
-		}
+		await game.settings.set(MODULE_ID, "mobile-share-targets", newData);
 	}
 }
