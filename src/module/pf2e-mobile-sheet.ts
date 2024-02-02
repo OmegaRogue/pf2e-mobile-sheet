@@ -6,7 +6,7 @@ import { CombatantPF2e } from "@module/encounter/combatant.js";
 import { EncounterPF2e } from "@module/encounter/document.js";
 import { TokenDocumentPF2e } from "@scene/token-document/document.js";
 import { ScenePF2e } from "@scene/document.js";
-import { checkMobile, debug, getDebug, info, setBodyData, toggleRender, MODULE_ID } from "./utils.js";
+import { checkMobile, debug, getDebug, info, MODULE_ID, setBodyData, toggleRender } from "./utils.js";
 import * as windowMgr from "./apps/windowManager.js";
 
 import "styles/pf2e-mobile-sheet.scss";

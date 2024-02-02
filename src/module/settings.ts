@@ -51,7 +51,7 @@ export function registerSettings() {
 		default: "auto",
 		requiresReload: false,
 		onChange: (value) => setBodyData("force-mobile-layout", value),
-	}as SettingRegistration<OverrideSettings>);
+	} as SettingRegistration<OverrideSettings>);
 	game.settings.register(MODULE_ID, "mobile-windows", {
 		name: `${MODULE_ID}.settings.mobile-windows.name`,
 		hint: `${MODULE_ID}.settings.mobile-windows.hint`,
@@ -74,8 +74,8 @@ export function registerSettings() {
 			}
 		},
 	} as SettingRegistration<OverrideSettings>);
-  
-  game.settings.register(MODULE_ID, "disable-canvas", {
+
+	game.settings.register(MODULE_ID, "disable-canvas", {
 		name: `${MODULE_ID}.settings.disable-canvas.name`,
 		hint: `${MODULE_ID}.settings.disable-canvas.hint`,
 		config: true,
@@ -170,7 +170,7 @@ export class EnableShareReceiveTargets extends FormApplication {
 			newData.push({
 				id,
 				receive: data[`receive-${id}`],
-				send: data[`send-${id}`,
+				send: data[`send-${id}`],
 			});
 		}
 		await game.settings.set(MODULE_ID, "mobile-share-targets", newData);
