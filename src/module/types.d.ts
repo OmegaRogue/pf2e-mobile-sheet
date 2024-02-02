@@ -106,7 +106,7 @@ declare global {
 		set(
 			module: typeof MODULE_ID,
 			key: "mobile-windows",
-			value: "on" | "off" | "auto,
+			value: "on" | "off" | "auto",
 		): Promise<"on" | "off" | "auto">;
 
 		set(module: typeof MODULE_ID, key: "send-button", value: "on" | "off" | "auto"): Promise<"on" | "off" | "auto">;
@@ -114,7 +114,7 @@ declare global {
 		set(
 			module: typeof MODULE_ID,
 			key: "header-button-text",
-			value: "on" | "off" | "auto"
+			value: "on" | "off" | "auto",
 		): Promise<"on" | "off" | "auto">;
 
 		set(
