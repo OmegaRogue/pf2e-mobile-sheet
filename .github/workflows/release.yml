@@ -126,22 +126,3 @@ jobs:
               with:
                   package-token: ${{ secrets.FOUNDRYVTT_RELEASE_TOKEN }}
                   manifest-url: https://github.com/${{github.repository}}/releases/download/${{github.event.release.tag_name}}/module.json
-            - name: Submit package to FoundryVTT Package Release API
-              run: |
-                  curl -X POST "https://api.foundryvtt.com/_api/packages/release_version/" \
-                    -H "Content-Type: application/json" \
-                    -H "Authorization: ${{ secrets.FOUNDRYVTT_RELEASE_TOKEN }}" \
-                    -d '{
-                      "id": "pf2e-mobile-sheet",
-                      "dry-run": false,
-                      "release": {
-                        "version": "${{ github.event.release.tag_name }}",
-                        "manifest": "https://github.com/${{ github.repository }}/releases/latest/download/module.json",
-                        "notes": "https://github.com/${{ github.repository }}/releases/tag/${{ github.event.release.tag_name }}",
-                        "compatibility": {
-                          "minimum": "${{ env.fvtt_minimum }}",
-                          "verified": "${{ env.fvtt_verified }}",
-                          "maximum": "${{ env.fvtt_maximum }}"
-                        }
-                      }
-                    }'
