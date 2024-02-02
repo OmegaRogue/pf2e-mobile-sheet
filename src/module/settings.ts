@@ -1,6 +1,5 @@
 import { ShareTargetSettings, ShareTargetSettingsOptions } from "./types.js";
-import { setBodyData } from "./utils.js";
-import { id as MODULE_ID } from "../../static/module.json";
+import { MODULE_ID, setBodyData, toggleRender } from "./utils.js";
 
 type OverrideSettings = {
 	off: `pf2e-mobile-sheet.settings.toggle.off`;
@@ -36,7 +35,7 @@ export function registerSettings() {
 		},
 		default: "auto",
 		requiresReload: false,
-		onChange: (value) => setBodyData("mobile-force-hide-header-button-text", value),
+		onChange: (value) => setBodyData("force-hide-header-button-text", value),
 	} as SettingRegistration<OverrideSettings>);
 	game.settings.register(MODULE_ID, "mobile-layout", {
 		name: `${MODULE_ID}.settings.mobile-layout.name`,
@@ -51,8 +50,8 @@ export function registerSettings() {
 		},
 		default: "auto",
 		requiresReload: false,
-		onChange: (value) => setBodyData("mobile-force-mobile-layout", value),
-	} as SettingRegistration<OverrideSettings>);
+		onChange: (value) => setBodyData("force-mobile-layout", value),
+	}as SettingRegistration<OverrideSettings>);
 	game.settings.register(MODULE_ID, "mobile-windows", {
 		name: `${MODULE_ID}.settings.mobile-windows.name`,
 		hint: `${MODULE_ID}.settings.mobile-windows.hint`,
@@ -67,7 +66,7 @@ export function registerSettings() {
 		default: "auto",
 		requiresReload: false,
 		onChange: (value) => {
-			setBodyData("mobile-force-mobile-window", value);
+			setBodyData("force-mobile-window", value);
 			for (const win of $(".window-app:not(#fsc-ng)")) {
 				const width = Number.parseInt($(win).css("width").slice(0, -2));
 				$(win).css("width", `${width - 1}px`);
@@ -75,14 +74,30 @@ export function registerSettings() {
 			}
 		},
 	} as SettingRegistration<OverrideSettings>);
-
-	game.settings.registerMenu(MODULE_ID, "mobile-share-targets-settings", {
-		name: `${MODULE_ID}.settings.mobile-share-targets.name`,
-		hint: `${MODULE_ID}.settings.mobile-share-targets.hint`,
-		label: `${MODULE_ID}.settings.mobile-share-targets.name`,
-		type: EnableShareReceiveTargets,
-		restricted: true,
-		icon: "fas fa-bullseye",
+  
+  game.settings.register(MODULE_ID, "disable-canvas", {
+		name: `${MODULE_ID}.settings.disable-canvas.name`,
+		hint: `${MODULE_ID}.settings.disable-canvas.hint`,
+		config: true,
+		scope: "client",
+		type: Boolean,
+		default: false,
+		requiresReload: false,
+		onChange: (value: boolean) => {
+			toggleRender(!value);
+		},
+	});
+	game.settings.register(MODULE_ID, "show-player-list", {
+		name: `${MODULE_ID}.settings.show-player-list.name`,
+		hint: `${MODULE_ID}.settings.show-player-list.hint`,
+		config: false,
+		scope: "client",
+		type: Boolean,
+		default: false,
+		requiresReload: false,
+		onChange: (value: boolean) => {
+			setBodyData("hide-player-list", value);
+		},
 	});
 	game.settings.register(MODULE_ID, "mobile-share-targets", {
 		name: `${MODULE_ID}.settings.mobile-share-targets.name`,
@@ -93,6 +108,15 @@ export function registerSettings() {
 		default: [],
 		requiresReload: false,
 	} as SettingRegistration<undefined>);
+
+	game.settings.registerMenu(MODULE_ID, "mobile-share-targets-settings", {
+		name: `${MODULE_ID}.settings.mobile-share-targets.name`,
+		hint: `${MODULE_ID}.settings.mobile-share-targets.hint`,
+		label: `${MODULE_ID}.settings.mobile-share-targets.name`,
+		type: EnableShareReceiveTargets,
+		restricted: true,
+		icon: "fas fa-bullseye",
+	});
 }
 
 export class EnableShareReceiveTargets extends FormApplication {

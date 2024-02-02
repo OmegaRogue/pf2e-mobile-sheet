@@ -1,41 +1,32 @@
+@use "../mixins";
 @import "../breakpoints";
-
-@mixin mobile {
-	.window-header {
-		//border: 1px solid hotpink !important;
-	}
-
-	> section.window-content > .content-box {
-		> section.content > .tab.browser.active > div {
-			display: flex;
-			flex-direction: column;
-		}
-
-		.control-area {
-			width: unset !important;
-		}
-
-		.list-buttons {
-			justify-content: space-around !important;
-			width: 95% !important;
-		}
-
-		.filter-conjunction {
-			display: flex;
-		}
-	}
-}
 
 #compendium-browser {
 	container: compendium-browser / inline-size;
 
-	body:not([data-mobile-force-mobile-window=true],[data-mobile-force-mobile-window=false]) & {
-		@container compendium-browser (width < #{$compendium-browser-breakpoint}) {
-			@include mobile;
+	@include mixins.local-mobile($compendium-browser-breakpoint, compendium-browser) {
+		.window-header {
+			//border: 1px solid hotpink !important;
 		}
-	}
 
-	body[data-mobile-force-mobile-window=true] & {
-		@include mobile;
+		> section.window-content > .content-box {
+			> section.content > .tab.browser.active > div {
+				display: flex;
+				flex-direction: column;
+			}
+
+			.control-area {
+				width: unset !important;
+			}
+
+			.list-buttons {
+				justify-content: space-around !important;
+				width: 95% !important;
+			}
+
+			.filter-conjunction {
+				display: flex;
+			}
+		}
 	}
 }

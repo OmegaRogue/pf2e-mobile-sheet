@@ -1,3 +1,5 @@
+@import "breakpoints";
+
 @mixin sheet-nav-bar {
 	nav.sheet-navigation {
 		flex-wrap: wrap;
@@ -18,4 +20,106 @@
 			width: unset;
 		}
 	}
+}
+
+@mixin global-mobile($root: true) {
+	@media screen and (max-width: #{$global-breakpoint}) {
+		@if $root {
+			@at-root body:not([data-mobile-force-mobile-layout=true],[data-mobile-force-mobile-layout=false]) {
+				@content;
+			}
+		} @else {
+			body:not([data-mobile-force-mobile-layout=true],[data-mobile-force-mobile-layout=false]) & {
+				@content;
+			}
+		}
+	}
+	@if $root {
+		@at-root body[data-mobile-force-mobile-layout=true] {
+			@content;
+		}
+	} @else {
+		body[data-mobile-force-mobile-layout=true] & {
+			@content;
+		}
+	}
+
+}
+
+@mixin tab($tab, $root: true) {
+	@include global-mobile($root) {
+		@if $root {
+			&[data-mobile-tab=#{$tab}] {
+				@content;
+			}
+		} @else {
+			&[data-mobile-tab=#{$tab}] & {
+				@content;
+			}
+		}
+	}
+}
+
+@mixin hide-hud($root: true) {
+	@if $root {
+		@at-root body[data-mobile-hide-hud=true] {
+			@content;
+		}
+	} @else {
+		body[data-mobile-hide-hud=true] & {
+			@content;
+		}
+	}
+}
+
+@mixin global-desktop($root: true) {
+	@media screen and (min-width: #{$global-breakpoint}) {
+		@if $root {
+			@at-root body:not([data-mobile-force-mobile-layout=true],[data-mobile-force-mobile-layout=false]) {
+				@content;
+			}
+		} @else {
+			body:not([data-mobile-force-mobile-layout=true],[data-mobile-force-mobile-layout=false]) & {
+				@content;
+			}
+		}
+
+	}
+	@if $root {
+		@at-root body[data-mobile-force-mobile-layout=false] {
+			@content;
+		}
+	} @else {
+		body[data-mobile-force-mobile-layout=false] & {
+			@content;
+		}
+	}
+
+}
+
+@mixin local-mobile($breakpoint, $container) {
+	body:not([data-mobile-force-mobile-window=true],[data-mobile-force-mobile-window=false]) & {
+		@container #{$container} (width < #{$breakpoint}) {
+			@content;
+		}
+	}
+	body[data-mobile-force-mobile-window=true] & {
+		@content;
+	}
+}
+
+@mixin local-desktop($breakpoint, $container) {
+	body:not([data-mobile-force-mobile-window=true],[data-mobile-force-mobile-window=false]) & {
+		@container #{$container} (width >= #{$breakpoint}) {
+			@content;
+		}
+	}
+	body[data-mobile-force-mobile-window=false] & {
+		@content;
+	}
+}
+
+
+@mixin hide-animation {
+	transition: transform 100ms ease-out;
 }

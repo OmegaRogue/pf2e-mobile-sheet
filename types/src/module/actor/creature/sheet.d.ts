@@ -3,7 +3,7 @@
 /// <reference types="tooltipster" />
 import type { ActorPF2e, CreaturePF2e } from "@actor";
 import { ActorSheetDataPF2e } from "@actor/sheet/data-types.ts";
-import { type ItemPF2e } from "@item";
+import type { ItemPF2e } from "@item";
 import { ItemSourcePF2e } from "@item/base/data/index.ts";
 import { SpellcastingSheetData } from "@item/spellcasting-entry/index.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";

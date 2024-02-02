@@ -1,0 +1,43 @@
+@use "../../mixins";
+@use 'sass:math';
+@import "../../breakpoints";
+
+
+@function bamHeight($columns, $actions-map) {
+	$actions-other: 60-$actions-map;
+	@return (30 + math.round(math.div((30 * $actions-other + 1 + (64 * $actions-map + 1)), $columns)))*1px;
+}
+
+@function bamWidth($columns) {
+	@return 26 + $columns*250px;
+}
+
+.action-list {
+	container: bam / inline-size;
+	display: grid !important;
+	max-height: unset !important;
+}
+
+.map-wrapper {
+	margin: 1px auto !important;
+	width: 100% !important;
+}
+
+:not(.map-wrapper) > .action-btn {
+	width: 100% !important;
+}
+
+@for $i from 1 through 4 {
+	@container dialog (width <= #{bamWidth($i+1)}) and (width > #{bamWidth($i)}) {
+		.action-list {
+			grid-template-columns: repeat($i, 1fr);
+		}
+	}
+}
+
+@container dialog (width > #{bamWidth(5)}) {
+	.action-list {
+		grid-template-columns: repeat(5, 1fr);
+	}
+}
+

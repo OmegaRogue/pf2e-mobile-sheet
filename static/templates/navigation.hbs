@@ -1,0 +1,40 @@
+<ul class="mobile-navigation" style="display: none">
+	<template>
+		<div class="start-menu-option canvas" title="{{localize "pf2e-mobile-sheet.MenuCanvas"}}"
+			 onclick="game.mobilemode.navigation.mobileMenu.selectItem('canvas');"><i class="fas fa-map"></i> {{localize
+			"pf2e-mobile-sheet.MenuCanvas"}}</div>
+		<div class="start-menu-option" title="{{localize "pf2e-mobile-sheet.MenuPlayerList"}}"
+			 onclick="game.mobilemode.navigation.mobileMenu.selectItem('players');"><i
+			class="fas fa-users"></i> {{localize "pf2e-mobile-sheet.MenuPlayerList"}}</div>
+		<div class="start-menu-option" title="{{localize "pf2e-mobile-sheet.MenuFullscreen"}}"
+			 onclick="game.mobilemode.navigation.mobileMenu.selectItem('fullscreen');"><i
+			class="fas fa-expand"></i> {{localize "pf2e-mobile-sheet.MenuFullscreen"}}</div>
+	</template>
+	<li class="navigation-startmenu toggle">
+		<i class="fas fa-bars"></i>
+		{{localize 'pf2e-mobile-sheet.NavigationStart'}}
+	</li>
+	<li class="navigation-map">
+		<i class="fas fa-map"></i>
+		{{localize 'pf2e-mobile-sheet.NavigationScene'}}
+	</li>
+	<li class="navigation-sidebar">
+		<i class="fas fa-home"></i>
+		{{localize 'pf2e-mobile-sheet.NavigationApp'}}
+	</li>
+	<li class="navigation-macros toggle">
+		<i class="fas fa-grip-horizontal"></i>
+		{{localize 'pf2e-mobile-sheet.NavigationActions'}}
+	</li>
+	<li class="navigation-menu toggle">
+		<i class="fas fa-ellipsis-h"></i>
+		{{localize 'pf2e-mobile-sheet.NavigationMore'}}
+	</li>
+	<li class="navigation-windows toggle disabled">
+    <span>
+      <i class="fas fa-window-restore"></i>
+      <span class="count">0</span>
+    </span>
+		{{localize 'pf2e-mobile-sheet.NavigationWindows'}}
+	</li>
+</ul>

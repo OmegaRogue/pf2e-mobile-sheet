@@ -7,7 +7,13 @@ import { DamageRoll } from "@system/damage/roll.ts";
 import { DamageType } from "@system/damage/types.ts";
 import { AttackRollParams, DamageRollParams } from "@system/rolls.ts";
 import { Statistic } from "@system/statistic/index.ts";
-import type { ArrayField, FilePathField, NumberField, SchemaField, StringField } from "types/foundry/common/data/fields.d.ts";
+import type {
+	ArrayField,
+	FilePathField,
+	NumberField,
+	SchemaField,
+	StringField
+} from "foundry-types/common/data/fields.d.ts";
 import type { CharacterPF2e } from "./document.ts";
 declare class ElementalBlast {
     #private;
@@ -83,10 +89,12 @@ interface ElementalBlastConfig extends Omit<ModelPropsFromSchema<BlastConfigSche
     actionCost: 1 | 2;
     maps: {
         melee: {
+	        map0: string;
             map1: string;
             map2: string;
         };
         ranged: {
+	        map0: string;
             map1: string;
             map2: string;
         };

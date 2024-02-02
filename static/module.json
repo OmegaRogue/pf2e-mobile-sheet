@@ -43,6 +43,16 @@
 					"minimum": "5.12.4"
 				}
 			}
+		],
+		"requires": [
+			{
+				"id": "lib-wrapper",
+				"type": "module",
+				"compatibility": {
+					"minimum": "1.0.0.0",
+					"verified": "1.12.13.0"
+				}
+			}
 		]
 	},
 	"socket": true,

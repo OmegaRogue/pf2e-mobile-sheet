@@ -1,0 +1,85 @@
+@use "mixins";
+
+@include mixins.hide-hud {
+	#hotbar {
+		display: none !important;
+		transform: translateY(200%);
+	}
+}
+
+#hotbar {
+	@include mixins.hide-animation;
+}
+
+@include mixins.global-mobile {
+
+	&[data-mobile-hotbar=true] #hotbar {
+		transform: translateY(0);
+	}
+	#hotbar {
+		background: var(--mobile-sheet-dark-background);
+		border-radius: 5px 5px 0 0;
+		box-shadow: 0 0 10px #000c;
+		height: auto;
+		margin: 0 0 var(--navigationHeight);
+		max-width: 620px;
+		padding: 4px;
+		pointer-events: all;
+		transform: translateY(calc(var(--navigationHeight) + 100%));
+		width: 100%;
+
+		.bar-controls {
+			background: none;
+			border: none;
+			box-shadow: none;
+			justify-content: space-evenly;
+			margin: 0;
+			max-height: max(2em, calc(100% - 1em));
+
+			a.page-control, span.page-number {
+				//flex: 1;
+				align-items: center;
+				display: flex;
+				justify-content: center;
+			}
+
+			#bar-toggle {
+				display: none;
+			}
+
+			a {
+				flex: 0;
+				font-size: 2em;
+			}
+		}
+
+		#action-bar {
+			height: auto;
+		}
+
+		#macro-list {
+			align-items: center;
+			border: none;
+			flex: 1;
+			grid-template-columns: repeat(10, var(--macro-size));
+			justify-content: center;
+
+			padding: 0.3em 0;
+
+			@media screen and (max-width: 575px) {
+				grid-template-columns: repeat(5, 50px);
+			}
+		}
+
+		.macro {
+			background: rgba(0, 0, 0, 0.3);
+			border-color: rgba(0, 0, 0, 0.2);
+			border-radius: 0;
+			margin: 2px;
+		}
+
+	}
+}
+
+
+

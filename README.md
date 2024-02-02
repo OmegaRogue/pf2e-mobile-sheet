@@ -127,6 +127,14 @@ This project is being developed under the terms of the
 
 This project is licensed under [GPL-3.0-or-later](COPYING.md).
 
+The contents of the following files are originally from
+the [Mobile Improvements](https://gitlab.com/fvtt-modules-lab/mobile-improvements) module under MIT License:
+
+- [`static/templates/menu.hbs`](static/templates/menu.hbs)
+- [`static/templates/navigation.hbs`](static/templates/navigation.hbs)
+- [`static/templates/window-selector.hbs`](static/templates/window-selector.hbs)
+- [`src/stykes/apps/_mobile-navigation.scss`](src/stykes/apps/_mobile-navigation.scss)
+
 [League Basic JS Module Template]: https://github.com/League-of-Foundry-Developers/FoundryVTT-Module-Template
 [LIMITED LICENSE AGREEMENT FOR MODULE DEVELOPMENT]: https://foundryvtt.com/article/license/
 [Choose an open source license]: https://choosealicense.com/

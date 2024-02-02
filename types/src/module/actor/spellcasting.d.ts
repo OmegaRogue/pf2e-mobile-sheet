@@ -10,10 +10,10 @@ import { DelegatedCollection } from "@util";
 export declare class ActorSpellcasting<TActor extends ActorPF2e> extends DelegatedCollection<BaseSpellcastingEntry<TActor>> {
     #private;
     readonly actor: TActor;
-    /** The base casting proficiency, which spellcasting build off of */
+	/** The base casting proficiency, off of which spellcasting builds */
     base: Statistic;
     /** All available spell lists on this actor */
-    collections: Collection<SpellCollection<TActor, BaseSpellcastingEntry<TActor>>>;
+    collections: Collection<SpellCollection<TActor>>;
     constructor(actor: TActor, entries: BaseSpellcastingEntry<TActor>[]);
     /** Returns a list of entries pre-filtered to SpellcastingEntryPF2e */
     get regular(): SpellcastingEntryPF2e<TActor>[];

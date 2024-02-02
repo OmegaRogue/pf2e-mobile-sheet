@@ -1,6 +1,7 @@
 {
 	"compilerOptions": {
-		//		"allowSyntheticDefaultImports": true, //Do I need this?
+		"allowSyntheticDefaultImports": true,
+		//Do I need this?
 		"allowImportingTsExtensions": true,
 		"allowUnusedLabels": false,
 		"baseUrl": ".",
@@ -32,7 +33,8 @@
 			//			"foundryvtt-devMode": ["src/types/devMode.js"],
 			//			"foundryvtt-devMode": ["src/types/devMode.js"],
 			//			"devMode": ["src/types/foundryvtt-devMode/devMode.js"]
-			"styles/*": ["src/styles/*"]
+			"styles/*": ["src/styles/*"],
+			"@static/*": ["static/*"]
 		},
 		"removeComments": false,
 		"resolveJsonModule": true,
@@ -44,9 +46,16 @@
 		"strictNullChecks": true,
 		"strictPropertyInitialization": true,
 		"target": "es2022",
-		"typeRoots": ["node_modules/@types", "types/types/foundry"],
+		"typeRoots": [
+			"node_modules/@types",
+			"types/types/foundry",
+			"types/types/dev-mode",
+			"types/types/libWrapper",
+			"types/types/socketlib"
+		],
 		"types": ["jquery", "node", "tooltipster"],
-		"useDefineForClassFields": true
+		"useDefineForClassFields": true,
+		"noErrorTruncation": true
 		//		"allowJs": true
 	},
 	"watchOptions": {
