@@ -120,6 +120,12 @@ jobs:
                   token: ${{ secrets.GITHUB_TOKEN }}
                   artifacts: "./dist/${{ env.package_type }}.json, ./${{ env.package_type }}.zip"
                   body: ${{ github.event.release.body }}
+            - name: Publish Module to FoundryVTT Website
+              id: publish-to-foundry-website
+              uses: cs96and/FoundryVTT-release-package@v1
+              with:
+                  package-token: ${{ secrets.FOUNDRYVTT_RELEASE_TOKEN }}
+                  manifest-url: https://github.com/${{github.repository}}/releases/download/${{github.event.release.tag_name}}/module.json
             - name: Submit package to FoundryVTT Package Release API
               run: |
                   curl -X POST "https://api.foundryvtt.com/_api/packages/release_version/" \

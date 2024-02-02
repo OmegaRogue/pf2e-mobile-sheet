@@ -1,10 +1,11 @@
-import { Socketlib } from "./socketlib.js";
-
+import "foundry-types";
 
 declare global {
-	const socketlib: Socketlib;
+	namespace globalThis {
+		const socketlib: Socketlib;
+	}
 
-	export class Socketlib extends SocketlibProps {
+	export class Socketlib {
 		modules: Map<string, SocketlibSocket>;
 		system: System;
 		errors: {
@@ -33,13 +34,21 @@ declare global {
 				recipient: string;
 			}
 		>;
-		register(name, func);
+
+		register(name: string, func: Function): void;
+
 		executeAsGM(handler: string | Function, ...args: any[]): Promise<unknown>;
+
 		executeAsUser(handler: string | Function, userId: string, ...args: any[]): Promise<unknown>;
+
 		executeForAllGMs(handler: string | Function, ...args: any[]): Promise<unknown>;
+
 		executeForOtherGMs(handler: string | Function, ...args: any[]): Promise<unknown>;
+
 		executeForEveryone(handler: string | Function, ...args: any[]): Promise<unknown>;
+
 		executeForOthers(handler: string | Function, ...args: any[]): Promise<unknown>;
+
 		executeForUsers(handler: string | Function, recipients: string[], ...args: any[]): Promise<unknown>;
 	}
 

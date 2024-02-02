@@ -1,12 +1,11 @@
-import { DevModeModule, LogLevel } from "./devMode.js";
-import { id as MODULE_ID } from "../../static/module.json";
+export const MODULE_ID = "pf2e-mobile-sheet";
 
 export function getDebug(): boolean | LogLevel {
 	// const devMode: DevModeModule | undefined = game.modules.get("_dev-mode") as DevModeModule | undefined;
 	return (game.modules.get("_dev-mode") as DevModeModule | undefined)?.api?.getPackageDebugValue(MODULE_ID) ?? false;
 }
 
-export function log(force: boolean, ...args: any[]) {
+export function log(force: boolean, ...args: any[]): void {
 	try {
 		const isDebugging = getDebug();
 
@@ -18,20 +17,63 @@ export function log(force: boolean, ...args: any[]) {
 	}
 }
 
-const isMobile = window.screen.width < 930;
+export function warn(force: boolean, ...args: any[]): void {
+	try {
+		const isDebugging = getDebug();
+
+		if (force || isDebugging) {
+			console.warn(MODULE_ID, "|", ...args);
+		}
+	} catch (e) {
+		/* empty */
+	}
+}
+
+export function error(force: boolean, ...args: any[]): void {
+	try {
+		const isDebugging = getDebug();
+
+		if (force || isDebugging) {
+			console.error(MODULE_ID, "|", ...args);
+		}
+	} catch (e) {
+		/* empty */
+	}
+}
+
+export function info(force: boolean, ...args: any[]): void {
+	try {
+		const isDebugging = getDebug();
+
+		if (force || isDebugging) {
+			console.info(MODULE_ID, "|", ...args);
+		}
+	} catch (e) {
+		/* empty */
+	}
+}
+
+export function debug(force: boolean, ...args: any[]): void {
+	try {
+		const isDebugging = getDebug();
+
+		if (force || isDebugging) {
+			console.debug(MODULE_ID, "|", ...args);
+		}
+	} catch (e) {
+		/* empty */
+	}
+}
 
 export function checkMobile(): boolean {
-	if (getDebug()) {
-		return false;
-	}
-	switch (game.settings.get(MODULE_ID, "mobile-mode")) {
+	switch (game.settings.get(MODULE_ID, "mobile-layout")) {
 		case "off":
 			return false;
 		case "on":
 			return true;
 		case "auto":
 		default:
-			return isMobile;
+			return window.screen.width < 930;
 	}
 }
 
@@ -47,17 +89,53 @@ export function checkMobileWithOverride(settingId: "send-button" | "header-butto
 	}
 }
 
-export function setBodyData(tag: string, value: "on" | "off" | "auto") {
+export function setBodyData(tag: string, value: any): void {
 	const body = $("body");
+	const fullTag = "data-mobile-" + tag;
 	switch (value) {
 		case "off":
-			body.attr("data-" + tag, "false");
+			body.attr(fullTag, "false");
 			break;
 		case "on":
-			body.attr("data-" + tag, "true");
+			body.attr(fullTag, "true");
 			break;
 		case "auto":
-			body.removeAttr("data-" + tag);
+			body.removeAttr(fullTag);
 			break;
+		case "":
+			body.removeAttr(fullTag);
+			break;
+		case "toggle":
+			switch (body.attr(fullTag)) {
+				case "true":
+					body.attr(fullTag, "false");
+					break;
+				default:
+				case "false":
+					body.attr(fullTag, "true");
+					break;
+			}
+			break;
+		default:
+			body.attr(fullTag, value.toString());
 	}
+}
+
+export function getBodyData(tag: string): boolean | string | undefined {
+	const body = $("body");
+	const fullTag = "data-mobile-" + tag;
+	const value = body.attr(fullTag);
+	switch (value) {
+		case "true":
+			return true;
+		case "false":
+			return false;
+		default:
+			return value;
+	}
+}
+
+export function toggleRender(value: boolean): void {
+	if (value) canvas.ready && canvas.app.start();
+	else canvas.ready && canvas.app.stop();
 }

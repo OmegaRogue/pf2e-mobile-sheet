@@ -2,7 +2,7 @@ import { ActorUpdateContext } from "@actor/base.ts";
 import { ItemType } from "@item/base/data/index.ts";
 import type { TokenDocumentPF2e } from "@scene";
 import type { Statistic } from "@system/statistic/index.ts";
-import type DataModel from "types/foundry/common/abstract/data.d.ts";
+import type DataModel from "foundry-types/common/abstract/data.d.ts";
 import type { PartyPF2e } from "./document.ts";
 interface PartyUpdateContext<TParent extends TokenDocumentPF2e | null> extends ActorUpdateContext<TParent> {
     removedMembers?: string[];

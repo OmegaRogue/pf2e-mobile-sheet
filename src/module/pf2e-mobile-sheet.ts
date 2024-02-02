@@ -1,16 +1,46 @@
 import { registerSettings } from "./settings.ts";
 import { preloadTemplates } from "./preloadTemplates.ts";
-import { id as MODULE_ID } from "../../static/module.json";
 import * as math from "@pixi/math";
 import type { EncounterTrackerPF2e } from "@module/apps/sidebar/index.ts";
 import { CombatantPF2e } from "@module/encounter/combatant.js";
 import { EncounterPF2e } from "@module/encounter/document.js";
 import { TokenDocumentPF2e } from "@scene/token-document/document.js";
 import { ScenePF2e } from "@scene/document.js";
-import { checkMobile, getDebug, log, setBodyData } from "./utils.js";
+import { checkMobile, debug, getDebug, info, setBodyData, toggleRender, MODULE_ID } from "./utils.js";
+import * as windowMgr from "./apps/windowManager.js";
 
 import "styles/pf2e-mobile-sheet.scss";
 import "./resizeObservers.js";
+import { MobileUI } from "./apps/MobileUI.js";
+
+abstract class MobileMode {
+	static enabled = false;
+	static navigation: MobileUI;
+
+	static enter() {
+		if (MobileMode.enabled) return;
+		MobileMode.enabled = true;
+		ui.nav?.collapse();
+		// viewHeight();
+		Hooks.call("mobile-improvements:enter");
+	}
+
+	static leave() {
+		if (!MobileMode.enabled) return;
+		MobileMode.enabled = false;
+		Hooks.call("mobile-improvements:leave");
+	}
+
+	static viewResize() {
+		// if (MobileMode.enabled) viewHeight();
+		// if (game.settings && getSetting(settings.PIN_MOBILE_MODE))
+		// 	return MobileMode.enter();
+		// if (localStorage.getItem("mobile-improvements.pinMobileMode") === "true")
+		// 	return MobileMode.enter();
+		if (checkMobile()) MobileMode.enter();
+		else MobileMode.leave();
+	}
+}
 
 Hooks.once("devModeReady", async ({ registerPackageDebugFlag }) => {
 	await registerPackageDebugFlag(MODULE_ID);
@@ -19,9 +49,13 @@ Hooks.once("devModeReady", async ({ registerPackageDebugFlag }) => {
 
 // Initialize module
 Hooks.once("init", async () => {
-	log(true, "pf2e-mobile-sheet | Initializing pf2e-mobile-sheet");
+	info(true, "Initializing " + MODULE_ID);
 	// Assign custom classes and constants here
+	windowMgr.activate();
 
+	if (MobileMode.navigation === undefined) {
+		MobileMode.navigation = new MobileUI();
+	}
 	// Register custom module settings
 	registerSettings();
 
@@ -31,26 +65,74 @@ Hooks.once("init", async () => {
 	// Register custom sheets (if any)
 });
 
+Hooks.on("getSceneControlButtons", (hudButtons: SceneControl[]) => {
+	for (const hud of hudButtons) {
+		const tool: SceneControlTool = {
+			name: "touch-pan",
+			title: "pf2e-mobile-sheet.PanToggle",
+			icon: "fa-regular fa-arrows",
+			visible: true,
+			toggle: true,
+			onClick: async () => {
+				info(true, tool.active);
+			},
+		};
+
+		hud?.tools?.push(tool);
+	}
+});
+
 Hooks.once("ready", async () => {
-	const collapse = $("#sidebar > nav#sidebar-tabs > a.collapse").clone();
-	collapse.prop("id", "collapse-mobile");
-	const collapseButton = collapse.find("i");
-	collapse.on("click", () => {
-		$("#sidebar > nav#sidebar-tabs > a.collapse:not(#collapse-mobile)")[0].click();
-		setTimeout(() => {
-			collapseButton.removeClass("fa-caret-left");
-		}, 450);
-	});
-	collapseButton.removeClass("fa-caret-left");
-	collapseButton.removeClass("fa-caret-right");
-	collapseButton.addClass("fa-bars");
-	collapse.prependTo($("#sidebar-tabs"));
+	if (!game.modules.get("lib-wrapper")?.active && game.user.isGM)
+		ui.notifications.error(
+			"Module Pf2e Mobile Sheet requires the 'libWrapper' module. Please install and activate it.",
+		);
+	game.mobilemode = MobileMode;
 
 	const body = $("body");
 
-	setBodyData("mobile-force-hide-header-button-text", game.settings.get(MODULE_ID, "header-button-text"));
-	setBodyData("mobile-force-mobile-window", game.settings.get(MODULE_ID, "mobile-windows"));
-	setBodyData("mobile-force-mobile-layout", game.settings.get(MODULE_ID, "mobile-layout"));
+	setBodyData("force-hide-header-button-text", game.settings.get(MODULE_ID, "header-button-text"));
+	setBodyData("force-mobile-window", game.settings.get(MODULE_ID, "mobile-windows"));
+	setBodyData("force-mobile-layout", game.settings.get(MODULE_ID, "mobile-layout"));
+	setBodyData("hide-player-list", game.settings.get(MODULE_ID, "show-player-list"));
+	setBodyData("hotbar", false);
+	toggleRender(!game.settings.get(MODULE_ID, "disable-canvas"));
+	MobileMode.navigation.render(true);
+	// MobileMode.viewResize();
+	libWrapper.register(
+		MODULE_ID,
+		"Canvas.prototype._onDragSelect",
+		function (this: Canvas, wrapped: any, event: PIXI.FederatedEvent) {
+			if (!ui.controls?.control?.tools.find((a) => a.name === "touch-pan")?.active) return wrapped(event);
+			// @ts-expect-error
+			// Extract event data
+			const cursorTime = event.interactionData.cursorTime;
+			// @ts-expect-error
+			const { origin, destination } = event.interactionData;
+			const dx = destination.x - origin.x;
+			const dy = destination.y - origin.y;
+
+			// Update the client's cursor position every 100ms
+			const now = Date.now();
+			if (now - (cursorTime || 0) > 100) {
+				// @ts-expect-error
+				if (this.controls) this.controls._onMouseMove(event, destination);
+				// @ts-expect-error
+				event.interactionData.cursorTime = now;
+			}
+
+			// Pan the canvas
+			this.pan({
+				x: canvas.stage.pivot.x - dx * CONFIG.Canvas.dragSpeedModifier,
+				y: canvas.stage.pivot.y - dy * CONFIG.Canvas.dragSpeedModifier,
+			});
+
+			// Reset Token tab cycling
+			// @ts-expect-error
+			this.tokens._tabIndex = null;
+		},
+		libWrapper.MIXED,
+	);
 
 	if (!checkMobile()) return;
 	if (game.modules.get("pathfinder-ui")?.active) body.addClass("pf2e-ui");
@@ -59,6 +141,12 @@ Hooks.once("ready", async () => {
 	// $("tokenbar").remove();
 	// $("canvas#board").remove();
 });
+
+// Trigger the recalculation of viewheight often. Not great performance,
+// but required to work on different mobile browsers
+// document.addEventListener("fullscreenchange", () => setTimeout(MobileMode.viewResize, 100));
+// window.addEventListener("resize", MobileMode.viewResize);
+// window.addEventListener("scroll", MobileMode.viewResize);
 
 Hooks.on("renderApplication", async (app: Application) => {
 	if (app.id !== "fsc-ng") return;
@@ -69,6 +157,7 @@ Hooks.on("renderApplication", async (app: Application) => {
 		}
 	}, 500);
 });
+
 Hooks.on("renderChatLog", async () => {
 	// if (!checkMobileWithOverride("send-button")) return;
 	const sendButton = $(`<button type="button" class="button send-button"><i class="fas fa-paper-plane"/></button>`);
@@ -88,22 +177,8 @@ Hooks.on("renderChatLog", async () => {
 		$("#chat-message").appendTo(chatContainer);
 		sendButton.appendTo(chatContainer);
 	}
-	log(false, "Add Send Button");
+	debug(false, "Add Send Button");
 });
-
-// Hooks.on("targetToken", (user, token, targeted) => {
-// 	game.settings.
-// 	if (!game.settings.get(MODULE_ID, "share-targets")) return;
-// 	if (user.id === sharedUserId) {
-// 		for (const userId in sharingUsers) {
-// 			socket.executeAsUser(socketTarget, userId, targeted, token.id);
-// 		}
-// 	} else {
-// 		socket.executeAsUser(socketTarget, sharedUserId, targeted, token.id);
-// 	}
-// });
-
-// document.querySelector("#combat-tracker > li.combatant.actor.directory-item.flexrow.hidden-name.gm-draggable > div.token-name.flexcol > h4 > span.name")
 
 const headings = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
 
@@ -145,10 +220,4 @@ Hooks.on("refreshToken", async () => {
 	await updateCombatTracker(game.combat?.turns);
 });
 
-Hooks.on("collapseSidebar", (_, collapsed: boolean) => {
-	if (!checkMobile()) return;
-	const sidebar = $("#sidebar");
-	const collapseButton = sidebar.find(".collapse > i");
-	if (collapsed) collapseButton.removeClass("fa-caret-left");
-	else collapseButton.removeClass("fa-caret-right");
-});
+globalThis.MobileMode = MobileMode;

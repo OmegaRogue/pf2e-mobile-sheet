@@ -1,10 +1,13 @@
-import { log } from "./utils.js";
-import { id as MODULE_ID } from "../../static/module.json";
+import { log, MODULE_ID } from "./utils.js";
 
 async function getDistance(sourceId: string, targetId: string): Promise<number> {
-	return canvas.grid.measureDistance(canvas.tokens.get(sourceId)?.center, canvas.tokens.get(targetId)?.center, {
-		gridSpaces: true,
-	});
+	return canvas.grid.measureDistance(
+		canvas.tokens.get(sourceId)?.center ?? ({} as Point),
+		canvas.tokens.get(targetId)?.center ?? ({} as Point),
+		{
+			gridSpaces: true,
+		},
+	);
 }
 
 async function socketTarget(tokenDocumentId: string, userSourceId: string, releaseOthers: boolean): Promise<void> {

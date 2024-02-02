@@ -11,23 +11,26 @@ import "./tooltip.d.ts";
 import "./tour.d.ts";
 
 declare global {
-    interface FoundryUI<
-        TActorDirectory extends ActorDirectory<Actor<null>>,
-        TItemDirectory extends ItemDirectory<Item<null>>,
-        TChatLog extends ChatLog,
-        TCompendiumDirectory extends CompendiumDirectory,
-        TCombatTracker extends CombatTracker<Combat | null>,
-    > {
-        actors: TActorDirectory;
-        chat: TChatLog;
-        combat: TCombatTracker;
-        compendium: TCompendiumDirectory;
-        controls: SceneControls;
-        items: TItemDirectory;
-        notifications: Notifications;
-        settings: Settings;
-        sidebar: Sidebar;
-        tables: RollTableDirectory;
-        windows: Record<number, Application>;
-    }
+	interface FoundryUI<
+		TActorDirectory extends ActorDirectory<Actor<null>>,
+		TItemDirectory extends ItemDirectory<Item<null>>,
+		TChatLog extends ChatLog,
+		TCompendiumDirectory extends CompendiumDirectory,
+		TCombatTracker extends CombatTracker<Combat | null>,
+		THotbar extends Hotbar,
+	> {
+		actors: TActorDirectory;
+		chat: TChatLog;
+		combat: TCombatTracker;
+		compendium: TCompendiumDirectory;
+		controls: SceneControls;
+		items: TItemDirectory;
+		notifications: Notifications;
+		settings: Settings;
+		sidebar: Sidebar;
+		tables: RollTableDirectory;
+		windows: Record<number, Application>;
+		hotbar: THotbar;
+		nav: SceneNavigation;
+	}
 }

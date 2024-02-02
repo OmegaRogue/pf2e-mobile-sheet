@@ -7,66 +7,48 @@
 @use "npc";
 @use "item";
 @use "journal";
+@use "../../mixins";
 @import "../../breakpoints";
 
 .sheet {
-	container: sheet / inline-size;
+
+
+	&:is(.actor,.item,.journal-entry) {
+		container: sheet / inline-size;
+	}
 
 	&.actor {
-		body:not([data-mobile-force-mobile-window=true],[data-mobile-force-mobile-window=false]) & {
-			@container sheet (width < #{$familiar-breakpoint}) {
-				@include familiar.mobile;
-			}
-			@container sheet (width < #{$party-breakpoint}) {
-				@include party.mobile;
-			}
-			@container sheet (width < #{$player-character-breakpoint}) {
-				@include character.mobile;
-			}
-			@container sheet (width < #{$loot-sheet-breakpoint}) {
-				@include loot.mobile;
-			}
-			@container sheet (width < #{$vehicle-sheet-breakpoint}) {
-				@include vehicle.mobile;
-			}
-			@container sheet (width < #{$hazard-sheet-breakpoint}) {
-				@include hazard.mobile;
-			}
-			@container sheet (width < #{$npc-sheet-breakpoint}) {
-				@include npc.mobile;
-			}
-			@container sheet (width >= #{$player-character-breakpoint}) {
-				@include character.desktop;
-			}
-			@container sheet (width >= #{$vehicle-sheet-breakpoint}) {
-				@include vehicle.desktop;
-			}
-		}
-
-		body[data-mobile-force-mobile-window=false] & {
-			@include character.desktop;
-			@include vehicle.desktop;
-		}
-
-		body[data-mobile-force-mobile-window=true] & {
+		@include mixins.local-mobile($familiar-breakpoint, sheet) {
 			@include familiar.mobile;
+		}
+		@include mixins.local-mobile($party-breakpoint, sheet) {
 			@include party.mobile;
+		}
+		@include mixins.local-mobile($player-character-breakpoint, sheet) {
 			@include character.mobile;
+		}
+		@include mixins.local-mobile($loot-sheet-breakpoint, sheet) {
 			@include loot.mobile;
+		}
+		@include mixins.local-mobile($vehicle-sheet-breakpoint, sheet) {
 			@include vehicle.mobile;
+		}
+		@include mixins.local-mobile($hazard-sheet-breakpoint, sheet) {
 			@include hazard.mobile;
+		}
+		@include mixins.local-mobile($npc-sheet-breakpoint, sheet) {
 			@include npc.mobile;
+		}
+		@include mixins.local-desktop($player-character-breakpoint, sheet) {
+			@include character.desktop;
+		}
+		@include mixins.local-desktop($vehicle-sheet-breakpoint, sheet) {
+			@include vehicle.desktop;
 		}
 	}
 
 	&.item {
-		body:not([data-mobile-force-mobile-window=true],[data-mobile-force-mobile-window=false]) & {
-			@container sheet (width < #{$item-sheet-breakpoint}) {
-				@include item.mobile;
-			}
-		}
-
-		body[data-mobile-force-mobile-window=true] & {
+		@include mixins.local-mobile($item-sheet-breakpoint, sheet) {
 			@include item.mobile;
 		}
 	}
@@ -74,13 +56,7 @@
 	&.journal-entry {
 		min-width: unset;
 
-		body:not([data-mobile-force-mobile-window=true],[data-mobile-force-mobile-window=false]) & {
-			@container sheet (width < #{$journal-breakpoint}) {
-				@include journal.mobile;
-			}
-		}
-
-		body[data-mobile-force-mobile-window=true] & {
+		@include mixins.local-mobile($journal-breakpoint, sheet) {
 			@include journal.mobile;
 		}
 	}

@@ -55,11 +55,12 @@ declare global {
 
     interface Item<TParent extends Actor | null = Actor | null> extends ClientBaseItem<TParent> {
         get uuid(): ItemUUID;
-
-        _sheet: ItemSheet<this, DocumentSheetOptions> | null;
-
         get sheet(): ItemSheet<this, DocumentSheetOptions>;
     }
+
+	namespace Item {
+		const implementation: typeof Item;
+	}
 
     type EmbeddedItemUUID = `Actor.${string}.Item.${string}`;
     type WorldItemUUID = WorldDocumentUUID<Item<null>>;

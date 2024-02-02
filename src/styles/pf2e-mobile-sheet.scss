@@ -1,9 +1,13 @@
 @use "mixins";
 @import "breakpoints";
 @import "apps";
+@import "drawer";
+@import "send-button";
+@import "hotbar";
+@import "taskbar";
 
 :root {
-	--send-button-gap: 0.5em;
+
 	//--familiar-breakpoint: $familiar-breakpoint;
 	//--party-breakpoint: $party-breakpoint;
 	//--player-character-breakpoint: $player-character-breakpoint;
@@ -17,6 +21,14 @@
 	//--settings-breakpoint: $settings-breakpoint;
 	//--compendium-browser-breakpoint: $compendium-browser-breakpoint;
 	//--item-sheet-breakpoint: $item-sheet-breakpoint;
+	--navigationHeight: 2rem;
+	--vh: 1vh;
+	--viewHeight: calc(calc(var(--vh) * 100) - var(--navigationHeight));
+	--send-button-gap: 0.5em;
+	--mobile-sheet-dark-background: #333;
+	--mobile-sheet-dark-background-transparent: #333333ee;
+	--mobile-max-window-height: calc(100% - var(--navigationHeight));
+	--bam-items-per-row: 14;
 }
 
 [data-mobile-force-hide-header-button-text=true] {
@@ -29,190 +41,18 @@
 	}
 }
 
-
-@mixin desktop {
-	#sidebar {
-		#collapse-mobile {
-			display: none;
-		}
-
-		.send-button {
-			display: none;
-		}
+@include mixins.hide-hud {
+	#ui-center, #ui-left, #ui-middle, #fps {
+		display: none !important;
+	}
+	#logo {
+		display: none !important;
+		transform: scale(0.5) translateX(-50%) translateY(-50%);
 	}
 }
 
-@mixin mobile {
-	.app {
-		margin: 0;
-
-		&.window-app:not(.minimized,.dialog) {
-			height: 100% !important;
-			left: 0 !important;
-			top: 0 !important;
-			width: 100% !important;
-		}
-	}
-
-	#ui-left, #ui-middle, #ui-bottom {
-		display: none;
-	}
-
-	#chat-form textarea {
-		width: calc(100% - calc(4em + var(--send-button-gap)));
-	}
-
-	.send-button {
-		right: 0;
-		width: 2em;
-		transition: text-shadow 0.15s ease-in-out, background-color 0.15s ease-in-out, border 0.15s ease-in-out, color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, backdrop-filter 0.15s ease-in-out, border-radius 0.15s;
-		text-shadow: 0 0 0.2em black;
-		box-shadow: var(--glassy);
-		color: var(--color-text-light-heading);
-		font-size: 2em;
-		background-color: var(--glass-bg-light);
-
-		.chatcommander-active & {
-			height: 100%;
-			position: absolute;
-			top: 0;
-		}
-
-		body:not(.chatcommander-active) & {
-			flex-basis: auto;
-			height: unset;
-			top: -2em;
-		}
-	}
-
-
-	//.dorako-ui .send-button {
-	//	border: unset;
-	//	border-radius: var(--border-radius);
-	//}
-
-
-	#chat-message {
-		flex-basis: auto;
-	}
-
-	#mobile-chat-row {
-		flex-wrap: nowrap;
-		gap: var(--send-button-gap);
-	}
-
-
-	.sheet.actor.character .popout-module-button, .pathmuncher-open, .configure-token, .configure-creature, .configure-theatre, .console-print, .document-id-link, .document-image-link, .simple-calendar, #tokenbar, .header-button.control.pf2e-action-support-engine {
-		display: none !important;
-	}
-
-	.window-resizable-handle {
-		display: none !important;
-	}
-
-	div.taskbar#taskbar {
-		//display: none;
-		width: 100% !important;
-
-		.taskbar-tray {
-			flex-wrap: wrap;
-		}
-
-		#taskbarQuickInsert h3 {
-			padding: 0;
-		}
-
-		.taskbar-items {
-			overflow: scroll hidden;
-		}
-
-		.taskbar-hidden-mobile {
-			display: none;
-		}
-
-		#hotbar {
-			display: none;
-		}
-	}
-	.start-menu {
-		width: 100%;
-		min-width: unset;
-	}
-	.start-menu-apps {
-		min-width: unset;
-	}
-	.start-menu-options.expanded {
-		width: 100%;
-		max-width: 70%;
-	}
-
-
-	.window-app.fullscreen-window {
-		width: 100%;
-		height: 100%;
-		top: 0;
-		left: 0;
-
-		.window-resizable-handle {
-			/*display: none;*/
-		}
-	}
-	#token-action-hud {
-		display: none;
-	}
-
-	#ui-right {
-		margin: 0;
-		padding: 0;
-		width: 100%;
-
-		#sidebar {
-			margin: 0;
-			padding: 0;
-			width: 100%;
-			height: 100%;
-			background: rgba(0, 0, 0, 0.8);
-
-			&.collapsed {
-				height: unset;
-
-				#sidebar-tabs .item {
-					display: none;
-				}
-			}
-
-			&:not(.collapsed) {
-				.fa-bars {
-					transform: rotate(-90deg);
-				}
-			}
-
-			#sidebar-tabs {
-				font-size: 2em;
-
-				.pf2e-ui & > .item {
-					flex-basis: 2em !important;
-					height: 2em !important;
-				}
-			}
-
-			.collapse:not(#collapse-mobile) {
-				display: none;
-			}
-
-			> .dorako-resize {
-				display: none;
-			}
-		}
-	}
-
-	#hurry-up {
-		display: none;
-	}
-
-	.mseCharacterName {
-		flex-basis: 100%;
-	}
+#logo {
+	@include mixins.hide-animation;
 }
 
 #mobile-chat-row {
@@ -223,23 +63,120 @@
 	padding: 0 0.3em;
 }
 
+@include mixins.global-mobile {
 
-@media screen and (min-width: #{$global-breakpoint}) {
-	@at-root body:not([data-mobile-force-mobile-layout=true],[data-mobile-force-mobile-layout=false]) {
-		@include desktop;
+	:root {
+		--carousel-alignment: right;
+	}
+
+	#ui-top {
+		left: 50%;
+		margin: 0 auto;
+		position: fixed;
+		top: 0;
+		transform: translateX(-50%);
+		width: 100%;
+	}
+
+	#ui-bottom {
+		bottom: 0;
+		left: 50%;
+		margin: 0 auto;
+		position: fixed;
+		transform: translateX(-50%);
+		width: 100%;
+
+		&.centered {
+			display: block;
+		}
+	}
+	.app {
+		margin: 0;
+
+		&.window-app:not(.minimized,.dialog,.simple-calendar) {
+			height: var(--mobile-max-window-height) !important;
+			left: 0 !important;
+			top: 0 !important;
+			width: 100% !important;
+		}
+	}
+	.sheet.actor.character .popout-module-button, .pathmuncher-open, .configure-token, .configure-creature, .configure-theatre, .console-print, .document-id-link, .document-image-link, #tokenbar, .header-button.control.pf2e-action-support-engine {
+		display: none !important;
+	}
+
+	.window-resizable-handle {
+		display: none !important;
+	}
+
+	#hurry-up {
+		display: none;
+	}
+	#token-action-hud {
+		display: none;
 	}
 }
 
-@at-root body[data-mobile-force-mobile-layout=true] {
-	@include mobile;
-}
+@include mixins.tab("app") {
+	#ui-left, #ui-middle, #ui-bottom {
+		display: none;
+	}
 
-@at-root body[data-mobile-force-mobile-layout=false] {
-	@include desktop;
-}
+	#token-action-hud {
+		display: none;
+	}
 
-@media screen and (max-width: #{$global-breakpoint}) {
-	@at-root body:not([data-mobile-force-mobile-layout=true],[data-mobile-force-mobile-layout=false]) {
-		@include mobile;
+	#ui-right {
+		margin: 0 0 var(--navigationHeight);
+		padding: 0;
+		width: 100%;
+	}
+	#chat-message {
+		flex-basis: auto;
+	}
+
+	.mseCharacterName {
+		flex-basis: 100%;
 	}
 }
+
+@include mixins.tab("map") {
+	#logo {
+		display: none !important;
+		opacity: 0;
+	}
+	#ui-right, #fps {
+		display: none !important;
+	}
+	nav#controls {
+		padding-top: 80px;
+
+		#party-monitor-dock {
+			display: none;
+		}
+	}
+	&:not([data-mobile-hide-player-list=true]) #players {
+		margin: 0 0.5em 3em 1em;
+		opacity: 1 !important;
+	}
+
+	#players h3 {
+		margin: 0;
+	}
+
+	&[data-mobile-hide-player-list=true] #players {
+		display: none;
+		transform: translateX(-110%);
+	}
+}
+
+
+#navigation .monks-scene-navigation {
+	.scene-list {
+		flex-wrap: wrap;
+
+		> li {
+			min-width: 100px;
+		}
+	}
+}
+

@@ -1,7 +1,14 @@
-import { SaveType } from "@actor/types.ts";
-import { EffectTrait } from "@item/abstract-effect/data.ts";
+import type { SaveType } from "@actor/types.ts";
+import type { EffectTrait } from "@item/abstract-effect/types.ts";
 import { DataUnionField, PredicateField, StrictArrayField, StrictBooleanField, StrictNumberField, StrictStringField } from "@system/schema-data-fields.ts";
-import type { AlphaField, ArrayField, BooleanField, ColorField, EmbeddedDataField, SchemaField } from "types/foundry/common/data/fields.d.ts";
+import type {
+	AlphaField,
+	ArrayField,
+	BooleanField,
+	ColorField,
+	EmbeddedDataField,
+	SchemaField
+} from "foundry-types/common/data/fields.d.ts";
 import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource, RuleValue } from "./data.ts";
 import { ItemAlteration } from "./item-alteration/alteration.ts";

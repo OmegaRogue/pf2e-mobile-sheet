@@ -1,0 +1,70 @@
+@use "mixins";
+
+@include mixins.global-mobile {
+	div.taskbar#taskbar {
+		background: none;
+		height: var(--navigationHeight);
+		width: 100% !important;
+		bottom: 0;
+
+		.start-menu-btn, .taskbar-tray, .taskbar-item, #taskbar-showdesktop {
+			display: none;
+		}
+
+		.taskbar-tray {
+			flex-wrap: wrap;
+		}
+
+		#taskbarQuickInsert h3 {
+			padding: 0;
+		}
+
+		.taskbar-items {
+			overflow: scroll hidden;
+		}
+
+		.taskbar-hidden-mobile {
+			display: none;
+		}
+
+		#hotbar {
+			display: none;
+		}
+	}
+
+	.start-menu {
+		min-width: unset;
+		width: 100%;
+		bottom: var(--navigationHeight) !important;
+	}
+	.start-menu-apps {
+		//min-width: unset;
+	}
+	.start-menu-options {
+		&.expanded {
+			max-width: 70%;
+			width: 100%;
+		}
+
+		.start-menu-option {
+			height: unset;
+		}
+	}
+}
+
+@include mixins.tab("app") {
+}
+
+@include mixins.tab("map") {
+	div.taskbar#taskbar {
+		.start-menu {
+			//margin-bottom: calc(var(--navigationHeight)*2.2);
+			//bottom: var(--navigationHeight) !important;
+			//bottom: 0;
+			//padding: unset;
+			&.active {
+				//height: 50vh;
+			}
+		}
+	}
+}

@@ -1,0 +1,24 @@
+@use "mixins";
+
+.drawer {
+	bottom: var(--navigationHeight);
+	box-shadow: 0 0 15px #000c;
+	max-width: 450px;
+	position: fixed;
+	right: 0;
+	transform: translateY(calc(100% + 60px));
+	transition: transform ease-out 100ms;
+	visibility: hidden;
+	width: 100%;
+	z-index: 1000;
+
+	&.open {
+		transform: translateY(0);
+		visibility: unset;
+		z-index: 1001;
+	}
+
+	@include mixins.global-mobile(false) {
+		visibility: unset;
+	}
+}

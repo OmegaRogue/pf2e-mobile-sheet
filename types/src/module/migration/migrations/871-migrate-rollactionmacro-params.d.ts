@@ -1,4 +1,4 @@
-import type { MacroSource } from "types/foundry/common/documents/macro.d.ts";
+import type { MacroSource } from "foundry-types/common/documents/macro.d.ts";
 import { MigrationBase } from "../base.ts";
 /** Migrate rollActionMacro function parameters to an object */
 export declare class Migration871MigrateRollActionMacroParams extends MigrationBase {

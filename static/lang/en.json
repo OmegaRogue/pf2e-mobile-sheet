@@ -23,6 +23,16 @@
 				"hint": "Removes the Text on the window header button."
 			}
 		},
-		"sidebar-tab": "Sidebar"
+		"sidebar-tab": "Sidebar",
+		"MenuCanvas": "Toggle Canvas",
+		"MenuPlayerList": "Toggle Player List",
+		"MenuFullscreen": "Toggle fullscreen",
+		"NavigationStart": "Start",
+		"NavigationScene": "Scene",
+		"NavigationApp": "App",
+		"NavigationActions": "Actions",
+		"NavigationMore": "More",
+		"NavigationWindows": "Windows",
+		"PanToggle": "Pan with left click"
 	}
 }

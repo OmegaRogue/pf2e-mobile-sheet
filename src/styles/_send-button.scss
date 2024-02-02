@@ -1,0 +1,55 @@
+@use "mixins";
+
+
+@mixin mobile {
+	.send-button {
+		right: 0;
+		width: 2em;
+		transition: text-shadow 0.15s ease-in-out, background-color 0.15s ease-in-out, border 0.15s ease-in-out, color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, backdrop-filter 0.15s ease-in-out, border-radius 0.15s;
+		text-shadow: 0 0 0.2em black;
+		box-shadow: var(--glassy);
+		color: var(--color-text-light-heading);
+		font-size: 2em;
+		background-color: var(--glass-bg-light);
+
+		.chatcommander-active & {
+			height: 100%;
+			position: absolute;
+			top: 0;
+		}
+
+		body:not(.chatcommander-active) & {
+			flex-basis: auto;
+			height: unset;
+			top: -2em;
+		}
+	}
+	#mobile-chat-row {
+		flex-wrap: nowrap;
+		gap: var(--send-button-gap);
+	}
+	#chat-form textarea {
+		width: calc(100% - calc(4em + var(--send-button-gap)));
+	}
+	//.dorako-ui .send-button {
+	//	border: unset;
+	//	border-radius: var(--border-radius);
+	//}
+}
+
+@include mixins.global-mobile {
+	@include mobile;
+}
+
+@include mixins.tab("app") {
+	@include mobile;
+	.send-button {
+		display: unset !important;
+	}
+}
+
+@include mixins.global-desktop {
+	.send-button {
+		display: none;
+	}
+}

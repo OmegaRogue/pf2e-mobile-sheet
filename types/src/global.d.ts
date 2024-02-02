@@ -1,4 +1,5 @@
 import type { ActorPF2e } from "@actor";
+import type { Action } from "@actor/actions/index.ts";
 import type { AutomaticBonusProgression } from "@actor/character/automatic-bonus-progression.ts";
 import type { ElementalBlast } from "@actor/character/elemental-blast.ts";
 import type { FeatGroupOptions } from "@actor/character/feats.ts";
@@ -37,7 +38,7 @@ import type { sluggify } from "@util";
 import type EnJSON from "static/lang/en.json";
 interface GamePF2e extends Game<ActorPF2e<null>, ActorsPF2e<ActorPF2e<null>>, ChatMessagePF2e, EncounterPF2e, ItemPF2e<null>, MacroPF2e, ScenePF2e, UserPF2e> {
     pf2e: {
-        actions: Record<string, Function>;
+        actions: Record<string, Function> & Collection<Action>;
         compendiumBrowser: CompendiumBrowser;
         licenseViewer: LicenseViewer;
         worldClock: WorldClock;
@@ -149,7 +150,7 @@ declare global {
     namespace globalThis {
         var game: GamePF2e;
         var fu: typeof foundry.utils;
-        var ui: FoundryUI<ActorDirectoryPF2e, ItemDirectory<ItemPF2e<null>>, ChatLogPF2e, CompendiumDirectoryPF2e, EncounterTrackerPF2e<EncounterPF2e | null>>;
+	    var ui: FoundryUI<ActorDirectoryPF2e, ItemDirectory<ItemPF2e<null>>, ChatLogPF2e, CompendiumDirectoryPF2e, EncounterTrackerPF2e<EncounterPF2e | null>, HotbarPF2e>;
         interface Math {
             eq: (a: number, b: number) => boolean;
             gt: (a: number, b: number) => boolean;

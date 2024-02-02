@@ -1,0 +1,47 @@
+@use "../mixins";
+
+
+@include mixins.hide-hud {
+	#sidebar {
+		display: none !important;
+		transform: translateX(150%);
+	}
+}
+
+#sidebar {
+	@include mixins.hide-animation;
+}
+
+@include mixins.tab("app") {
+	#ui-right > #sidebar {
+		background: rgba(0, 0, 0, 0.8);
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		width: 100% !important;
+
+		&.collapsed {
+			height: unset;
+			#sidebar-tabs .item {
+				display: none;
+			}
+		}
+
+		#sidebar-tabs {
+			font-size: 2em;
+
+			> .collapse {
+				display: none;
+			}
+
+			.pf2e-ui & > .item {
+				flex-basis: 2em !important;
+				height: 2em !important;
+			}
+		}
+
+		> .dorako-resize {
+			display: none;
+		}
+	}
+}
