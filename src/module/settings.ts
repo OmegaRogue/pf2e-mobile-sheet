@@ -1,4 +1,11 @@
+import { ShareTargetSettings, ShareTargetSettingsOptions } from "./types.js";
 import { MODULE_ID, setBodyData, toggleRender } from "./utils.js";
+
+type OverrideSettings = {
+	off: `pf2e-mobile-sheet.settings.toggle.off`;
+	on: `pf2e-mobile-sheet.settings.toggle.on`;
+	auto: `pf2e-mobile-sheet.settings.toggle.auto`;
+};
 
 export function registerSettings() {
 	game.settings.register(MODULE_ID, "send-button", {
@@ -14,7 +21,7 @@ export function registerSettings() {
 		},
 		default: "auto",
 		requiresReload: true,
-	});
+	} as SettingRegistration<OverrideSettings>);
 	game.settings.register(MODULE_ID, "header-button-text", {
 		name: `${MODULE_ID}.settings.header-button-text.name`,
 		hint: `${MODULE_ID}.settings.header-button-text.hint`,
@@ -29,7 +36,7 @@ export function registerSettings() {
 		default: "auto",
 		requiresReload: false,
 		onChange: (value) => setBodyData("force-hide-header-button-text", value),
-	});
+	} as SettingRegistration<OverrideSettings>);
 	game.settings.register(MODULE_ID, "mobile-layout", {
 		name: `${MODULE_ID}.settings.mobile-layout.name`,
 		hint: `${MODULE_ID}.settings.mobile-layout.hint`,
@@ -44,7 +51,7 @@ export function registerSettings() {
 		default: "auto",
 		requiresReload: false,
 		onChange: (value) => setBodyData("force-mobile-layout", value),
-	});
+	}as SettingRegistration<OverrideSettings>);
 	game.settings.register(MODULE_ID, "mobile-windows", {
 		name: `${MODULE_ID}.settings.mobile-windows.name`,
 		hint: `${MODULE_ID}.settings.mobile-windows.hint`,
@@ -66,8 +73,9 @@ export function registerSettings() {
 				setTimeout(() => $(win).css("width", `${width}px`), 10);
 			}
 		},
-	});
-	game.settings.register(MODULE_ID, "disable-canvas", {
+	} as SettingRegistration<OverrideSettings>);
+  
+  game.settings.register(MODULE_ID, "disable-canvas", {
 		name: `${MODULE_ID}.settings.disable-canvas.name`,
 		hint: `${MODULE_ID}.settings.disable-canvas.hint`,
 		config: true,
@@ -91,4 +99,80 @@ export function registerSettings() {
 			setBodyData("hide-player-list", value);
 		},
 	});
+	game.settings.register(MODULE_ID, "mobile-share-targets", {
+		name: `${MODULE_ID}.settings.mobile-share-targets.name`,
+		hint: `${MODULE_ID}.settings.mobile-share-targets.hint`,
+		scope: "world",
+		config: false,
+		type: Array<ShareTargetSettings>,
+		default: [],
+		requiresReload: false,
+	} as SettingRegistration<undefined>);
+
+	game.settings.registerMenu(MODULE_ID, "mobile-share-targets-settings", {
+		name: `${MODULE_ID}.settings.mobile-share-targets.name`,
+		hint: `${MODULE_ID}.settings.mobile-share-targets.hint`,
+		label: `${MODULE_ID}.settings.mobile-share-targets.name`,
+		type: EnableShareReceiveTargets,
+		restricted: true,
+		icon: "fas fa-bullseye",
+	});
+}
+
+export class EnableShareReceiveTargets extends FormApplication {
+	static readonly namespace: string;
+
+	/**
+	 * Default Options for this FormApplication
+	 */
+	static override get defaultOptions() {
+		return foundry.utils.mergeObject(super.defaultOptions, {
+			id: "enableShareReceiveTargets",
+			title: "Mobile Share Targets",
+			template: "./modules/pf2e-mobile-sheet/templates/enableShareReceiveTargets.hbs",
+			resizable: true,
+		});
+	}
+
+	// noinspection JSUnusedGlobalSymbols
+	static registerSettings(): void {}
+
+	/**
+	 * Provide data to the template
+	 */
+	override getData() {
+		const users = game.users.players;
+		const settings = game.settings.get(MODULE_ID, "mobile-share-targets");
+		const data = [] as Partial<FormApplicationOptions>[];
+
+		for (let i = 0; i < users.length; i++) {
+			const userData = users[i];
+
+			const userSettings = settings.find((u) => u.id === userData.id);
+
+			const dataNew: ShareTargetSettings & { name: string } = {
+				id: userData.id,
+				send: userSettings?.send ? userSettings.send : false,
+				receive: userSettings?.receive ? userSettings.receive : false,
+				name: userData.name,
+			};
+			data.push(dataNew);
+		}
+
+		return {
+			data,
+		} as FormApplicationData<ShareTargetSettingsOptions>;
+	}
+
+	protected override async _updateObject(_event: Event, data: Record<string, unknown>): Promise<void> {
+		const newData: any[] = [];
+		for (const id of data.id as string[]) {
+			newData.push({
+				id,
+				receive: data[`receive-${id}`],
+				send: data[`send-${id}`,
+			});
+		}
+		await game.settings.set(MODULE_ID, "mobile-share-targets", newData);
+	}
 }

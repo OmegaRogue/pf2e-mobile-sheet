@@ -10,6 +10,14 @@ import { WindowManager } from "./apps/windowManager.js";
 import { MODULE_ID } from "./utils.js";
 import "foundry-types";
 
+export type ShareTargetSettings = {
+	send: boolean;
+	receive: boolean;
+	id: string;
+};
+export type ShareTargetSettingsOptions = {} & Partial<FormApplicationOptions>;
+
+
 declare global {
 	interface GamePF2e
 		extends Game<
@@ -79,18 +87,31 @@ declare global {
 		get(module: typeof MODULE_ID, setting: "send-button"): "on" | "off" | "auto";
 
 		get(module: typeof MODULE_ID, setting: "header-button-text"): "on" | "off" | "auto";
-
-		get(module: typeof MODULE_ID, setting: "show-player-list"): boolean;
-
-		// get(module: typeof MODULE_ID, setting: "share-targets"): boolean;
-
-		// get(module: typeof MODULE_ID, setting: "receive-targets"): boolean;
+    
+    get(module: typeof MODULE_ID, setting: "mobile-share-targets"): ShareTargetSettings[];
+    
+    get(module: typeof MODULE_ID, setting: "show-player-list"): boolean;
 
 		get(module: typeof MODULE_ID, setting: "disable-canvas"): boolean;
 
 		set(module: typeof MODULE_ID, key: "disable-canvas", value: boolean): Promise<boolean>;
 
 		set(module: typeof MODULE_ID, key: "show-player-list", value: boolean): Promise<boolean>;
+    
+    set(module: typeof MODULE_ID, key: "mobile-layout", value: "on" | "off" | "auto"): Promise<"on" | "off" | "auto">;
+
+		set(module: typeof MODULE_ID, key: "mobile-windows", value: "on" | "off" | "auto"): Promise<"on" | "off" | "auto">;
+
+		set(module: typeof MODULE_ID, key: "send-button", value: "on" | "off" | "auto"): Promise<"on" | "off" | "auto">;
+
+		set(module: typeof MODULE_ID, key: "header-button-text", value: "on" | "off" | "auto"): Promise<"on" | "off" | "auto">;
+
+		set(
+			module: typeof MODULE_ID,
+			key: "mobile-share-targets",
+			value: ShareTargetSettings[],
+		): Promise<ShareTargetSettings[]>;
+
 	}
 
 	interface SocketlibSocket {
