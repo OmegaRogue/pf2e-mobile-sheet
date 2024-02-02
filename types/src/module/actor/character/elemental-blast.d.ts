@@ -13,7 +13,7 @@ import type {
 	NumberField,
 	SchemaField,
 	StringField
-} from "@typed-foundry/foundry/common/data/fields.d.ts";
+} from "foundry-types/common/data/fields.d.ts";
 import type { CharacterPF2e } from "./document.ts";
 declare class ElementalBlast {
     #private;

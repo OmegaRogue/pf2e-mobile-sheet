@@ -1,4 +1,4 @@
-import type { BooleanField, StringField } from "@typed-foundry/foundry/common/data/fields.d.ts";
+import type { BooleanField, StringField } from "foundry-types/common/data/fields.d.ts";
 import { RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, RuleElementSchema } from "./data.ts";
 /** Roll Twice and keep either the higher or lower result */

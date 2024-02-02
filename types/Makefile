@@ -31,7 +31,7 @@ refresh_types:
 	cp -r ${PF2E_REPO_PATH}/types/foundry types
 	cp ${PF2E_REPO_PATH}/static/lang/*.json .
 	#patch -p1 -i "type-additions.patch"
-	find . -type f -name "*.ts" -print0 | xargs -0 sed -i '' -e 's/types\/foundry/@typed-foundry\/foundry/g'
+	find . -type f -name "*.ts" -print0 | xargs -0 sed -i '' -e 's/types\/foundry/foundry-types/g'
 
 repofetch_types:
 	git clone https://github.com/foundryvtt/pf2e.git ${PF2E_REPO_PATH}

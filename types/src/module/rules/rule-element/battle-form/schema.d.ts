@@ -8,7 +8,7 @@ import type {
 	ObjectField,
 	SchemaField,
 	StringField
-} from "@typed-foundry/foundry/common/data/fields.d.ts";
+} from "foundry-types/common/data/fields.d.ts";
 import type { ResolvableValueField, RuleElementSchema } from "../data.ts";
 import type { ImmunityRuleElement, ResistanceRuleElement, WeaknessRuleElement } from "../iwr/index.ts";
 import type { BattleFormSkills, BattleFormSpeeds, BattleFormStrike } from "./types.ts";

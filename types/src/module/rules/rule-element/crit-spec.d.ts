@@ -1,12 +1,7 @@
 import { ModifierType } from "@actor/modifiers.ts";
 import type { ActorType } from "@actor/types.ts";
 import { DamageCategoryUnique, DamageType } from "@system/damage/types.ts";
-import type {
-	BooleanField,
-	NumberField,
-	SchemaField,
-	StringField
-} from "@typed-foundry/foundry/common/data/fields.d.ts";
+import type { BooleanField, NumberField, SchemaField, StringField } from "foundry-types/common/data/fields.d.ts";
 import { RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleValue } from "./data.ts";
 /** Substitute a pre-determined result for a check's D20 roll */

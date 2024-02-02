@@ -1,10 +1,5 @@
 import { DamageDiceOverride } from "@actor/modifiers.ts";
-import type {
-	ArrayField,
-	BooleanField,
-	ObjectField,
-	StringField
-} from "@typed-foundry/foundry/common/data/fields.d.ts";
+import type { ArrayField, BooleanField, ObjectField, StringField } from "foundry-types/common/data/fields.d.ts";
 import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
 declare class DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema> {

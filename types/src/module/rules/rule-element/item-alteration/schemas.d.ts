@@ -11,11 +11,10 @@ import type {
 	NumberField,
 	SchemaField,
 	StringField
-} from "@typed-foundry/foundry/common/data/fields.d.ts";
-import type { DataModelValidationFailure } from "@typed-foundry/foundry/common/data/validation-failure.d.ts";
+} from "foundry-types/common/data/fields.d.ts";
+import type { DataModelValidationFailure } from "foundry-types/common/data/validation-failure.d.ts";
 import type { AELikeChangeMode } from "../ae-like.ts";
-
-declare const fields: typeof import("@typed-foundry/foundry/common/data/fields.d.ts");
+declare const fields: typeof import("foundry-types/common/data/fields.d.ts");
 /** A `SchemaField` reappropriated for validation of specific item alterations */
 declare class ItemAlterationValidator<TSchema extends AlterationSchema> extends fields.SchemaField<TSchema> {
     #private;

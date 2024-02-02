@@ -1,5 +1,5 @@
 import { id as MODULE_ID } from "@static/module.json";
-import "@typed-foundry/dev-mode";
+
 export function getDebug(): boolean | LogLevel {
 	// const devMode: DevModeModule | undefined = game.modules.get("_dev-mode") as DevModeModule | undefined;
 	return (game.modules.get("_dev-mode") as DevModeModule | undefined)?.api?.getPackageDebugValue(MODULE_ID) ?? false;

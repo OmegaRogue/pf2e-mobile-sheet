@@ -11,7 +11,7 @@ import type {
 	NumberField,
 	SchemaField,
 	StringField
-} from "@typed-foundry/foundry/common/data/fields.d.ts";
+} from "foundry-types/common/data/fields.d.ts";
 import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
 /**

@@ -1,5 +1,5 @@
 import type { SlugField, StrictArrayField } from "@system/schema-data-fields.ts";
-import type { BooleanField, EmbeddedDataField, StringField } from "@typed-foundry/foundry/common/data/fields.d.ts";
+import type { BooleanField, EmbeddedDataField, StringField } from "foundry-types/common/data/fields.d.ts";
 import type { RuleElementSchema } from "../data.ts";
 import type { ItemAlteration } from "../item-alteration/alteration.ts";
 type GrantItemSchema = RuleElementSchema & {

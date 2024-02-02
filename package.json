@@ -55,11 +55,7 @@
 		"vite-plugin-static-copy": "^1.0.0",
 		"vite-tsconfig-paths": "^4.2.3",
 		"yargs": "^17.7.2",
-		"classic-level": "^1.4.1",
-		"@typed-foundry/foundry": "latest",
-		"@typed-foundry/dev-mode": "latest",
-		"@typed-foundry/socketlib": "latest",
-		"@typed-foundry/lib-wrapper": "latest"
+		"classic-level": "^1.4.1"
 	},
 	"homepage": "https://github.com/OmegaRogue/pf2e-mobile-sheet",
 	"license": "GPL-3.0-or-later",
@@ -84,5 +80,12 @@
 		"lint:json": "eslint --no-error-on-unmatched-pattern ./static --ext .json --no-eslintrc --plugin json --rule \"json/*: error\"",
 		"lint:fix": "eslint --no-error-on-unmatched-pattern ./build ./src --ext .ts --fix"
 	},
-	"type": "module"
+	"type": "module",
+	"workspaces": [
+		"types/types/foundry",
+		"types/types/",
+		"types/types/dev-mode",
+		"types/types/libWrapper",
+		"types/types/socketlib"
+	]
 }

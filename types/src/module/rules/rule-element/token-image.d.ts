@@ -1,4 +1,4 @@
-import type { AlphaField, ColorField, NumberField } from "@typed-foundry/foundry/common/data/fields.d.ts";
+import type { AlphaField, ColorField, NumberField } from "foundry-types/common/data/fields.d.ts";
 import { RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema } from "./data.ts";
 /**
