@@ -1,17 +1,12 @@
 import { registerSettings } from "./settings.ts";
 import { preloadTemplates } from "./preloadTemplates.ts";
-import * as math from "@pixi/math";
-import type { EncounterTrackerPF2e } from "@module/apps/sidebar/index.ts";
-import { CombatantPF2e } from "@module/encounter/combatant.js";
-import { EncounterPF2e } from "@module/encounter/document.js";
-import { TokenDocumentPF2e } from "@scene/token-document/document.js";
-import { ScenePF2e } from "@scene/document.js";
-import { checkMobile, debug, getDebug, info, MODULE_ID, setBodyData, toggleRender } from "./utils.js";
-import * as windowMgr from "./apps/windowManager.js";
-
+import { checkMobile, debug, getDebug, info, MODULE_ID, setBodyData, toggleRender } from "./utils.ts";
+import * as windowMgr from "./apps/windowManager.ts";
+import "./combatTracker.ts";
 import "styles/pf2e-mobile-sheet.scss";
-import "./resizeObservers.js";
-import { MobileUI } from "./apps/MobileUI.js";
+import "./resizeObservers.ts";
+import { MobileUI } from "./apps/MobileUI.ts";
+import Handlebars from "handlebars";
 
 abstract class MobileMode {
 	static enabled = false;
@@ -42,10 +37,32 @@ abstract class MobileMode {
 	}
 }
 
-Hooks.once("devModeReady", async ({ registerPackageDebugFlag }) => {
+Hooks.once("devModeReady", async ({ registerPackageDebugFlag }: DevModeApi) => {
 	await registerPackageDebugFlag(MODULE_ID);
 	getDebug();
 });
+
+const icons = {
+	"": "",
+	combat: "fa-fist-raised",
+	scenes: "fa-map",
+	scene: "fa-map",
+	actors: "fa-users",
+	actor: "fa-users",
+	items: "fa-suitcase",
+	item: "fa-suitcase",
+	journal: "fa-book-open",
+	tables: "fa-th-list",
+	playlists: "fa-music",
+	compendium: "fa-atlas",
+	settings: "fa-cogs",
+	npc: "fa-skull",
+	character: "fa-user",
+	spell: "fa-magic",
+	equipment: "fa-tshirt",
+	feat: "fa-hand-rock",
+	class: "fa-user",
+};
 
 // Initialize module
 Hooks.once("init", async () => {
@@ -61,9 +78,29 @@ Hooks.once("init", async () => {
 
 	// Preload Handlebars templates
 	await preloadTemplates();
+	registerHandlebarsHelpers();
 
 	// Register custom sheets (if any)
 });
+
+function registerHandlebarsHelpers() {
+	Handlebars.registerHelper("winicon", function (win: Application): string {
+		let windowType: string =
+			// @ts-expect-error
+			win.icon ||
+			// @ts-expect-error
+			win.tabName ||
+			// @ts-expect-error
+			win?.object?.data?.type ||
+			// @ts-expect-error
+			win?.object?.data?.entity ||
+			// @ts-expect-error
+			(win.metadata ? "compendium" : "") ||
+			"";
+		windowType = windowType.toLowerCase();
+		return icons[windowType] || windowType;
+	});
+}
 
 Hooks.on("getSceneControlButtons", (hudButtons: SceneControl[]) => {
 	for (const hud of hudButtons) {
@@ -82,6 +119,39 @@ Hooks.on("getSceneControlButtons", (hudButtons: SceneControl[]) => {
 	}
 });
 
+// export function onDragMove(event: FederatedPointerEvent) {
+// 	// debug(true, event);
+// 	if (game.dragTarget) {
+// 		debug(true, "move", event);
+// 	}
+// }
+// // new PIXI.Point(241, 418)
+//
+// // @ts-ignore
+// export function onDragStart(event: FederatedPointerEvent) {
+// 	// debug(true, event);
+// 	// store a reference to the data
+// 	// the reason for this is because of multitouch
+// 	// we want to track the movement of this particular touch
+// 	// this.data = event.data;
+// 	game.dragTarget = event.target;
+// 	canvas.app.stage.on("touchmove", onDragMove);
+// }
+//
+// // @ts-ignore
+// export function onDragEnd(event: FederatedPointerEvent) {
+// 	// debug(true, event);
+// 	if (game.dragTarget) {
+// 		if (game.dragTarget instanceof Token) {
+// 			const pos = canvas.stage.transform.localTransform.applyInverse(event.global);
+// 			debug(true, "testt", event, pos);
+// 			game.dragTarget.document.update({ x: pos.x, y: pos.y });
+// 		}
+// 		canvas.app.stage.off("touchmove", onDragMove);
+// 		game.dragTarget = null;
+// 	}
+// }
+
 Hooks.once("ready", async () => {
 	if (!game.modules.get("lib-wrapper")?.active && game.user.isGM)
 		ui.notifications.error(
@@ -98,7 +168,15 @@ Hooks.once("ready", async () => {
 	setBodyData("hotbar", false);
 	toggleRender(!game.settings.get(MODULE_ID, "disable-canvas"));
 	MobileMode.navigation.render(true);
-	// MobileMode.viewResize();
+	MobileMode.viewResize();
+
+	// canvas.app.stage.on("touchstart", onDragStart);
+	// canvas.app.stage.on("touchend", onDragEnd);
+	// canvas.app.stage.on("touchcancel", onDragEnd);
+
+	// for (const eventName of ["globaltouchmove","tapcapture","touchcancel","touchend","touchcancelcapture","touchendcapture","touchendoutside","touchendoutsidecapture","touchmove","touchmovecapture","touchstart","touchstartcapture"]) {
+	// 	canvas.app.stage.on(eventName,(...args)=>{console.log(eventName, ...args);});
+	// }
 	libWrapper.register(
 		MODULE_ID,
 		"Canvas.prototype._onDragSelect",
@@ -144,9 +222,30 @@ Hooks.once("ready", async () => {
 
 // Trigger the recalculation of viewheight often. Not great performance,
 // but required to work on different mobile browsers
-// document.addEventListener("fullscreenchange", () => setTimeout(MobileMode.viewResize, 100));
-// window.addEventListener("resize", MobileMode.viewResize);
-// window.addEventListener("scroll", MobileMode.viewResize);
+document.addEventListener("fullscreenchange", () => setTimeout(MobileMode.viewResize, 100));
+window.addEventListener("resize", MobileMode.viewResize);
+window.addEventListener("scroll", MobileMode.viewResize);
+
+// Hooks.on("createChatMessage", (message: ChatMessage) => {
+// 	if (!MobileMode.enabled || !message.isAuthor) return;
+//
+// 	const shouldBloop =
+// 		MobileMode.navigation.state === ViewState.Map ||
+// 		window.WindowManager.minimizeAll() ||
+// 		ui.sidebar.activeTab !== "chat";
+//
+// 	MobileMode.navigation.showSidebar();
+// 	ui.sidebar.activateTab("chat");
+//
+// 	if (shouldBloop) {
+// 		Hooks.once("renderChatMessage", (obj: ChatMessage, html: JQuery) => {
+// 			if (obj.id !== message.id) return; // Avoid possible race condition?
+//
+// 			html.addClass("bloop");
+// 			setTimeout(() => html.removeClass("bloop"), 10000);
+// 		});
+// 	}
+// });
 
 Hooks.on("renderApplication", async (app: Application) => {
 	if (app.id !== "fsc-ng") return;
@@ -178,46 +277,6 @@ Hooks.on("renderChatLog", async () => {
 		sendButton.appendTo(chatContainer);
 	}
 	debug(false, "Add Send Button");
-});
-
-const headings = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
-
-async function updateCombatTracker(
-	combatants: CombatantPF2e<EncounterPF2e, TokenDocumentPF2e<ScenePF2e | null> | null>[],
-) {
-	const scene = game.scenes.active;
-	if (!scene) return;
-	const grid = scene.grid;
-	if (!game.user.character) return;
-	const origin = scene.tokens.find((t) => t.isOwner) || scene.tokens.get(game.user.character.id);
-	if (!origin) return;
-	for (const combatant of combatants) {
-		let dist = 0;
-		const target = scene.tokens.get(combatant.tokenId ?? "");
-		if (!target) return;
-		dist = canvas.grid.measureDistance(origin.center, target.center, { gridSpaces: true });
-		const combatantDisplay = $(`#combat-tracker li[data-combatant-id=${combatant.id}]`);
-		// let targetIndicator = combatantDisplay.find(".users-targeting");
-
-		if (combatantDisplay.find(".distance").length === 0) {
-			$(`<span class="distance"></span>`).insertAfter(combatantDisplay.find("h4 .name"));
-		}
-		const ray = new Ray(origin.center, target.center);
-		const angle = ray.angle * math.RAD_TO_DEG;
-		const headingAngle = Math.round(angle / (360 / headings.length) + 4);
-		const heading = headings[((headingAngle % headings.length) + headings.length) % headings.length];
-		combatantDisplay.find(".distance").text(`[${dist}${grid.units} ${heading}]`);
-	}
-}
-
-Hooks.on("changeSidebarTab", async (tab: SidebarTab) => {
-	if (tab.id !== "combat") return;
-	await updateCombatTracker((tab as EncounterTrackerPF2e<EncounterPF2e>).viewed?.turns);
-});
-
-Hooks.on("refreshToken", async () => {
-	if (!game.combat?.turns) return;
-	await updateCombatTracker(game.combat?.turns);
 });
 
 globalThis.MobileMode = MobileMode;

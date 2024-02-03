@@ -45,17 +45,16 @@ declare global {
 		runPerformanceTest({ type, iterations }: { type: string; iterations?: number }): Promise<void>;
 	}
 
-	type HookParamsDevModeReady = HookParameters<"devModeReady", [DevModeApi]>;
+	namespace Hooks {
+		type HookParamsDevModeReady = HookParameters<"devModeReady", [DevModeApi]>;
 
-	// @ts-expect-error
-	class Hooks {
 		/**
 		 * Register a callback handler which should be triggered when a hook is triggered.
 		 *
 		 * @param hook The unique name of the hooked event
 		 * @param fn   The callback function which should be triggered when the hook event occurs
 		 */
-		static on(...args: HookParamsDevModeReady): number;
+		function on(...args: HookParamsDevModeReady): number;
 
 		/**
 		 * Register a callback handler for an event which is only triggered once the first time the event occurs.
@@ -64,6 +63,6 @@ declare global {
 		 * @param hook  The unique name of the hooked event
 		 * @param fn    The callback function which should be triggered when the hook event occurs
 		 */
-		static once(...args: HookParamsDevModeReady): number;
+		function once(...args: HookParamsDevModeReady): number;
 	}
 }

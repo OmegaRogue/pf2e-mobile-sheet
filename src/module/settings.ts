@@ -126,7 +126,7 @@ export class EnableShareReceiveTargets extends FormApplication {
 	 * Default Options for this FormApplication
 	 */
 	static override get defaultOptions() {
-		return foundry.utils.mergeObject(super.defaultOptions, {
+		return fu.mergeObject(super.defaultOptions, {
 			id: "enableShareReceiveTargets",
 			title: "Mobile Share Targets",
 			template: "./modules/pf2e-mobile-sheet/templates/enableShareReceiveTargets.hbs",

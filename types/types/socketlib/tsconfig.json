@@ -9,7 +9,11 @@
 		"noEmit": true,
 		"esModuleInterop": true,
 		"allowImportingTsExtensions": true,
-		"typeRoots": ["../../../node_modules/@types", "../foundry"]
+		"typeRoots": [
+			"../../../node_modules/@types",
+			"../foundry"
+		],
+		"baseUrl": "."
 	},
 	"files": ["index.d.ts"]
 }

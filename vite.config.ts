@@ -1,7 +1,6 @@
 import fs from "fs-extra";
 import * as Vite from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
-import hq from "alias-hq";
 // eslint-disable-next-line import/default
 import checker from "vite-plugin-checker";
 import path from "path";
@@ -12,7 +11,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
 	const buildMode = mode === "production" ? "production" : "development";
 	const outDir = "dist";
 
-	const plugins = [checker({ typescript: true }), tsconfigPaths({ loose: true, parseNative: true })];
+	const plugins = [checker({ typescript: true }), tsconfigPaths()];
 	// Handle minification after build to allow for tree-shaking and whitespace minification
 	// "Note the build.minify option does not minify whitespaces when using the 'es' format in lib mode, as it removes
 	// pure annotations and breaks tree-shaking."
@@ -59,10 +58,10 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
 							context.server.ws.send({
 								type: "custom",
 								event: "lang-update",
-								data: { path: `modules/pf2e-mobile-sheet/pf2e/${basePath}` },
+								data: { path: `modules/pf2e-mobile-sheet/${basePath}` },
 							});
 						});
-					} else if (context.file.endsWith(".hbs") && !context.file.startsWith(outDir)) {
+					} else if (context.file.endsWith(".hbs")) {
 						const basePath = context.file.slice(context.file.indexOf("templates/"));
 						console.log(`Updating template at ${basePath}`);
 						fs.promises.copyFile(context.file, `${outDir}/${basePath}`).then(() => {
@@ -120,6 +119,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
 				},
 				watch: { buildDelay: 100 },
 			},
+			target: "es2022",
 		},
 		server: {
 			port: 30001,
@@ -135,9 +135,6 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
 		plugins,
 		css: {
 			devSourcemap: true,
-		},
-		resolve: {
-			alias: hq.get("rollup"),
 		},
 	};
 });

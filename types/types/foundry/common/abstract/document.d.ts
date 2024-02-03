@@ -280,7 +280,7 @@ export default abstract class Document<
 	static deleteDocuments<TDocument extends Document>(
 		this: ConstructorOf<TDocument>,
 		ids?: string[],
-		context?: DocumentModificationContext<TDocument["parent"]>,
+		context?: DocumentModificationContext<TDocument["parent"]>
 	): Promise<TDocument[]>;
 
 	/**
@@ -306,17 +306,17 @@ export default abstract class Document<
 	static create<TDocument extends Document>(
 		this: ConstructorOf<TDocument>,
 		data: PreCreate<TDocument["_source"]>,
-		context?: DocumentModificationContext<TDocument["parent"]>,
+		context?: DocumentModificationContext<TDocument["parent"]>
 	): Promise<TDocument | undefined>;
 	static create<TDocument extends Document>(
 		this: ConstructorOf<TDocument>,
 		data: PreCreate<TDocument["_source"]>[],
-		context?: DocumentModificationContext<TDocument["parent"]>,
+		context?: DocumentModificationContext<TDocument["parent"]>
 	): Promise<TDocument[]>;
 	static create<TDocument extends Document>(
 		this: ConstructorOf<TDocument>,
 		data: PreCreate<TDocument["_source"]> | PreCreate<TDocument["_source"]>[],
-		context?: DocumentModificationContext<TDocument["parent"]>,
+		context?: DocumentModificationContext<TDocument["parent"]>
 	): Promise<TDocument[] | TDocument | undefined>;
 
 	/**
@@ -380,40 +380,49 @@ export default abstract class Document<
 	getEmbeddedDocument(embeddedName: string, id: string, { strict }?: { strict?: boolean }): Document | undefined;
 
 	/**
-	 * Perform follow-up operations when a set of Documents of this type are created.
-	 * This is where side effects of creation should be implemented.
-	 * Post-creation side effects are performed only for the client which requested the operation.
-	 * @param documents The Document instances which were created
-	 * @param context   The context for the modification operation
+	 * Create multiple embedded Document instances within this parent Document using provided input data.
+	 * @see {@link Document.createDocuments}
+	 * @param embeddedName The name of the embedded Document type
+	 * @param data An array of data objects used to create multiple documents
+	 * @param [context={}] Additional context which customizes the creation workflow
+	 * @return An array of created Document instances
 	 */
-	protected static _onCreateDocuments(
-		documents: Document[],
-		context: DocumentModificationContext<Document | null>,
-	): void;
+	createEmbeddedDocuments(
+		embeddedName: string,
+		data: object[],
+		context?: DocumentModificationContext<this>
+	): Promise<Document[]>;
 
 	/**
-	 * Perform follow-up operations when a set of Documents of this type are updated.
-	 * This is where side effects of updates should be implemented.
-	 * Post-update side effects are performed only for the client which requested the operation.
-	 * @param documents The Document instances which were updated
-	 * @param context   The context for the modification operation
-	 */
-	protected static _onUpdateDocuments(
-		documents: Document[],
-		context: DocumentModificationContext<Document | null>,
-	): void;
+                 * Update one or multiple existing entities using provided input data.
+                 * Data may be provided as a single object to update one Document, or as an Array of Objects.
+                 /**
+                 * Update multiple embedded Document instances within a parent Document using provided differential data.
+                 * @see {@link Document.updateDocuments}
+                 * @param embeddedName               The name of the embedded Document type
+                 * @param updates An array of differential data objects, each used to update a single Document
+                 * @param [context={}] Additional context which customizes the update workflow
+                 * @return An array of updated Document instances
+                 */
+	updateEmbeddedDocuments(
+		embeddedName: string,
+		updateData: EmbeddedDocumentUpdateData[],
+		context?: DocumentUpdateContext<this>
+	): Promise<Document[]>;
 
 	/**
-	 * Perform follow-up operations when a set of Documents of this type are deleted.
-	 * This is where side effects of deletion should be implemented.
-	 * Post-deletion side effects are performed only for the client which requested the operation.
-	 * @param documents The Document instances which were deleted
-	 * @param context   The context for the modification operation
+	 * Delete multiple embedded Document instances within a parent Document using provided string ids.
+	 * @see {@link Document.deleteDocuments}
+	 * @param embeddedName               The name of the embedded Document type
+	 * @param ids                      An array of string ids for each Document to be deleted
+	 * @param [context={}] Additional context which customizes the deletion workflow
+	 * @return An array of deleted Document instances
 	 */
-	protected static _onDeleteDocuments(
-		documents: Document[],
-		context: DocumentModificationContext<Document | null>,
-	): void;
+	deleteEmbeddedDocuments(
+		embeddedName: string,
+		dataId: string[],
+		context?: DocumentModificationContext<this>
+	): Promise<Document<this>[]>;
 
 	/* -------------------------------------------- */
 	/*  Flag Operations                             */
@@ -464,35 +473,33 @@ export default abstract class Document<
 	/* -------------------------------------------- */
 
 	/**
-	 * Create multiple embedded Document instances within this parent Document using provided input data.
-	 * @see {@link Document.createDocuments}
-	 * @param embeddedName The name of the embedded Document type
-	 * @param data An array of data objects used to create multiple documents
-	 * @param [context={}] Additional context which customizes the creation workflow
-	 * @return An array of created Document instances
+	 * Perform preliminary operations before a Document of this type is created.
+	 * Pre-creation operations only occur for the client which requested the operation.
+	 * Modifications to the pending document before it is persisted should be performed with this.updateSource().
+	 * @param data    The initial data object provided to the document creation request
+	 * @param options Additional options which modify the creation request
+	 * @param user    The User requesting the document creation
+	 * @returns A return value of false indicates the creation operation should be cancelled.
 	 */
-	createEmbeddedDocuments(
-		embeddedName: string,
-		data: object[],
-		context?: DocumentModificationContext<this>,
-	): Promise<Document[]>;
+	protected _preCreate(
+		data: this["_source"],
+		options: DocumentModificationContext<TParent>,
+		user: BaseUser
+	): Promise<boolean | void>;
 
 	/**
-                 * Update one or multiple existing entities using provided input data.
-                 * Data may be provided as a single object to update one Document, or as an Array of Objects.
-                 /**
-                 * Update multiple embedded Document instances within a parent Document using provided differential data.
-                 * @see {@link Document.updateDocuments}
-                 * @param embeddedName               The name of the embedded Document type
-                 * @param updates An array of differential data objects, each used to update a single Document
-                 * @param [context={}] Additional context which customizes the update workflow
-                 * @return An array of updated Document instances
-                 */
-	updateEmbeddedDocuments(
-		embeddedName: string,
-		updateData: EmbeddedDocumentUpdateData[],
-		context?: DocumentUpdateContext<this>,
-	): Promise<Document[]>;
+	 * Perform preliminary operations before a Document of this type is updated.
+	 * Pre-update operations only occur for the client which requested the operation.
+	 * @param changed The differential data that is changed relative to the documents prior values
+	 * @param options Additional options which modify the update request
+	 * @param user    The User requesting the document update
+	 * @returns A return value of false indicates the update operation should be cancelled.
+	 */
+	protected _preUpdate(
+		changed: DeepPartial<this["_source"]>,
+		options: DocumentUpdateContext<TParent>,
+		user: BaseUser
+	): Promise<boolean | void>;
 
 	/**
 	 * Perform preliminary operations before a Document of this type is deleted.
@@ -512,18 +519,17 @@ export default abstract class Document<
 	protected _onCreate(data: this["_source"], options: DocumentModificationContext<TParent>, userId: string): void;
 
 	/**
-	 * Delete multiple embedded Document instances within a parent Document using provided string ids.
-	 * @see {@link Document.deleteDocuments}
-	 * @param embeddedName               The name of the embedded Document type
-	 * @param ids                      An array of string ids for each Document to be deleted
-	 * @param [context={}] Additional context which customizes the deletion workflow
-	 * @return An array of deleted Document instances
+	 * Perform follow-up operations after a Document of this type is updated.
+	 * Post-update operations occur for all clients after the update is broadcast.
+	 * @param changed The differential data that was changed relative to the documents prior values
+	 * @param options Additional options which modify the update request
+	 * @param userId  The ID of the User requesting the document update
 	 */
-	deleteEmbeddedDocuments(
-		embeddedName: string,
-		dataId: string[],
-		context?: DocumentModificationContext<this>,
-	): Promise<Document<this>[]>;
+	protected _onUpdate(
+		changed: DeepPartial<this["_source"]>,
+		options: DocumentUpdateContext<TParent>,
+		userId: string
+	): void;
 
 	/**
 	 * Perform follow-up operations after a Document of this type is deleted.
@@ -534,45 +540,39 @@ export default abstract class Document<
 	protected _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
 
 	/**
-	 * Perform preliminary operations before a Document of this type is created.
-	 * Pre-creation operations only occur for the client which requested the operation.
-	 * Modifications to the pending document before it is persisted should be performed with this.updateSource().
-	 * @param data    The initial data object provided to the document creation request
-	 * @param options Additional options which modify the creation request
-	 * @param user    The User requesting the document creation
-	 * @returns A return value of false indicates the creation operation should be cancelled.
+	 * Perform follow-up operations when a set of Documents of this type are created.
+	 * This is where side effects of creation should be implemented.
+	 * Post-creation side effects are performed only for the client which requested the operation.
+	 * @param documents The Document instances which were created
+	 * @param context   The context for the modification operation
 	 */
-	protected _preCreate(
-		data: this["_source"],
-		options: DocumentModificationContext<TParent>,
-		user: BaseUser,
-	): Promise<boolean | void>;
+	protected static _onCreateDocuments(
+		documents: Document[],
+		context: DocumentModificationContext<Document | null>
+	): void;
 
 	/**
-	 * Perform preliminary operations before a Document of this type is updated.
-	 * Pre-update operations only occur for the client which requested the operation.
-	 * @param changed The differential data that is changed relative to the documents prior values
-	 * @param options Additional options which modify the update request
-	 * @param user    The User requesting the document update
-	 * @returns A return value of false indicates the update operation should be cancelled.
+	 * Perform follow-up operations when a set of Documents of this type are updated.
+	 * This is where side effects of updates should be implemented.
+	 * Post-update side effects are performed only for the client which requested the operation.
+	 * @param documents The Document instances which were updated
+	 * @param context   The context for the modification operation
 	 */
-	protected _preUpdate(
-		changed: DeepPartial<this["_source"]>,
-		options: DocumentUpdateContext<TParent>,
-		user: BaseUser,
-	): Promise<boolean | void>;
+	protected static _onUpdateDocuments(
+		documents: Document[],
+		context: DocumentModificationContext<Document | null>
+	): void;
 
 	/**
-	 * Perform follow-up operations after a Document of this type is updated.
-	 * Post-update operations occur for all clients after the update is broadcast.
-	 * @param changed The differential data that was changed relative to the documents prior values
-	 * @param options Additional options which modify the update request
-	 * @param userId  The ID of the User requesting the document update
+	 * Perform follow-up operations when a set of Documents of this type are deleted.
+	 * This is where side effects of deletion should be implemented.
+	 * Post-deletion side effects are performed only for the client which requested the operation.
+	 * @param documents The Document instances which were deleted
+	 * @param context   The context for the modification operation
 	 */
-	protected _onUpdate(
-		changed: DeepPartial<this["_source"]>,
-		options: DocumentUpdateContext<TParent>,
-		userId: string,
+	protected static _onDeleteDocuments(
+		documents: Document[],
+		context: DocumentModificationContext<Document | null>
 	): void;
 
 	/* ---------------------------------------- */

@@ -65,6 +65,13 @@
 
 @include mixins.global-mobile {
 
+	.chat-message.bloop {
+		animation-name: bloopborder;
+		animation-duration: 4s;
+		animation-timing-function: ease-out;
+	}
+
+
 	:root {
 		--carousel-alignment: right;
 	}
@@ -93,11 +100,20 @@
 	.app {
 		margin: 0;
 
-		&.window-app:not(.minimized,.dialog,.simple-calendar) {
-			height: var(--mobile-max-window-height) !important;
-			left: 0 !important;
-			top: 0 !important;
-			width: 100% !important;
+		&.window-app {
+			&:not(.minimized,.dialog,.simple-calendar, .sidebar-popout) {
+				height: var(--mobile-max-window-height) !important;
+				left: 0 !important;
+				top: 0 !important;
+				width: 100% !important;
+			}
+
+			&.sidebar-popout {
+				height: unset !important;
+				left: 0 !important;
+				top: 0 !important;
+				width: 100% !important;
+			}
 		}
 	}
 	.sheet.actor.character .popout-module-button, .pathmuncher-open, .configure-token, .configure-creature, .configure-theatre, .console-print, .document-id-link, .document-image-link, #tokenbar, .header-button.control.pf2e-action-support-engine {
@@ -170,13 +186,26 @@
 }
 
 
-#navigation .monks-scene-navigation {
-	.scene-list {
-		flex-wrap: wrap;
+//#navigation .monks-scene-navigation {
+//	.scene-list {
+//		flex-wrap: wrap;
+//
+//		> li {
+//			min-width: 100px;
+//		}
+//	}
+//}
 
-		> li {
-			min-width: 100px;
-		}
+
+@keyframes bloopborder {
+	0% {
+		border-color: #00c853;
+	}
+	80% {
+		border-color: #76ff03;
+	}
+	100% {
+		border-color: #6f6c66;
 	}
 }
 

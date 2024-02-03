@@ -3,25 +3,25 @@
 @import "../../breakpoints";
 
 
-//.dialog {
-//	container: dialog / inline-size;
-//
-//	.dialog-content {
-//		overflow: scroll;
-//	}
-//
-//	.dialog-buttons {
-//		height: 3em;
-//		flex-shrink: 0;
-//		flex-grow: 0;
-//		flex-basis: fit-content;
-//
-//		.dialog-button {
-//			height: 3em;
-//		}
-//	}
-//
-//}
+.dialog, .bam-dialog {
+	//container: dialog / inline-size;
+
+	.dialog-content {
+		overflow: scroll;
+	}
+
+	.dialog-buttons {
+		height: 3em;
+		flex-shrink: 0;
+		flex-grow: 0;
+		flex-basis: fit-content;
+
+		.dialog-button {
+			height: 3em;
+		}
+	}
+
+}
 //
 //
 //@include mixins.global-mobile {

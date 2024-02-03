@@ -1,6 +1,5 @@
 import type { MobileUI } from "./MobileUI.js";
-import { warn } from "../utils.js";
-import { id as MODULE_ID } from "@static/module.json";
+import { warn, MODULE_ID } from "../utils.js";
 
 export class MobileMenu extends Application {
 	nav: MobileUI;

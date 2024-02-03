@@ -8,7 +8,7 @@ import { ChatMessagePF2e } from "@module/chat-message/document.js";
 import { ActorsPF2e } from "@module/collection/actors.js";
 import { WindowManager } from "./apps/windowManager.js";
 import { MODULE_ID } from "./utils.js";
-import "foundry-types";
+import { HookParameters } from "../../types/types/foundry/client/core/hooks.js";
 
 export type ShareTargetSettings = {
 	send: boolean;
@@ -18,6 +18,7 @@ export type ShareTargetSettings = {
 export type ShareTargetSettingsOptions = {} & Partial<FormApplicationOptions>;
 
 declare global {
+	const BUILD_MODE: "development" | "production";
 	interface GamePF2e
 		extends Game<
 			ActorPF2e<null>,
@@ -30,6 +31,7 @@ declare global {
 			UserPF2e
 		> {
 		mobilemode: MobileMode;
+		dragTarget: any;
 	}
 
 	declare namespace Hooks {
@@ -72,6 +74,14 @@ declare global {
 		function once(...args: HookParamsWindowManagerMinimized): number;
 		function once(...args: HookParamsWindowManagerMaximized): number;
 		function once(...args: HookParamsWindowManagerNoneVisible): number;
+
+		/**
+		 * Unregister a callback handler for a particular hook event
+		 *
+		 * @param hook  The unique name of the hooked event
+		 * @param fn    The ID number for the function that should be removed from the set of hooked callbacks
+		 */
+		function off(hook: string, fn: number): void;
 	}
 
 	interface Window {

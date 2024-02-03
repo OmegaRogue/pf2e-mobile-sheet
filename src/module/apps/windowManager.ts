@@ -1,5 +1,4 @@
-import { id as MODULE_ID } from "@static/module.json";
-import { info } from "../utils.js";
+import { info, MODULE_ID } from "../utils.js";
 
 // WindowManager is a singleton that allows management of application windows
 export function activate(): void {

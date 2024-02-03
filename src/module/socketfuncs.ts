@@ -18,6 +18,7 @@ async function socketTarget(tokenDocumentId: string, userSourceId: string, relea
 	const token = canvas.tokens.get(tokenDocumentId);
 	let doTarget = true;
 	if (user?.targets.find((t) => t.id === tokenDocumentId)) doTarget = false;
+	// @ts-ignore
 	token?.setTarget(doTarget, { user: user, releaseOthers: releaseOthers });
 }
 
@@ -38,6 +39,7 @@ async function socketSetTarget(
 ): Promise<void> {
 	const token = canvas.tokens.get(tokenId);
 	const user = game.users.get(userId);
+	// @ts-ignore
 	token?.setTarget(targeted, { user, releaseOthers, groupSelection });
 }
 

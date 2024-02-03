@@ -11,7 +11,7 @@
 	"devDependencies": {
 		"@types/jquery": "^3.5.14",
 		"@types/node": "^18.11.12",
-		"pixi.js": "7.2.4",
+		"pixi.js": "6.5.2",
 		"socket.io": "^4.5.1",
 		"socket.io-client": "^4.5.1",
 		"tinymce": "^6.1.2",

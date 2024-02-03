@@ -1,6 +1,6 @@
-import { Window } from "./windowManager.js";
+import { Window, WindowManager } from "./windowManager.js";
 import type { MobileUI } from "./MobileUI.js";
-import { id as MODULE_ID } from "@static/module.json";
+import { MODULE_ID } from "../utils.js";
 
 const icons = {
 	"": "",
@@ -28,18 +28,28 @@ export class WindowMenu extends Application {
 	list?: JQuery<HTMLElement>;
 	nav: MobileUI;
 
-	constructor(nav: MobileUI) {
-		super({
-			template: "modules/" + MODULE_ID + "/templates/window-selector.hbs",
+	static override get defaultOptions() {
+		return fu.mergeObject(super.defaultOptions, {
+			template: `modules/${MODULE_ID}/templates/window-selector.hbs`,
 			popOut: false,
+			id: "window-menu",
 		});
+	}
+
+	constructor(nav: MobileUI) {
+		super();
 		this.nav = nav;
+	}
+
+	override activateListeners(html: JQuery<HTMLElement>): void {
+		super.activateListeners(html);
+		this.list = html.find(".window-list");
 		Hooks.on("WindowManager:NewRendered", this.windowAdded.bind(this));
 		Hooks.on("WindowManager:Removed", this.windowRemoved.bind(this));
 	}
 
-	override activateListeners(html: JQuery<HTMLElement>): void {
-		this.list = html.find(".window-list");
+	override getData(): WindowManager {
+		return window.WindowManager;
 	}
 
 	// Attempt to discern the title and icon of the window
@@ -71,28 +81,33 @@ export class WindowMenu extends Application {
 
 		windowButton.on("click", (ev) => {
 			ev.preventDefault();
-			win.show();
+			const win: Window | undefined =
+				window.WindowManager.windows[$(ev.target).closest(".window-row").attr("data-id") ?? "0"];
+			win?.show();
 			this.nav.closeDrawer();
 		});
 		closeButton.on("click", (ev) => {
 			ev.preventDefault();
+			const win: Window | undefined =
+				window.WindowManager.windows[$(ev.target).closest(".window-row").attr("data-id") ?? "0"];
 			win.close();
 		});
 		return row;
 	};
 
-	windowAdded(appId: number): void {
-		this.list?.append(this.newWindow(window.WindowManager.windows[appId]));
+	windowAdded(_appId: number): void {
+		// this.list?.append(this.newWindow(window.WindowManager.windows[appId]));
 		this.update();
 	}
 
-	windowRemoved(appId: number): void {
-		this.list?.find(`li[data-id="${appId}"]`).remove();
+	windowRemoved(_appId: number): void {
+		// this.list?.find(`li[data-id="${appId}"]`).remove();
 		this.update();
 	}
 
 	update(): void {
 		const winCount = Object.values(window.WindowManager.windows).length;
 		this.nav.setWindowCount(winCount);
+		this.render();
 	}
 }
