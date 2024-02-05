@@ -91,39 +91,52 @@ const vehicleSheetResizeObserver = new ResizeObserver((entries) => {
 
 const settingsResizeObserver = new ResizeObserver((entries) => {
 	for (const entry of entries) {
-		const html: JQuery<HTMLElement> = $(entry.target) as JQuery<HTMLElement>;
+		const html = $(entry.target);
 		if (
 			(entry.contentRect.width < 534 || getBodyData("force-mobile-window") === true) &&
 			!html.hasClass("mobile")
 		) {
 			html.addClass("mobile");
-			const content: JQuery = html.find("section.window-content > div:not(#mps-view-group).flexrow");
+			const content = html.find("section.window-content > div:not(#mps-view-group).flexrow");
+			const form = html.find(".categories");
+			const scrollable = html.find(".scrollable");
+			const sidebar = html.find("aside.sidebar");
+			const footer = form.find("footer");
 			if (content.length === 1) {
 				content.removeClass("flexrow");
 				content.addClass("flexcol");
 			}
-			const scrollable: JQuery = html.find(".scrollable");
-			scrollable.appendTo(content);
-			const form: JQuery = html.find(".categories");
-			scrollable.children().appendTo(form);
-			const sidebar: JQuery = html.find("aside.sidebar");
-			sidebar.appendTo(scrollable);
-			form.appendTo(scrollable);
-			const footer: JQuery = form.find("footer");
-			if (footer.length === 1) {
-				html.find(".reset-all").prependTo(footer);
-				footer.addClass("flexrow");
-				footer.appendTo(content);
-				const submitButton: JQuery = footer.find("button[type=submit]");
-				submitButton.removeAttr("type").attr("type", "button");
-				submitButton.on("click", () => form.trigger("submit"));
-			}
+			content.append(scrollable);
+			form.append(scrollable.children());
+			scrollable.append(sidebar);
+			scrollable.append(form);
+			footer.prepend(html.find(".reset-all"));
+			footer.addClass("flexrow");
+			content.append(footer);
+			const submitButton: JQuery = footer.find("button[type=submit]");
+			submitButton.removeAttr("type").attr("type", "button");
+			submitButton.on("click", () => form.trigger("submit"));
 		} else if (
 			(entry.contentRect.width >= 534 || getBodyData("force-mobile-window") === false) &&
 			html.hasClass("mobile")
 		) {
 			html.removeClass("mobile");
-			ui.windows[html.data("appid")].render(false);
+			const content = html.find("section.window-content > div:not(#mps-view-group).flexcol");
+			if (content.length === 1) {
+				content.removeClass("flexcol");
+				content.addClass("flexrow");
+			}
+			const form = html.find(".categories");
+			const scrollable = html.find(".scrollable");
+			const sidebar = html.find("aside.sidebar");
+			const footer = html.find("footer");
+			sidebar.append(html.find(".reset-all"));
+			content.append(sidebar);
+			content.append(form);
+			scrollable.append(form.children());
+			form.append(scrollable);
+			form.append(footer);
+			// ui.windows[html.data("appid")].render(false);
 		}
 	}
 });
