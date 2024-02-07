@@ -1,0 +1,65 @@
+{
+	"pf2e-mobile-sheet": {
+		"settings": {
+			"mobile-layout": {
+				"name": "移动端UI",
+				"hint": "强制让FVTT使用移动端UI"
+			},
+			"mobile-windows": {
+				"name": "移动端窗口",
+				"hint": "强制让FVTT的窗口使用移动端UI"
+			},
+			"send-button": {
+				"name": "显示发送按钮",
+				"hint": "允许置顶发送按钮"
+			},
+			"toggle": {
+				"on": "开",
+				"off": "关",
+				"auto": "自动"
+			},
+			"header-button-text": {
+				"name": "移除窗口顶栏按键文本",
+				"hint": "将窗口的顶栏里的按钮的文本移除。"
+			},
+			"show-mobile-toggle": {
+				"name": "显示移动端开关",
+				"hint": "当移动端模式关闭时，显示一个打开它的开关。"
+			},
+			"disable-canvas": {
+				"name": "关闭画布",
+				"hint": "关闭画布（通俗地讲，就是大地图，可能影响到一些其他使用画布的功能和mod）"
+			},
+			"mobile-share-targets": {
+				"title": "用户设置",
+				"name": "分享目标",
+				"hint": "和其他玩家分享你的目标",
+				"send": {
+					"name": "发送",
+					"hint": "将目标数据发送给其他玩家"
+				},
+				"receive": {
+					"name": "接受",
+					"hint": "从其他玩家那里接受目标数据"
+				},
+				"player": {
+					"name": "玩家"
+				}
+			}
+		},
+		"sidebar-tab": "侧边栏",
+		"MenuCanvas": "开关画布",
+		"MenuPlayers": "开关玩家列表",
+		"MenuExit": "离开移动模式",
+		"MenuReload": "重新加载",
+		"MenuFullscreen": "开关全屏",
+		"NavigationStart": "开始",
+		"NavigationMap": "场景",
+		"NavigationApp": "应用",
+		"NavigationMacros": "动作",
+		"NavigationMenu": "更多",
+		"NavigationWindows": "窗口",
+		"PanToggle": "左键悬浮",
+		"EnableMobileMode": "打开移动模式"
+	}
+}

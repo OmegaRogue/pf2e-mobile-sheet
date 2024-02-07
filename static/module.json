@@ -28,6 +28,11 @@
 			"name": "English",
 			"path": "lang/en.json"
 		},
+        {
+            "lang": "cn",
+            "name": "中文（简体）",
+            "path": "lang/zh_Hans.json"
+        },
 		{
 			"lang": "de",
 			"name": "German",
