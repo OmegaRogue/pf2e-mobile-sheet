@@ -96,6 +96,7 @@ export function registerSettings() {
 		requiresReload: false,
 		onChange: (value: boolean) => {
 			toggleRender(!value);
+			setBodyData("disable-canvas", value);
 		},
 	} as SettingRegistration<undefined>);
 	game.settings.register(MODULE_ID, "show-player-list", {

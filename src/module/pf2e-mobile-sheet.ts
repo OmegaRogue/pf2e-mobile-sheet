@@ -141,6 +141,7 @@ Hooks.once("ready", async () => {
 	setBodyData("force-mobile-layout", game.settings.get(MODULE_ID, "mobile-layout"));
 	setBodyData("hide-player-list", !game.settings.get(MODULE_ID, "show-player-list"));
 	setBodyData("show-mobile-toggle", game.settings.get(MODULE_ID, "show-mobile-toggle"));
+	setBodyData("disable-canvas", game.settings.get(MODULE_ID, "disable-canvas"));
 	setBodyData("hotbar", false);
 	toggleRender(!game.settings.get(MODULE_ID, "disable-canvas"));
 	MobileMode.navigation.render(true);

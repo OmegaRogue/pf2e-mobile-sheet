@@ -269,3 +269,9 @@
 		display: none;
 	}
 }
+
+body[data-mobile-disable-canvas=true] {
+	canvas#board {
+		display: none !important;
+	}
+}

@@ -207,7 +207,7 @@ export class MobileUI extends Application {
 	}
 
 	override getData() {
-		const data = [
+		let data = [
 			{ name: "map", icon: "fa-map" },
 			{ name: "app", icon: "fa-home" },
 			{ name: "macros", icon: "fa-grip-horizontal", drawer: true },
@@ -222,6 +222,7 @@ export class MobileUI extends Application {
 		];
 		if (game.modules.get("foundry-taskbar")?.active ?? false) {
 			data.unshift({ name: "start", icon: "fa-bars", drawer: true });
+			data = data.filter((value) => value.name !== "menu");
 		}
 		return data;
 	}
