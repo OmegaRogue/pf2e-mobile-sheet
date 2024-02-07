@@ -9,8 +9,7 @@ import { FeatOrFeatureCategory, FeatTrait } from "./types.ts";
 declare class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     group: FeatGroup | null;
     grants: (FeatPF2e<ActorPF2e> | HeritagePF2e<ActorPF2e>)[];
-
-	static get validTraits(): Record<FeatTrait, string>;
+    static get validTraits(): Record<FeatTrait, string>;
     get category(): FeatOrFeatureCategory;
     get level(): number;
     get traits(): Set<FeatTrait>;
@@ -27,8 +26,7 @@ declare class FeatPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> exte
     prepareActorData(): void;
     prepareSiblingData(): void;
     onPrepareSynthetics(this: FeatPF2e<ActorPF2e>): void;
-
-	getChatData(this: FeatPF2e<ActorPF2e>, htmlOptions?: EnrichmentOptions): Promise<RawItemChatData>;
+    getChatData(this: FeatPF2e<ActorPF2e>, htmlOptions?: EnrichmentOptions): Promise<RawItemChatData>;
     /** Generate a list of strings for use in predication */
     getRollOptions(prefix?: string): string[];
     protected _preCreate(data: this["_source"], options: DocumentModificationContext<TParent>, user: UserPF2e): Promise<boolean | void>;

@@ -4,7 +4,7 @@ import type { MagicTradition } from "@item/spell/index.ts";
 import type { CheckRoll } from "@system/check/index.ts";
 import type { EffectTrait } from "./types.ts";
 interface AbstractEffectSystemSource extends ItemSystemSource {
-	traits: EffectTraits;
+    traits: EffectTraits;
     /** Whether this effect originated from a spell */
     fromSpell?: boolean;
     expired?: boolean;
@@ -59,6 +59,7 @@ interface EffectContextData {
         token: TokenDocumentUUID | null;
         item: ItemUUID | null;
         spellcasting: EffectContextSpellcastingData | null;
+        rollOptions?: string[];
     };
     target: {
         actor: ActorUUID;
@@ -87,19 +88,4 @@ interface DurationData {
     unit: TimeUnit | "unlimited" | "encounter";
     expiry: EffectExpiryType | null;
 }
-
-export type {
-	AbstractEffectSystemData,
-	AbstractEffectSystemSource,
-	DurationData,
-	EffectAuraData,
-	EffectBadge,
-	EffectBadgeCounter,
-	EffectBadgeFormulaSource,
-	EffectBadgeSource,
-	EffectBadgeValueSource,
-	EffectContextData,
-	EffectExpiryType,
-	EffectTraits,
-	TimeUnit
-};
+export type { AbstractEffectSystemData, AbstractEffectSystemSource, DurationData, EffectAuraData, EffectBadge, EffectBadgeCounter, EffectBadgeFormulaSource, EffectBadgeSource, EffectBadgeValueSource, EffectContextData, EffectExpiryType, EffectTraits, TimeUnit, };

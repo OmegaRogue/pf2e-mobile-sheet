@@ -1,5 +1,5 @@
 import type { ActorPF2e } from "@actor";
-import type { NumberField, StringField } from "foundry-types/common/data/fields.d.ts";
+import type { NumberField, StringField } from "types/foundry/common/data/fields.d.ts";
 import type { SenseData } from "./data.ts";
 import type { SenseAcuity, SenseType } from "./index.ts";
 declare class Sense extends foundry.abstract.DataModel<ActorPF2e, SenseSchema> {

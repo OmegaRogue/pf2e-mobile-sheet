@@ -52,7 +52,7 @@ declare class Immunity extends IWR<ImmunityType> implements ImmunitySource {
         dazzled: string;
         deafened: string;
         "death-effects": string;
-	    detection: string;
+        detection: string;
         disease: string;
         doomed: string;
         drained: string;

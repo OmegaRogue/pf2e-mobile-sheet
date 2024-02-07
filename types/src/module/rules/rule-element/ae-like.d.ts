@@ -1,5 +1,5 @@
-import type { BooleanField, StringField } from "foundry-types/common/data/fields.d.ts";
-import type { DataModelValidationFailure } from "foundry-types/common/data/validation-failure.d.ts";
+import type { BooleanField, StringField } from "types/foundry/common/data/fields.d.ts";
+import type { DataModelValidationFailure } from "types/foundry/common/data/validation-failure.d.ts";
 import { RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
 /**

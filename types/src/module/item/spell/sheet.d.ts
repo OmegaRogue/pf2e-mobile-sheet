@@ -9,8 +9,7 @@ export declare class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
     #private;
     static get defaultOptions(): ItemSheetOptions;
     get id(): string;
-
-	protected get validTraits(): Record<string, string>;
+    protected get validTraits(): Record<string, string>;
     getData(options?: Partial<ItemSheetOptions>): Promise<SpellSheetData>;
     get title(): string;
     activateListeners($html: JQuery): void;
@@ -20,7 +19,6 @@ export declare class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
     private getAvailableHeightenLevels;
 }
 interface SpellSheetData extends ItemSheetDataPF2e<SpellPF2e> {
-    passiveDefense: string | null;
     isVariant: boolean;
     variants: {
         name: string;

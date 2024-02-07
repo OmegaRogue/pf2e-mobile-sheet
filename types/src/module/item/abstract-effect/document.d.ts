@@ -10,13 +10,11 @@ import type { EffectTrait } from "./types.ts";
 declare abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     /** A normalized version of the slug that shows in roll options, removing certain prefixes */
     rollOptionSlug: string;
-
-	static get validTraits(): Record<EffectTrait, string>;
+    static get validTraits(): Record<EffectTrait, string>;
     abstract get badge(): EffectBadge | null;
     /** Get the actor from which this effect originated */
     get origin(): ActorPF2e | null;
-
-	get traits(): Set<EffectTrait>;
+    get traits(): Set<EffectTrait>;
     /** If false, the AbstractEffect should be hidden from the user unless they are a GM */
     get isIdentified(): boolean;
     get isLocked(): boolean;
@@ -27,10 +25,8 @@ declare abstract class AbstractEffectPF2e<TParent extends ActorPF2e | null = Act
         expired: boolean;
         remaining: number;
     };
-
-	abstract increase(): Promise<void>;
-
-	abstract decrease(): Promise<void>;
+    abstract increase(): Promise<void>;
+    abstract decrease(): Promise<void>;
     getRollOptions(prefix?: string): string[];
     prepareBaseData(): void;
     /** Set a self roll option for this effect */

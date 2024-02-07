@@ -4,6 +4,6 @@ declare function createDescriptionPrepend(spell: SpellPF2e, { includeTraditions 
     includeTraditions: boolean;
 }): Promise<string>;
 declare function getPassiveDefenseLabel(statistic: string, { localize }?: {
-	localize?: boolean | undefined;
+    localize?: boolean | undefined;
 }): string | null;
 export { createDescriptionPrepend, createSpellRankLabel, getPassiveDefenseLabel };

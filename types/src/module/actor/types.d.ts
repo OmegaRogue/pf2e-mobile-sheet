@@ -157,7 +157,7 @@ interface ApplyDamageParams {
     rollOptions?: Set<string>;
     shieldBlockRequest?: boolean;
     breakdown?: string[];
-	notes?: RollNotePF2e[];
+    notes?: RollNotePF2e[];
 }
 type ImmunityType = keyof typeof immunityTypes;
 type WeaknessType = keyof typeof weaknessTypes;

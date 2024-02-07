@@ -64,11 +64,15 @@ interface SpellDamageSource {
     materials: MaterialDamageEffect[];
 }
 interface SpellDefenseSource {
+    passive: {
+        statistic: SpellPassiveDefense;
+    } | null;
     save: {
         statistic: SaveType;
         basic: boolean;
     } | null;
 }
+type SpellPassiveDefense = "ac" | `${SaveType}-dc`;
 interface SpellHeighteningInterval {
     type: "interval";
     interval: number;
@@ -107,7 +111,6 @@ interface SpellDefenseData extends SpellDefenseSource {
         statistic: SpellPassiveDefense;
     } | null;
 }
-type SpellPassiveDefense = "ac" | `${SaveType}-dc`;
 type SpellOverlay = SpellOverlayOverride;
 type SpellOverlayType = SpellOverlay["overlayType"];
 interface RitualData {

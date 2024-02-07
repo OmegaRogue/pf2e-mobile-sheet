@@ -10,7 +10,7 @@ interface KitEntryData {
     items?: Record<string, KitEntryData>;
 }
 interface KitSystemSource extends ItemSystemSource {
-	traits: PhysicalItemTraits<PhysicalItemTrait>;
+    traits: PhysicalItemTraits<PhysicalItemTrait>;
     items: Record<string, KitEntryData>;
     price: PartialPrice;
     level?: never;

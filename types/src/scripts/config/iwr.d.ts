@@ -16,7 +16,7 @@ declare const immunityTypes: {
     dazzled: string;
     deafened: string;
     "death-effects": string;
-	detection: string;
+    detection: string;
     disease: string;
     doomed: string;
     drained: string;

@@ -8,9 +8,9 @@ import Tagify from "@yaireo/tagify";
 /** Prompt the user to pick from a number of options */
 declare abstract class PickAThingPrompt<TItem extends ItemPF2e, TThing extends string | number | object> extends Application {
     #private;
-	protected item: TItem;
-	protected selection: PickableThing<TThing> | null;
-	protected choices: PickableThing<TThing>[];
+    protected item: TItem;
+    protected selection: PickableThing<TThing> | null;
+    protected choices: PickableThing<TThing>[];
     /** If the number of choices is beyond a certain length, a select menu is presented instead of a list of buttons */
     protected selectMenu?: Tagify<{
         value: string;
@@ -18,17 +18,13 @@ declare abstract class PickAThingPrompt<TItem extends ItemPF2e, TThing extends s
     }>;
     protected predicate: PredicatePF2e;
     protected allowNoSelection: boolean;
-
-	constructor(data: PickAThingConstructorArgs<TItem, TThing>);
-
-	get actor(): TItem["parent"];
+    constructor(data: PickAThingConstructorArgs<TItem, TThing>);
+    get actor(): TItem["parent"];
     static get defaultOptions(): ApplicationOptions;
-
-	protected getSelection(event: MouseEvent): PickableThing<TThing> | null;
+    protected getSelection(event: MouseEvent): PickableThing<TThing> | null;
     /** Return a promise containing the user's item selection, or `null` if no selection was made */
     resolveSelection(): Promise<PickableThing<TThing> | null>;
-
-	getData(): Promise<PromptTemplateData>;
+    getData(): Promise<PromptTemplateData>;
     activateListeners($html: JQuery): void;
     /** Close the dialog, applying the effect with configured target or warning the user that something went wrong. */
     close(options?: {
@@ -38,8 +34,8 @@ declare abstract class PickAThingPrompt<TItem extends ItemPF2e, TThing extends s
 interface PickAThingConstructorArgs<TItem extends ItemPF2e, TThing extends string | number | object> {
     title?: string;
     prompt?: string;
-	choices: PickableThing<TThing>[];
-	item: TItem;
+    choices: PickableThing<TThing>[];
+    item: TItem;
     predicate?: PredicatePF2e;
     allowNoSelection?: boolean;
 }
@@ -52,9 +48,9 @@ interface PickableThing<T extends string | number | object = string | number | o
 }
 interface PromptTemplateData {
     choices: PickableThing[];
-	/** An item pertinent to the selection being made */
-	item: ItemPF2e;
-	user: UserPF2e;
+    /** An item pertinent to the selection being made */
+    item: ItemPF2e;
+    user: UserPF2e;
 }
 export { PickAThingPrompt };
 export type { PickAThingConstructorArgs, PickableThing, PromptTemplateData };

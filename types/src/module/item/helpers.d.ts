@@ -13,18 +13,16 @@ declare function itemIsOfType<TParent extends ActorPF2e | null>(item: ItemOrSour
 declare function reduceItemName(label: string): string;
 /** A helper class to finalize data for item summaries and chat cards */
 declare class ItemChatData {
-	#private;
-	item: ItemPF2e;
-	data: RawItemChatData;
-	htmlOptions: EnrichmentOptionsPF2e;
-
-	constructor({ item, data, htmlOptions }: ItemChatDataConstructorOptions);
-
-	process(): Promise<RawItemChatData>;
+    #private;
+    item: ItemPF2e;
+    data: RawItemChatData;
+    htmlOptions: EnrichmentOptionsPF2e;
+    constructor({ item, data, htmlOptions }: ItemChatDataConstructorOptions);
+    process(): Promise<RawItemChatData>;
 }
 interface ItemChatDataConstructorOptions {
-	item: ItemPF2e;
-	data: RawItemChatData;
-	htmlOptions?: EnrichmentOptionsPF2e;
+    item: ItemPF2e;
+    data: RawItemChatData;
+    htmlOptions?: EnrichmentOptionsPF2e;
 }
 export { ItemChatData, itemIsOfType, reduceItemName };

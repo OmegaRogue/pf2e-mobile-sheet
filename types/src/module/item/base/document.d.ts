@@ -7,14 +7,7 @@ import { RuleElementOptions, RuleElementPF2e } from "@module/rules/index.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
 import { ItemInstances } from "../types.ts";
-import type {
-	ItemFlagsPF2e,
-	ItemSourcePF2e,
-	ItemSystemData,
-	ItemType,
-	RawItemChatData,
-	TraitChatData
-} from "./data/index.ts";
+import type { ItemFlagsPF2e, ItemSourcePF2e, ItemSystemData, ItemType, RawItemChatData, TraitChatData } from "./data/index.ts";
 import type { ItemTrait } from "./data/system.ts";
 import type { ItemSheetPF2e } from "./sheet/sheet.ts";
 /** The basic `Item` subclass for the system */
@@ -24,9 +17,8 @@ declare class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> exte
     static getDefaultArtwork(itemData: foundry.documents.ItemSource): {
         img: ImageFilePath;
     };
-
-	/** Traits an item of this type can have */
-	static get validTraits(): Partial<Record<ItemTrait, string>>;
+    /** Traits an item of this type can have */
+    static get validTraits(): Partial<Record<ItemTrait, string>>;
     /** Prepared rule elements from this item */
     rules: RuleElementPF2e[];
     /** The sluggified name of the item **/
@@ -73,8 +65,7 @@ declare class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> exte
     prepareData(): void;
     /** Ensure the presence of the pf2e flag scope with default properties and values */
     prepareBaseData(): void;
-
-	prepareRuleElements(options?: Omit<RuleElementOptions, "parent">): RuleElementPF2e[];
+    prepareRuleElements(options?: Omit<RuleElementOptions, "parent">): RuleElementPF2e[];
     /** Pull the latest system data from the source compendium and replace this item's with it */
     refreshFromCompendium(options?: RefreshFromCompendiumParams): Promise<this | null>;
     getOriginData(): ItemOriginFlag;
@@ -83,10 +74,8 @@ declare class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> exte
      * Currently renders description text using enrichHTML.
      */
     protected processChatData(htmlOptions: EnrichmentOptionsPF2e | undefined, chatData: RawItemChatData): Promise<RawItemChatData>;
-
-	getChatData(htmlOptions?: EnrichmentOptionsPF2e, _rollOptions?: Record<string, unknown>): Promise<RawItemChatData>;
-
-	protected traitChatData(dictionary?: Record<string, string | undefined>, traits?: ItemTrait[]): TraitChatData[];
+    getChatData(htmlOptions?: EnrichmentOptionsPF2e, _rollOptions?: Record<string, unknown>): Promise<RawItemChatData>;
+    protected traitChatData(dictionary?: Record<string, string | undefined>, traits?: ItemTrait[]): TraitChatData[];
     /** Don't allow the user to create a condition or spellcasting entry from the sidebar. */
     static createDialog<TDocument extends foundry.abstract.Document>(this: ConstructorOf<TDocument>, data?: Record<string, unknown>, context?: {
         parent?: TDocument["parent"];
@@ -113,7 +102,7 @@ declare class ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> exte
     protected _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
 }
 interface ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends Item<TParent> {
-	constructor: typeof ItemPF2e;
+    constructor: typeof ItemPF2e;
     flags: ItemFlagsPF2e;
     readonly _source: ItemSourcePF2e;
     system: ItemSystemData;
@@ -131,11 +120,11 @@ interface ItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends 
 /** A `Proxy` to to get Foundry to construct `ItemPF2e` subclasses */
 declare const ItemProxyPF2e: typeof ItemPF2e;
 interface RefreshFromCompendiumParams {
-	/** Whether to overwrite the name if it is different */
-	name?: boolean;
-	/** Whether to notify the user that the item has been refreshed */
-	notify?: boolean;
-	/** Whether to run the update: if false, a clone with updated source is returned. */
-	update?: boolean;
+    /** Whether to overwrite the name if it is different */
+    name?: boolean;
+    /** Whether to notify the user that the item has been refreshed */
+    notify?: boolean;
+    /** Whether to run the update: if false, a clone with updated source is returned. */
+    update?: boolean;
 }
 export { ItemPF2e, ItemProxyPF2e };

@@ -2,7 +2,7 @@ import { ModifierType } from "@actor/modifiers.ts";
 import { AttributeString } from "@actor/types.ts";
 import { DamageCategoryUnique } from "@system/damage/types.ts";
 import { DataUnionField, PredicateField, StrictBooleanField, StrictStringField } from "@system/schema-data-fields.ts";
-import type { ArrayField, BooleanField, NumberField, StringField } from "foundry-types/common/data/fields.d.ts";
+import type { ArrayField, BooleanField, NumberField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource, RuleValue } from "./data.ts";
 /**

@@ -6,7 +6,7 @@ import { UserPF2e } from "@module/user/document.ts";
 import { ShieldSource, ShieldSystemData } from "./data.ts";
 import { BaseShieldType, ShieldTrait } from "./types.ts";
 declare class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
-	static get validTraits(): Record<ShieldTrait, string>;
+    static get validTraits(): Record<ShieldTrait, string>;
     get baseType(): BaseShieldType | null;
     get isBuckler(): boolean;
     get isTowerShield(): boolean;
@@ -15,18 +15,15 @@ declare class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> ex
     get isSpecific(): boolean;
     /** Given this is a shield, is it raised? */
     get isRaised(): boolean;
-
-	isStackableWith(item: PhysicalItemPF2e<TParent>): boolean;
-
-	acceptsSubitem(candidate: PhysicalItemPF2e): boolean;
+    isStackableWith(item: PhysicalItemPF2e<TParent>): boolean;
+    acceptsSubitem(candidate: PhysicalItemPF2e): boolean;
     /** Generate a list of strings for use in predication */
     getRollOptions(prefix?: string): string[];
     prepareBaseData(): void;
     prepareDerivedData(): void;
     prepareActorData(this: ShieldPF2e<ActorPF2e>): void;
     onPrepareSynthetics(this: ShieldPF2e<ActorPF2e>): void;
-
-	getChatData(this: ShieldPF2e<ActorPF2e>, htmlOptions?: EnrichmentOptions): Promise<RawItemChatData>;
+    getChatData(this: ShieldPF2e<ActorPF2e>, htmlOptions?: EnrichmentOptions): Promise<RawItemChatData>;
     generateUnidentifiedName({ typeOnly }?: {
         typeOnly?: boolean;
     }): string;

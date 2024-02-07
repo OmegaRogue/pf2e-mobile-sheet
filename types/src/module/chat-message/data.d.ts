@@ -6,7 +6,7 @@ import { RollNoteSource } from "@module/notes.ts";
 import { CheckRollContext } from "@system/check/index.ts";
 import { DamageRollContext } from "@system/damage/types.ts";
 import { DegreeAdjustmentsRecord, DegreeOfSuccessString } from "@system/degree-of-success.ts";
-import type { ChatMessageFlags } from "foundry-types/common/documents/chat-message.d.ts";
+import type { ChatMessageFlags } from "types/foundry/common/documents/chat-message.d.ts";
 type ChatMessageSourcePF2e = foundry.documents.ChatMessageSource & {
     flags: ChatMessageFlagsPF2e;
 };
@@ -19,6 +19,7 @@ export interface ItemOriginFlag {
     variant?: {
         overlays: string[];
     };
+    rollOptions?: string[];
 }
 type ChatMessageFlagsPF2e = ChatMessageFlags & {
     pf2e: {

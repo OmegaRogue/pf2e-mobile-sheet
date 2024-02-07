@@ -12,15 +12,13 @@ import type { WeaponDamage, WeaponFlags, WeaponSource, WeaponSystemData } from "
 import type { BaseWeaponType, OtherWeaponTag, WeaponCategory, WeaponGroup, WeaponReloadTime, WeaponTrait } from "./types.ts";
 declare class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
     shield?: ShieldPF2e<TParent>;
-
-	static get validTraits(): Record<NPCAttackTrait, string>;
+    static get validTraits(): Record<NPCAttackTrait, string>;
     constructor(data: PreCreate<ItemSourcePF2e>, context?: WeaponConstructionContext<TParent>);
     /** Given this weapon is an alternative usage, whether it is melee or thrown */
     altUsageType: "melee" | "thrown" | null;
     get isEquipped(): boolean;
-
-	/** Weapons may have "attached" traits instead of "attached" usages. */
-	get isAttachable(): boolean;
+    /** Weapons may have "attached" traits instead of "attached" usages. */
+    get isAttachable(): boolean;
     get baseType(): BaseWeaponType | null;
     get group(): WeaponGroup | null;
     get category(): WeaponCategory;
@@ -48,10 +46,8 @@ declare class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> ex
     get requiresAmmo(): boolean;
     get ammo(): ConsumablePF2e<ActorPF2e> | WeaponPF2e<ActorPF2e> | null;
     get otherTags(): Set<OtherWeaponTag>;
-
-	acceptsSubitem(candidate: PhysicalItemPF2e): boolean;
-
-	isStackableWith(item: PhysicalItemPF2e<TParent>): boolean;
+    acceptsSubitem(candidate: PhysicalItemPF2e): boolean;
+    isStackableWith(item: PhysicalItemPF2e<TParent>): boolean;
     /** Whether this weapon can serve as ammunition for another weapon */
     isAmmoFor(weapon: WeaponPF2e): boolean;
     /** Generate a list of strings for use in predication */
@@ -60,8 +56,7 @@ declare class WeaponPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> ex
     prepareDerivedData(): void;
     /** Add the rule elements of this weapon's linked ammunition to its own list */
     prepareSiblingData(): void;
-
-	getChatData(this: WeaponPF2e<ActorPF2e>, htmlOptions?: EnrichmentOptions): Promise<RawItemChatData>;
+    getChatData(this: WeaponPF2e<ActorPF2e>, htmlOptions?: EnrichmentOptions): Promise<RawItemChatData>;
     getMystifiedData(status: IdentificationStatus, { source }?: {
         source?: boolean | undefined;
     }): MystifiedData;

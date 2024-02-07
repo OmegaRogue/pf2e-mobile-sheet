@@ -7,7 +7,6 @@ import { Statistic } from "@system/statistic/index.ts";
 import type { PartyPF2e } from "../document.ts";
 import { PartyCampaign } from "../types.ts";
 import { KingdomCHG, KingdomCharter, KingdomGovernment, KingdomNationType, KingdomSchema, KingdomSkill, KingdomSource } from "./types.ts";
-
 declare const DataModel: typeof import("../../../../../types/foundry/common/abstract/data.js").default;
 /** Model for the Kingmaker campaign data type, which represents a Kingdom */
 declare class Kingdom extends DataModel<PartyPF2e, KingdomSchema> implements PartyCampaign {

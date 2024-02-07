@@ -81,6 +81,10 @@ interface GamePF2e extends Game<ActorPF2e<null>, ActorsPF2e<ActorPF2e<null>>, Ch
         TextEditor: typeof TextEditorPF2e;
         /** Cached values of frequently-checked settings */
         settings: {
+            automation: {
+                /** Flanking detection */
+                flanking: boolean;
+            };
             /** Campaign feat slots */
             campaign: {
                 enabled: boolean;
@@ -150,7 +154,7 @@ declare global {
     namespace globalThis {
         var game: GamePF2e;
         var fu: typeof foundry.utils;
-	    var ui: FoundryUI<ActorDirectoryPF2e, ItemDirectory<ItemPF2e<null>>, ChatLogPF2e, CompendiumDirectoryPF2e, EncounterTrackerPF2e<EncounterPF2e | null>, HotbarPF2e>;
+        var ui: FoundryUI<ActorDirectoryPF2e, ItemDirectory<ItemPF2e<null>>, ChatLogPF2e, CompendiumDirectoryPF2e, EncounterTrackerPF2e<EncounterPF2e | null>, HotbarPF2e>;
         interface Math {
             eq: (a: number, b: number) => boolean;
             gt: (a: number, b: number) => boolean;

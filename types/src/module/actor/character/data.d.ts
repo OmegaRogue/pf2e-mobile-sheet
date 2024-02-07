@@ -194,18 +194,18 @@ type PFSSchool = "scrolls" | "spells" | "swords" | null;
 type PathfinderSocietyReputation = Record<PFSFaction, number | null>;
 /** Pathfinder Society Organized Play data fields */
 interface PathfinderSocietyData {
-	/** Number assigned to the player. */
-	playerNumber: number | null;
-	/** Number assigned to the character. */
-	characterNumber: number | null;
-	/** Is the character currently affected by a level bump? */
-	levelBump: boolean;
-	/** Character's currently slotted faction */
-	currentFaction: PFSFaction;
-	/** Character's Pathfinder school */
-	school: PFSSchool;
-	/** Character's Reputation with all the factions */
-	reputation: PathfinderSocietyReputation;
+    /** Number assigned to the player. */
+    playerNumber: number | null;
+    /** Number assigned to the character. */
+    characterNumber: number | null;
+    /** Is the character currently affected by a level bump? */
+    levelBump: boolean;
+    /** Character's currently slotted faction */
+    currentFaction: PFSFaction;
+    /** Character's Pathfinder school */
+    school: PFSSchool;
+    /** Character's Reputation with all the factions */
+    reputation: PathfinderSocietyReputation;
 }
 /** The raw information contained within the actor data object for characters. */
 interface CharacterSystemData extends Omit<CharacterSystemSource, SourceOmission>, CreatureSystemData {
@@ -352,8 +352,8 @@ interface VersatileWeaponOption {
     glyph: string | null;
 }
 interface CharacterCraftingData {
-	formulas: CraftingFormulaData[];
-	entries: Record<string, Partial<CraftingEntryData>>;
+    formulas: CraftingFormulaData[];
+    entries: Record<string, Partial<CraftingEntryData>>;
 }
 interface CharacterResources extends CreatureResources {
     /** The current and maximum number of hero points */

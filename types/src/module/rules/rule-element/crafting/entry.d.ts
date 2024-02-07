@@ -1,13 +1,7 @@
 import type { ActorType, CharacterPF2e } from "@actor";
 import { ItemPF2e } from "@item";
 import { PredicateField } from "@system/schema-data-fields.ts";
-import type {
-	ArrayField,
-	BooleanField,
-	NumberField,
-	SchemaField,
-	StringField
-} from "foundry-types/common/data/fields.d.ts";
+import type { ArrayField, BooleanField, NumberField, SchemaField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { RuleElementOptions, RuleElementPF2e } from "../base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "../data.ts";
 /**
@@ -56,7 +50,7 @@ type CraftingEntryRuleData = Omit<SourceFromSchema<CraftingEntryRuleSchema>, "pr
 interface CraftingEntryRuleSource extends RuleElementSource {
     selector?: unknown;
     name?: unknown;
-	batchSizes?: unknown;
+    batchSizes?: unknown;
     isAlchemical?: unknown;
     isDailyPrep?: unknown;
     isPrepared?: unknown;

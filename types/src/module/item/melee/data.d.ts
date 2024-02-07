@@ -1,10 +1,4 @@
-import type {
-	BaseItemSourcePF2e,
-	ItemFlagsPF2e,
-	ItemSystemData,
-	ItemSystemSource,
-	ItemTraitsNoRarity
-} from "@item/base/data/system.ts";
+import type { BaseItemSourcePF2e, ItemFlagsPF2e, ItemSystemData, ItemSystemSource, ItemTraitsNoRarity } from "@item/base/data/system.ts";
 import type { WeaponMaterialData } from "@item/weapon/data.ts";
 import type { WeaponPropertyRuneType } from "@item/weapon/types.ts";
 import type { DamageType } from "@system/damage/types.ts";

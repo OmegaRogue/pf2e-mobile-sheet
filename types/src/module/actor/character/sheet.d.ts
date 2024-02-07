@@ -115,7 +115,7 @@ interface CharacterSheetData<TActor extends CharacterPF2e = CharacterPF2e> exten
     options: CharacterSheetOptions;
     preparationType: Object;
     showPFSTab: boolean;
-	spellCollectionGroups: Record<SpellcastingTabSlug, SpellcastingSheetData[]>;
+    spellCollectionGroups: Record<SpellcastingTabSlug, SpellcastingSheetData[]>;
     hasNormalSpellcasting: boolean;
     tabVisibility: CharacterSheetTabVisibility;
     actions: {

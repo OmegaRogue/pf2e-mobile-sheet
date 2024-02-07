@@ -1,4 +1,4 @@
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import { EffectBadge } from "@item/abstract-effect/data.ts";
 import { AbstractEffectPF2e } from "@item/abstract-effect/index.ts";
 import { RuleElementOptions, RuleElementPF2e } from "@module/rules/index.ts";

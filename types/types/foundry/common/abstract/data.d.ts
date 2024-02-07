@@ -234,17 +234,16 @@ declare global {
         : TModel["_source"];
 
     interface DataModelConstructionOptions<TParent extends DataModel | null> {
-		/** A parent DataModel instance to which this DataModel belongs */
-		parent?: TParent;
-		/** Control the strictness of validation for initially provided data */
-		strict?: boolean;
-		/** Attempt to replace invalid values with valid defaults? */
-		fallback?: boolean;
-		/** Allow partial source data, ignoring absent fields? */
-		partial?: boolean;
-
-		[key: string]: unknown;
-	}
+        /** A parent DataModel instance to which this DataModel belongs */
+        parent?: TParent;
+        /** Control the strictness of validation for initially provided data */
+        strict?: boolean;
+        /** Attempt to replace invalid values with valid defaults? */
+        fallback?: boolean;
+        /** Allow partial source data, ignoring absent fields? */
+        partial?: boolean;
+        [key: string]: unknown;
+    }
 }
 
 type _DataModel = DataModel<_DataModel | null, fields.DataSchema>;

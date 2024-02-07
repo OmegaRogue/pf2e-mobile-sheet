@@ -5,8 +5,8 @@ import { BaseSpellcastingEntry, CastOptions, SpellcastingSheetData } from "./typ
 /** An in-memory spellcasting entry for rituals */
 export declare class RitualSpellcasting<TActor extends ActorPF2e> implements BaseSpellcastingEntry<TActor> {
     actor: TActor;
-	spells: SpellCollection<TActor>;
-    constructor(actor: TActor, rituals: SpellPF2e<TActor>[]);
+    spells: SpellCollection<TActor>;
+    constructor(actor: TActor);
     get id(): string;
     get name(): string;
     get sort(): number;
@@ -18,8 +18,7 @@ export declare class RitualSpellcasting<TActor extends ActorPF2e> implements Bas
     get isPrepared(): false;
     get isRitual(): true;
     get isSpontaneous(): false;
-
-	get isEphemeral(): true;
+    get isEphemeral(): true;
     canCast(spell: SpellPF2e): boolean;
     cast(spell: SpellPF2e, options?: CastOptions): Promise<void>;
     getSheetData(): Promise<SpellcastingSheetData>;

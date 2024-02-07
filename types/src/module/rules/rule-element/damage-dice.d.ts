@@ -1,5 +1,5 @@
 import { DamageDiceOverride } from "@actor/modifiers.ts";
-import type { ArrayField, BooleanField, ObjectField, StringField } from "foundry-types/common/data/fields.d.ts";
+import type { ArrayField, BooleanField, ObjectField, StringField } from "types/foundry/common/data/fields.d.ts";
 import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
 declare class DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema> {
@@ -18,7 +18,7 @@ interface DamageDiceSource extends RuleElementSource {
     critical?: unknown;
     category?: unknown;
     damageCategory?: unknown;
-	hideIfDisabled?: unknown;
+    hideIfDisabled?: unknown;
 }
 interface DamageDiceRuleElement extends RuleElementPF2e<DamageDiceRuleSchema>, ModelPropsFromRESchema<DamageDiceRuleSchema> {
 }
@@ -41,7 +41,7 @@ type DamageDiceRuleSchema = RuleElementSchema & {
     brackets: ResolvableValueField<false, true, false>;
     /** Damage dice override data */
     override: ObjectField<DamageDiceOverride, DamageDiceOverride, false, true, false>;
-	/** Hide this dice change from breakdown tooltips if it is disabled */
-	hideIfDisabled: BooleanField<boolean, boolean, false, false, true>;
+    /** Hide this dice change from breakdown tooltips if it is disabled */
+    hideIfDisabled: BooleanField<boolean, boolean, false, false, true>;
 };
 export { DamageDiceRuleElement };

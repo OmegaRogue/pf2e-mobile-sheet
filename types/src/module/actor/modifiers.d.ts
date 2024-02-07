@@ -260,7 +260,7 @@ declare class DamageDicePF2e {
     enabled: boolean;
     custom: boolean;
     predicate: PredicatePF2e;
-	hideIfDisabled: boolean;
+    hideIfDisabled: boolean;
     constructor(params: DamageDiceParameters);
     /** Test the `predicate` against a set of roll options */
     test(options: Set<string>): void;

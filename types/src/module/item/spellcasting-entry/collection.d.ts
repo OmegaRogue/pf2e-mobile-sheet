@@ -4,11 +4,10 @@ import { OneToTen, ZeroToTen } from "@module/data.ts";
 import { BaseSpellcastingEntry, SpellPrepEntry, SpellcastingSlotGroup } from "./types.ts";
 declare class SpellCollection<TActor extends ActorPF2e> extends Collection<SpellPF2e<TActor>> {
     #private;
-	readonly entry: BaseSpellcastingEntry<TActor>;
+    readonly entry: BaseSpellcastingEntry<TActor>;
     readonly actor: TActor;
-	readonly name: string;
-
-	constructor(entry: BaseSpellcastingEntry<TActor>, name?: string);
+    readonly name: string;
+    constructor(entry: BaseSpellcastingEntry<TActor>, name?: string);
     get id(): string;
     get highestRank(): OneToTen;
     /**
@@ -18,12 +17,10 @@ declare class SpellCollection<TActor extends ActorPF2e> extends Collection<Spell
     addSpell(spell: SpellPF2e, options?: {
         groupId?: Maybe<SpellSlotGroupId>;
     }): Promise<SpellPF2e<TActor> | null>;
-
-	/** Save the prepared spell slot data to the spellcasting entry  */
-	prepareSpell(spell: SpellPF2e, groupId: SpellSlotGroupId, slotId: number): Promise<this | null>;
-
-	/** Clear the spell slot and updates the spellcasting entry */
-	unprepareSpell(groupId: SpellSlotGroupId, slotId: number): Promise<this | null>;
+    /** Save the prepared spell slot data to the spellcasting entry  */
+    prepareSpell(spell: SpellPF2e, groupId: SpellSlotGroupId, slotId: number): Promise<this | null>;
+    /** Clear the spell slot and updates the spellcasting entry */
+    unprepareSpell(groupId: SpellSlotGroupId, slotId: number): Promise<this | null>;
     /** Sets the expended state of a spell slot and updates the spellcasting entry */
     setSlotExpendedState(groupId: SpellSlotGroupId, slotId: number, value: boolean): Promise<BaseSpellcastingEntry<TActor> | undefined>;
     getSpellData({ prepList }?: {

@@ -18,21 +18,19 @@ declare class ChoiceSetPrompt extends PickAThingPrompt<ItemPF2e<ActorPF2e>, stri
     } | null;
     constructor(data: ChoiceSetPromptData);
     static get defaultOptions(): ApplicationOptions;
-
-	getData(): Promise<ChoiceSetTemplateData>;
+    getData(): Promise<ChoiceSetTemplateData>;
     activateListeners($html: JQuery): void;
     /** Return early if there is only one choice */
     resolveSelection(): Promise<PickableThing<string | number | object> | null>;
-
-	close(options?: {
-		force?: boolean;
-	}): Promise<void>;
+    close(options?: {
+        force?: boolean;
+    }): Promise<void>;
     /** Handle a dropped homebrew item */
     protected _onDrop(event: DragEvent): Promise<void>;
     protected _canDragDrop(): boolean;
 }
 interface ChoiceSetPrompt extends PickAThingPrompt<ItemPF2e<ActorPF2e>, string | number | object> {
-	getSelection(event: MouseEvent): ChoiceSetChoice | null;
+    getSelection(event: MouseEvent): ChoiceSetChoice | null;
 }
 interface ChoiceSetPromptData extends PickAThingConstructorArgs<ItemPF2e<ActorPF2e>, string | number | object> {
     prompt: string;
@@ -48,8 +46,8 @@ interface ChoiceSetChoice extends PickableThing {
 interface ChoiceSetTemplateData extends PromptTemplateData {
     prompt: string;
     choices: ChoiceSetChoice[];
-	/** Whether to use a select menu instead of a column of buttons */
-	selectMenu: boolean;
+    /** Whether to use a select menu instead of a column of buttons */
+    selectMenu: boolean;
     includeDropZone: boolean;
     allowNoSelection: boolean;
     containsItems: boolean;

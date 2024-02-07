@@ -18,7 +18,7 @@ interface ConsumableSystemSource extends PhysicalSystemSource {
         value: string;
     };
     stackGroup: AmmoStackGroup | null;
-	subitems?: never;
+    subitems?: never;
 }
 type ConsumableUses = {
     value: number;

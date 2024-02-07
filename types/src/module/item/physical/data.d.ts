@@ -14,7 +14,7 @@ interface PhysicalSystemSource extends ItemSystemSource {
     level: {
         value: number;
     };
-	traits: PhysicalItemTraits<PhysicalItemTrait>;
+    traits: PhysicalItemTraits<PhysicalItemTrait>;
     quantity: number;
     baseItem: string | null;
     bulk: {
@@ -33,7 +33,7 @@ interface PhysicalSystemSource extends ItemSystemSource {
     };
     activations?: Record<string, ItemActivation>;
     temporary?: boolean;
-	subitems?: PhysicalItemSource[];
+    subitems?: PhysicalItemSource[];
     /**
      * Data for apex items: the attribute upgraded and, in case of multiple apex items, whether the upgrade has been
      * selected
@@ -61,7 +61,7 @@ interface PhysicalSystemData extends Omit<PhysicalSystemSource, "description">, 
     price: Price;
     bulk: BulkData;
     material: ItemMaterialData;
-	traits: PhysicalItemTraits<PhysicalItemTrait>;
+    traits: PhysicalItemTraits<PhysicalItemTrait>;
     temporary: boolean;
     identification: IdentificationData;
     usage: UsageDetails;

@@ -12,8 +12,7 @@ declare class MeleePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> ext
     category: WeaponCategory | null;
     group: WeaponGroup | null;
     baseType: BaseWeaponType | null;
-
-	static get validTraits(): Record<NPCAttackTrait, string>;
+    static get validTraits(): Record<NPCAttackTrait, string>;
     get traits(): Set<NPCAttackTrait>;
     get isMelee(): boolean;
     get isRanged(): boolean;

@@ -36,7 +36,7 @@ interface ActionCheckPreview {
     slug: string;
 }
 interface SingleCheckActionUseOptions extends ActionUseOptions {
-	difficultyClass: CheckDC | DCSlug | number;
+    difficultyClass: CheckDC | DCSlug | number;
     modifiers: ModifierPF2e[];
     multipleAttackPenalty: number;
     notes: SingleCheckActionRollNoteData[];

@@ -1,6 +1,6 @@
 import type { Language } from "@actor/creature/index.ts";
 import type { BaseWeaponType } from "@item/weapon/types.ts";
-import type { SetField, StringField } from "foundry-types/common/data/fields.d.ts";
+import type { SetField, StringField } from "types/foundry/common/data/fields.d.ts";
 import type { MenuTemplateData, SettingsTemplateData } from "../menu.ts";
 declare const HOMEBREW_TRAIT_KEYS: readonly ["creatureTraits", "featTraits", "languages", "spellTraits", "weaponCategories", "weaponGroups", "baseWeapons", "weaponTraits", "equipmentTraits"];
 /** Homebrew elements from some of the above records are propagated to related records */
@@ -73,8 +73,8 @@ type LanguageRaritiesSchema = {
     rare: LanguageSetField;
     /** "Secret" languages (Wildsong) */
     secret: LanguageSetField;
-	/** Languages not available for use on any creature */
-	unavailable: LanguageSetField;
+    /** Languages not available for use on any creature */
+    unavailable: LanguageSetField;
 };
 type LanguageSetField = SetField<StringField<LanguageNotCommon, LanguageNotCommon, true, false, false>, LanguageNotCommon[], Set<LanguageNotCommon>, true, false, true>;
 type RawLanguageRarities<TModel extends LanguageRaritiesData = LanguageRaritiesData> = RawObject<TModel> & {

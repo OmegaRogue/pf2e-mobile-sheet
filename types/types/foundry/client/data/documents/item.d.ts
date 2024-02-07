@@ -58,9 +58,9 @@ declare global {
         get sheet(): ItemSheet<this, DocumentSheetOptions>;
     }
 
-	namespace Item {
-		const implementation: typeof Item;
-	}
+    namespace Item {
+        const implementation: typeof Item;
+    }
 
     type EmbeddedItemUUID = `Actor.${string}.Item.${string}`;
     type WorldItemUUID = WorldDocumentUUID<Item<null>>;

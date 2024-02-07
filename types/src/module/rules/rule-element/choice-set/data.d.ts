@@ -2,7 +2,7 @@ import { ItemType } from "@item/base/data/index.ts";
 import { PickableThing } from "@module/apps/pick-a-thing-prompt.ts";
 import { RawPredicate } from "@system/predication.ts";
 import type { DataUnionField, PredicateField, StrictArrayField, StrictBooleanField, StrictObjectField, StrictStringField } from "@system/schema-data-fields.ts";
-import type { SchemaField, StringField } from "foundry-types/common/data/fields.d.ts";
+import type { SchemaField, StringField } from "types/foundry/common/data/fields.d.ts";
 import type { RuleElementSchema, RuleElementSource } from "../data.ts";
 type ChoiceSetSchema = RuleElementSchema & {
     /**

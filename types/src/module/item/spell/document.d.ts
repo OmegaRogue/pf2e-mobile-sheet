@@ -21,15 +21,14 @@ import { SpellArea, SpellHeightenLayer, SpellOverlayType, SpellSource, SpellSyst
 import { SpellOverlayCollection } from "./overlay.ts";
 import { MagicTradition, SpellTrait } from "./types.ts";
 declare class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
-	readonly parentItem: ConsumablePF2e<TParent> | null;
+    readonly parentItem: ConsumablePF2e<TParent> | null;
     /** The original spell. Only exists if this is a variant */
     original?: SpellPF2e<TParent>;
     /** The overlays that were applied to create this variant */
     appliedOverlays?: Map<SpellOverlayType, string>;
     overlays: SpellOverlayCollection;
     constructor(data: PreCreate<ItemSourcePF2e>, context?: SpellConstructionContext<TParent>);
-
-	static get validTraits(): Record<SpellTrait, string>;
+    static get validTraits(): Record<SpellTrait, string>;
     /** The id of the override overlay that constitutes this variant */
     get variantId(): string | null;
     /** The spell's "base" rank; that is, before heightening */
@@ -50,11 +49,10 @@ declare class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> ext
     get rarity(): Rarity;
     get traditions(): Set<MagicTradition>;
     get actionGlyph(): string | null;
-
-	get defense(): {
-		slug: string;
-		label: string;
-	} | null;
+    get defense(): {
+        slug: string;
+        label: string;
+    } | null;
     get spellcasting(): BaseSpellcastingEntry<NonNullable<TParent>> | null;
     get isAttack(): boolean;
     get isCantrip(): boolean;
@@ -67,11 +65,16 @@ declare class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> ext
     get atWill(): boolean;
     get isVariant(): boolean;
     get hasVariants(): boolean;
+    /**
+     * Attempt to parse out range data.
+     * @todo Migrate me.
+     */
+    get range(): RangeData | null;
+    get isMelee(): boolean;
+    get isRanged(): boolean;
     get area(): (SpellArea & {
         label: string;
     }) | null;
-    /** Dummy getter for interface alignment with weapons and actions */
-    get range(): RangeData | null;
     /** Whether the "damage" roll of this spell deals damage or heals (or both, depending on the target) */
     get damageKinds(): Set<DamageKind>;
     get uuid(): ItemUUID;
@@ -94,13 +97,15 @@ declare class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> ext
     prepareSiblingData(this: SpellPF2e<ActorPF2e>): void;
     prepareActorData(): void;
     onPrepareSynthetics(this: SpellPF2e<ActorPF2e>): void;
-    getRollOptions(prefix?: string): string[];
+    getRollOptions(prefix?: string, options?: {
+        includeVariants?: boolean;
+    }): string[];
     toMessage(event?: Maybe<MouseEvent | JQuery.TriggeredEvent>, { create, data, rollMode }?: SpellToMessageOptions): Promise<ChatMessagePF2e | undefined>;
     getChatData(this: SpellPF2e<ActorPF2e>, htmlOptions?: EnrichmentOptionsPF2e, rollOptions?: {
         castRank?: number | string;
         groupId?: SpellSlotGroupId;
     }): Promise<RawItemChatData>;
-    rollAttack(this: SpellPF2e<ActorPF2e>, event: MouseEvent | JQuery.ClickEvent, attackNumber?: number, context?: StatisticRollParameters): Promise<void>;
+    rollAttack(this: SpellPF2e<ActorPF2e>, event: MouseEvent | JQuery.ClickEvent, attackNumber?: number, context?: StatisticRollParameters): Promise<Rolled<CheckRoll> | null>;
     rollDamage(this: SpellPF2e<ActorPF2e>, event: MouseEvent | JQuery.ClickEvent, mapIncreases?: ZeroToTwo): Promise<Rolled<DamageRoll> | null>;
     /** Roll counteract check */
     rollCounteract(event?: MouseEvent | JQuery.ClickEvent): Promise<Rolled<CheckRoll> | null>;
@@ -114,7 +119,7 @@ interface SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends
     system: SpellSystemData;
 }
 interface SpellConstructionContext<TParent extends ActorPF2e | null> extends DocumentConstructionContext<TParent> {
-	parentItem?: Maybe<ConsumablePF2e<TParent>>;
+    parentItem?: Maybe<ConsumablePF2e<TParent>>;
 }
 interface SpellDamage {
     template: SpellDamageTemplate;

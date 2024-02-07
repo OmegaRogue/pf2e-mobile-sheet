@@ -1,9 +1,9 @@
 declare interface TabsOptions {
-	navSelector?: string;
-	contentSelector?: string;
-	group?: string;
-	initial?: string;
-	callback?: Function;
+    navSelector?: string;
+    contentSelector?: string;
+    group?: string;
+    initial?: string;
+    callback?: Function;
 }
 
 /**
@@ -33,54 +33,54 @@ declare interface TabsOptions {
  * tabs.bind(html);
  */
 declare class Tabs {
-	/**
-	 * The value of the active tab
-	 */
-	active: string;
+    /**
+     * The value of the active tab
+     */
+    active: string;
 
-	/**
-	 * A callback function to trigger when the tab is changed
-	 */
-	callback: Function | null;
+    /**
+     * A callback function to trigger when the tab is changed
+     */
+    callback: Function | null;
 
-	/**
-	 * The CSS selector used to target the tab navigation element
-	 */
-	_navSelector: string;
+    /**
+     * The CSS selector used to target the tab navigation element
+     */
+    _navSelector: string;
 
-	/**
-	 * A reference to the HTML navigation element the tab controller is bound to
-	 */
-	_nav: HTMLElement | null;
+    /**
+     * A reference to the HTML navigation element the tab controller is bound to
+     */
+    _nav: HTMLElement | null;
 
-	/**
-	 * The CSS selector used to target the tab content element
-	 */
-	_contentSelector: string;
+    /**
+     * The CSS selector used to target the tab content element
+     */
+    _contentSelector: string;
 
-	/**
-	 * A reference to the HTML container element of the tab content
-	 */
-	_content: HTMLElement | null;
+    /**
+     * A reference to the HTML container element of the tab content
+     */
+    _content: HTMLElement | null;
 
-	constructor({ navSelector, contentSelector, initial, callback }: TabsOptions);
+    constructor({ navSelector, contentSelector, initial, callback }: TabsOptions);
 
-	/**
-	 * Bind the Tabs controller to an HTML application
-	 * @param html
-	 */
-	bind(html: HTMLElement): void;
+    /**
+     * Bind the Tabs controller to an HTML application
+     * @param html
+     */
+    bind(html: HTMLElement): void;
 
-	/**
-	 * Activate a new tab by name
-	 * @param tabName
-	 * @param triggerCallback
-	 */
-	activate(tabName: string, { triggerCallback }?: { triggerCallback?: boolean }): void;
+    /**
+     * Activate a new tab by name
+     * @param tabName
+     * @param triggerCallback
+     */
+    activate(tabName: string, { triggerCallback }?: { triggerCallback?: boolean }): void;
 
-	/**
-	 * Handle click events on the tab navigation entries
-	 * @param event A left click event
-	 */
-	protected _onClickNav(event: MouseEvent): void;
+    /**
+     * Handle click events on the tab navigation entries
+     * @param event A left click event
+     */
+    protected _onClickNav(event: MouseEvent): void;
 }

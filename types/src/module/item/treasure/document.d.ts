@@ -8,8 +8,7 @@ declare class TreasurePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> 
     get denomination(): CoinDenomination | null;
     /** Set non-coinage treasure price from its numeric value and denomination */
     prepareBaseData(): void;
-
-	getChatData(this: TreasurePF2e<ActorPF2e>, htmlOptions?: EnrichmentOptions): Promise<RawItemChatData>;
+    getChatData(this: TreasurePF2e<ActorPF2e>, htmlOptions?: EnrichmentOptions): Promise<RawItemChatData>;
 }
 interface TreasurePF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
     readonly _source: TreasureSource;

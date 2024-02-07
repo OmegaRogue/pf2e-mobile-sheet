@@ -32,9 +32,8 @@ declare abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = Actor
     get handsHeld(): ZeroToTwo;
     /** Whether the item is currently being worn */
     get isWorn(): boolean;
-
-	/** Whether the item has an attached (or affixed, applied, etc.) usage */
-	get isAttachable(): boolean;
+    /** Whether the item has an attached (or affixed, applied, etc.) usage */
+    get isAttachable(): boolean;
     get price(): Price;
     /** The monetary value of the entire item stack */
     get assetValue(): CoinsPF2e;
@@ -61,9 +60,8 @@ declare abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = Actor
     get activations(): (ItemActivation & {
         componentsLabel: string;
     })[];
-
-	/** Whether other items can be attached (or affixed, applied, etc.) to this item */
-	acceptsSubitem(candidate: PhysicalItemPF2e): boolean;
+    /** Whether other items can be attached (or affixed, applied, etc.) to this item */
+    acceptsSubitem(candidate: PhysicalItemPF2e): boolean;
     /** Generate a list of strings for use in predication */
     getRollOptions(prefix?: string): string[];
     protected _initialize(options?: Record<string, unknown>): void;
@@ -96,20 +94,17 @@ declare abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = Actor
         render?: boolean;
     }): Promise<void>;
     getMystifiedData(status: IdentificationStatus, _options?: Record<string, boolean>): MystifiedData;
-
-	getChatData(): Promise<RawItemChatData>;
+    getChatData(): Promise<RawItemChatData>;
     setIdentificationStatus(status: IdentificationStatus): Promise<void>;
     generateUnidentifiedName({ typeOnly }?: {
         typeOnly?: boolean;
     }): string;
     /** Include mystification-related rendering instructions for views that will display this data. */
     protected traitChatData(dictionary: Record<string, string>): TraitChatData[];
-
-	/** Redirect subitem updates to the parent item */
-	update(data: Record<string, unknown>, context?: DocumentModificationContext<TParent>): Promise<this | undefined>;
-
-	/** Redirect subitem deletes to parent-item updates */
-	delete(context?: DocumentModificationContext<TParent>): Promise<this | undefined>;
+    /** Redirect subitem updates to the parent item */
+    update(data: Record<string, unknown>, context?: DocumentModificationContext<TParent>): Promise<this | undefined>;
+    /** Redirect subitem deletes to parent-item updates */
+    delete(context?: DocumentModificationContext<TParent>): Promise<this | undefined>;
     /** Set to unequipped upon acquiring */
     protected _preCreate(data: this["_source"], options: DocumentModificationContext<TParent>, user: UserPF2e): Promise<boolean | void>;
     protected _preUpdate(changed: DeepPartial<this["_source"]>, options: PhysicalItemUpdateContext<TParent>, user: UserPF2e): Promise<boolean | void>;

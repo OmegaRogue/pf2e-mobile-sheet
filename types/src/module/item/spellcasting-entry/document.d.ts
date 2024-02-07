@@ -9,7 +9,7 @@ import { SpellCollection, type SpellSlotGroupId } from "./collection.ts";
 import { SpellcastingEntrySource, SpellcastingEntrySystemData } from "./data.ts";
 import { CastOptions, SpellcastingCategory, SpellcastingEntry, SpellcastingSheetData } from "./types.ts";
 declare class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> implements SpellcastingEntry<TParent> {
-	spells: SpellCollection<NonNullable<TParent>> | null;
+    spells: SpellCollection<NonNullable<TParent>> | null;
     /** Spellcasting attack and dc data created during actor preparation */
     statistic: Statistic;
     get attribute(): AttributeString;
@@ -30,27 +30,22 @@ declare class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e
     get isFocusPool(): boolean;
     /** Ritual spellcasting is handled separately */
     get isRitual(): false;
-
-	get isEphemeral(): false;
+    get isEphemeral(): false;
     get highestRank(): ZeroToTen;
     get showSlotlessRanks(): boolean;
     prepareBaseData(): void;
-
-	prepareSiblingData(this: SpellcastingEntryPF2e<NonNullable<TParent>>): void;
-
-	prepareActorData(this: SpellcastingEntryPF2e<NonNullable<TParent>>): void;
+    prepareSiblingData(this: SpellcastingEntryPF2e<NonNullable<TParent>>): void;
+    prepareActorData(this: SpellcastingEntryPF2e<NonNullable<TParent>>): void;
     /** Prepares the statistic for this spellcasting entry */
     prepareStatistic(): void;
     /** All spells associated with this spellcasting entry on the actor that should also be deleted */
     getLinkedItems(): SpellPF2e<ActorPF2e>[];
-
-	/** Whether the spell is valid to cast by this spellcasting entry */
+    /** Whether the spell is valid to cast by this spellcasting entry */
     canCast(spell: SpellPF2e, { origin }?: {
         origin?: PhysicalItemPF2e;
     }): boolean;
-
-	/** Cast the given spell as if it was part of this spellcasting entry. */
-	cast(spell: SpellPF2e<ActorPF2e>, options?: CastOptions): Promise<void>;
+    /** Cast the given spell as if it was part of this spellcasting entry. */
+    cast(spell: SpellPF2e<ActorPF2e>, options?: CastOptions): Promise<void>;
     consume(spell: SpellPF2e<ActorPF2e>, rank: number, slotId?: number): Promise<boolean>;
     /**
      * Adds a spell to this spellcasting entry, either moving it from another one if its the same actor,

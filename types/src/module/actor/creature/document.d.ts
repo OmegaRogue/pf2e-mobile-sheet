@@ -2,6 +2,7 @@ import { ActorPF2e, type PartyPF2e } from "@actor";
 import { HitPointsSummary } from "@actor/base.ts";
 import { CreatureSource } from "@actor/data/index.ts";
 import { StatisticModifier } from "@actor/modifiers.ts";
+import { ActorSpellcasting } from "@actor/spellcasting.ts";
 import { MovementType, SaveType, SkillLongForm } from "@actor/types.ts";
 import { ArmorPF2e, ItemPF2e, type PhysicalItemPF2e, type ShieldPF2e } from "@item";
 import { ItemType } from "@item/base/data/index.ts";
@@ -17,6 +18,8 @@ import { CreatureSkills, CreatureSpeeds, CreatureSystemData, LabeledSpeed, Visio
 import { CreatureTrait, CreatureType, CreatureUpdateContext, GetReachParameters } from "./types.ts";
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 declare abstract class CreaturePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends ActorPF2e<TParent> {
+    /** A separate collection of owned spellcasting entries for convenience */
+    spellcasting: ActorSpellcasting<this>;
     parties: Set<PartyPF2e>;
     /** A creature always has an AC */
     armorClass: StatisticDifficultyClass<ArmorStatistic>;
@@ -57,6 +60,7 @@ declare abstract class CreaturePF2e<TParent extends TokenDocumentPF2e | null = T
     /** Setup base ephemeral data to be modified by active effects and derived-data preparation */
     prepareBaseData(): void;
     prepareEmbeddedDocuments(): void;
+    protected prepareDataFromItems(): void;
     prepareDerivedData(): void;
     protected prepareSynthetics(): void;
     /**
@@ -102,11 +106,11 @@ interface CreaturePF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentP
     deleteEmbeddedDocuments(embeddedName: "ActiveEffect" | "Item", ids: string[], context?: DocumentModificationContext<this>): Promise<ActiveEffectPF2e<this>[] | ItemPF2e<this>[]>;
 }
 interface ChangeCarryTypeOptions {
-	/** Whether the item is held, worn, stowed, etc. */
-	carryType: ItemCarryType;
-	/** If requesting to hold the item, how many holds with which to holt it */
-	handsHeld?: ZeroToTwo;
-	/** If requesting to wear the item, and the item has a usage slot, whether the item to be in the slot */
-	inSlot?: boolean;
+    /** Whether the item is held, worn, stowed, etc. */
+    carryType: ItemCarryType;
+    /** If requesting to hold the item, how many holds with which to holt it */
+    handsHeld?: ZeroToTwo;
+    /** If requesting to wear the item, and the item has a usage slot, whether the item to be in the slot */
+    inSlot?: boolean;
 }
 export { CreaturePF2e };

@@ -12,10 +12,10 @@ interface WornUsage {
     hands?: 0;
 }
 interface AttachedUsage {
-	value: string;
-	type: "attached";
-	where: string;
-	hands?: 0;
+    value: string;
+    type: "attached";
+    where: string;
+    hands?: 0;
 }
 interface CarriedUsage {
     value: "carried";

@@ -1,12 +1,5 @@
 import { SaveType } from "@actor/types.ts";
-import {
-	AbstractEffectSystemData,
-	AbstractEffectSystemSource,
-	DurationData,
-	EffectAuraData,
-	EffectContextData,
-	TimeUnit
-} from "@item/abstract-effect/index.ts";
+import { AbstractEffectSystemData, AbstractEffectSystemSource, DurationData, EffectAuraData, EffectContextData, TimeUnit } from "@item/abstract-effect/index.ts";
 import { BaseItemSourcePF2e, ItemFlagsPF2e } from "@item/base/data/system.ts";
 import { ConditionSlug } from "@item/condition/index.ts";
 import { DamageCategoryUnique, DamageType } from "@system/damage/index.ts";

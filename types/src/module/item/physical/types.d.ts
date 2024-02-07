@@ -15,11 +15,4 @@ type PhysicalItemTrait = ArmorTrait | ConsumableTrait | EquipmentTrait | ShieldT
 type PhysicalItemType = SetElement<typeof PHYSICAL_ITEM_TYPES>;
 type PreciousMaterialType = SetElement<typeof PRECIOUS_MATERIAL_TYPES>;
 type PreciousMaterialGrade = SetElement<typeof PRECIOUS_MATERIAL_GRADES>;
-export type {
-	BaseMaterial,
-	CoinDenomination,
-	PhysicalItemTrait,
-	PhysicalItemType,
-	PreciousMaterialGrade,
-	PreciousMaterialType
-};
+export type { BaseMaterial, CoinDenomination, PhysicalItemTrait, PhysicalItemType, PreciousMaterialGrade, PreciousMaterialType, };

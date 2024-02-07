@@ -83,9 +83,9 @@ interface StatisticRollParameters {
     dc?: CheckDC | CheckDCReference | number | null;
     /** Optional override for the check modifier label */
     label?: string;
-	/** An optional identifying slug to give a specific check: propagated to roll options */
-	slug?: Maybe<string>;
-	/** Optional override for the dialog's title: defaults to label */
+    /** An optional identifying slug to give a specific check: propagated to roll options */
+    slug?: Maybe<string>;
+    /** Optional override for the dialog's title: defaults to label */
     title?: string;
     /** Any additional roll notes that should be used in the roll. */
     extraRollNotes?: (RollNotePF2e | RollNoteSource)[];

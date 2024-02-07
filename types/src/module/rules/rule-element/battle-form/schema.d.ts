@@ -1,14 +1,7 @@
 import type { CreatureTrait } from "@actor/creature/index.ts";
 import type { SenseAcuity, SenseType } from "@actor/creature/types.ts";
 import type { RecordField } from "@system/schema-data-fields.ts";
-import type {
-	ArrayField,
-	BooleanField,
-	NumberField,
-	ObjectField,
-	SchemaField,
-	StringField
-} from "foundry-types/common/data/fields.d.ts";
+import type { ArrayField, BooleanField, NumberField, ObjectField, SchemaField, StringField } from "types/foundry/common/data/fields.d.ts";
 import type { ResolvableValueField, RuleElementSchema } from "../data.ts";
 import type { ImmunityRuleElement, ResistanceRuleElement, WeaknessRuleElement } from "../iwr/index.ts";
 import type { BattleFormSkills, BattleFormSpeeds, BattleFormStrike } from "./types.ts";
@@ -23,7 +16,7 @@ type OverrideSenseSchema = {
 };
 type BattleFormRuleOverrideSchema = {
     traits: ArrayField<StringField<CreatureTrait, CreatureTrait, true, false, false>>;
-	armorClass: SchemaField<OverrideACSchema, SourceFromSchema<OverrideACSchema>, ModelPropsFromSchema<OverrideACSchema>, false, false, true>;
+    armorClass: SchemaField<OverrideACSchema, SourceFromSchema<OverrideACSchema>, ModelPropsFromSchema<OverrideACSchema>, false, false, true>;
     tempHP: ResolvableValueField<false, true, true>;
     senses: RecordField<StringField<SenseType, SenseType, true, false, false>, SchemaField<OverrideSenseSchema>, false, false, false>;
     size: StringField<string, string, false, true, false>;
