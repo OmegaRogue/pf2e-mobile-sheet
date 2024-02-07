@@ -22,6 +22,14 @@
 				"name": "Remove Window Header Button Text",
 				"hint": "Removes the Text on the window header button."
 			},
+			"show-mobile-toggle": {
+				"name": "Show Mobile Toggle",
+				"hint": "Show a mobile mode toggle when it is disabled."
+			},
+			"disable-canvas": {
+				"name": "Disable Canvas",
+				"hint": "Disable the Canvas"
+			},
 			"mobile-share-targets": {
 				"title": "User Settings",
 				"name": "Share Targets",
