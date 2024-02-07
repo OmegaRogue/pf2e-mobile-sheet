@@ -29,7 +29,7 @@
 	.window-list {
 		padding: 0;
 
-		.window-close {
+		.window-close, .window-minimize {
 			max-width: 2.5em;
 			text-align: center;
 			width: 2.5em;
@@ -38,8 +38,10 @@
 				text-shadow: 0 0 8px red;
 			}
 
+			i {
+				pointer-events: none;
+			}
 		}
-
 	}
 
 	.window-row {

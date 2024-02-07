@@ -1,3 +1,6 @@
+import { MODULE_ID } from "../../../src/module/utils.js";
+import { EventSystem } from "@pixi/events";
+
 export {};
 
 declare global {
@@ -12,6 +15,9 @@ declare global {
 		"AUTO" = 2,
 		"FAST" = 3,
 	}
+
+	type PerformanceModes = "NORMAL" | "FAST" | "AUTO" | PERF_MODES;
+	type WrapperTypes = "WRAPPER" | "MIXED" | "OVERRIDE" | WRAPPER_TYPES;
 
 	export class libWrapper {
 		// Properties
@@ -96,9 +102,9 @@ declare global {
 		 *
 		 * Returns a unique numeric target identifier, which can be used as a replacement for 'target' in future calls to 'libWrapper.register' and 'libWrapper.unregister'.
 		 *
-		 * @param {string} package_id  The package identifier, i.e. the 'id' field in your module/system/world's manifest.
+		 * @param package_id The package identifier, i.e. the 'id' field in your module/system/world's manifest.
 		 *
-		 * @param {number|string} target The target identifier, specifying which wrapper should be registered.
+		 * @param target The target identifier, specifying which wrapper should be registered.
 		 *
 		 *   This can be either:
 		 *     1. A unique target identifier obtained from a previous 'libWrapper.register' call.
@@ -114,11 +120,10 @@ declare global {
 		 *
 		 *   By default, libWrapper searches for normal methods or property getters only. To wrap a property's setter, append '#set' to the name, for example 'SightLayer.prototype.blurDistance#set'.
 		 *
-		 * @param {function} fn        Wrapper function. The first argument will be the next function in the chain, except for 'OVERRIDE' wrappers.
+		 * @param fn Wrapper function. The first argument will be the next function in the chain, except for 'OVERRIDE' wrappers.
 		 *                             The remaining arguments will correspond to the parameters passed to the wrapped method.
 		 *
-		 * @param type
-		 * @param options
+		 * @param type The type of the wrapper. Default is 'MIXED'.
 		 *
 		 *   The possible types are:
 		 *
@@ -137,11 +142,14 @@ declare global {
 		 *     Catching this exception should allow you to fail gracefully, and for example warn the user of the conflict.
 		 *     Note that if the GM has explicitly given your package priority over the existing one, no exception will be thrown and your wrapper will take over.
 		 *
+		 * @param options Additional options to libWrapper.
 		 *
+		 * @param options.chain If 'true', the first parameter to 'fn' will be a function object that can be called to continue the chain.
 		 *   This parameter must be 'true' when registering non-OVERRIDE wrappers.
 		 *   Default is 'false' if type=='OVERRIDE', otherwise 'true'.
 		 *   First introduced in v1.3.6.0.
 		 *
+		 * @param options.perf_mode Selects the preferred performance mode for this wrapper. Default is 'AUTO'.
 		 *   It will be used if all other wrappers registered on the same target also prefer the same mode, otherwise the default will be used instead.
 		 *   This option should only be specified with good reason. In most cases, using 'AUTO' in order to allow the GM to choose is the best option.
 		 *   First introduced in v1.5.0.0.
@@ -165,6 +173,7 @@ declare global {
 		 *     Will allow the GM to choose which performance mode to use.
 		 *     Equivalent to 'FAST' when the libWrapper 'High-Performance Mode' setting is enabled by the GM, otherwise 'NORMAL'.
 		 *
+		 * @param options.bind An array of parameters that should be passed to 'fn'.
 		 *
 		 *   This allows avoiding an extra function call, for instance:
 		 *     libWrapper.register(PACKAGE_ID, "foo", function(wrapped, ...args) { return someFunction.call(this, wrapped, "foo", "bar", ...args) });
@@ -173,18 +182,40 @@ declare global {
 		 *
 		 *   First introduced in v1.12.0.0.
 		 *
-		 * @returns {number} Unique numeric 'target' identifier which can be used in future 'libWrapper.register' and 'libWrapper.unregister' calls.
+		 * @returns Unique numeric 'target' identifier which can be used in future 'libWrapper.register' and 'libWrapper.unregister' calls.
 		 *   Added in v1.11.0.0.
 		 */
 		static register(
 			package_id: string,
 			target: number | string,
 			fn: Function,
-			type?: string | WRAPPER_TYPES,
+			type?: WrapperTypes,
 			options?: {
 				chain?: boolean;
-				perf_mode?: string | PERF_MODES;
+				perf_mode?: PerformanceModes;
 				bind?: any[];
+			},
+		): number;
+		static register<T extends ThisType<F>, F extends (...args: any) => any>(
+			package_id: string,
+			target: number | string,
+			fn: (this: T, wrapped: F, ...args: Parameters<F>) => ReturnType<F>,
+			type?: WRAPPER_TYPES.WRAPPER | WRAPPER_TYPES.MIXED | "WRAPPER" | "MIXED",
+			options?: {
+				chain?: true;
+				perf_mode?: PerformanceModes;
+				bind?: Parameters<F>;
+			},
+		): number;
+		static register<T extends ThisType<F>, F extends (...args: any) => any>(
+			package_id: string,
+			target: number | string,
+			fn: (this: T, ...args: Parameters<F>) => ReturnType<F>,
+			type?: WRAPPER_TYPES.OVERRIDE | "OVERRIDE",
+			options?: {
+				chain?: boolean;
+				perf_mode?: PerformanceModes;
+				bind?: Parameters<F>;
 			},
 		): number;
 

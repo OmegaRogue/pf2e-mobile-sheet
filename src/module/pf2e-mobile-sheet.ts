@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import { registerSettings } from "./settings.ts";
 import { preloadTemplates } from "./preloadTemplates.ts";
 import { checkMobile, debug, getDebug, info, MODULE_ID, setBodyData, toggleRender } from "./utils.ts";
@@ -5,35 +6,35 @@ import * as windowMgr from "./apps/windowManager.ts";
 import "./combatTracker.ts";
 import "styles/pf2e-mobile-sheet.scss";
 import "./resizeObservers.ts";
-import { MobileUI } from "./apps/MobileUI.ts";
-import Handlebars from "handlebars";
+import { MobileUI, ViewState } from "./apps/MobileUI.ts";
+import { EventSystem } from "@pixi/events";
+import { PixiTouch } from "pixi.js";
+import { TouchInput } from "./apps/touchInput.js";
 
 abstract class MobileMode {
-	static enabled = false;
+	static get enabled() {
+		return checkMobile();
+	}
+
 	static navigation: MobileUI;
 
-	static enter() {
-		if (MobileMode.enabled) return;
-		MobileMode.enabled = true;
+	static enter(force: boolean = false) {
 		ui.nav?.collapse();
+		if (force) setBodyData("force-mobile-layout", "on");
 		// viewHeight();
 		Hooks.call("mobile-improvements:enter");
 	}
 
-	static leave() {
-		if (!MobileMode.enabled) return;
-		MobileMode.enabled = false;
+	static leave(force: boolean = false) {
+		if (force) setBodyData("force-mobile-layout", "off");
 		Hooks.call("mobile-improvements:leave");
 	}
 
-	static viewResize() {
+	static viewResize(force: boolean = false) {
+		debug(true, "resize");
 		// if (MobileMode.enabled) viewHeight();
-		// if (game.settings && getSetting(settings.PIN_MOBILE_MODE))
-		// 	return MobileMode.enter();
-		// if (localStorage.getItem("mobile-improvements.pinMobileMode") === "true")
-		// 	return MobileMode.enter();
-		if (checkMobile()) MobileMode.enter();
-		else MobileMode.leave();
+		if (this.enabled) MobileMode.enter(force);
+		else MobileMode.leave(force);
 	}
 }
 
@@ -42,31 +43,10 @@ Hooks.once("devModeReady", async ({ registerPackageDebugFlag }: DevModeApi) => {
 	getDebug();
 });
 
-const icons = {
-	"": "",
-	combat: "fa-fist-raised",
-	scenes: "fa-map",
-	scene: "fa-map",
-	actors: "fa-users",
-	actor: "fa-users",
-	items: "fa-suitcase",
-	item: "fa-suitcase",
-	journal: "fa-book-open",
-	tables: "fa-th-list",
-	playlists: "fa-music",
-	compendium: "fa-atlas",
-	settings: "fa-cogs",
-	npc: "fa-skull",
-	character: "fa-user",
-	spell: "fa-magic",
-	equipment: "fa-tshirt",
-	feat: "fa-hand-rock",
-	class: "fa-user",
-};
-
 // Initialize module
 Hooks.once("init", async () => {
 	info(true, "Initializing " + MODULE_ID);
+
 	// Assign custom classes and constants here
 	windowMgr.activate();
 
@@ -78,29 +58,9 @@ Hooks.once("init", async () => {
 
 	// Preload Handlebars templates
 	await preloadTemplates();
-	registerHandlebarsHelpers();
 
 	// Register custom sheets (if any)
 });
-
-function registerHandlebarsHelpers() {
-	Handlebars.registerHelper("winicon", function (win: Application): string {
-		let windowType: string =
-			// @ts-expect-error
-			win.icon ||
-			// @ts-expect-error
-			win.tabName ||
-			// @ts-expect-error
-			win?.object?.data?.type ||
-			// @ts-expect-error
-			win?.object?.data?.entity ||
-			// @ts-expect-error
-			(win.metadata ? "compendium" : "") ||
-			"";
-		windowType = windowType.toLowerCase();
-		return icons[windowType] || windowType;
-	});
-}
 
 Hooks.on("getSceneControlButtons", (hudButtons: SceneControl[]) => {
 	for (const hud of hudButtons) {
@@ -164,23 +124,70 @@ Hooks.once("ready", async () => {
 	setBodyData("force-hide-header-button-text", game.settings.get(MODULE_ID, "header-button-text"));
 	setBodyData("force-mobile-window", game.settings.get(MODULE_ID, "mobile-windows"));
 	setBodyData("force-mobile-layout", game.settings.get(MODULE_ID, "mobile-layout"));
-	setBodyData("hide-player-list", game.settings.get(MODULE_ID, "show-player-list"));
+	setBodyData("hide-player-list", !game.settings.get(MODULE_ID, "show-player-list"));
+	setBodyData("show-mobile-toggle", game.settings.get(MODULE_ID, "show-mobile-toggle"));
 	setBodyData("hotbar", false);
 	toggleRender(!game.settings.get(MODULE_ID, "disable-canvas"));
 	MobileMode.navigation.render(true);
 	MobileMode.viewResize();
 
+	const button = $(await renderTemplate(`modules/${MODULE_ID}/templates/mobileToggleButton.hbs`));
+	button.on("click", () => {
+		game.settings.set(MODULE_ID, "mobile-layout", "on");
+	});
+	body.append(button);
 	// canvas.app.stage.on("touchstart", onDragStart);
 	// canvas.app.stage.on("touchend", onDragEnd);
 	// canvas.app.stage.on("touchcancel", onDragEnd);
 
-	// for (const eventName of ["globaltouchmove","tapcapture","touchcancel","touchend","touchcancelcapture","touchendcapture","touchendoutside","touchendoutsidecapture","touchmove","touchmovecapture","touchstart","touchstartcapture"]) {
-	// 	canvas.app.stage.on(eventName,(...args)=>{console.log(eventName, ...args);});
+	// // @ts-ignore
+	// game.touchEvents = [];
+	// game.touchEventMap = {};
+	//
+	// canvas.app.stage.on("touchend", (event) => {
+	// 	delete game.touchEventMap[event.nativeEvent.identifier];
+	// });
+	// canvas.app.stage.on("touchcancel", (event) => {
+	// 	delete game.touchEventMap[event.nativeEvent.identifier];
+	// });
+	//
+	// for (const eventName of [
+	// 	"globaltouchmove",
+	// 	"tapcapture",
+	// 	"touchcancel",
+	// 	"touchend",
+	// 	"tap",
+	// 	"touchcancelcapture",
+	// 	"touchendcapture",
+	// 	"touchendoutside",
+	// 	"touchendoutsidecapture",
+	// 	"touchmove",
+	// 	"touchmovecapture",
+	// 	"touchstart",
+	// 	"touchstartcapture",
+	// ]) {
+	// 	// // @ts-ignore
+	// 	// body[0].addEventListener(
+	// 	// 	eventName,
+	// 	// 	(...args) => {
+	// 	// 		console.log(eventName, ...args);
+	// 	// 		// @ts-ignore
+	// 	// 		game.touchEvents.push({ name: eventName, event: args[0] });
+	// 	// 	},
+	// 	// 	false,
+	// 	// );
+	// 	canvas.app.stage.on(eventName, (event) => {
+	// 		console.log(eventName, event.nativeEvent.identifier, event.timeStamp, event);
+	// 		// @ts-ignore
+	// 		// game.touchEvents.push({ name: eventName, event: event });
+	// 		// game.touchEventMap[event.nativeEvent.identifier] = event;
+	// 	});
 	// }
-	libWrapper.register(
+
+	libWrapper.register<Canvas, typeof Canvas.prototype._onDragSelect>(
 		MODULE_ID,
 		"Canvas.prototype._onDragSelect",
-		function (this: Canvas, wrapped: any, event: PIXI.FederatedEvent) {
+		function (wrapped, event) {
 			if (!ui.controls?.control?.tools.find((a) => a.name === "touch-pan")?.active) return wrapped(event);
 			// @ts-expect-error
 			// Extract event data
@@ -211,6 +218,32 @@ Hooks.once("ready", async () => {
 		},
 		libWrapper.MIXED,
 	);
+	// @ts-ignore
+	const PixiNormalizePointer = `PIXI.extensions._queue["renderer-canvas-system"].["${PIXI.extensions._queue["renderer-canvas-system"].findIndex((b) => b.name === "events")}"].ref.prototype.normalizeToPointerData`;
+
+	libWrapper.register<EventSystem, (event: TouchEvent | MouseEvent | PointerEvent) => PointerEvent[]>(
+		MODULE_ID,
+		PixiNormalizePointer,
+		function (wrapped, event) {
+			if (event instanceof TouchEvent) {
+				const normalizedEvents: (PixiTouch & PointerEvent)[] = wrapped(event) as (PixiTouch & PointerEvent)[];
+				const normalizedEvent = normalizedEvents[0];
+				normalizedEvent.touches = event.touches;
+				normalizedEvent.targetTouches = event.targetTouches;
+				normalizedEvent.changedTouches = event.changedTouches;
+				return [normalizedEvent];
+			}
+			return wrapped(event);
+		},
+	);
+	if (!game.modules.get("zoom-pan-options")?.active) {
+		libWrapper.register<Canvas, typeof Canvas.prototype._onDragCanvasPan>(
+			MODULE_ID,
+			"Canvas.prototype._onDragCanvasPan",
+			() => {},
+			libWrapper.OVERRIDE,
+		);
+	}
 
 	if (!checkMobile()) return;
 	if (game.modules.get("pathfinder-ui")?.active) body.addClass("pf2e-ui");
@@ -222,32 +255,33 @@ Hooks.once("ready", async () => {
 
 // Trigger the recalculation of viewheight often. Not great performance,
 // but required to work on different mobile browsers
-document.addEventListener("fullscreenchange", () => setTimeout(MobileMode.viewResize, 100));
-window.addEventListener("resize", MobileMode.viewResize);
-window.addEventListener("scroll", MobileMode.viewResize);
+document.addEventListener("fullscreenchange", () => setTimeout(() => MobileMode.viewResize(), 100));
+window.addEventListener("resize", () => MobileMode.viewResize());
+window.addEventListener("scroll", () => MobileMode.viewResize());
 
-// Hooks.on("createChatMessage", (message: ChatMessage) => {
-// 	if (!MobileMode.enabled || !message.isAuthor) return;
-//
-// 	const shouldBloop =
-// 		MobileMode.navigation.state === ViewState.Map ||
-// 		window.WindowManager.minimizeAll() ||
-// 		ui.sidebar.activeTab !== "chat";
-//
-// 	MobileMode.navigation.showSidebar();
-// 	ui.sidebar.activateTab("chat");
-//
-// 	if (shouldBloop) {
-// 		Hooks.once("renderChatMessage", (obj: ChatMessage, html: JQuery) => {
-// 			if (obj.id !== message.id) return; // Avoid possible race condition?
-//
-// 			html.addClass("bloop");
-// 			setTimeout(() => html.removeClass("bloop"), 10000);
-// 		});
-// 	}
-// });
+Hooks.on("createChatMessage", (message: ChatMessage) => {
+	if (!MobileMode.enabled || !message.isAuthor) return;
+
+	const shouldBloop =
+		MobileMode.navigation.state === ViewState.Map ||
+		window.WindowManager.minimizeAll() ||
+		ui.sidebar.activeTab !== "chat";
+
+	MobileMode.navigation.showSidebar();
+	ui.sidebar.activateTab("chat");
+
+	if (shouldBloop) {
+		Hooks.once("renderChatMessage", (obj: ChatMessage, html: JQuery) => {
+			if (obj.id !== message.id) return; // Avoid possible race condition?
+
+			html.addClass("bloop");
+			setTimeout(() => html.removeClass("bloop"), 10000);
+		});
+	}
+});
 
 Hooks.on("renderApplication", async (app: Application) => {
+	if (app.element.css("display") === "none") app.element.css("display", "");
 	if (app.id !== "fsc-ng") return;
 	setTimeout(() => {
 		const simpleCalendarTaskbarButton = $(".taskbar-item:contains('Simple Calendar')");
@@ -278,5 +312,50 @@ Hooks.on("renderChatLog", async () => {
 	}
 	debug(false, "Add Send Button");
 });
+
+const notificationQueueProxy: ProxyHandler<typeof Notifications.prototype.queue> = {
+	get: function (target: typeof Notifications.prototype.queue, key): any {
+		if (key === "__isProxy") return true;
+
+		if (key === "push") {
+			return (...arg: typeof Notifications.prototype.queue) => {
+				if (Hooks.call("queuedNotification", ...arg)) {
+					target.push(...arg);
+				}
+			};
+		}
+		return target[key];
+	},
+};
+
+Hooks.once("renderNotifications", (app: Notifications) => {
+	// @ts-expect-error
+	if (!app.queue?.__isProxy) {
+		app.queue = new Proxy(app.queue, notificationQueueProxy);
+	}
+});
+Hooks.on("queuedNotification", (notif: (typeof Notifications.prototype.queue)[0]) => {
+	// noinspection SuspiciousTypeOfGuard
+	if (typeof notif.message === "string") {
+		if (notif.message.includes("Lock View and module Zoom/Pan Options modify the same FoundryVTT functionality")) {
+			console.log("notification suppressed", notif);
+			return false;
+		}
+		const regex = /\s.+px/g;
+		const message = notif.message?.replace(regex, "");
+		// @ts-ignore
+		const match = game.i18n.translations.ERROR.LowResolution.replace(regex, "");
+
+		// eslint-disable-next-line eqeqeq
+		if (message == match) {
+			console.log("notification suppressed", notif);
+			return false;
+		}
+	}
+	return true;
+});
+
+const touchInput = new TouchInput();
+Hooks.on("canvasReady", () => touchInput.hook());
 
 globalThis.MobileMode = MobileMode;

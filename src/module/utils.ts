@@ -1,4 +1,7 @@
-export const MODULE_ID = "pf2e-mobile-sheet";
+import { PixiTouch } from "pixi.js";
+import { MODULE_ID as MODULE_ID_TYPE } from "./types.js";
+
+export const MODULE_ID: MODULE_ID_TYPE = "pf2e-mobile-sheet";
 
 export function getDebug(): boolean | LogLevel {
 	// const devMode: DevModeModule | undefined = game.modules.get("_dev-mode") as DevModeModule | undefined;
@@ -138,4 +141,8 @@ export function getBodyData(tag: string): boolean | string | undefined {
 export function toggleRender(value: boolean): void {
 	if (value) canvas.ready && canvas.app.start();
 	else canvas.ready && canvas.app.stop();
+}
+
+export function isPixiTouch(obj: MouseEvent | PointerEvent | PixiTouch): obj is PixiTouch {
+	return "tangentialPressure" in obj;
 }

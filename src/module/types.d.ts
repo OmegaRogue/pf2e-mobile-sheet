@@ -9,6 +9,8 @@ import { ActorsPF2e } from "@module/collection/actors.js";
 import { WindowManager } from "./apps/windowManager.js";
 import { MODULE_ID } from "./utils.js";
 import { HookParameters } from "../../types/types/foundry/client/core/hooks.js";
+import { FederatedPointerEvent, PixiTouch } from "pixi.js";
+import { TokenPF2e } from "@module/canvas/token/object.js";
 
 export type ShareTargetSettings = {
 	send: boolean;
@@ -17,8 +19,36 @@ export type ShareTargetSettings = {
 };
 export type ShareTargetSettingsOptions = {} & Partial<FormApplicationOptions>;
 
+export type MODULE_ID = "pf2e-mobile-sheet";
+
+declare module "@pixi/events" {
+	declare interface EventSystem {
+		/**
+		 * Ensures that the original event object contains all data that a regular pointer event would have
+		 * @param event - The original event data from a touch or mouse event
+		 * @returns An array containing a single normalized pointer event, in the case of a pointer
+		 *  or mouse event, or a multiple normalized pointer events if there are multiple changed touches
+		 */
+		normalizeToPointerData(event: TouchEvent | MouseEvent | PointerEvent): PointerEvent[];
+	}
+
+	interface PixiTouch {
+		touches: TouchList;
+		targetTouches: TouchList;
+		changedTouches: TouchList;
+	}
+}
+
+export type InteractionEvent = FederatedPointerEvent & {
+	interactionData: Record<any, any>;
+};
+export type TouchInteractionEvent = InteractionEvent & {
+	nativeEvent: PixiTouch;
+};
+
 declare global {
 	const BUILD_MODE: "development" | "production";
+
 	interface GamePF2e
 		extends Game<
 			ActorPF2e<null>,
@@ -34,7 +64,32 @@ declare global {
 		dragTarget: any;
 	}
 
-	declare namespace Hooks {
+	interface TokenLayer {
+		/**
+		 * Clear the contents of the preview container, restoring visibility of original (non-preview) objects.
+		 */
+		clearPreviewContainer(): void;
+	}
+
+	interface GridLayer {
+		/**
+		 * Given a pair of coordinates (x1,y1), return the grid coordinates (x2,y2) which represent the snapped position
+		 * Under a "gridless" system, every pixel position is a valid snapping position
+		 *
+		 * @param {number} x                The exact target location x
+		 * @param {number} y                The exact target location y
+		 * @param {number|null} [interval]  An interval of grid spaces at which to snap.
+		 *                                  At interval=1, snapping occurs at pixel intervals defined by the grid size
+		 *                                  At interval=2, snapping would occur at the center-points of each grid size
+		 *                                  At interval=null, no snapping occurs
+		 * @param {object} [options]        Additional options to configure snapping behaviour.
+		 * @param {Token} [options.token]   The token that is being moved.
+		 * @returns {{x, y}}                An object containing the coordinates of the snapped location
+		 */
+		getSnappedPosition(x: number, y: number, interval: number | null, options: { token: TokenPF2e }): Point;
+	}
+
+	namespace Hooks {
 		type HookParamsWindowManagerInit = HookParameters<"WindowManager:Init", never>;
 		type HookParamsWindowManagerNewRendered = HookParameters<"WindowManager:NewRendered", [number]>;
 		type HookParamsWindowManagerAdded = HookParameters<"WindowManager:Added", [number]>;
@@ -88,47 +143,39 @@ declare global {
 		WindowManager: WindowManager;
 	}
 
-	interface ClientSettings {
-		get(module: typeof MODULE_ID, setting: "mobile-layout"): "on" | "off" | "auto";
+	declare interface ClientSettings {
+		get(module: MODULE_ID, setting: "mobile-layout"): "on" | "off" | "auto";
 
-		get(module: typeof MODULE_ID, setting: "mobile-windows"): "on" | "off" | "auto";
+		get(module: MODULE_ID, setting: "mobile-windows"): "on" | "off" | "auto";
 
-		get(module: typeof MODULE_ID, setting: "send-button"): "on" | "off" | "auto";
+		get(module: MODULE_ID, setting: "send-button"): "on" | "off" | "auto";
 
-		get(module: typeof MODULE_ID, setting: "header-button-text"): "on" | "off" | "auto";
+		get(module: MODULE_ID, setting: "header-button-text"): "on" | "off" | "auto";
 
-		get(module: typeof MODULE_ID, setting: "mobile-share-targets"): ShareTargetSettings[];
+		get(module: MODULE_ID, setting: "mobile-share-targets"): ShareTargetSettings[];
 
-		get(module: typeof MODULE_ID, setting: "show-player-list"): boolean;
+		get(module: MODULE_ID, setting: "show-player-list"): boolean;
 
-		get(module: typeof MODULE_ID, setting: "disable-canvas"): boolean;
+		get(module: MODULE_ID, setting: "disable-canvas"): boolean;
 
-		set(module: typeof MODULE_ID, key: "disable-canvas", value: boolean): Promise<boolean>;
+		get(module: MODULE_ID, setting: "show-mobile-toggle"): boolean;
 
-		set(module: typeof MODULE_ID, key: "show-player-list", value: boolean): Promise<boolean>;
+		set(module: MODULE_ID, key: "disable-canvas", value: boolean): Promise<boolean>;
 
-		set(
-			module: typeof MODULE_ID,
-			key: "mobile-layout",
-			value: "on" | "off" | "auto",
-		): Promise<"on" | "off" | "auto">;
+		set(module: MODULE_ID, key: "show-player-list", value: boolean): Promise<boolean>;
 
-		set(
-			module: typeof MODULE_ID,
-			key: "mobile-windows",
-			value: "on" | "off" | "auto",
-		): Promise<"on" | "off" | "auto">;
+		set(module: MODULE_ID, key: "show-mobile-toggle", value: boolean): Promise<boolean>;
 
-		set(module: typeof MODULE_ID, key: "send-button", value: "on" | "off" | "auto"): Promise<"on" | "off" | "auto">;
+		set(module: MODULE_ID, key: "mobile-layout", value: "on" | "off" | "auto"): Promise<"on" | "off" | "auto">;
+
+		set(module: MODULE_ID, key: "mobile-windows", value: "on" | "off" | "auto"): Promise<"on" | "off" | "auto">;
+
+		set(module: MODULE_ID, key: "send-button", value: "on" | "off" | "auto"): Promise<"on" | "off" | "auto">;
+
+		set(module: MODULE_ID, key: "header-button-text", value: "on" | "off" | "auto"): Promise<"on" | "off" | "auto">;
 
 		set(
-			module: typeof MODULE_ID,
-			key: "header-button-text",
-			value: "on" | "off" | "auto",
-		): Promise<"on" | "off" | "auto">;
-
-		set(
-			module: typeof MODULE_ID,
+			module: MODULE_ID,
 			key: "mobile-share-targets",
 			value: ShareTargetSettings[],
 		): Promise<ShareTargetSettings[]>;

@@ -74,7 +74,18 @@ export function registerSettings() {
 			}
 		},
 	} as SettingRegistration<OverrideSettings>);
-
+	game.settings.register(MODULE_ID, "show-mobile-toggle", {
+		name: `${MODULE_ID}.settings.show-mobile-toggle.name`,
+		hint: `${MODULE_ID}.settings.show-mobile-toggle.hint`,
+		config: true,
+		scope: "client",
+		type: Boolean,
+		default: false,
+		requiresReload: false,
+		onChange: (value: boolean) => {
+			setBodyData("show-mobile-toggle", value);
+		},
+	} as SettingRegistration<undefined>);
 	game.settings.register(MODULE_ID, "disable-canvas", {
 		name: `${MODULE_ID}.settings.disable-canvas.name`,
 		hint: `${MODULE_ID}.settings.disable-canvas.hint`,
@@ -86,10 +97,8 @@ export function registerSettings() {
 		onChange: (value: boolean) => {
 			toggleRender(!value);
 		},
-	});
+	} as SettingRegistration<undefined>);
 	game.settings.register(MODULE_ID, "show-player-list", {
-		name: `${MODULE_ID}.settings.show-player-list.name`,
-		hint: `${MODULE_ID}.settings.show-player-list.hint`,
 		config: false,
 		scope: "client",
 		type: Boolean,
@@ -98,17 +107,14 @@ export function registerSettings() {
 		onChange: (value: boolean) => {
 			setBodyData("hide-player-list", value);
 		},
-	});
+	} as SettingRegistration<undefined>);
 	game.settings.register(MODULE_ID, "mobile-share-targets", {
-		name: `${MODULE_ID}.settings.mobile-share-targets.name`,
-		hint: `${MODULE_ID}.settings.mobile-share-targets.hint`,
 		scope: "world",
 		config: false,
 		type: Array<ShareTargetSettings>,
 		default: [],
 		requiresReload: false,
 	} as SettingRegistration<undefined>);
-
 	game.settings.registerMenu(MODULE_ID, "mobile-share-targets-settings", {
 		name: `${MODULE_ID}.settings.mobile-share-targets.name`,
 		hint: `${MODULE_ID}.settings.mobile-share-targets.hint`,

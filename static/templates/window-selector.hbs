@@ -3,10 +3,11 @@
 		<ul class="window-list">
 			{{#each windows}}
 				<li class="window-row" data-id="{{@key}}">
-					<button class="window-select" title="{{this.title}}"><i
-						class="fas {{winicon this.app}}"></i> {{this.title}}
+					<button class="window-select" title="{{this.title}}"  data-id="{{@key}}"><i
+						class="fas {{this.icon}}"></i> {{this.title}}
 					</button>
-					<button class="window-close" title="close"><i class="fas fa-times"></i></button>
+					<button class="window-minimize" title="minimize" data-id="{{@key}}"><i class="fas fa-window-minimize"></i></button>
+					<button class="window-close" title="close" data-id="{{@key}}"><i class="fas fa-times"></i></button>
 				</li>
 			{{/each}}
 		</ul>

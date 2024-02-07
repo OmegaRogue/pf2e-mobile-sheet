@@ -71,6 +71,10 @@
 		animation-timing-function: ease-out;
 	}
 
+	#chat-message {
+		flex-basis: auto;
+	}
+
 
 	:root {
 		--carousel-alignment: right;
@@ -97,6 +101,13 @@
 			display: block;
 		}
 	}
+
+	#ui-right {
+		margin: 0 0 var(--navigationHeight);
+		padding: 0;
+		width: 100%;
+	}
+
 	.app {
 		margin: 0;
 
@@ -130,6 +141,17 @@
 	#token-action-hud {
 		display: none;
 	}
+	&:not([data-mobile-hide-player-list=true]) #players {
+		margin: 0 0.5em 3em 1em;
+		opacity: 1 !important;
+	}
+
+	#players h3 {
+		margin: 0;
+	}
+	nav#controls {
+		padding-top: 80px;
+	}
 }
 
 @include mixins.tab("app") {
@@ -141,18 +163,19 @@
 		display: none;
 	}
 
-	#ui-right {
-		margin: 0 0 var(--navigationHeight);
-		padding: 0;
-		width: 100%;
-	}
-	#chat-message {
-		flex-basis: auto;
-	}
-
 	.mseCharacterName {
 		flex-basis: 100%;
 	}
+
+	@include mixins.global-tablet {
+		#ui-left, #ui-middle {
+			display: flex !important;
+		}
+		#ui-bottom {
+			display: unset !important;
+		}
+	}
+
 }
 
 @include mixins.tab("map") {
@@ -160,28 +183,32 @@
 		display: none !important;
 		opacity: 0;
 	}
-	#ui-right, #fps {
+	#fps {
 		display: none !important;
 	}
+	#ui-right {
+		display: none;
+	}
 	nav#controls {
-		padding-top: 80px;
-
 		#party-monitor-dock {
 			display: none;
 		}
-	}
-	&:not([data-mobile-hide-player-list=true]) #players {
-		margin: 0 0.5em 3em 1em;
-		opacity: 1 !important;
-	}
-
-	#players h3 {
-		margin: 0;
 	}
 
 	&[data-mobile-hide-player-list=true] #players {
 		display: none;
 		transform: translateX(-110%);
+	}
+}
+
+@include mixins.global-tablet {
+	#ui-right {
+		width: unset;
+		display: block !important;
+	}
+	div.app.window-app.app.window-app {
+		width: calc(100% - var(--sidebar-width)) !important;
+		box-shadow: none;
 	}
 }
 
@@ -209,3 +236,36 @@
 	}
 }
 
+#mobile-toggle {
+	position: absolute;
+	top: 1rem;
+	left: 84px;
+	z-index: 61;
+
+	height: 29px;
+	max-width: 29px;
+	overflow: hidden;
+
+	white-space: nowrap;
+	background-color: var(--miDarkBackground);
+	color: #f0f0e0;
+	padding: 6px 10px;
+	border-radius: 100px;
+	transition: all 250ms ease-out;
+
+	&:hover {
+		max-width: 500px;
+	}
+
+	.fas {
+		margin-right: 6px;
+	}
+
+	@include mixins.global-mobile(false) {
+		display: none;
+	}
+
+	body:not([data-mobile-show-mobile-toggle=true]) & {
+		display: none;
+	}
+}

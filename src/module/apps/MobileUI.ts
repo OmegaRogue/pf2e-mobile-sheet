@@ -1,6 +1,6 @@
 import { WindowMenu } from "./windowMenu.js";
 import { MobileMenu } from "./mobileMenu.js";
-import { MODULE_ID, setBodyData, toggleRender } from "../utils.js";
+import { checkMobile, MODULE_ID, setBodyData, toggleRender } from "../utils.js";
 
 export enum ViewState {
 	Unloaded,
@@ -17,7 +17,7 @@ enum DrawerState {
 }
 
 function isTabletMode() {
-	return false;
+	return checkMobile() && window.screen.width >= 930;
 }
 
 export class MobileUI extends Application {
@@ -30,7 +30,7 @@ export class MobileUI extends Application {
 
 	constructor() {
 		super({
-			template: "modules/" + MODULE_ID + "/templates/navigation.hbs",
+			template: `modules/${MODULE_ID}/templates/navigation.hbs`,
 			popOut: false,
 		});
 
@@ -38,9 +38,11 @@ export class MobileUI extends Application {
 		this.mobileMenu = new MobileMenu(this);
 
 		// Ensure HUD shows on opening a new window
-		Hooks.on("WindowManager:NewRendered", () => this._onShowWindow());
-		Hooks.on("WindowManager:BroughtToTop", () => this._onShowWindow());
-		Hooks.on("WindowManager:NoneVisible", () => this._onHideAllWindows());
+		Hooks.on("WindowManager:NewRendered", this._onShowWindow.bind(this));
+		Hooks.on("WindowManager:BroughtToTop", this._onShowWindow.bind(this));
+		Hooks.on("WindowManager:NoneVisible", this._onHideAllWindows.bind(this));
+		Hooks.on("WindowManager:NewRendered", this.setWindowCount.bind(this));
+		Hooks.on("WindowManager:Removed", this.setWindowCount.bind(this));
 	}
 
 	_onShowWindow(): void {
@@ -126,7 +128,11 @@ export class MobileUI extends Application {
 
 	showStartMenu(): void {
 		if ($(".start-menu-options .start-menu-option.canvas").length === 0) {
-			$($(".mobile-navigation template").html().trim()).appendTo(".start-menu-options");
+			(async () => {
+				$(await renderTemplate(`modules/${MODULE_ID}/templates/taskbarStartMenuAdditions.hbs`)).appendTo(
+					".start-menu-options",
+				);
+			})().then();
 		}
 		$("div#start-menu.start-menu").addClass("active");
 	}
@@ -135,7 +141,8 @@ export class MobileUI extends Application {
 		$("div#start-menu.start-menu").removeClass("active");
 	}
 
-	setWindowCount(count: number): void {
+	setWindowCount(): void {
+		const count = Object.values(window.WindowManager.windows).length;
 		this.element.find(".navigation-windows .count").html(count.toString());
 		if (count === 0) {
 			this.element.find(".navigation-windows").addClass("disabled");

@@ -35,15 +35,7 @@
 		}
 	],
 	"relationships": {
-		"systems": [
-			{
-				"id": "pf2e",
-				"type": "system",
-				"compatibility": {
-					"minimum": "5.12.4"
-				}
-			}
-		],
+		"systems": [],
 		"requires": [
 			{
 				"id": "lib-wrapper",
@@ -51,6 +43,14 @@
 				"compatibility": {
 					"minimum": "1.0.0.0",
 					"verified": "1.12.13.0"
+				}
+			},
+			{
+				"id": "socketlib",
+				"type": "module",
+				"compatibility": {
+					"minimum": "1.0.13",
+					"verified": "1.0.13"
 				}
 			}
 		]

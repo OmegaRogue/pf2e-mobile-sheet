@@ -14,6 +14,28 @@ export function getManager(): WindowManager {
 	return window.WindowManager;
 }
 
+const icons = {
+	"": "",
+	combat: "fa-fist-raised",
+	scenes: "fa-map",
+	scene: "fa-map",
+	actors: "fa-users",
+	actor: "fa-users",
+	items: "fa-suitcase",
+	item: "fa-suitcase",
+	journal: "fa-book-open",
+	tables: "fa-th-list",
+	playlists: "fa-music",
+	compendium: "fa-atlas",
+	settings: "fa-cogs",
+	npc: "fa-skull",
+	character: "fa-user",
+	spell: "fa-magic",
+	equipment: "fa-tshirt",
+	feat: "fa-hand-rock",
+	class: "fa-user",
+};
+
 export class Window {
 	readonly app: Application;
 
@@ -31,6 +53,23 @@ export class Window {
 
 	get minimized(): boolean {
 		return this.app._minimized;
+	}
+
+	get icon(): string {
+		let windowType: string =
+			// @ts-expect-error
+			this.app.icon ||
+			// @ts-expect-error
+			this.app.tabName ||
+			// @ts-expect-error
+			this.app?.object?.data?.type ||
+			// @ts-expect-error
+			this.app?.object?.data?.entity ||
+			// @ts-expect-error
+			(this.app.metadata ? "compendium" : "") ||
+			"";
+		windowType = windowType.toLowerCase();
+		return icons[windowType] || windowType;
 	}
 
 	get taskbarButton(): JQuery {
@@ -77,6 +116,7 @@ export class WindowManager {
 			return true;
 		},
 		deleteProperty: (target, property) => {
+			if (!(property in target)) return true;
 			const res = delete target[property];
 			setTimeout(() => {
 				this.windowRemoved(parseInt(property as string));
@@ -89,20 +129,20 @@ export class WindowManager {
 		ui.windows = new Proxy(ui.windows, this.windowChangeHandler);
 		// Override Application bringToTop
 		const windowBroughtToTop = this.windowBroughtToTop.bind(this);
-		libWrapper.register(
+		libWrapper.register<Application, typeof Application.prototype.bringToTop>(
 			MODULE_ID,
 			"Application.prototype.bringToTop",
-			function (this: Application, wrapped: () => void) {
+			function (wrapped) {
 				wrapped();
 				windowBroughtToTop(this.appId);
 			},
 		);
 		// Override Application minimize
 		const windowMinimized = this.windowMinimized.bind(this);
-		libWrapper.register(
+		libWrapper.register<Application, typeof Application.prototype.minimize>(
 			MODULE_ID,
 			"Application.prototype.minimize",
-			function (this: Application, wrapped: () => Promise<boolean>) {
+			function (wrapped) {
 				const r = wrapped();
 				r.then(() => windowMinimized(this.appId));
 				return r;
@@ -111,10 +151,10 @@ export class WindowManager {
 
 		// Override Application maximize
 		const windowMaximized = this.windowMaximized.bind(this);
-		libWrapper.register(
+		libWrapper.register<Application, typeof Application.prototype.maximize>(
 			MODULE_ID,
 			"Application.prototype.maximize",
-			function (this: Application, wrapped: () => Promise<boolean>) {
+			function (wrapped) {
 				const r = wrapped();
 				r.then(() => windowMaximized(this.appId));
 				return r;
@@ -124,7 +164,7 @@ export class WindowManager {
 			libWrapper.register(
 				MODULE_ID,
 				"Taskbar.createTaskbarButton",
-				function (this: Application, wrapped: (app: Application) => void, app: Application) {
+				function (wrapped: (app: Application) => void, app: Application) {
 					wrapped(app);
 					// @ts-expect-error
 					const button = ui.taskbar.buttons.filter((a) => a.app === app)[0].el;

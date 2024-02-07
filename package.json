@@ -15,6 +15,7 @@
 	"devDependencies": {
 		"@pixi/graphics-smooth": "^1.1.0",
 		"@pixi/particle-emitter": "^5.0.8",
+		"@pixi/events": "^7.4.0",
 		"@rollup/plugin-json": "^6.1.0",
 		"@rollup/plugin-node-resolve": "^15.2.3",
 		"@rollup/stream": "^3.0.1",

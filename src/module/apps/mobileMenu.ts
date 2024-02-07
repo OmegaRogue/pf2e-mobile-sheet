@@ -6,7 +6,7 @@ export class MobileMenu extends Application {
 
 	constructor(nav: MobileUI) {
 		super({
-			template: "modules/" + MODULE_ID + "/templates/menu.hbs",
+			template: `modules/${MODULE_ID}/templates/menu.hbs`,
 			popOut: false,
 		});
 		this.nav = nav;
@@ -40,7 +40,7 @@ export class MobileMenu extends Application {
 				game.settings.set(MODULE_ID, "disable-canvas", !game.settings.get(MODULE_ID, "disable-canvas"));
 				break;
 			case "exit":
-				// TODO setSetting(settings.PIN_MOBILE_MODE, false);
+				game.settings.set(MODULE_ID, "mobile-layout", false);
 				break;
 			default:
 				warn(true, "Unhandled menu item", name);

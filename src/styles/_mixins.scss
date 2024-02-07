@@ -43,7 +43,20 @@
 			@content;
 		}
 	}
+}
 
+@mixin global-tablet($root: true) {
+	@media screen and (min-width: #{$global-breakpoint}) {
+		@if $root {
+			@at-root body[data-mobile-force-mobile-layout=true] {
+				@content;
+			}
+		} @else {
+			body[data-mobile-force-mobile-layout=true] & {
+				@content;
+			}
+		}
+	}
 }
 
 @mixin tab($tab, $root: true) {

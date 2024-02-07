@@ -10,10 +10,10 @@
 @import "dialogs";
 
 .app {
-	//@include mixins.global-mobile(false) {
-	&.minimized {
-		display: none !important;
+	@include mixins.global-mobile(false) {
+		&.minimized {
+			opacity: 0;
+			pointer-events: none;
+		}
 	}
-
-	//}
 }

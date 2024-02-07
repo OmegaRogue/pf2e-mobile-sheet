@@ -41,7 +41,9 @@
 		},
 		"sidebar-tab": "Sidebar",
 		"MenuCanvas": "Toggle Canvas",
-		"MenuPlayerList": "Toggle Player List",
+		"MenuPlayers": "Toggle Player List",
+		"MenuExit": "Leave mobile mode",
+		"MenuReload": "Reload",
 		"MenuFullscreen": "Toggle fullscreen",
 		"NavigationStart": "Start",
 		"NavigationScene": "Scene",
@@ -49,6 +51,7 @@
 		"NavigationActions": "Actions",
 		"NavigationMore": "More",
 		"NavigationWindows": "Windows",
-		"PanToggle": "Pan with left click"
+		"PanToggle": "Pan with left click",
+		"EnableMobileMode": "Enable Mobile Mode"
 	}
 }
