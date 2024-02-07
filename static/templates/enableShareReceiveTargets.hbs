@@ -1,44 +1,45 @@
+<!--suppress HtmlFormInputWithoutLabel -->
 <form autocomplete="off" onsubmit="event.preventDefault()">
+	<div class="notes">{{localize "pf2e-mobile-sheet.settings.mobile-share-targets.hint"}}
+		<ul>
+			<li class="notes"><b>{{localize
+				"pf2e-mobile-sheet.settings.mobile-share-targets.send.name"}}</b>: {{localize
+				"pf2e-mobile-sheet.settings.mobile-share-targets.send.hint"}}</li>
+			<li class="notes"><b>{{localize
+				"pf2e-mobile-sheet.settings.mobile-share-targets.receive.name"}}</b>: {{localize
+				"pf2e-mobile-sheet.settings.mobile-share-targets.receive.hint"}}</li>
+		</ul>
+	</div>
+	<hr>
 
-  <div class="notes">{{localize "pf2e-mobile-sheet.settings.mobile-share-targets.hint"}}
-    <ul>
-      <li class="notes"><b>{{localize "pf2e-mobile-sheet.settings.mobile-share-targets.send.name"}}</b>: {{localize
-        "pf2e-mobile-sheet.settings.mobile-share-targets.send.hint"}}</li>
-      <li class="notes"><b>{{localize "pf2e-mobile-sheet.settings.mobile-share-targets.receive.name"}}</b>: {{localize
-        "pf2e-mobile-sheet.settings.mobile-share-targets.receive.hint"}}</li>
-    </ul>
-  </div>
+	<h3><b>{{localize "pf2e-mobile-sheet.settings.mobile-share-targets.title"}}</b></h3>
 
-  <hr>
+	<table>
+		<thead>
+		<tr>
+			<th class="">{{localize "pf2e-mobile-sheet.settings.mobile-share-targets.player.name"}}</th>
+			<th class="">{{localize "pf2e-mobile-sheet.settings.mobile-share-targets.send.name"}}</th>
+			<th class="">{{localize "pf2e-mobile-sheet.settings.mobile-share-targets.receive.name"}}</th>
+		</tr>
+		</thead>
 
-  <h3><b>{{localize "pf2e-mobile-sheet.settings.mobile-share-targets.title"}}</b></h3>
+		<tbody>
+		{{#each data}}
+			<tr>
+				<td class="">{{this.name}}</td>
+				<td style="text-align: center;"><input type="checkbox" name="send-{{this.id}}" data-dtype="Boolean"
+					{{checked this.send}}></td>
+				<td style="text-align: center;"><input type="checkbox" name="receive-{{this.id}}"
+													   data-dtype="Boolean"{{checked this.receive}}></td>
+			</tr>
+			<input type="text" name="id" value={{this.id}} style="display:none">
+		{{/each}}
+	</table>
 
-  <table>
-    <thead>
-    <tr>
-		<th class="">{{localize "pf2e-mobile-sheet.settings.mobile-share-targets.player.name"}}</th>
-      <th class="">{{localize "pf2e-mobile-sheet.settings.mobile-share-targets.send.name"}}</th>
-      <th class="">{{localize "pf2e-mobile-sheet.settings.mobile-share-targets.receive.name"}}</th>
-    </tr>
-    </thead>
+	<br>
 
-    <tbody>
-	{{#each data}}
-		<tr index="{{this.id}}">
-			<td class="">{{this.name}}</td>
-			<td style="text-align: center;"><input type="checkbox" name="send-{{this.id}}" data-dtype="Boolean"
-				{{checked this.send}}></td>
-			<td style="text-align: center;"><input type="checkbox" name="receive-{{this.id}}"
-												   data-dtype="Boolean"{{checked this.receive}}></td>
-      </tr>
-		<input type="text" name="id" value={{this.id}} style="display:none">
-    {{/each}}
-  </table>
-
-  <br>
-
-  <button type="submit" name="submit">
-    <i class="fas fa-save"></i> Save
-  </button>
+	<button type="submit" name="submit">
+		<i class="fas fa-save"></i> Save
+	</button>
 
 </form>

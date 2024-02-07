@@ -13,7 +13,7 @@ enum DrawerState {
 	Macros = "macros",
 	Menu = "menu",
 	Windows = "windows",
-	Start = "startmenu",
+	Start = "start",
 }
 
 function isTabletMode() {
@@ -41,8 +41,12 @@ export class MobileUI extends Application {
 		Hooks.on("WindowManager:NewRendered", this._onShowWindow.bind(this));
 		Hooks.on("WindowManager:BroughtToTop", this._onShowWindow.bind(this));
 		Hooks.on("WindowManager:NoneVisible", this._onHideAllWindows.bind(this));
-		Hooks.on("WindowManager:NewRendered", this.setWindowCount.bind(this));
-		Hooks.on("WindowManager:Removed", this.setWindowCount.bind(this));
+		Hooks.on("WindowManager:NewRendered", () => {
+			this.render();
+		});
+		Hooks.on("WindowManager:Removed", () => {
+			this.render();
+		});
 	}
 
 	_onShowWindow(): void {
@@ -60,29 +64,21 @@ export class MobileUI extends Application {
 
 	override render(force?: boolean, options?: RenderOptions): this | Promise<this> {
 		this.noCanvas = game.settings.get(MODULE_ID, "disable-canvas") as boolean;
-		this.state = this.noCanvas ? ViewState.App : ViewState.Map;
+		if (this.state === ViewState.Unloaded) this.state = this.noCanvas ? ViewState.App : ViewState.Map;
 
 		const r = super.render(force, options);
 		this.windowMenu.render(force);
 		this.mobileMenu.render(force);
 
-		setTimeout(() => {
-			if (game.modules.get("foundry-taskbar")?.active) {
-				$(".navigation-menu").detach();
-			} else {
-				$(".navigation-startmenu").detach();
-			}
-		}, 500);
-
 		return r;
 	}
 
-	override activateListeners(html: JQuery<HTMLElement>): void {
-		html.find("li").on("click", (evt) => {
-			const [firstClass] = evt.currentTarget.className.split(" ");
-			const [, name] = firstClass.split("-");
-			this.selectItem(name);
-		});
+	override activateListeners(_html: JQuery<HTMLElement>): void {
+		// html.find("li").on("click", (evt) => {
+		// 	const [firstClass] = evt.currentTarget.className.split(" ");
+		// 	const [, name] = firstClass.split("-");
+		// 	this.selectItem(name);
+		// });
 		this.updateMode();
 		// html.before(`<div id="show-mobile-navigation"><i class="fas fa-chevron-up"></i></div>`);
 		// html.siblings("#show-mobile-navigation").on("click", () => {
@@ -129,9 +125,13 @@ export class MobileUI extends Application {
 	showStartMenu(): void {
 		if ($(".start-menu-options .start-menu-option.canvas").length === 0) {
 			(async () => {
-				$(await renderTemplate(`modules/${MODULE_ID}/templates/taskbarStartMenuAdditions.hbs`)).appendTo(
-					".start-menu-options",
-				);
+				$(
+					await renderTemplate(`modules/${MODULE_ID}/templates/taskbarStartMenuAdditions.hbs`, [
+						{ name: "canvas", icon: "fa-map" },
+						{ name: "players", icon: "fa-users" },
+						{ name: "fullscreen", icon: "fa-expand" },
+					]),
+				).appendTo(".start-menu-options");
 			})().then();
 		}
 		$("div#start-menu.start-menu").addClass("active");
@@ -141,18 +141,18 @@ export class MobileUI extends Application {
 		$("div#start-menu.start-menu").removeClass("active");
 	}
 
-	setWindowCount(): void {
-		const count = Object.values(window.WindowManager.windows).length;
-		this.element.find(".navigation-windows .count").html(count.toString());
-		if (count === 0) {
-			this.element.find(".navigation-windows").addClass("disabled");
-		} else {
-			this.element.find(".navigation-windows").removeClass("disabled");
-		}
-		if (this.drawerState === DrawerState.Windows) {
-			this.setDrawerState(DrawerState.None);
-		}
-	}
+	// setWindowCount(): void {
+	// 	const count = Object.values(window.WindowManager.windows).length;
+	// 	this.element.find(".navigation-windows .count").html(count.toString());
+	// 	if (count === 0) {
+	// 		this.element.find(".navigation-windows").addClass("disabled");
+	// 	} else {
+	// 		this.element.find(".navigation-windows").removeClass("disabled");
+	// 	}
+	// 	if (this.drawerState === DrawerState.Windows) {
+	// 		this.setDrawerState(DrawerState.None);
+	// 	}
+	// }
 
 	setDrawerState(state: DrawerState): void {
 		$(`body > .drawer`).removeClass("open");
@@ -181,7 +181,7 @@ export class MobileUI extends Application {
 			case "map":
 				this.showMap();
 				break;
-			case "sidebar":
+			case "app":
 				this.showSidebar();
 				break;
 			default:
@@ -198,11 +198,31 @@ export class MobileUI extends Application {
 				setBodyData("tab", "map");
 				break;
 			case ViewState.App:
-				this.element.find(".navigation-sidebar").addClass("active");
+				this.element.find(".navigation-app").addClass("active");
 				setBodyData("tab", "app");
 				break;
 			default:
 				break;
 		}
+	}
+
+	override getData() {
+		const data = [
+			{ name: "map", icon: "fa-map" },
+			{ name: "app", icon: "fa-home" },
+			{ name: "macros", icon: "fa-grip-horizontal", drawer: true },
+			{ name: "menu", icon: "fa-ellipsis-h", drawer: true },
+			{
+				name: "windows",
+				icon: "fa-window-restore",
+				drawer: true,
+				counter: true,
+				count: Object.values(window.WindowManager.windows).length,
+			},
+		];
+		if (game.modules.get("foundry-taskbar")?.active ?? false) {
+			data.unshift({ name: "start", icon: "fa-bars", drawer: true });
+		}
+		return data;
 	}
 }

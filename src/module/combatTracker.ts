@@ -17,6 +17,7 @@ async function updateCombatTracker(
 	// @ts-ignore
 	const origin = scene.tokens.find((t) => t.isOwner) || scene.tokens.get(game.user.character.id);
 	if (!origin) return;
+	if (!combatants) return;
 	for (const combatant of combatants) {
 		let dist = 0;
 		const target = scene.tokens.get(combatant.tokenId ?? "");

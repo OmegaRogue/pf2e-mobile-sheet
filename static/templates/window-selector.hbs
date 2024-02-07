@@ -1,14 +1,17 @@
+{{#*inline "window"}}
+	<li class="window-row" data-id="{{@key}}">
+		<button class="window-select" title="{{this.title}}"  data-id="{{@key}}"><i
+			class="fas {{this.icon}}"></i> {{this.title}}
+		</button>
+		<button class="window-minimize" title="minimize" data-id="{{@key}}"><i class="fas fa-window-minimize"></i></button>
+		<button class="window-close" title="close" data-id="{{@key}}"><i class="fas fa-times"></i></button>
+	</li>
+{{/inline}}
 <nav class="window-selector drawer drawer-windows">
 	<nav>
 		<ul class="window-list">
 			{{#each windows}}
-				<li class="window-row" data-id="{{@key}}">
-					<button class="window-select" title="{{this.title}}"  data-id="{{@key}}"><i
-						class="fas {{this.icon}}"></i> {{this.title}}
-					</button>
-					<button class="window-minimize" title="minimize" data-id="{{@key}}"><i class="fas fa-window-minimize"></i></button>
-					<button class="window-close" title="close" data-id="{{@key}}"><i class="fas fa-times"></i></button>
-				</li>
+				{{> window}}
 			{{/each}}
 		</ul>
 	</nav>

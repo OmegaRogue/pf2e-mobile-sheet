@@ -1,9 +1,9 @@
 {{#*inline "menuElement"}}
-	<div class="start-menu-option{{#if (eq name "canvas")}} canvas{{/if}}"
+	<div class="start-menu-option{{ifThen (eq name "canvas") " canvas" ""}}"
 		 title="{{localize (concat "pf2e-mobile-sheet.Menu" (capitalize name))}}"
 		 onclick="game.mobilemode.navigation.mobileMenu.selectItem('{{name}}');"><i class="fas {{icon}}"></i> {{localize
 		(concat "pf2e-mobile-sheet.Menu" (capitalize name))}}</div>
 {{/inline}}
-{{> menuElement name="canvas" icon="fa-map" }}
-{{> menuElement name="players" icon="fa-users" }}
-{{> menuElement name="fullscreen" icon="fa-expand" }}
+{{#each this}}
+	{{> menuElement this }}
+{{/each}}

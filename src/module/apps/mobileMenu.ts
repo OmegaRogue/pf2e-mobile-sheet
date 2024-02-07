@@ -1,5 +1,5 @@
 import type { MobileUI } from "./MobileUI.js";
-import { warn, MODULE_ID } from "../utils.js";
+import { MODULE_ID, warn } from "../utils.js";
 
 export class MobileMenu extends Application {
 	nav: MobileUI;
@@ -42,10 +42,23 @@ export class MobileMenu extends Application {
 			case "exit":
 				game.settings.set(MODULE_ID, "mobile-layout", false);
 				break;
+			case "reload":
+				window.location.reload();
+				break;
 			default:
 				warn(true, "Unhandled menu item", name);
 				break;
 		}
 		this.nav.closeDrawer();
+	}
+
+	override getData() {
+		return [
+			{ name: "canvas", icon: "fa-map" },
+			{ name: "players", icon: "fa-users" },
+			{ name: "fullscreen", icon: "fa-expand" },
+			{ name: "reload", icon: "fa-sync-alt" },
+			{ name: "exit", icon: "fa-mobile-alt" },
+		];
 	}
 }

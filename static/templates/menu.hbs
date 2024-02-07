@@ -6,10 +6,8 @@
 {{/inline}}
 <nav class="mobile-menu drawer drawer-menu">
 	<ul class="menu-list">
-		{{> menuElement name="canvas" icon="fa-map" }}
-		{{> menuElement name="players" icon="fa-users" }}
-		{{> menuElement name="fullscreen" icon="fa-expand" }}
-		{{> menuElement name="reload" icon="fa-sync-alt" }}
-		{{> menuElement name="exit" icon="fa-mobile-alt" }}
+		{{#each this}}
+			{{> menuElement this }}
+		{{/each}}
 	</ul>
 </nav>

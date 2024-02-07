@@ -7,8 +7,10 @@
 @use "npc";
 @use "item";
 @use "journal";
+@use "dnd5e";
 @use "../../mixins";
 @import "../../breakpoints";
+@import "dnd5e";
 
 .sheet {
 
@@ -45,6 +47,7 @@
 		@include mixins.local-desktop($vehicle-sheet-breakpoint, sheet) {
 			@include vehicle.desktop;
 		}
+
 	}
 
 	&.item {

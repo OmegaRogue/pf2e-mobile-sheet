@@ -46,10 +46,10 @@
 		"MenuReload": "Reload",
 		"MenuFullscreen": "Toggle fullscreen",
 		"NavigationStart": "Start",
-		"NavigationScene": "Scene",
+		"NavigationMap": "Scene",
 		"NavigationApp": "App",
-		"NavigationActions": "Actions",
-		"NavigationMore": "More",
+		"NavigationMacros": "Actions",
+		"NavigationMenu": "More",
 		"NavigationWindows": "Windows",
 		"PanToggle": "Pan with left click",
 		"EnableMobileMode": "Enable Mobile Mode"

@@ -9,7 +9,7 @@ import "./resizeObservers.ts";
 import { MobileUI, ViewState } from "./apps/MobileUI.ts";
 import { EventSystem } from "@pixi/events";
 import { PixiTouch } from "pixi.js";
-import { TouchInput } from "./apps/touchInput.js";
+// import { TouchInput } from "./apps/touchInput.js";
 
 abstract class MobileMode {
 	static get enabled() {
@@ -59,6 +59,10 @@ Hooks.once("init", async () => {
 	// Preload Handlebars templates
 	await preloadTemplates();
 
+	Handlebars.registerHelper("capitalize", (str: unknown): string => {
+		return String(str).capitalize();
+	});
+
 	// Register custom sheets (if any)
 });
 
@@ -77,6 +81,17 @@ Hooks.on("getSceneControlButtons", (hudButtons: SceneControl[]) => {
 
 		hud?.tools?.push(tool);
 	}
+});
+
+Hooks.on("targetToken", (user, token, targeted) => {
+	if (user.id === game.user.id) return;
+	const targetSettings = game.settings.get(MODULE_ID, "mobile-share-targets");
+	const targettingUser = targetSettings.find((v) => v.id === user.id);
+	const currentUser = targetSettings.find((v) => v.id === game.user.id);
+	if (!targettingUser || !currentUser) return;
+	if (!targettingUser.send) return;
+	if (!currentUser.receive) return;
+	token.setTarget(targeted, { releaseOthers: false });
 });
 
 // export function onDragMove(event: FederatedPointerEvent) {
@@ -355,7 +370,7 @@ Hooks.on("queuedNotification", (notif: (typeof Notifications.prototype.queue)[0]
 	return true;
 });
 
-const touchInput = new TouchInput();
-Hooks.on("canvasReady", () => touchInput.hook());
+// const touchInput = new TouchInput();
+// Hooks.on("canvasReady", () => touchInput.hook());
 
 globalThis.MobileMode = MobileMode;

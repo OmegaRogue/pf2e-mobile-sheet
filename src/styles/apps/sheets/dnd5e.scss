@@ -1,0 +1,96 @@
+@use "character5e";
+@use "../../mixins";
+@import "../../breakpoints";
+
+@mixin local-mobile5e($breakpoint, $container) {
+	body:not([data-mobile-force-mobile-window=true],[data-mobile-force-mobile-window=false]).system-dnd5e & {
+		@container #{$container} (width < #{$breakpoint}) {
+			@content;
+		}
+	}
+	body[data-mobile-force-mobile-window=true].system-dnd5e & {
+		@content;
+	}
+}
+
+
+.app.window-app.sheet {
+	min-width: unset !important;
+
+	&.actor {
+		@include local-mobile5e($player-character-breakpoint, sheet) {
+			@include character5e.mobile;
+
+			.currency {
+				h3 {
+					font-size: 0;
+					flex: 0 !important;
+					margin-right: 8px;
+
+					> * {
+						font-size: 1.25rem;
+					}
+				}
+
+				label {
+					margin: unset !important;
+				}
+
+				.denomination {
+					flex-wrap: nowrap !important;
+
+					&.pp {
+						font-size: 0;
+
+						&::after {
+							font-size: 12px;
+							content: "PP" !important;
+						}
+					}
+
+					&.gp {
+						font-size: 0;
+
+						&::after {
+							font-size: 12px;
+							content: "GP" !important;
+						}
+					}
+
+					&.ep {
+						font-size: 0;
+
+						&::after {
+							font-size: 12px;
+							content: "EP" !important;
+						}
+					}
+
+					&.sp {
+						font-size: 0;
+
+						&::after {
+							font-size: 12px;
+							content: "SP" !important;
+						}
+					}
+
+					&.cp {
+						font-size: 0;
+
+						&::after {
+							font-size: 12px;
+							content: "CP" !important;
+						}
+					}
+				}
+
+				input {
+					flex: 0;
+					width: 4em;
+				}
+			}
+		}
+	}
+}
+

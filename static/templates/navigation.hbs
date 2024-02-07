@@ -1,29 +1,21 @@
+{{#*inline "navigationElement"}}
+	<li class="navigation-{{name}}{{ifThen drawer " toggle" ""}} {{ifThen counter (disabled (eq count 0)) ""}}"
+		onclick="game.mobilemode.navigation.selectItem('{{name}}')">
+		{{#if counter}}
+			<span>
+				<i class="fas {{icon}}"></i>
+				<span class="count">{{count}}</span>
+			</span>
+			{{localize (concat "pf2e-mobile-sheet.Navigation" (capitalize name))}}
+		{{else}}
+			<i class="fas {{icon}}"></i>
+			{{localize (concat "pf2e-mobile-sheet.Navigation" (capitalize name))}}
+		{{/if}}
+	</li>
+{{/inline}}
+
 <ul class="mobile-navigation" style="display: none">
-	<li class="navigation-startmenu toggle">
-		<i class="fas fa-bars"></i>
-		{{localize 'pf2e-mobile-sheet.NavigationStart'}}
-	</li>
-	<li class="navigation-map">
-		<i class="fas fa-map"></i>
-		{{localize 'pf2e-mobile-sheet.NavigationScene'}}
-	</li>
-	<li class="navigation-sidebar">
-		<i class="fas fa-home"></i>
-		{{localize 'pf2e-mobile-sheet.NavigationApp'}}
-	</li>
-	<li class="navigation-macros toggle">
-		<i class="fas fa-grip-horizontal"></i>
-		{{localize 'pf2e-mobile-sheet.NavigationActions'}}
-	</li>
-	<li class="navigation-menu toggle">
-		<i class="fas fa-ellipsis-h"></i>
-		{{localize 'pf2e-mobile-sheet.NavigationMore'}}
-	</li>
-	<li class="navigation-windows toggle disabled">
-    <span>
-      <i class="fas fa-window-restore"></i>
-      <span class="count">0</span>
-    </span>
-		{{localize 'pf2e-mobile-sheet.NavigationWindows'}}
-	</li>
+	{{#each this}}
+		{{> navigationElement this }}
+	{{/each}}
 </ul>

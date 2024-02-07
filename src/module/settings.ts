@@ -105,7 +105,7 @@ export function registerSettings() {
 		default: false,
 		requiresReload: false,
 		onChange: (value: boolean) => {
-			setBodyData("hide-player-list", value);
+			setBodyData("hide-player-list", !value);
 		},
 	} as SettingRegistration<undefined>);
 	game.settings.register(MODULE_ID, "mobile-share-targets", {
