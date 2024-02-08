@@ -9,9 +9,15 @@ import "./resizeObservers.ts";
 import { MobileUI, ViewState } from "./apps/MobileUI.ts";
 import { EventSystem } from "@pixi/events";
 import { PixiTouch } from "pixi.js";
+import { ResponsiveObserver } from "./resizeObservers.js";
+
 // import { TouchInput } from "./apps/touchInput.js";
 
+export { ResponsiveObserver } from "./resizeObservers.js";
+
 abstract class MobileMode {
+	static ResponsiveObserver = ResponsiveObserver;
+
 	static get enabled() {
 		return checkMobile();
 	}
@@ -62,6 +68,8 @@ Hooks.once("init", async () => {
 	Handlebars.registerHelper("capitalize", (str: unknown): string => {
 		return String(str).capitalize();
 	});
+
+	game.mobilemode;
 
 	// Register custom sheets (if any)
 });

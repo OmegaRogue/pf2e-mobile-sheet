@@ -1,4 +1,59 @@
 import { debug, getBodyData } from "./utils.js";
+import { Application } from "pixi.js";
+
+export abstract class ResponsiveObserver {
+	abstract mobileLayout(html: JQuery<HTMLElement>);
+
+	abstract desktopLayout(html: JQuery<HTMLElement>);
+
+	abstract readonly breakpoint: number;
+
+	abstract readonly appClass: string;
+
+	private observer: ResizeObserver;
+
+	constructor() {
+		this.observer = new ResizeObserver((entries) => {
+			for (const entry of entries) {
+				const html = $(entry.target) as JQuery<HTMLElement>;
+				if (
+					(entry.contentRect.width < this.breakpoint || getBodyData("force-mobile-window") === true) &&
+					!html.hasClass("mobile")
+				) {
+					this.mobileLayout(html);
+					html.addClass("mobile");
+					debug(false, "mobile", entry);
+				} else if (
+					(entry.contentRect.width >= this.breakpoint || getBodyData("force-mobile-window") === false) &&
+					html.hasClass("mobile") &&
+					!getBodyData("force-mobile-window")
+				) {
+					this.desktopLayout(html);
+					html.removeClass("mobile");
+					debug(false, "no mobile", entry);
+				}
+			}
+		});
+	}
+
+	get resizeObserver() {
+		return this.observer;
+	}
+
+	register() {
+		Hooks.on(`close${this.appClass}`, this.closeHandler.bind(this));
+		Hooks.on(`render${this.appClass}`, this.renderHandler.bind(this));
+	}
+
+	closeHandler(_app: Application, html: JQuery) {
+		this.observer.unobserve(html[0]);
+	}
+
+	renderHandler(_app: Application, html: JQuery) {
+		html = html.closest(".app");
+		this.observer.observe(html[0]);
+	}
+}
 
 function moveSidebarToTab(html: JQuery) {
 	if (html.find(".sheet-navigation #sidebar-tab").length === 0) {
@@ -22,151 +77,120 @@ function moveSidebarToTab(html: JQuery) {
 	}
 }
 
-const characterSheetResizeObserver = new ResizeObserver((entries) => {
-	for (const entry of entries) {
-		if (!entry.target.id.startsWith("CharacterSheetPF2e")) continue;
-		const html = $(entry.target) as JQuery<HTMLElement>;
-		if (
-			(entry.contentRect.width < 745 || getBodyData("force-mobile-window") === true) &&
-			!html.hasClass("mobile")
-		) {
-			debug(false, "sidebar found", html.find("aside").length);
-
-			moveSidebarToTab(html);
-
-			html.addClass("mobile");
-			debug(false, "mobile", entry);
-			debug(false, "sidebar found", html.find("aside").length);
-		} else if (
-			(entry.contentRect.width >= 745 || getBodyData("force-mobile-window") === false) &&
-			html.hasClass("mobile")
-		) {
-			debug(false, "sidebar found off", html.find("aside").length);
-			html.removeClass("mobile");
-			const sidebar = html.find(".tab.sidebar aside");
-			html.find(".window-content form").prepend(sidebar.detach());
-			const sidebarTab: JQuery = html.find(".tab.sidebar.active");
-			if (sidebarTab.length > 0) {
-				sidebarTab.removeClass("active");
-				html.find('a[data-tab="character"]')[0].click();
-			}
-			debug(false, "no mobile");
-			debug(false, "sidebar found", html.find("aside").length);
-		}
-	}
-});
-
-const vehicleSheetResizeObserver = new ResizeObserver((entries) => {
-	for (const entry of entries) {
-		if (!entry.target.id.startsWith("VehicleSheetPF2e")) continue;
-		const html = $(entry.target) as JQuery<HTMLElement>;
-		if (
-			(entry.contentRect.width < 585 || getBodyData("force-mobile-window") === true) &&
-			!html.hasClass("mobile")
-		) {
-			debug(false, "sidebar found", html.find("aside").length);
-
-			moveSidebarToTab(html);
-			html.addClass("mobile");
-			debug(false, "mobile", entry);
-			debug(false, "sidebar found", html.find("aside").length);
-		} else if (
-			(entry.contentRect.width >= 585 || getBodyData("force-mobile-window") === false) &&
-			html.hasClass("mobile")
-		) {
-			debug(false, "sidebar found off", html.find("aside").length);
-			html.removeClass("mobile");
-			const sidebar = html.find(".tab.sidebar aside");
-			html.find(".window-content form").prepend(sidebar.detach());
-			const sidebarTab: JQuery = html.find(".tab.sidebar.active");
-			if (sidebarTab.length > 0) {
-				sidebarTab.removeClass("active");
-				html.find('a[data-tab="details"]')[0].click();
-			}
-			debug(false, "no mobile");
-			debug(false, "sidebar found", html.find("aside").length);
-		}
-	}
-});
-
-const settingsResizeObserver = new ResizeObserver((entries) => {
-	for (const entry of entries) {
-		const html = $(entry.target);
-		if (
-			(entry.contentRect.width < 534 || getBodyData("force-mobile-window") === true) &&
-			!html.hasClass("mobile")
-		) {
-			html.addClass("mobile");
-			const content = html.find("section.window-content > div:not(#mps-view-group).flexrow");
-			const form = html.find(".categories");
-			const scrollable = html.find(".scrollable");
-			const sidebar = html.find("aside.sidebar");
-			const footer = form.find("footer");
-			if (content.length === 1) {
-				content.removeClass("flexrow");
-				content.addClass("flexcol");
-			}
-			content.append(scrollable);
-			form.append(scrollable.children());
-			scrollable.append(sidebar);
-			scrollable.append(form);
-			footer.prepend(html.find(".reset-all"));
-			footer.addClass("flexrow");
-			content.append(footer);
-			const submitButton: JQuery = footer.find("button[type=submit]");
-			submitButton.removeAttr("type").attr("type", "button");
-			submitButton.on("click", () => form.trigger("submit"));
-		} else if (
-			(entry.contentRect.width >= 534 || getBodyData("force-mobile-window") === false) &&
-			html.hasClass("mobile")
-		) {
-			html.removeClass("mobile");
-			const content = html.find("section.window-content > div:not(#mps-view-group).flexcol");
-			if (content.length === 1) {
-				content.removeClass("flexcol");
-				content.addClass("flexrow");
-			}
-			const form = html.find(".categories");
-			const scrollable = html.find(".scrollable");
-			const sidebar = html.find("aside.sidebar");
-			const footer = html.find("footer");
-			sidebar.append(html.find(".reset-all"));
-			content.append(sidebar);
-			content.append(form);
-			scrollable.append(form.children());
-			form.append(scrollable);
-			form.append(footer);
-			// ui.windows[html.data("appid")].render(false);
-		}
-	}
-});
-Hooks.on("closeSettingsConfig", (_app: Application, html: JQuery) => {
-	settingsResizeObserver.unobserve(html[0]);
-});
-
-Hooks.on("closeCharacterSheetPF2e", (_app: Application, html: JQuery) => {
-	characterSheetResizeObserver.unobserve(html[0]);
-});
-Hooks.on("closeVehicleSheetPF2e", (_app: Application, html: JQuery) => {
-	vehicleSheetResizeObserver.unobserve(html[0]);
-});
-Hooks.on("renderSettingsConfig", (_app: Application, html: JQuery) => {
-	html = html.closest(".app");
-	settingsResizeObserver.observe(html[0]);
-});
-
-Hooks.on("renderCharacterSheetPF2e", (_app: Application, html: JQuery) => {
-	html = html.closest(".app");
-	characterSheetResizeObserver.observe(html[0]);
-	if (html.hasClass("mobile")) {
+class CharacterSheetResponsiveObserver extends ResponsiveObserver {
+	override mobileLayout(html: JQuery<HTMLElement>) {
+		debug(false, "sidebar found", html.find("aside").length);
 		moveSidebarToTab(html);
+		debug(false, "sidebar found", html.find("aside").length);
 	}
-});
 
-Hooks.on("renderVehicleSheetPF2e", (_app: Application, html: JQuery) => {
-	html = html.closest(".app");
-	vehicleSheetResizeObserver.observe(html[0]);
-	if (html.hasClass("mobile")) {
-		moveSidebarToTab(html);
+	override desktopLayout(html: JQuery<HTMLElement>) {
+		debug(false, "sidebar found off", html.find("aside").length);
+		const sidebar = html.find(".tab.sidebar aside");
+		html.find(".window-content form").prepend(sidebar.detach());
+		const sidebarTab: JQuery = html.find(".tab.sidebar.active");
+		if (sidebarTab.length > 0) {
+			sidebarTab.removeClass("active");
+			html.find('a[data-tab="character"]')[0].click();
+		}
+		debug(false, "sidebar found", html.find("aside").length);
 	}
-});
+
+	override readonly breakpoint: number = 745;
+
+	override readonly appClass: string = "CharacterSheetPF2e";
+
+	override renderHandler(_app: Application, html: JQuery) {
+		super.renderHandler(_app, html);
+		if (html.hasClass("mobile")) {
+			moveSidebarToTab(html);
+		}
+	}
+}
+
+class vehicleSheetResponsiveObserver extends ResponsiveObserver {
+	override mobileLayout(html: JQuery<HTMLElement>) {
+		debug(false, "sidebar found", html.find("aside").length);
+		moveSidebarToTab(html);
+		debug(false, "sidebar found", html.find("aside").length);
+	}
+
+	override desktopLayout(html: JQuery<HTMLElement>) {
+		debug(false, "sidebar found off", html.find("aside").length);
+		const sidebar = html.find(".tab.sidebar aside");
+		html.find(".window-content form").prepend(sidebar.detach());
+		const sidebarTab: JQuery = html.find(".tab.sidebar.active");
+		if (sidebarTab.length > 0) {
+			sidebarTab.removeClass("active");
+			html.find('a[data-tab="details"]')[0].click();
+		}
+		debug(false, "sidebar found", html.find("aside").length);
+	}
+
+	override readonly breakpoint: number = 585;
+
+	override readonly appClass: string = "VehicleSheetPF2e";
+
+	override renderHandler(_app: Application, html: JQuery) {
+		super.renderHandler(_app, html);
+		if (html.hasClass("mobile")) {
+			moveSidebarToTab(html);
+		}
+	}
+}
+
+class SettingsResponsiveObserver extends ResponsiveObserver {
+	override mobileLayout(html: JQuery<HTMLElement>) {
+		const content = html.find("section.window-content > div:not(#mps-view-group).flexrow");
+		const form = html.find(".categories");
+		const scrollable = html.find(".scrollable");
+		const sidebar = html.find("aside.sidebar");
+		const footer = form.find("footer");
+		if (content.length === 1) {
+			content.removeClass("flexrow");
+			content.addClass("flexcol");
+		}
+		content.append(scrollable);
+		form.append(scrollable.children());
+		scrollable.append(sidebar);
+		scrollable.append(form);
+		footer.prepend(html.find(".reset-all"));
+		footer.addClass("flexrow");
+		content.append(footer);
+		const submitButton: JQuery = footer.find("button[type=submit]");
+		submitButton.removeAttr("type").attr("type", "button");
+		submitButton.on("click", () => form.trigger("submit"));
+	}
+
+	override desktopLayout(html: JQuery<HTMLElement>) {
+		const content = html.find("section.window-content > div:not(#mps-view-group).flexcol");
+		if (content.length === 1) {
+			content.removeClass("flexcol");
+			content.addClass("flexrow");
+		}
+		const form = html.find(".categories");
+		const scrollable = html.find(".scrollable");
+		const sidebar = html.find("aside.sidebar");
+		const footer = html.find("footer");
+		sidebar.append(html.find(".reset-all"));
+		content.append(sidebar);
+		content.append(form);
+		scrollable.append(form.children());
+		form.append(scrollable);
+		form.append(footer);
+	}
+
+	override readonly breakpoint: number = 534;
+
+	override readonly appClass: string = "SettingsConfig";
+}
+
+const characterSheetResizeObserver = new CharacterSheetResponsiveObserver();
+
+const vehicleSheetResizeObserver = new vehicleSheetResponsiveObserver();
+
+const settingsResizeObserver = new SettingsResponsiveObserver();
+
+characterSheetResizeObserver.register();
+vehicleSheetResizeObserver.register();
+settingsResizeObserver.register();

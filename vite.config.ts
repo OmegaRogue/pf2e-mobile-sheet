@@ -6,7 +6,6 @@ import checker from "vite-plugin-checker";
 import path from "path";
 import packageJSON from "./package.json";
 import esbuild from "esbuild";
-
 const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
 	const buildMode = mode === "production" ? "production" : "development";
 	const outDir = "dist";
@@ -98,7 +97,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
 		esbuild: { keepNames: true },
 		build: {
 			outDir,
-			emptyOutDir: false, //build-packs.ts handles this
+			emptyOutDir: true, //build-packs.ts handles this
 			minify: false,
 			sourcemap: true,
 			lib: {
@@ -135,6 +134,9 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
 		plugins,
 		css: {
 			devSourcemap: true,
+			 preprocessorOptions: {
+				 sourceMap: true,
+			 }
 		},
 	};
 });
