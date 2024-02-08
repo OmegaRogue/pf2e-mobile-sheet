@@ -10,30 +10,35 @@ export abstract class ResponsiveObserver {
 
 	abstract readonly appClass: string;
 
-	private observer: ResizeObserver;
+	observer: ResizeObserver;
+
+	observed: Set<HTMLElement>;
 
 	constructor() {
-		this.observer = new ResizeObserver((entries) => {
-			for (const entry of entries) {
-				const html = $(entry.target) as JQuery<HTMLElement>;
-				if (
-					(entry.contentRect.width < this.breakpoint || getBodyData("force-mobile-window") === true) &&
-					!html.hasClass("mobile")
-				) {
-					this.mobileLayout(html);
-					html.addClass("mobile");
-					debug(false, "mobile", entry);
-				} else if (
-					(entry.contentRect.width >= this.breakpoint || getBodyData("force-mobile-window") === false) &&
-					html.hasClass("mobile") &&
-					!getBodyData("force-mobile-window")
-				) {
-					this.desktopLayout(html);
-					html.removeClass("mobile");
-					debug(false, "no mobile", entry);
-				}
+		this.observed = new Set<HTMLElement>();
+		this.observer = new ResizeObserver(this.resizeHandler.bind(this));
+	}
+
+	resizeHandler(entries: ResizeObserverEntry[]) {
+		for (const entry of entries) {
+			const html = $(entry.target) as JQuery<HTMLElement>;
+			if (
+				(entry.contentRect.width < this.breakpoint || getBodyData("force-mobile-window") === true) &&
+				!html.find("form").hasClass("mobile")
+			) {
+				this.mobileLayout(html);
+				html.addClass("mobile");
+				debug(false, "mobile", entry);
+			} else if (
+				(entry.contentRect.width >= this.breakpoint || getBodyData("force-mobile-window") === false) &&
+				html.hasClass("mobile") &&
+				!getBodyData("force-mobile-window")
+			) {
+				this.desktopLayout(html);
+				html.removeClass("mobile");
+				debug(false, "no mobile", entry);
 			}
-		});
+		}
 	}
 
 	get resizeObserver() {
@@ -42,16 +47,30 @@ export abstract class ResponsiveObserver {
 
 	register() {
 		Hooks.on(`close${this.appClass}`, this.closeHandler.bind(this));
-		Hooks.on(`render${this.appClass}`, this.renderHandler.bind(this));
+		Hooks.on(`render${this.appClass}`, (app: Application, html: JQuery) => {
+			html = html.closest(".app");
+			this.renderHandler(app, html);
+		});
 	}
 
 	closeHandler(_app: Application, html: JQuery) {
 		this.observer.unobserve(html[0]);
+		this.observed.delete(html[0]);
 	}
 
 	renderHandler(_app: Application, html: JQuery) {
-		html = html.closest(".app");
-		this.observer.observe(html[0]);
+		if (!this.observed.has(html[0])) this.observer.observe(html[0]);
+		else
+			this.resizeHandler([
+				{
+					target: html[0],
+					contentRect: {
+						width: html.width(),
+					} as DOMRectReadOnly,
+				} as unknown as ResizeObserverEntry,
+			]);
+
+		this.observed.add(html[0]);
 	}
 }
 
