@@ -69,8 +69,6 @@ Hooks.once("init", async () => {
 		return String(str).capitalize();
 	});
 
-	game.mobilemode;
-
 	// Register custom sheets (if any)
 });
 
