@@ -8,6 +8,16 @@ Make the PF2e Player Character sheet work on mobile
 [![Foundry Hub Comments][6]][5]
 ![Foundry Core Compatible Version][7]
 ![Repository License][8]
+[![gitlocalized ][10]][9]
+[![gitlocalized german][11]][9]
+[![gitlocalized chinese][12]][9]
+
+## Localization
+
+If you want to contribute to localization, you can help translate this on https://gitlocalize.com/repo/9335
+
+If your language is missing, open an issue or contact me otherwise about it.
+
 ## Installation
 
 After installing the module, for using this module, I recommend you use Chrome and install foundry as a progressive web app by using "add to home screen".
@@ -157,3 +167,7 @@ project layout:
 [6]: https://img.shields.io/endpoint?logoColor=white&url=https%3A%2F%2Fwww.foundryvtt-hub.com%2Fwp-json%2Fhubapi%2Fv1%2Fpackage%2Fpf2e-mobile-sheet%2Fshield%2Fcomments
 [7]: https://img.shields.io/badge/dynamic/json.svg?url=https%3A%2F%2Fraw.githubusercontent.com%2FOmegaRogue%2Fpf2e-mobile-sheet%2Fmain%2Fstatic%2Fmodule.json&label=Foundry%20Version&query=$.compatibility.minimum&colorB=orange
 [8]: https://img.shields.io/github/license/OmegaRogue/pf2e-mobile-sheet
+[9]: https://gitlocalize.com/repo/9335?utm_source=badge
+[10]: https://gitlocalize.com/repo/9335/whole_project/badge.svg
+[11]: https://gitlocalize.com/repo/9335/de/badge.svg
+[12]: https://gitlocalize.com/repo/9335/zh/badge.svg
