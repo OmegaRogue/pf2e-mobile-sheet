@@ -127,13 +127,23 @@ This project is being developed under the terms of the
 
 This project is licensed under [GPL-3.0-or-later](COPYING.md).
 
-The contents of the following files are originally from
-the [Mobile Improvements](https://gitlab.com/fvtt-modules-lab/mobile-improvements) module under MIT License:
+The contents of many files are originally from
+the Mobile Improvements module under MIT License.
 
 - [`static/templates/menu.hbs`](static/templates/menu.hbs)
 - [`static/templates/navigation.hbs`](static/templates/navigation.hbs)
 - [`static/templates/window-selector.hbs`](static/templates/window-selector.hbs)
-- [`src/stykes/apps/_mobile-navigation.scss`](src/stykes/apps/_mobile-navigation.scss)
+- [`static/templates/window-selector.hbs`](static/templates/mobileToggleButton.hbs)
+- [`src/stykes/apps/_mobile-navigation.scss`](src/styles/apps/_mobile-navigation.scss)
+
+build-packs license:
+
+* The build-packs.ts script has taken from https://github.com/xdy/xdy-pf2e-workbench/blob/main/build/build-packs.ts and is, like the original,
+  provided under the [ISC license](https://www.isc.org/licenses/)
+
+project layout:
+
+- The Project layout has been copied over from https://github.com/xdy/xdy-pf2e-workbench and is licensed under the [Apache License](https://www.apache.org/licenses/LICENSE-2.0)
 
 [League Basic JS Module Template]: https://github.com/League-of-Foundry-Developers/FoundryVTT-Module-Template
 [LIMITED LICENSE AGREEMENT FOR MODULE DEVELOPMENT]: https://foundryvtt.com/article/license/

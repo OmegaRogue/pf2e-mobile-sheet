@@ -126,11 +126,10 @@ export class MobileUI extends Application {
 		if ($(".start-menu-options .start-menu-option.canvas").length === 0) {
 			(async () => {
 				$(
-					await renderTemplate(`modules/${MODULE_ID}/templates/taskbarStartMenuAdditions.hbs`, [
-						{ name: "canvas", icon: "fa-map" },
-						{ name: "players", icon: "fa-users" },
-						{ name: "fullscreen", icon: "fa-expand" },
-					]),
+					await renderTemplate(
+						`modules/${MODULE_ID}/templates/taskbarStartMenuAdditions.hbs`,
+						this.mobileMenu.getData().filter((value) => value.name !== "reload"),
+					),
 				).appendTo(".start-menu-options");
 			})().then();
 		}

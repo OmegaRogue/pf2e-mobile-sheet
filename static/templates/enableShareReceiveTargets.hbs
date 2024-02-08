@@ -8,6 +8,9 @@
 			<li class="notes"><b>{{localize
 				"pf2e-mobile-sheet.settings.mobile-share-targets.receive.name"}}</b>: {{localize
 				"pf2e-mobile-sheet.settings.mobile-share-targets.receive.hint"}}</li>
+			<li class="notes"><b>{{localize
+				"pf2e-mobile-sheet.settings.mobile-share-targets.force.name"}}</b>: {{localize
+				"pf2e-mobile-sheet.settings.mobile-share-targets.force.hint"}}</li>
 		</ul>
 	</div>
 	<hr>
@@ -17,20 +20,23 @@
 	<table>
 		<thead>
 		<tr>
-			<th class="">{{localize "pf2e-mobile-sheet.settings.mobile-share-targets.player.name"}}</th>
-			<th class="">{{localize "pf2e-mobile-sheet.settings.mobile-share-targets.send.name"}}</th>
-			<th class="">{{localize "pf2e-mobile-sheet.settings.mobile-share-targets.receive.name"}}</th>
+			<th>{{localize "pf2e-mobile-sheet.settings.mobile-share-targets.player.name"}}</th>
+			<th>{{localize "pf2e-mobile-sheet.settings.mobile-share-targets.send.name"}}</th>
+			<th>{{localize "pf2e-mobile-sheet.settings.mobile-share-targets.receive.name"}}</th>
+			<th>{{localize "pf2e-mobile-sheet.settings.mobile-share-targets.force.name"}}</th>
 		</tr>
 		</thead>
 
 		<tbody>
 		{{#each data}}
 			<tr>
-				<td class="">{{this.name}}</td>
+				<td>{{this.name}}</td>
 				<td style="text-align: center;"><input type="checkbox" name="send-{{this.id}}" data-dtype="Boolean"
 					{{checked this.send}}></td>
 				<td style="text-align: center;"><input type="checkbox" name="receive-{{this.id}}"
 													   data-dtype="Boolean"{{checked this.receive}}></td>
+				<td style="text-align: center;"><input type="checkbox" name="force-{{this.id}}"
+													   data-dtype="Boolean"{{checked this.force}}></td>
 			</tr>
 			<input type="text" name="id" value={{this.id}} style="display:none">
 		{{/each}}

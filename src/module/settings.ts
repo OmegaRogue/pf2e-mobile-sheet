@@ -148,7 +148,7 @@ export class EnableShareReceiveTargets extends FormApplication {
 	 * Provide data to the template
 	 */
 	override getData() {
-		const users = game.users.players;
+		const users = game.users.contents;
 		const settings = game.settings.get(MODULE_ID, "mobile-share-targets");
 		const data = [] as Partial<FormApplicationOptions>[];
 
@@ -162,6 +162,7 @@ export class EnableShareReceiveTargets extends FormApplication {
 				send: userSettings?.send ? userSettings.send : false,
 				receive: userSettings?.receive ? userSettings.receive : false,
 				name: userData.name,
+				force: userSettings?.force ? userSettings.force : false,
 			};
 			data.push(dataNew);
 		}
@@ -172,12 +173,13 @@ export class EnableShareReceiveTargets extends FormApplication {
 	}
 
 	protected override async _updateObject(_event: Event, data: Record<string, unknown>): Promise<void> {
-		const newData: any[] = [];
+		const newData: ShareTargetSettings[] = [];
 		for (const id of data.id as string[]) {
-			newData.push({
+			newData.push(<ShareTargetSettings>{
 				id,
 				receive: data[`receive-${id}`],
 				send: data[`send-${id}`],
+				force: data[`force-${id}`],
 			});
 		}
 		await game.settings.set(MODULE_ID, "mobile-share-targets", newData);

@@ -42,6 +42,10 @@
 					"name": "Receive",
 					"hint": "Receive target data from other players"
 				},
+				"force": {
+					"name": "Force",
+					"hint": "Clear existing, non-shared Targets for receiving players"
+				},
 				"player": {
 					"name": "Player"
 				}

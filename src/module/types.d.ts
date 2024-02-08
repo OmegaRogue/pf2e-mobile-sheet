@@ -16,6 +16,7 @@ export type ShareTargetSettings = {
 	send: boolean;
 	receive: boolean;
 	id: string;
+	force: boolean;
 };
 export type ShareTargetSettingsOptions = {} & Partial<FormApplicationOptions>;
 

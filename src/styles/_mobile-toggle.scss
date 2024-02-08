@@ -1,0 +1,36 @@
+@use "mixins";
+@import "breakpoints";
+
+#mobile-toggle {
+	position: absolute;
+	top: 1rem;
+	left: 84px;
+	z-index: 61;
+
+	height: 29px;
+	max-width: 29px;
+	overflow: hidden;
+
+	white-space: nowrap;
+	background-color: var(--miDarkBackground);
+	color: #f0f0e0;
+	padding: 6px 10px;
+	border-radius: 100px;
+	transition: all 250ms ease-out;
+
+	&:hover {
+		max-width: 500px;
+	}
+
+	.fas {
+		margin-right: 6px;
+	}
+
+	@include mixins.global-mobile(false) {
+		display: none;
+	}
+
+	body:not([data-mobile-show-mobile-toggle=true]) & {
+		display: none;
+	}
+}

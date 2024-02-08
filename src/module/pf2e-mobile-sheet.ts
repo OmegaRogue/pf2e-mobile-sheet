@@ -91,7 +91,7 @@ Hooks.on("targetToken", (user, token, targeted) => {
 	if (!targettingUser || !currentUser) return;
 	if (!targettingUser.send) return;
 	if (!currentUser.receive) return;
-	token.setTarget(targeted, { releaseOthers: false });
+	token.setTarget(targeted, { releaseOthers: currentUser.force });
 });
 
 // export function onDragMove(event: FederatedPointerEvent) {

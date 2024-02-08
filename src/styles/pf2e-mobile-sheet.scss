@@ -5,6 +5,8 @@
 @import "send-button";
 @import "hotbar";
 @import "taskbar";
+@import "mobile-toggle";
+@import "mobile-messages";
 
 :root {
 
@@ -64,17 +66,6 @@
 }
 
 @include mixins.global-mobile {
-
-	.chat-message.bloop {
-		animation-name: bloopborder;
-		animation-duration: 4s;
-		animation-timing-function: ease-out;
-	}
-
-	#chat-message {
-		flex-basis: auto;
-	}
-
 
 	:root {
 		--carousel-alignment: right;
@@ -224,51 +215,6 @@
 //}
 
 
-@keyframes bloopborder {
-	0% {
-		border-color: #00c853;
-	}
-	80% {
-		border-color: #76ff03;
-	}
-	100% {
-		border-color: #6f6c66;
-	}
-}
-
-#mobile-toggle {
-	position: absolute;
-	top: 1rem;
-	left: 84px;
-	z-index: 61;
-
-	height: 29px;
-	max-width: 29px;
-	overflow: hidden;
-
-	white-space: nowrap;
-	background-color: var(--miDarkBackground);
-	color: #f0f0e0;
-	padding: 6px 10px;
-	border-radius: 100px;
-	transition: all 250ms ease-out;
-
-	&:hover {
-		max-width: 500px;
-	}
-
-	.fas {
-		margin-right: 6px;
-	}
-
-	@include mixins.global-mobile(false) {
-		display: none;
-	}
-
-	body:not([data-mobile-show-mobile-toggle=true]) & {
-		display: none;
-	}
-}
 
 body[data-mobile-disable-canvas=true] {
 	canvas#board {
