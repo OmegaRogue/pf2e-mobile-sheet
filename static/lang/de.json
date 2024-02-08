@@ -1,28 +1,69 @@
 {
-	"pf2e-mobile-sheet": {
-		"settings": {
-			"mobile-layout": {
-				"name": "Mobile Layout",
-				"hint": "Erzwingt den Handy-Modus in Foundry"
-			},
-			"mobile-windows": {
-				"name": "Handy-Fenster",
-				"hint": "Erzwingt Fenster, den Handy-Modus zu benutzen"
-			},
-			"send-button": {
-				"name": "Senden-Knopf anzeigen",
-				"hint": "Erlaubt es, den Senden-Knopf manuell ein/auszublenden"
-			},
-			"toggle": {
-				"on": "An",
-				"off": "Aus",
-				"auto": "Auto"
-			},
-			"header-button-text": {
-				"name": "Text von Kopfzeilenknöpfen entfernen",
-				"hint": "Entfernt den Text von Buttons in den Kopfzeilen von Fenstern"
-			}
-		},
-		"sidebar-tab": "Seitenleiste"
-	}
+  "pf2e-mobile-sheet": {
+    "settings": {
+      "mobile-layout": {
+        "name": "Handy Layout",
+        "hint": "Erzwingt den Handy-Modus in Foundry"
+      },
+      "mobile-windows": {
+        "name": "Handy-Fenster",
+        "hint": "Erzwingt Fenster, den Handy-Modus zu benutzen"
+      },
+      "send-button": {
+        "name": "Senden-Knopf anzeigen",
+        "hint": "Erlaubt es, den Senden-Knopf manuell ein/auszublenden"
+      },
+      "toggle": {
+        "on": "An",
+        "off": "Aus",
+        "auto": "Auto"
+      },
+      "header-button-text": {
+        "name": "Text von Kopfzeilenknöpfen entfernen",
+        "hint": "Entfernt den Text von Buttons in den Kopfzeilen von Fenstern"
+      },
+      "show-mobile-toggle": {
+        "name": "Zeige Handy-Modus Knopf an",
+        "hint": "Zeige einen Knopf, um den Handy-Modus einzuschalten, wenn dieser aus ist."
+      },
+      "disable-canvas": {
+        "name": "Szene ausschalten",
+        "hint": "Schalte die Szene aus"
+      },
+      "mobile-share-targets": {
+        "title": "Spielereinstellungen",
+        "name": "Zielauswahl teilen",
+        "hint": "Teile die Zielauswahl mit anderen Spielern",
+        "send": {
+          "name": "Senden",
+          "hint": "Sende Zielauswahl an empfangende Spieler"
+        },
+        "receive": {
+          "name": "Empfangen",
+          "hint": "Empfange Zielauswahl von sendenden Spielern"
+        },
+        "force": {
+          "name": "Erzwingen",
+          "hint": "Erzwinge Zielauswahl für empfangende Spieler"
+        },
+        "player": {
+          "name": "Spieler"
+        }
+      }
+    },
+    "sidebar-tab": "Seitenleiste",
+    "MenuCanvas": "Szenenrendering umschalten",
+    "MenuPlayers": "Spielerliste umschalten",
+    "MenuExit": "Handy-Modus ausschalten",
+    "MenuReload": "Neuladen",
+    "MenuFullscreen": "Vollbildmodus umschalten",
+    "NavigationStart": "Start",
+    "NavigationMap": "Szene",
+    "NavigationApp": "App",
+    "NavigationMacros": "Makros",
+    "NavigationMenu": "Menü",
+    "NavigationWindows": "Fenster",
+    "PanToggle": "Ansicht schieben mit Links-Click",
+    "EnableMobileMode": "Handy-Modus anschalten"
+  }
 }
