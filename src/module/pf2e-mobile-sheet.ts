@@ -247,7 +247,7 @@ Hooks.once("ready", async () => {
 		MODULE_ID,
 		PixiNormalizePointer,
 		function (wrapped, event) {
-			if (event instanceof TouchEvent) {
+			if (typeof TouchEvent !== "undefined" && event instanceof TouchEvent) {
 				const normalizedEvents: (PixiTouch & PointerEvent)[] = wrapped(event) as (PixiTouch & PointerEvent)[];
 				const normalizedEvent = normalizedEvents[0];
 				normalizedEvent.touches = event.touches;
