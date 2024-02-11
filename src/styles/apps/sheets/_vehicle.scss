@@ -33,6 +33,62 @@
 						}
 					}
 				}
+				&[data-tab=sidebar] {
+					--sidebar-label: var(--text-dark);
+					--sidebar-title: var(--text-dark);
+
+					.ac, .shield.hp, .shield.hardness {
+						--sidebar-label: var(--tertiary-dark);
+
+						.data-value {
+							h2, input {
+								color: var(--color-pf-tertiary) !important;
+							}
+						}
+					}
+					.data-value.data-value.data-value {
+						color: var(--text-dark) !important;
+					}
+
+					.pf-rank {
+						width: 6.5em;
+						display: flex;
+						overflow: unset;
+					}
+
+					header button {
+						background: var(--sub);
+						color: var(--text-light);
+					}
+
+					.roll-data a.modifier.hover {
+						color: var(--color-pf-primary);
+					}
+
+					.d20-svg {
+						filter: drop-shadow(0 0 1px var(--color-shadow-dark)) drop-shadow(0 0 3px var(--color-text-dark-4)) drop-shadow(0 0 12px var(--color-text-light-3));
+					}
+
+					a.roll-icon i, i.fa-regular, i.fa-solid {
+						color: var(--text-dark) !important;
+					}
+
+					.container.current-hp {
+						background-image: none;
+						--sidebar-label: var(--tertiary-dark);
+						input[type=number] {
+							color: var(--text-light);
+						}
+					}
+
+					input[type=number] {
+						color: var(--text-dark);
+					}
+
+					.data-value h2 {
+						color: var(--text-dark);
+					}
+				}
 			}
 		}
 
