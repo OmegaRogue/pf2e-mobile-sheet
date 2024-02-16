@@ -158,7 +158,7 @@ export class TouchInput {
 		// Compute the final dropped positions
 		const updates = clones.reduce<EmbeddedDocumentUpdateData[]>((updates, c) => {
 			// Get the snapped top-left coordinate
-			let dest = { x: c.document.x, y: c.document.y };
+			let dest: Point = { x: c.document.x, y: c.document.y };
 			if (!event.shiftKey && canvas.grid.type !== CONST.GRID_TYPES.GRIDLESS) {
 				const isTiny = c.document.width < 1 && c.document.height < 1;
 				const interval = canvas.grid.isHex ? 1 : isTiny ? 2 : 1;

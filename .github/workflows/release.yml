@@ -10,7 +10,7 @@ on:
 
 env:
     package_type: module
-    node_version: 18
+    node_version: 20
     fvtt_minimum: 11.314
     fvtt_verified: 11.315
     fvtt_maximum: 11
