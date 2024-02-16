@@ -58,6 +58,17 @@
 					"verified": "1.0.13"
 				}
 			}
+		],
+		"conflicts": [
+			{
+				"id": "mobile-improvements",
+				"type": "module",
+				"manifest": "https://gitlab.com/fvtt-modules-lab/mobile-improvements/-/jobs/artifacts/master/raw/module.json?job=build-release",
+				"reason": "PF2e Mobile Sheets provides all features of Mobile Improvements since 0.6.0",
+				"compatibility": {
+					"minimum": "0.0.0"
+				}
+			}
 		]
 	},
 	"socket": true,
