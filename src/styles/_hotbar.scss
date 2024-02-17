@@ -21,11 +21,11 @@
 		border-radius: 5px 5px 0 0;
 		box-shadow: 0 0 10px #000c;
 		height: auto;
-		margin: 0 0 var(--navigationHeight);
+		margin: 0 0 var(--navigation-height);
 		max-width: 620px;
 		padding: 4px;
 		pointer-events: all;
-		transform: translateY(calc(var(--navigationHeight) + 100%));
+		transform: translateY(calc(var(--navigation-height) + 100%));
 		width: 100%;
 
 		.bar-controls {

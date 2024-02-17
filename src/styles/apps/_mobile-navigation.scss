@@ -19,7 +19,7 @@
 	overflow-y: hidden;
 	padding: 0;
 	position: absolute;
-	top: var(--viewHeight);
+	top: var(--view-height);
 	transition: transform ease-in 50ms;
 	width: 100%;
 	z-index: 1002;
@@ -29,7 +29,7 @@
 		display: flex;
 		flex: 1;
 		flex-direction: column;
-		height: var(--navigationHeight);
+		height: var(--navigation-height);
 		opacity: 0.6;
 		padding: 0.5em 0;
 		text-align: center;

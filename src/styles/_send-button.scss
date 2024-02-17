@@ -24,17 +24,20 @@
 			top: -2em;
 		}
 	}
+
 	#mobile-chat-row {
 		flex-wrap: nowrap;
 		gap: var(--send-button-gap);
 	}
+
 	#chat-form textarea {
 		width: calc(100% - calc(4em + var(--send-button-gap)));
 	}
-	//.dorako-ui .send-button {
-	//	border: unset;
-	//	border-radius: var(--border-radius);
-	//}
+
+	/* .dorako-ui .send-button {
+		border: unset;
+		border-radius: var(--border-radius);
+	} */
 }
 
 @include mixins.global-mobile {
@@ -43,6 +46,7 @@
 
 @include mixins.tab("app") {
 	@include mobile;
+
 	.send-button {
 		display: unset !important;
 	}

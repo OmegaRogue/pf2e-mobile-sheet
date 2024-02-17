@@ -3,7 +3,7 @@
 @include mixins.global-mobile {
 	div.taskbar#taskbar {
 		background: none;
-		height: var(--navigationHeight);
+		height: var(--navigation-height);
 		width: 100% !important;
 		bottom: 0;
 
@@ -35,7 +35,7 @@
 	.start-menu {
 		min-width: unset;
 		width: 100%;
-		bottom: var(--navigationHeight) !important;
+		bottom: var(--navigation-height) !important;
 	}
 	.start-menu-apps {
 		//min-width: unset;

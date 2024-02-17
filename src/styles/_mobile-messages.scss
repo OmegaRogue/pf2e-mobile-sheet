@@ -5,16 +5,17 @@
 	0% {
 		border-color: #00c853;
 	}
+
 	80% {
 		border-color: #76ff03;
 	}
+
 	100% {
 		border-color: #6f6c66;
 	}
 }
 
 @include mixins.global-mobile {
-
 	.chat-message.bloop {
 		animation-name: bloopborder;
 		animation-duration: 4s;
