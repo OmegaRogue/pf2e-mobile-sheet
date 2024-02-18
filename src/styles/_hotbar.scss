@@ -12,20 +12,16 @@
 }
 
 @include mixins.global-mobile {
-
-	&[data-mobile-hotbar=true] #hotbar {
-		transform: translateY(0);
-	}
 	#hotbar {
 		background: var(--mobile-sheet-dark-background);
 		border-radius: 5px 5px 0 0;
 		box-shadow: 0 0 10px #000c;
 		height: auto;
-		margin: 0 0 var(--navigationHeight);
+		margin: 0 0 var(--navigation-height);
 		max-width: 620px;
 		padding: 4px;
 		pointer-events: all;
-		transform: translateY(calc(var(--navigationHeight) + 100%));
+		transform: translateY(var(--navigation-height) + 100%);
 		width: 100%;
 
 		.bar-controls {
@@ -37,7 +33,7 @@
 			max-height: max(2em, calc(100% - 1em));
 
 			a.page-control, span.page-number {
-				//flex: 1;
+				// flex: 1;
 				align-items: center;
 				display: flex;
 				justify-content: center;
@@ -63,21 +59,25 @@
 			flex: 1;
 			grid-template-columns: repeat(10, var(--macro-size));
 			justify-content: center;
-
 			padding: 0.3em 0;
 
-			@media screen and (max-width: 575px) {
+			@media screen and (width <= 575px) {
 				grid-template-columns: repeat(5, 50px);
 			}
 		}
 
 		.macro {
-			background: rgba(0, 0, 0, 0.3);
-			border-color: rgba(0, 0, 0, 0.2);
+			background: rgb(0 0 0 / 30%);
+			border-color: rgb(0 0 0 / 20%);
 			border-radius: 0;
 			margin: 2px;
 		}
+	}
 
+	@include mixins.body-data-tag("[data-mobile-hotbar=true]") {
+		#hotbar {
+			transform: translateY(0);
+		}
 	}
 }
 

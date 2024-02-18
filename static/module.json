@@ -28,11 +28,11 @@
 			"name": "English",
 			"path": "lang/en.json"
 		},
-        {
-            "lang": "cn",
-            "name": "中文（简体）",
-            "path": "lang/zh_Hans.json"
-        },
+		{
+			"lang": "cn",
+			"name": "中文（简体）",
+			"path": "lang/zh_Hans.json"
+		},
 		{
 			"lang": "de",
 			"name": "German",
@@ -58,6 +58,17 @@
 					"verified": "1.0.13"
 				}
 			}
+		],
+		"conflicts": [
+			{
+				"id": "mobile-improvements",
+				"type": "module",
+				"manifest": "https://gitlab.com/fvtt-modules-lab/mobile-improvements/-/jobs/artifacts/master/raw/module.json?job=build-release",
+				"reason": "PF2e Mobile Sheets provides all features of Mobile Improvements since 0.6.0",
+				"compatibility": {
+					"minimum": "0.0.0"
+				}
+			}
 		]
 	},
 	"socket": true,
@@ -70,6 +81,7 @@
 		"hotReload": {
 			"extensions": ["css", "html", "hbs", "json", "js", "js.map", "mjs", "css.map", "scss"],
 			"paths": ["system/templates", "css", "lang/en.json", "module", "styles"]
-		}
+		},
+		"allowBugReporter": true
 	}
 }

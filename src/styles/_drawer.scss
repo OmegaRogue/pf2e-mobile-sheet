@@ -1,7 +1,7 @@
 @use "mixins";
 
 .drawer {
-	bottom: var(--navigationHeight);
+	bottom: var(--navigation-height);
 	box-shadow: 0 0 15px #000c;
 	max-width: 450px;
 	position: fixed;
@@ -17,8 +17,10 @@
 		visibility: unset;
 		z-index: 1001;
 	}
+}
 
-	@include mixins.global-mobile(false) {
+@include mixins.global-mobile {
+	.drawer {
 		visibility: unset;
 	}
 }

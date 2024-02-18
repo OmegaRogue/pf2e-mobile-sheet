@@ -1,5 +1,3 @@
-@use "../../mixins";
-
 @mixin mobile {
 	&.character {
 		.sheet-navigation {
@@ -11,7 +9,8 @@
 
 			.tab {
 				height: unset;
-				&[data-tab=attributes] {
+
+				&[data-tab="attributes"] {
 					flex-direction: column;
 
 					.ability-scores {
@@ -19,28 +18,35 @@
 						grid-template-columns: repeat(3, 1fr);
 						width: 100%;
 					}
+
 					.skills-list {
 						width: 100%;
 					}
+
 					.center-pane {
 						width:100%;
 					}
 				}
-				&[data-tab=inventory] {
+
+				&[data-tab="inventory"] {
 					.item-detail {
 						flex: 1 !important;
 					}
 				}
-				&[data-tab=biography] {
+
+				&[data-tab="biography"] {
 					flex-direction: column;
+
 					.characteristics, .biography {
 						flex: 1;
 					}
+
 					.biography {
 						max-width: unset !important;
 					}
 				}
-				&[data-tab=spellbook] {
+
+				&[data-tab="spellbook"] {
 
 				}
 
@@ -48,11 +54,3 @@
 		}
 	}
 }
-
-//@mixin desktop {
-//	&.character {
-//		a#sidebar-tab {
-//			display: none;
-//		}
-//	}
-//}

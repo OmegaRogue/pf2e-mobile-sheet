@@ -1,43 +1,34 @@
 @use "../../mixins";
 
 @mixin mobile {
-	&.vehicle {
+	&.character {
 		.crb-style {
 			grid-template-columns: initial !important;
 			grid-template-areas: "header " "nav    " "content" !important;
 
-			.sheet-navigation {
-				min-width: unset;
-			}
-
-			@include mixins.sheet-nav-bar;
-
 			aside {
-				background-image: none;
+				background-image: none !important;
 
 				.logo {
 					display: none;
 				}
 			}
 
-			.tab {
-				&[data-tab=details] {
-					.vehicle-details .detail-sheet {
-						grid: repeat(2, 1fr)/3fr 2fr !important;
+			.pf-rank {
+				width: 4em;
+				text-overflow: ellipsis;
+				overflow: hidden;
+				display: inline-block;
+			}
 
-						.detail-small {
-							display: grid !important;
-							grid-template-columns: repeat(2, 0.5fr);
-							grid-column-gap: 0.5em;
+			@include mixins.sheet-nav-bar;
 
-						}
-					}
-				}
-				&[data-tab=sidebar] {
+			.sheet-body .sheet-content .tab {
+				&[data-tab="sidebar"] {
 					--sidebar-label: var(--text-dark);
 					--sidebar-title: var(--text-dark);
 
-					.ac, .shield.hp, .shield.hardness {
+					.ac, .shield.hp {
 						--sidebar-label: var(--tertiary-dark);
 
 						.data-value {
@@ -46,6 +37,7 @@
 							}
 						}
 					}
+
 					.data-value.data-value.data-value {
 						color: var(--text-dark) !important;
 					}
@@ -75,13 +67,15 @@
 
 					.container.current-hp {
 						background-image: none;
+
 						--sidebar-label: var(--tertiary-dark);
-						input[type=number] {
+
+						input[type="number"] {
 							color: var(--text-light);
 						}
 					}
 
-					input[type=number] {
+					input[type="number"] {
 						color: var(--text-dark);
 					}
 
@@ -89,17 +83,59 @@
 						color: var(--text-dark);
 					}
 				}
+
+				&[data-tab="character"] {
+					.character-details {
+						.abcd {
+							.detail.deity {
+								grid-column: span 2;
+							}
+						}
+					}
+
+					.attributes .attribute .label {
+						display: none;
+					}
+				}
+
+				&[data-tab="actions"] {
+					.button-group {
+						flex-wrap: wrap !important;
+					}
+
+					button.tag.damage::after {
+						content: '(' attr(data-tooltip) ')';
+					}
+				}
+
+				&[data-tab="proficiencies"] {
+					ul.proficiencies-list li .button-group button {
+						width: 4em;
+						text-overflow: ellipsis;
+						overflow: hidden;
+						display: inline-block;
+					}
+				}
+			}
+
+			header.char-header .char-level {
+				.exp-data {
+					padding: initial !important;
+				}
+
+				flex-wrap: wrap !important;
+				justify-content: center !important;
 			}
 		}
 
-		&:not([data-color-scheme=dark]) .sheet-content .tab.sidebar {
-			//background-color: var(--primary);
+		&:not([data-color-scheme="dark"]) .sheet-content .tab.sidebar {
+			// background-color: var(--primary);
 		}
 	}
 }
 
 @mixin desktop {
-	&.vehicle {
+	&.character {
 		a#sidebar-tab {
 			display: none;
 		}

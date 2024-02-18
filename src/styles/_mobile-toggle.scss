@@ -1,18 +1,15 @@
 @use "mixins";
-@import "breakpoints";
 
 #mobile-toggle {
 	position: absolute;
 	top: 1rem;
 	left: 84px;
 	z-index: 61;
-
 	height: 29px;
 	max-width: 29px;
 	overflow: hidden;
-
 	white-space: nowrap;
-	background-color: var(--miDarkBackground);
+	background-color: var(--mobile-sheet-dark-background);
 	color: #f0f0e0;
 	padding: 6px 10px;
 	border-radius: 100px;
@@ -26,11 +23,14 @@
 		margin-right: 6px;
 	}
 
-	@include mixins.global-mobile(false) {
+	@include mixins.body-data-tag(":not([data-mobile-show-mobile-toggle=true])") {
 		display: none;
 	}
+}
 
-	body:not([data-mobile-show-mobile-toggle=true]) & {
+
+@include mixins.global-mobile {
+	#mobile-toggle {
 		display: none;
 	}
 }

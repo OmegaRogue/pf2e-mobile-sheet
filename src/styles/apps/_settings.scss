@@ -1,5 +1,5 @@
 @use "../mixins";
-@import "../breakpoints";
+@use "../breakpoints" as *;
 
 
 #client-settings {
@@ -13,9 +13,6 @@
 
 	@include mixins.local-mobile($settings-breakpoint, settings) {
 		&.package-configuration {
-			div:not(#mps-view-group).flexcol {
-			}
-
 			.window-content {
 				overflow: hidden;
 			}

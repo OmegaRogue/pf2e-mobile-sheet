@@ -1,7 +1,7 @@
 /* eslint-disable indent */
 import { registerSettings } from "./settings.ts";
 import { preloadTemplates } from "./preloadTemplates.ts";
-import { checkMobile, debug, getDebug, info, MODULE_ID, setBodyData, toggleRender, viewHeight } from "./utils.ts";
+import { checkMobile, debug, getDebug, info, MODULE_ID, setBodyData, toggleRender } from "./utils.ts";
 import * as windowMgr from "./apps/windowManager.ts";
 import "./combatTracker.ts";
 import "styles/pf2e-mobile-sheet.scss";
@@ -26,7 +26,7 @@ abstract class MobileMode {
 	static enter(force: boolean = false) {
 		ui.nav?.collapse();
 		if (force) setBodyData("force-mobile-layout", "on");
-		viewHeight();
+		// viewHeight();
 		Hooks.call("mobile-improvements:enter");
 	}
 
@@ -37,7 +37,7 @@ abstract class MobileMode {
 
 	static viewResize(force: boolean = false) {
 		debug(true, "resize");
-		if (MobileMode.enabled) viewHeight();
+		// if (MobileMode.enabled) viewHeight();
 		if (this.enabled) MobileMode.enter(force);
 		else MobileMode.leave(force);
 	}

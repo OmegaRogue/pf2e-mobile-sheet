@@ -1,66 +1,15 @@
-@use "familiar";
-@use "party";
-@use "character";
-@use "loot";
-@use "vehicle";
-@use "hazard";
-@use "npc";
-@use "item";
-@use "journal";
-@use "dnd5e";
 @use "../../mixins";
-@import "../../breakpoints";
-@import "dnd5e";
+@use "../../breakpoints" as *;
+@use "journal";
 
-.sheet {
+.sheet.journal-entry {
+	min-width: unset;
 
-
-	&:is(.actor,.item,.journal-entry) {
-		container: sheet / inline-size;
-	}
-
-	&.actor {
-		@include mixins.local-mobile($familiar-breakpoint, sheet) {
-			@include familiar.mobile;
-		}
-		@include mixins.local-mobile($party-breakpoint, sheet) {
-			@include party.mobile;
-		}
-		@include mixins.local-mobile($player-character-breakpoint, sheet) {
-			@include character.mobile;
-		}
-		@include mixins.local-mobile($loot-sheet-breakpoint, sheet) {
-			@include loot.mobile;
-		}
-		@include mixins.local-mobile($vehicle-sheet-breakpoint, sheet) {
-			@include vehicle.mobile;
-		}
-		@include mixins.local-mobile($hazard-sheet-breakpoint, sheet) {
-			@include hazard.mobile;
-		}
-		@include mixins.local-mobile($npc-sheet-breakpoint, sheet) {
-			@include npc.mobile;
-		}
-		@include mixins.local-desktop($player-character-breakpoint, sheet) {
-			@include character.desktop;
-		}
-		@include mixins.local-desktop($vehicle-sheet-breakpoint, sheet) {
-			@include vehicle.desktop;
-		}
-
-	}
-
-	&.item {
-		@include mixins.local-mobile($item-sheet-breakpoint, sheet) {
-			@include item.mobile;
-		}
+	@include mixins.local-mobile($journal-breakpoint, sheet) {
+		@include journal.mobile;
 	}
 
 	&.journal-entry {
-		min-width: unset;
-
-		@include mixins.local-mobile($journal-breakpoint, sheet) {
-			@include journal.mobile;
-		}
+		container: sheet / inline-size;
 	}
 }

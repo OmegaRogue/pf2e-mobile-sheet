@@ -1,12 +1,12 @@
 @use "../mixins";
-@import "../breakpoints";
+@use "../breakpoints" as *;
 
 #compendium-browser {
 	container: compendium-browser / inline-size;
 
 	@include mixins.local-mobile($compendium-browser-breakpoint, compendium-browser) {
 		.window-header {
-			//border: 1px solid hotpink !important;
+			// border: 1px solid hotpink !important;
 		}
 
 		> section.window-content > .content-box {

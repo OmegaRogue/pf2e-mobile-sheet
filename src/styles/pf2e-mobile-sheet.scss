@@ -1,5 +1,5 @@
 @use "mixins";
-@import "breakpoints";
+@use "sass:selector";
 @import "apps";
 @import "drawer";
 @import "send-button";
@@ -9,31 +9,16 @@
 @import "mobile-messages";
 
 :root {
-
-	//--familiar-breakpoint: $familiar-breakpoint;
-	//--party-breakpoint: $party-breakpoint;
-	//--player-character-breakpoint: $player-character-breakpoint;
-	//--loot-sheet-breakpoint: $loot-sheet-breakpoint;
-	//--vehicle-sheet-breakpoint: $vehicle-sheet-breakpoint;
-	//--hazard-sheet-breakpoint: $hazard-sheet-breakpoint;
-	//--global-breakpoint: $global-breakpoint;
-	//--npc-sheet-breakpoint: $npc-sheet-breakpoint;
-	//--mej-breakpoint: $mej-breakpoint;
-	//--journal-breakpoint: $journal-breakpoint;
-	//--settings-breakpoint: $settings-breakpoint;
-	//--compendium-browser-breakpoint: $compendium-browser-breakpoint;
-	//--item-sheet-breakpoint: $item-sheet-breakpoint;
-	--navigationHeight: 2rem;
-	--vh: 1vh;
-	--viewHeight: calc(calc(var(--vh) * 100) - var(--navigationHeight));
+	--navigation-height: 2rem;
+	--vh: 1dvh;
+	--view-height: calc(100dvh - var(--navigation-height));
 	--send-button-gap: 0.5em;
 	--mobile-sheet-dark-background: #333;
-	--mobile-sheet-dark-background-transparent: #333333ee;
-	--mobile-max-window-height: calc(100% - var(--navigationHeight));
+	--mobile-sheet-dark-background-transparent: #333e;
 	--bam-items-per-row: 14;
 }
 
-[data-mobile-force-hide-header-button-text=true] {
+[data-mobile-force-hide-header-button-text="true"] {
 	a:is(.pf2e-item-revitalizer-initiate-single-actor, .pathmuncher-open, .header-button.control) {
 		font-size: 0;
 
@@ -47,6 +32,7 @@
 	#ui-center, #ui-left, #ui-middle, #fps {
 		display: none !important;
 	}
+
 	#logo {
 		display: none !important;
 		transform: scale(0.5) translateX(-50%) translateY(-50%);
@@ -66,7 +52,6 @@
 }
 
 @include mixins.global-mobile {
-
 	:root {
 		--carousel-alignment: right;
 	}
@@ -94,7 +79,7 @@
 	}
 
 	#ui-right {
-		margin: 0 0 var(--navigationHeight);
+		margin: 0 0 var(--navigation-height);
 		padding: 0;
 		width: 100%;
 	}
@@ -118,6 +103,7 @@
 			}
 		}
 	}
+
 	.sheet.actor.character .popout-module-button, .pathmuncher-open, .configure-token, .configure-creature, .configure-theatre, .console-print, .document-id-link, .document-image-link, #tokenbar, .header-button.control.pf2e-action-support-engine {
 		display: none !important;
 	}
@@ -129,10 +115,12 @@
 	#hurry-up {
 		display: none;
 	}
+
 	#token-action-hud {
 		display: none;
 	}
-	&:not([data-mobile-hide-player-list=true]) #players {
+
+	&:not([data-mobile-hide-player-list="true"]) #players {
 		margin: 0 0.5em 3em 1em;
 		opacity: 1 !important;
 	}
@@ -140,6 +128,7 @@
 	#players h3 {
 		margin: 0;
 	}
+
 	nav#controls {
 		padding-top: 80px;
 	}
@@ -162,6 +151,7 @@
 		#ui-left, #ui-middle {
 			display: flex !important;
 		}
+
 		#ui-bottom {
 			display: unset !important;
 		}
@@ -174,19 +164,22 @@
 		display: none !important;
 		opacity: 0;
 	}
+
 	#fps {
 		display: none !important;
 	}
+
 	#ui-right {
 		display: none;
 	}
+
 	nav#controls {
 		#party-monitor-dock {
 			display: none;
 		}
 	}
 
-	&[data-mobile-hide-player-list=true] #players {
+	&[data-mobile-hide-player-list="true"] #players {
 		display: none;
 		transform: translateX(-110%);
 	}
@@ -197,6 +190,7 @@
 		width: unset;
 		display: block !important;
 	}
+
 	div.app.window-app.app.window-app {
 		width: calc(100% - var(--sidebar-width)) !important;
 		box-shadow: none;
@@ -204,19 +198,18 @@
 }
 
 
-//#navigation .monks-scene-navigation {
-//	.scene-list {
-//		flex-wrap: wrap;
-//
-//		> li {
-//			min-width: 100px;
-//		}
-//	}
-//}
+/* #navigation .monks-scene-navigation {
+	.scene-list {
+		flex-wrap: wrap;
+
+		> li {
+			min-width: 100px;
+		}
+	}
+} */
 
 
-
-body[data-mobile-disable-canvas=true] {
+@include mixins.body-data-tag("[data-mobile-disable-canvas=true]") {
 	canvas#board {
 		display: none !important;
 	}
