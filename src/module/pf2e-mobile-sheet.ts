@@ -54,9 +54,9 @@ Hooks.once("init", async () => {
 
 	if (game.system.id === "dnd5e") {
 		if (game.system.version.startsWith("2")) {
-			$("body").addClass("2");
+			$("body").addClass("v2");
 		} else if (game.system.version.startsWith("3")) {
-			$("body").addClass("3");
+			$("body").addClass("v3");
 		} else {
 			ui.notifications.error(
 				`what are you doing? your system version is ${game.system.version}, open an issue about this immediately!`,
