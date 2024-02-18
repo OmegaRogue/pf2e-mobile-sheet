@@ -1,4 +1,9 @@
+@use "sass:selector";
+@use "sass:string";
+@use "sass:list";
 @import "breakpoints";
+
+$invalid-selector: selector.parse(".fgarhzjgfklaherlkjghaerlkghalekrjfgliurae");
 
 @mixin sheet-nav-bar {
 	nav.sheet-navigation {
@@ -22,116 +27,158 @@
 	}
 }
 
-@mixin global-mobile($root: true) {
-	@media screen and (max-width: #{$global-breakpoint}) {
-		@if $root {
-			@at-root body:not([data-mobile-force-mobile-layout=true],[data-mobile-force-mobile-layout=false]) {
-				@content;
-			}
-		} @else {
-			body:not([data-mobile-force-mobile-layout=true],[data-mobile-force-mobile-layout=false]) & {
-				@content;
-			}
-		}
-	}
-	@if $root {
-		@at-root body[data-mobile-force-mobile-layout=true] {
-			@content;
-		}
+@function ternary($condition, $first, $second) {
+	@if $condition {
+		@return $first;
 	} @else {
-		body[data-mobile-force-mobile-layout=true] & {
+		@return $second;
+	}
+}
+
+// noinspection CssInvalidFunction
+@function add-body-data($parent: &, $add) {
+	@if selector.is-superselector("body", $parent) {
+		$sels: ();
+
+		@each $sel in $parent {
+			$new: selector.unify(list.nth($sel, 1), "body" + $add);
+
+			@if string.index(list.nth($sel, 1), ":not(" + list.nth(string.split($add, "="),1)) {
+				$new: $invalid-selector;
+			}
+
+			$sels: list.append($sels, list.set-nth($sel, 1, $new));
+		}
+
+		@return $sels;
+	}
+
+	@return selector.unify("body" + $add, $parent);
+}
+
+@mixin body-data-tag($tag) {
+	$parent: &;
+
+	@if not $parent {
+		$parent: body;
+	}
+
+	$selector: add-body-data($parent, $tag);
+
+	@if $selector != $invalid-selector {
+		@at-root #{$selector} {
 			@content;
 		}
 	}
 }
 
-@mixin global-tablet($root: true) {
-	@media screen and (min-width: #{$global-breakpoint}) {
-		@if $root {
-			@at-root body[data-mobile-force-mobile-layout=true] {
+@mixin layout($mode) {
+	$parent: &;
+	$selector: $invalid-selector;
+	$selector2: $selector;
+
+	@if not & {
+		$parent: body;
+	}
+
+	$selector: add-body-data($parent, ":not([data-mobile-force-mobile-layout])");
+
+	@if $mode == "mobile" or $mode == "desktop" {
+		$selector2: add-body-data($parent, "[data-mobile-force-mobile-layout=" + ($mode == "mobile") + "]");
+
+		@if $selector != $invalid-selector and $selector2 != $invalid-selector {
+			@media screen and (#{ternary($mode == "mobile", max-width, min-width)}: #{$global-breakpoint}) {
+				@at-root #{$selector} {
+					@content;
+				}
+			}
+
+			@at-root #{$selector2} {
 				@content;
 			}
-		} @else {
-			body[data-mobile-force-mobile-layout=true] & {
-				@content;
+		}
+
+	} @else if $mode == "tablet" {
+		$selector: add-body-data($parent, "[data-mobile-force-mobile-layout=true]");
+
+		@if $selector != $invalid-selector {
+			@media screen and (min-width: #{$global-breakpoint}) {
+				@at-root #{$selector} {
+					@content;
+				}
 			}
 		}
 	}
 }
 
-@mixin tab($tab, $root: true) {
-	@include global-mobile($root) {
-		@if $root {
-			&[data-mobile-tab=#{$tab}] {
-				@content;
-			}
-		} @else {
-			&[data-mobile-tab=#{$tab}] & {
-				@content;
-			}
+
+@mixin global-mobile {
+	@include layout("mobile") {
+		@content;
+	}
+}
+
+@mixin global-tablet {
+	@include layout("tablet") {
+		@content;
+	}
+}
+
+@mixin global-desktop {
+	@include layout("desktop") {
+		@content;
+	}
+}
+
+@mixin tab($tab) {
+	@include global-mobile {
+		&[data-mobile-tab=#{$tab}] {
+			--tab: "#{$tab}";
+			@content;
 		}
 	}
 }
 
 @mixin hide-hud($root: true) {
+	@if & {
+		@debug "hide-hud" selector.is-superselector("body", &);
+	}
+
 	@if $root {
-		@at-root body[data-mobile-hide-hud=true] {
+		@at-root body[data-mobile-hide-hud="true"] {
 			@content;
 		}
 	} @else {
-		body[data-mobile-hide-hud=true] & {
+		body[data-mobile-hide-hud="true"] & {
 			@content;
 		}
 	}
 }
 
-@mixin global-desktop($root: true) {
-	@media screen and (min-width: #{$global-breakpoint}) {
-		@if $root {
-			@at-root body:not([data-mobile-force-mobile-layout=true],[data-mobile-force-mobile-layout=false]) {
-				@content;
-			}
-		} @else {
-			body:not([data-mobile-force-mobile-layout=true],[data-mobile-force-mobile-layout=false]) & {
-				@content;
-			}
-		}
-
-	}
-	@if $root {
-		@at-root body[data-mobile-force-mobile-layout=false] {
-			@content;
-		}
-	} @else {
-		body[data-mobile-force-mobile-layout=false] & {
+@mixin window($mode, $breakpoint, $container, $additional-tags: null) {
+	body:not([data-mobile-force-mobile-window])#{$additional-tags} & {
+		@container #{$container} (width #{ternary($mode == "mobile", "<", ">=")} #{$breakpoint}) {
 			@content;
 		}
 	}
 
-}
-
-@mixin local-mobile($breakpoint, $container) {
-	body:not([data-mobile-force-mobile-window=true],[data-mobile-force-mobile-window=false]) & {
-		@container #{$container} (width < #{$breakpoint}) {
-			@content;
-		}
-	}
-	body[data-mobile-force-mobile-window=true] & {
+	body[data-mobile-force-mobile-window=#{$mode == "mobile"}]#{$additional-tags} & {
 		@content;
 	}
 }
 
-@mixin local-desktop($breakpoint, $container) {
-	body:not([data-mobile-force-mobile-window=true],[data-mobile-force-mobile-window=false]) & {
-		@container #{$container} (width >= #{$breakpoint}) {
-			@content;
-		}
-	}
-	body[data-mobile-force-mobile-window=false] & {
+@mixin local-mobile($breakpoint, $container, $additional-tags: null) {
+	@include window("mobile", $breakpoint, $container, $additional-tags) {
+		--mode: "mobile";
 		@content;
 	}
 }
 
+@mixin local-desktop($breakpoint, $container, $additional-tags: null) {
+	@include window("desktop", $breakpoint, $container, $additional-tags) {
+		@content;
+	}
+}
 
 @mixin hide-animation {
 	transition: transform 100ms ease-out;

@@ -1,7 +1,4 @@
 @use "../../mixins";
-// @use "basic-actions-macro";
-@import "../../breakpoints";
-
 
 .dialog, .bam-dialog {
 	// container: dialog / inline-size;
@@ -18,14 +15,4 @@
 			height: 3em;
 		}
 	}
-
 }
-
-
-/* @include mixins.global-mobile {
-	.dialog {
-		top: unset !important;
-		// Dorako UI fix
-		max-height: var(--view-height);
-	}
-} */

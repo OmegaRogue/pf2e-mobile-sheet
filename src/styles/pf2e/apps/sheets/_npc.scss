@@ -24,18 +24,13 @@
 
 			.attacks-list li.attack .button-group button {
 				height: unset !important;
-				//noinspection CssInvalidPropertyValue
+				// noinspection CssInvalidPropertyValue
 				text-wrap: wrap !important;
 			}
 
 			ol.spell-list > li.spell {
 				grid-template-columns: 50% auto fit-content(5rem) 3rem;
 			}
-
-			//.labeled-field input[type=text] {
-			//	min-width: unset;
-			//
-			//}
 
 			.attribute-modifiers {
 				.list {

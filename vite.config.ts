@@ -7,7 +7,6 @@ import checker from "vite-plugin-checker";
 import path from "path";
 import packageJSON from "./package.json";
 import esbuild from "esbuild";
-import sassDts from "vite-plugin-sass-dts";
 
 // import { LengthValue, TransformOptions } from "lightningcss";
 
@@ -18,14 +17,6 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
 	const plugins = [
 		checker({ typescript: true }),
 		tsconfigPaths(),
-		sassDts({
-			global: {
-				generate: true,
-				outputFilePath: path.resolve(__dirname, "./src/style.d.ts"),
-			},
-			sourceDir: path.resolve(__dirname, "./src"),
-			outputDir: path.resolve(__dirname, "./dist"),
-		}),
 	];
 	// Handle minification after build to allow for tree-shaking and whitespace minification
 	// "Note the build.minify option does not minify whitespaces when using the 'es' format in lib mode, as it removes
@@ -157,9 +148,12 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
 			// 		},
 			// 	},
 			// }) as LightningCSSOptions,
-			devSourcemap: true,
+			//devSourcemap: true,
 			preprocessorOptions: {
-				sourceMap: true,
+				scss: {
+					sourceMap: true,
+					sourceMapEmbed: true,
+				}
 			},
 		},
 	};

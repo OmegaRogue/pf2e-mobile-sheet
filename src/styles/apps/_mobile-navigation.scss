@@ -1,11 +1,8 @@
 @use "../mixins";
-@import "../breakpoints";
 
 .mobile-navigation {
 	@include mixins.hide-animation;
-}
 
-.mobile-navigation {
 	align-items: stretch;
 	background-color: var(--mobile-sheet-dark-background);
 	box-shadow: 0 0 10px #000c;
@@ -15,8 +12,7 @@
 	font-weight: normal;
 	list-style: none;
 	margin: 0;
-	overflow-x: auto;
-	overflow-y: hidden;
+	overflow: auto hidden;
 	padding: 0;
 	position: absolute;
 	top: var(--view-height);
@@ -35,6 +31,10 @@
 		text-align: center;
 		white-space: nowrap;
 
+		i {
+			font-size: 120%;
+		}
+
 		&.disabled {
 			opacity: 0.5;
 			pointer-events: none;
@@ -43,7 +43,7 @@
 		&:hover,
 		&:focus,
 		&:active {
-			background: rgba(0, 0, 0, 0.1);
+			background: rgb(0 0 0 / 10%);
 			opacity: 0.8;
 		}
 
@@ -61,10 +61,6 @@
 			}
 		}
 
-		i {
-			font-size: 120%;
-		}
-
 		.count {
 			align-items: center;
 			background: #222;
@@ -75,10 +71,10 @@
 			padding: 0 4px;
 		}
 	}
+}
 
-	@include mixins.global-mobile(false) {
-		& {
-			display: flex !important;
-		}
+@include mixins.global-mobile {
+	.mobile-navigation {
+		display: flex !important;
 	}
 }

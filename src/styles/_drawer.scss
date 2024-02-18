@@ -17,8 +17,10 @@
 		visibility: unset;
 		z-index: 1001;
 	}
+}
 
-	@include mixins.global-mobile(false) {
+@include mixins.global-mobile {
+	.drawer {
 		visibility: unset;
 	}
 }

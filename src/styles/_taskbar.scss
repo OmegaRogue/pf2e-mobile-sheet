@@ -37,9 +37,11 @@
 		width: 100%;
 		bottom: var(--navigation-height) !important;
 	}
+
 	.start-menu-apps {
-		//min-width: unset;
+		// min-width: unset;
 	}
+
 	.start-menu-options {
 		&.expanded {
 			max-width: 70%;
@@ -52,18 +54,15 @@
 	}
 }
 
-@include mixins.tab("app") {
-}
-
 @include mixins.tab("map") {
 	div.taskbar#taskbar {
 		.start-menu {
-			//margin-bottom: calc(var(--navigationHeight)*2.2);
-			//bottom: var(--navigationHeight) !important;
-			//bottom: 0;
-			//padding: unset;
+			// margin-bottom: calc(var(--navigationHeight)*2.2);
+			// bottom: var(--navigationHeight) !important;
+			// bottom: 0;
+			// padding: unset;
 			&.active {
-				//height: 50vh;
+				// height: 50vh;
 			}
 		}
 	}

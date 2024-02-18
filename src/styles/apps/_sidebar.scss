@@ -13,14 +13,14 @@
 }
 
 @include mixins.global-tablet {
-	&[data-mobile-force-mobile-layout=true] #ui-right > #sidebar {
+	#ui-right > #sidebar {
 		width: var(--sidebar-width) !important;
 	}
 }
 
 @include mixins.global-mobile {
 	#ui-right > #sidebar {
-		background: rgba(0, 0, 0, 0.8);
+		background: rgb(0 0 0 / 80%);
 		height: var(--view-height);
 		margin: 0;
 		padding: 0;
@@ -28,6 +28,7 @@
 
 		&.collapsed {
 			height: unset;
+
 			#sidebar-tabs .item {
 				display: none;
 			}

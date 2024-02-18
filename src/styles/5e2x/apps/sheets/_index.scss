@@ -1,25 +1,14 @@
-@use "character5e";
+@use "character";
 @use "../../mixins";
-@import "../../breakpoints";
-
-@mixin local-mobile5e($breakpoint, $container) {
-	body:not([data-mobile-force-mobile-window=true],[data-mobile-force-mobile-window=false]).system-dnd5e & {
-		@container #{$container} (width < #{$breakpoint}) {
-			@content;
-		}
-	}
-	body[data-mobile-force-mobile-window=true].system-dnd5e & {
-		@content;
-	}
-}
+@use "../../breakpoints" as *;
 
 
 .app.window-app.sheet {
 	min-width: unset !important;
 
 	&.actor {
-		@include local-mobile5e($player-character-breakpoint, sheet) {
-			@include character5e.mobile;
+		@include mixins.local-mobile($player-character-breakpoint, sheet) {
+			@include character.mobile;
 
 			.currency {
 				h3 {
