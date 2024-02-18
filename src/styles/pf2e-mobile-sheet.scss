@@ -7,6 +7,7 @@
 @import "taskbar";
 @import "mobile-toggle";
 @import "mobile-messages";
+@import "systems";
 
 :root {
 	--navigation-height: 2rem;
@@ -89,7 +90,7 @@
 
 		&.window-app {
 			&:not(.minimized,.dialog,.simple-calendar, .sidebar-popout) {
-				height: var(--mobile-max-window-height) !important;
+				height: var(--view-height) !important;
 				left: 0 !important;
 				top: 0 !important;
 				width: 100% !important;

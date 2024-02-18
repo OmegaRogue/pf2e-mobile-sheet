@@ -1,5 +1,5 @@
-@forward "../mixins";
-@use "../mixins";
+@forward "../../mixins";
+@use "../../mixins";
 
 @mixin window($mode, $breakpoint, $container) {
 	@include mixins.window($mode, $breakpoint, $container, ".system-pf2e") {
