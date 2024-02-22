@@ -1,0 +1,13 @@
+@use "mixins";
+@import "apps";
+
+@include mixins.global-mobile {
+	aside:is(#tooltip, .locked-tooltip).rule-tooltip {
+		max-width: 100%;
+	}
+
+	aside#tooltip {
+		left: unset;
+	}
+}
+

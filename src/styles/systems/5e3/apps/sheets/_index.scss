@@ -1,0 +1,13 @@
+@use "../../mixins";
+@use "../../breakpoints" as *;
+@use "character";
+
+.app.window-app.sheet {
+	min-width: unset !important;
+
+	&.actor.dnd5e2 {
+		@include mixins.local-mobile($player-character-breakpoint, sheet) {
+			@include character.mobile;
+		}
+	}
+}
