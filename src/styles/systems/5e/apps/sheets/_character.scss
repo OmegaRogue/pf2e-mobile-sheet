@@ -1,5 +1,62 @@
 @mixin mobile {
 	&.character {
+		.sheet-navigation {
+			flex-wrap: wrap !important;
+		}
+
+		.sheet-body {
+			overflow: hidden scroll;
+
+			.tab {
+				height: unset;
+
+				&[data-tab="attributes"] {
+					flex-direction: column;
+
+					.ability-scores {
+						display: grid;
+						grid-template-columns: repeat(3, 1fr);
+						width: 100%;
+					}
+
+					.skills-list {
+						width: 100%;
+					}
+
+					.center-pane {
+						width:100%;
+					}
+				}
+
+				&[data-tab="inventory"] {
+					.item-detail {
+						flex: 1 !important;
+					}
+				}
+
+				&[data-tab="biography"] {
+					flex-direction: column;
+
+					.characteristics, .biography {
+						flex: 1;
+					}
+
+					.biography {
+						max-width: unset !important;
+					}
+				}
+
+				&[data-tab="spellbook"] {
+
+				}
+
+			}
+		}
+	}
+}
+
+@mixin mobile2 {
+	&.character {
 		.window-header {
 			pointer-events: none;
 		}

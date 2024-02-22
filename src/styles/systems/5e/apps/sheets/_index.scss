@@ -3,7 +3,7 @@
 @use "../../breakpoints" as *;
 
 
-.app.window-app.sheet {
+.app.window-app.dnd5e.sheet {
 	min-width: unset !important;
 
 	&.actor {
@@ -83,3 +83,13 @@
 	}
 }
 
+
+.app.window-app.dnd5e2.sheet {
+	min-width: unset !important;
+
+	&.actor {
+		@include mixins.local-mobile($player-character-breakpoint, sheet) {
+			@include character.mobile2;
+		}
+	}
+}
