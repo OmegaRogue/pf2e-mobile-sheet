@@ -1,0 +1,133 @@
+@mixin mobile {
+	&.character {
+		.sheet-navigation {
+			flex-wrap: wrap !important;
+		}
+
+		.sheet-body {
+			overflow: hidden scroll;
+
+			.tab {
+				height: unset;
+
+				&[data-tab="attributes"] {
+					flex-direction: column;
+
+					.ability-scores {
+						display: grid;
+						grid-template-columns: repeat(3, 1fr);
+						width: 100%;
+					}
+
+					.skills-list {
+						width: 100%;
+					}
+
+					.center-pane {
+						width:100%;
+					}
+				}
+
+				&[data-tab="inventory"] {
+					.item-detail {
+						flex: 1 !important;
+					}
+				}
+
+				&[data-tab="biography"] {
+					flex-direction: column;
+
+					.characteristics, .biography {
+						flex: 1;
+					}
+
+					.biography {
+						max-width: unset !important;
+					}
+				}
+
+				&[data-tab="spellbook"] {
+
+				}
+
+			}
+		}
+	}
+}
+
+@mixin mobile2 {
+	&.character {
+		.window-header {
+			pointer-events: none;
+		}
+
+		nav.tabs {
+			flex-direction: row;
+			z-index: 1;
+			top: 0;
+			left: 50%;
+			transform: translateX(-50%);
+
+			> .item {
+				flex-direction: column;
+				border-radius: 0 0 8px 8px;
+				justify-content: center;
+				margin-left: unset;
+				padding-right: unset;
+
+				&::after {
+					border-left: 1px solid var(--dnd5e-color-gold);
+					border-top: none;
+					border-radius: 0 0 5px 5px;
+					inset: 0.25rem;
+				}
+			}
+		}
+
+
+		.ability-scores {
+			left: 0;
+
+			.rows > div {
+				gap: unset;
+			}
+		}
+
+		form:not(.collapsed) .sheet-body .main-content {
+			grid-template-rows: auto 1fr;
+			grid-template-columns: unset;
+
+			.sidebar .card .card-tab.collapser {
+				left: 0;
+				transform: translateZ(10px);
+			}
+		}
+
+		.sheet-body {
+			.main-content {
+				.sidebar {
+					padding-top: 56px;
+				}
+
+				.tab-body {
+					.col-2 {
+						display: initial;
+					}
+
+					.item-name .tags {
+						right: -0.5rem;
+						flex-direction: column;
+					}
+					.tab {
+						&[data-tab="biography"] {
+							.characteristics {
+								grid-template-columns: 1fr 1fr;
+								width: 100%;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
