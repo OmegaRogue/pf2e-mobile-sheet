@@ -31,6 +31,6 @@ dist
 # Junit results
 junit.xml
 /index.html
-/pf2e-mobile-sheet
+/pf2e-mobile-sheet.mjs
 /pf2e-mobile-sheet.css
 /vendor.mjs
