@@ -2,6 +2,7 @@
 @use "sass:string";
 @use "sass:list";
 @use "breakpoints" as *;
+@forward "vars";
 
 $invalid-selector: selector.parse(".fgarhzjgfklaherlkjghaerlkghalekrjfgliurae");
 

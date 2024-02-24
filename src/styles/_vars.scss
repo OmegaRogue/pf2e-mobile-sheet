@@ -1,0 +1,38 @@
+@property --navigation-height {
+	syntax: "<length>";
+	inherits: true;
+	initial-value: 2rem;
+}
+
+@property --view-height {
+	syntax: "<length>";
+	inherits: true;
+	initial-value: 100dvh;
+}
+
+@property --send-button-gap {
+	syntax: "<length>";
+	inherits: true;
+	initial-value: 0.5em;
+}
+
+@property --mobile-sheet-dark-background {
+	syntax: "<color>";
+	inherits: true;
+	initial-value: #333;
+}
+
+@property --mobile-sheet-dark-background-transparent {
+	syntax: "<color>";
+	inherits: true;
+	initial-value: #333e;
+}
+
+:root {
+	--navigation-height: 2rem;
+	--vh: 1dvh;
+	--view-height: calc(100dvh - var(--navigation-height));
+	--send-button-gap: 0.5em;
+	--mobile-sheet-dark-background: #333;
+	--mobile-sheet-dark-background-transparent: #333e;
+}

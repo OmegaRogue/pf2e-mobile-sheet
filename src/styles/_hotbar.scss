@@ -21,7 +21,7 @@
 		max-width: 620px;
 		padding: 4px;
 		pointer-events: all;
-		transform: translateY(var(--navigation-height) + 100%);
+		transform: translateY(calc(100% + var(--navigation-height)));
 		width: 100%;
 
 		.bar-controls {
