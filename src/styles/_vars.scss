@@ -28,6 +28,18 @@
 	initial-value: #333e;
 }
 
+@property --mobile-sheet-active-tab-color {
+	syntax: "<color>";
+	inherits: true;
+	initial-value: #000;
+}
+
+@property --mobile-sheet-text-color {
+	syntax: "<color>";
+	inherits: true;
+	initial-value: #f0f0e0;
+}
+
 :root {
 	--navigation-height: 2rem;
 	--vh: 1dvh;
@@ -35,4 +47,14 @@
 	--send-button-gap: 0.5em;
 	--mobile-sheet-dark-background: #333;
 	--mobile-sheet-dark-background-transparent: #333e;
+	--mobile-sheet-active-tab-color: var(--color-text-hyperlink);
+	--mobile-sheet-text-color: #f0f0e0;
+	--mobile-sheet-bloop-color-0: #00c853;
+	--mobile-sheet-bloop-color-1: #00c853;
+	--mobile-sheet-bloop-color-2: #6f6c66;
+}
+
+[data-theme] {
+	--mobile-sheet-text-color: var(--button-text-color);
+	--mobile-sheet-active-tab-color: var(--button-hover-text-color);
 }

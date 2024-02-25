@@ -1,3 +1,4 @@
+@use "../mixins";
 @import "enhanced-journal";
 @import "settings";
 @import "mobile-navigation";
@@ -5,3 +6,10 @@
 @import "window-selector";
 @import "sidebar";
 @import "dialogs";
+
+@include mixins.global-mobile {
+	.app.minimized {
+		opacity: 0;
+		pointer-events: none;
+	}
+}

@@ -1,11 +1,56 @@
 @use "mixins";
 
+
+div.taskbar#taskbar[data-theme] {
+	@include mixins.dui-app;
+
+
+	.start-menu {
+		@include mixins.dui-app;
+
+		.start-menu-options {
+			@include mixins.dui-app;
+			@include mixins.glass;
+
+			.start-menu-option {
+				@include mixins.dui-button;
+
+				&[title="expand"] {
+					@include mixins.dui-button-toggle;
+				}
+			}
+		}
+
+
+		.start-menu-item {
+			@include mixins.dui-button;
+		}
+	}
+}
+
+.taskbar-workspaces[data-theme] {
+	@include mixins.glass;
+
+	#add-workspace {
+		@include mixins.glass;
+	}
+
+	.start-menu-workspaces {
+		.start-menu-workspace {
+			@include mixins.glass;
+		}
+	}
+
+}
+
+
 @include mixins.global-mobile {
 	div.taskbar#taskbar {
 		background: none;
 		height: var(--navigation-height);
 		width: 100% !important;
 		bottom: 0;
+		border: none !important;
 
 		.start-menu-btn, .taskbar-tray, .taskbar-item, #taskbar-showdesktop {
 			display: none;
@@ -36,10 +81,18 @@
 		min-width: unset;
 		width: 100%;
 		bottom: var(--navigation-height) !important;
+
+		&.active {
+			height: #{45px * (6 + 4)};
+		}
 	}
 
 	.start-menu-apps {
-		// min-width: unset;
+		min-width: unset;
+	}
+
+	.start-menu-items {
+		width: 50%;
 	}
 
 	.start-menu-options {

@@ -1,12 +1,28 @@
 @use "../mixins";
 
+.mobile-navigation[data-theme] {
+	@include mixins.glass;
+
+	li {
+		&.toggle {
+			@include mixins.dui-button-toggle;
+		}
+
+		@include mixins.glass;
+
+		&:not(.toggle) {
+			@include mixins.dui-button;
+		}
+	}
+}
+
 .mobile-navigation {
 	@include mixins.hide-animation;
 
 	align-items: stretch;
 	background-color: var(--mobile-sheet-dark-background);
 	box-shadow: 0 0 10px #000c;
-	color: #f0f0e0;
+	color: var(--mobile-sheet-text-color);
 	display: none !important; /* Spawns before CSS with inline style */
 	font-size: 80%;
 	font-weight: normal;
@@ -40,7 +56,6 @@
 			pointer-events: none;
 		}
 
-		&:hover,
 		&:focus,
 		&:active {
 			background: rgb(0 0 0 / 10%);
@@ -48,12 +63,12 @@
 		}
 
 		&.active {
-			&, &:hover, &:focus, &:active {
+			&, &:focus, &:active {
 				opacity: 1;
 			}
 
 			&:not(.toggle) {
-				color: var(--color-text-hyperlink);
+				color: var(--mobile-sheet-active-tab-color);
 
 				i {
 					transform: scale(1.1);

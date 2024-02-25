@@ -2,15 +2,15 @@
 
 @keyframes bloopborder {
 	0% {
-		border-color: #00c853;
+		border-color: var(--mobile-sheet-bloop-color-0);
 	}
 
 	80% {
-		border-color: #76ff03;
+		border-color: var(--mobile-sheet-bloop-color-1);
 	}
 
 	100% {
-		border-color: #6f6c66;
+		border-color: var(--mobile-sheet-bloop-color-2);
 	}
 }
 

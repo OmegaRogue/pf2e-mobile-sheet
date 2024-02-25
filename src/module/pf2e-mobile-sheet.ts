@@ -9,39 +9,11 @@ import "./resizeObservers.ts";
 import { MobileUI, ViewState } from "./apps/MobileUI.ts";
 import { EventSystem } from "@pixi/events";
 import { PixiTouch } from "pixi.js";
-import { ResponsiveObserver } from "./resizeObservers.js";
+
 import { TouchInput } from "./apps/touchInput.js";
+import { MobileMode } from "./mobileMode.js";
 
 export { ResponsiveObserver } from "./resizeObservers.js";
-
-abstract class MobileMode {
-	static ResponsiveObserver = ResponsiveObserver;
-
-	static get enabled() {
-		return checkMobile();
-	}
-
-	static navigation: MobileUI;
-
-	static enter(force: boolean = false) {
-		ui.nav?.collapse();
-		if (force) setBodyData("force-mobile-layout", "on");
-		// viewHeight();
-		Hooks.call("mobile-improvements:enter");
-	}
-
-	static leave(force: boolean = false) {
-		if (force) setBodyData("force-mobile-layout", "off");
-		Hooks.call("mobile-improvements:leave");
-	}
-
-	static viewResize(force: boolean = false) {
-		debug(true, "resize");
-		// if (MobileMode.enabled) viewHeight();
-		if (this.enabled) MobileMode.enter(force);
-		else MobileMode.leave(force);
-	}
-}
 
 Hooks.once("devModeReady", async ({ registerPackageDebugFlag }: DevModeApi) => {
 	await registerPackageDebugFlag(MODULE_ID);
@@ -66,6 +38,15 @@ Hooks.once("init", async () => {
 
 	Handlebars.registerHelper("capitalize", (str: unknown): string => {
 		return String(str).capitalize();
+	});
+
+	Hooks.on("getTaskbarButtons", () => {
+		if (game.modules.get("pf2e-dorako-ui")?.active ?? false) {
+			$("div#taskbar.taskbar, .taskbar-workspaces").attr(
+				"data-theme",
+				game.settings.get("pf2e-dorako-ui", "theme.app-theme") as string,
+			);
+		}
 	});
 
 	// Register custom sheets (if any)
@@ -257,6 +238,16 @@ Hooks.once("ready", async () => {
 			return wrapped(event);
 		},
 	);
+
+	libWrapper.register<typeof console, typeof console.debug>(
+		MODULE_ID,
+		"console.debug",
+		(wrapped, message, ...args) => {
+			if (typeof message === "string" && message.startsWith("pf2e-dorako-ui | renderMobileUI"))
+				return wrapped(message, ...args);
+		},
+	);
+
 	if (!game.modules.get("zoom-pan-options")?.active) {
 		libWrapper.register<Canvas, typeof Canvas.prototype._onDragCanvasPan>(
 			MODULE_ID,
@@ -382,3 +373,49 @@ const touchInput = new TouchInput();
 globalThis.MobileMode = MobileMode;
 // @ts-ignore
 globalThis.touchInput = touchInput;
+
+function rerenderApps(_path: string): void {
+	const apps = [
+		...Object.values(ui.windows),
+		ui.sidebar,
+		game.mobilemode.navigation,
+		game.mobilemode.navigation.windowMenu,
+		game.mobilemode.navigation.mobileMenu,
+	];
+	for (const app of apps) {
+		app.render();
+	}
+}
+
+// HMR for template files
+if (import.meta.hot) {
+	import.meta.hot.on("lang-update", async ({ path }: { path: string }): Promise<void> => {
+		const lang = (await fu.fetchJsonWithTimeout(path)) as object;
+		if (!(typeof lang === "object")) {
+			ui.notifications.error(`Failed to load ${path}`);
+			return;
+		}
+		const apply = (): void => {
+			fu.mergeObject(game.i18n.translations, lang);
+			rerenderApps(path);
+		};
+		if (game.ready) {
+			apply();
+		} else {
+			Hooks.once("ready", apply);
+		}
+	});
+
+	import.meta.hot.on("template-update", async ({ path }: { path: string }): Promise<void> => {
+		const apply = async (): Promise<void> => {
+			delete _templateCache[path];
+			await getTemplate(path);
+			rerenderApps(path);
+		};
+		if (game.ready) {
+			apply();
+		} else {
+			Hooks.once("ready", apply);
+		}
+	});
+}

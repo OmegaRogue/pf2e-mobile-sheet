@@ -8,6 +8,7 @@ export class MobileMenu extends Application {
 		super({
 			template: `modules/${MODULE_ID}/templates/menu.hbs`,
 			popOut: false,
+			id: "mobile-menu",
 		});
 		this.nav = nav;
 	}

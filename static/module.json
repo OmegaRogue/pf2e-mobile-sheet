@@ -79,8 +79,8 @@
 	"library": false,
 	"flags": {
 		"hotReload": {
-			"extensions": ["css", "html", "hbs", "json", "js", "js.map", "mjs", "css.map", "scss"],
-			"paths": ["system/templates", "css", "lang/en.json", "module", "styles"]
+			"extensions": ["css", "html", "hbs", "json", "js", "js.map", "mjs"],
+			"paths": ["lang", "templates", "styles"]
 		},
 		"allowBugReporter": true
 	}
