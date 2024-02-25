@@ -77,6 +77,16 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
 								data: { path: `modules/pf2e-mobile-sheet/${basePath}` },
 							});
 						});
+					}  else if (context.file.endsWith(".scss")) {
+						const basePath = context.file.slice(context.file.indexOf("styles/"));
+						console.log(`Updating scss at ${basePath}`);
+						(async()=>{})().then(() => {
+							context.server.ws.send({
+								type: "custom",
+								event: "scss-update",
+								data: { path: `modules/pf2e-mobile-sheet/${basePath}` },
+							});
+						});
 					}
 				},
 			},
@@ -88,8 +98,8 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
 		const message = "This file is for a running vite dev server and is not copied to a build";
 		fs.writeFileSync("./index.html", `<h1>${message}</h1>\n`);
 		if (!fs.existsSync("./styles")) fs.mkdirSync("./styles");
-		fs.writeFileSync("./pf2e-mobile-sheet.css", `/** ${message} */\n`);
-		fs.writeFileSync("./pf2e-mobile-sheet", `/** ${message} */\n\nimport "./src/pf2e-mobile-sheet.ts";\n`);
+		fs.writeFileSync("./styles/pf2e-mobile-sheet.css", `/** ${message} */\n`);
+		fs.writeFileSync("./pf2e-mobile-sheet.mjs", `/** ${message} */\n\nimport "./src/module/pf2e-mobile-sheet.ts";\n`);
 		fs.writeFileSync("./vendor.mjs", `/** ${message} */\n`);
 	}
 
@@ -104,7 +114,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
 		esbuild: { keepNames: true },
 		build: {
 			outDir,
-			emptyOutDir: true, //build-packs.ts handles this
+			emptyOutDir: false, //build-packs.ts handles this
 			minify: false,
 			sourcemap: true,
 			lib: {
@@ -148,11 +158,12 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
 			// 		},
 			// 	},
 			// }) as LightningCSSOptions,
-			//devSourcemap: true,
+			// devSourcemap: true,
 			preprocessorOptions: {
 				scss: {
 					sourceMap: true,
 					sourceMapEmbed: true,
+					sourceEmbed: true
 				}
 			},
 		},

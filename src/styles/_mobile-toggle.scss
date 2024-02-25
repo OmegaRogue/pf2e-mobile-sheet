@@ -10,7 +10,7 @@
 	overflow: hidden;
 	white-space: nowrap;
 	background-color: var(--mobile-sheet-dark-background);
-	color: #f0f0e0;
+	color: var(--mobile-sheet-text-color);
 	padding: 6px 10px;
 	border-radius: 100px;
 	transition: all 250ms ease-out;
@@ -23,14 +23,12 @@
 		margin-right: 6px;
 	}
 
-	@include mixins.body-data-tag(":not([data-mobile-show-mobile-toggle=true])") {
+	body[data-mobile-show-mobile-toggle="true"] &, body[data-mobile-force-mobile-layout="false"] & {
+		display: block;
+	}
+
+	body[data-mobile-show-mobile-toggle="false"] & {
 		display: none;
 	}
-}
 
-
-@include mixins.global-mobile {
-	#mobile-toggle {
-		display: none;
-	}
 }

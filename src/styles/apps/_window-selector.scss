@@ -1,5 +1,20 @@
 @use "../mixins";
 
+
+[data-theme].window-selector {
+	nav {
+		@include mixins.dui-app;
+	}
+
+	button {
+		@include mixins.dui-button;
+	}
+
+	.window-row {
+		@include mixins.dui-button;
+	}
+}
+
 .window-selector {
 	@include mixins.hide-animation;
 
@@ -20,7 +35,7 @@
 		background: none;
 		border: none;
 		border-radius: 0;
-		color: #f0f0e0;
+		color: var(--mobile-sheet-text-color);
 		cursor: pointer;
 		flex-grow: 1;
 		line-height: 30px;
@@ -36,6 +51,8 @@
 		i {
 			margin: 0;
 		}
+
+
 	}
 
 	.window-list {

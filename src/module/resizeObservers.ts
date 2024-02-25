@@ -2,9 +2,9 @@ import { debug, getBodyData } from "./utils.js";
 import { Application } from "pixi.js";
 
 export abstract class ResponsiveObserver {
-	abstract mobileLayout(html: JQuery<HTMLElement>);
+	abstract mobileLayout(html: JQuery<HTMLElement>): void;
 
-	abstract desktopLayout(html: JQuery<HTMLElement>);
+	abstract desktopLayout(html: JQuery<HTMLElement>): void;
 
 	abstract readonly breakpoint: number;
 

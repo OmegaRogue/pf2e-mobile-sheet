@@ -11,6 +11,7 @@ import { MODULE_ID } from "./utils.js";
 import { HookParameters } from "../../types/types/foundry/client/core/hooks.js";
 import { FederatedPointerEvent, PixiTouch } from "pixi.js";
 import { TokenPF2e } from "@module/canvas/token/object.js";
+import { MobileMode } from "./mobileMode.js";
 
 export type ShareTargetSettings = {
 	send: boolean;
@@ -61,7 +62,7 @@ declare global {
 			ScenePF2e,
 			UserPF2e
 		> {
-		mobilemode: MobileMode;
+		mobilemode: typeof MobileMode;
 		dragTarget: any;
 	}
 

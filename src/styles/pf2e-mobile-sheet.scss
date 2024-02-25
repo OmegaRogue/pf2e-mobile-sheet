@@ -1,5 +1,6 @@
 @use "mixins";
 @use "sass:selector";
+@forward "vars";
 @import "apps";
 @import "drawer";
 @import "send-button";
@@ -8,16 +9,6 @@
 @import "mobile-toggle";
 @import "mobile-messages";
 @import "systems";
-
-:root {
-	--navigation-height: 2rem;
-	--vh: 1dvh;
-	--view-height: calc(100dvh - var(--navigation-height));
-	--send-button-gap: 0.5em;
-	--mobile-sheet-dark-background: #333;
-	--mobile-sheet-dark-background-transparent: #333e;
-	--bam-items-per-row: 14;
-}
 
 [data-mobile-force-hide-header-button-text="true"] {
 	a:is(.pf2e-item-revitalizer-initiate-single-actor, .pathmuncher-open, .header-button.control) {

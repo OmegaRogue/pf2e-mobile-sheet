@@ -1,7 +1,17 @@
+@use "../mixins";
+
+.mobile-menu[data-theme] {
+	@include mixins.dui-app;
+
+	li {
+		@include mixins.dui-button;
+	}
+}
+
 .mobile-menu {
 	align-items: stretch;
 	background-color: var(--mobile-sheet-dark-background);
-	color: #f0f0e0;
+	color: var(--mobile-sheet-text-color);
 	display: flex !important;
 	list-style: none;
 	margin: 0;

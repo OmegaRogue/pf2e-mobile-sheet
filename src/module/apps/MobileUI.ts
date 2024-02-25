@@ -32,6 +32,7 @@ export class MobileUI extends Application {
 		super({
 			template: `modules/${MODULE_ID}/templates/navigation.hbs`,
 			popOut: false,
+			id: "mobile-ui",
 		});
 
 		this.windowMenu = new WindowMenu(this);
@@ -65,7 +66,6 @@ export class MobileUI extends Application {
 	override render(force?: boolean, options?: RenderOptions): this | Promise<this> {
 		this.noCanvas = game.settings.get(MODULE_ID, "disable-canvas") as boolean;
 		if (this.state === ViewState.Unloaded) this.state = this.noCanvas ? ViewState.App : ViewState.Map;
-
 		const r = super.render(force, options);
 		this.windowMenu.render(force);
 		this.mobileMenu.render(force);
@@ -219,7 +219,10 @@ export class MobileUI extends Application {
 				count: Object.values(window.WindowManager.windows).length,
 			},
 		];
-		if (game.modules.get("foundry-taskbar")?.active ?? false) {
+		if (
+			(game.modules.get("foundry-taskbar")?.active ?? false) &&
+			(game.user.isGM || game.settings.get("foundry-taskbar", "enableplayers"))
+		) {
 			data.unshift({ name: "start", icon: "fa-bars", drawer: true });
 			data = data.filter((value) => value.name !== "menu");
 		}
