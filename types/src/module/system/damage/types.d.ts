@@ -1,13 +1,16 @@
-import { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
-import { ResistanceType, RollTarget, StrikeSelf } from "@actor/types.ts";
-import { ZeroToTwo } from "@module/data.ts";
-import { DegreeOfSuccessString } from "@system/degree-of-success.ts";
-import { BaseRollContext } from "@system/rolls.ts";
-import { DamageRoll } from "./roll.ts";
-import { DAMAGE_CATEGORIES_UNIQUE, DAMAGE_DIE_FACES, DAMAGE_TYPES } from "./values.ts";
+import type { DamageDicePF2e, ModifierPF2e } from "@actor/modifiers.ts";
+import type { RollOrigin, RollTarget } from "@actor/roll-context/types.ts";
+import type { ImmunityType, ResistanceType } from "@actor/types.ts";
+import type { ZeroToTwo } from "@module/data.ts";
+import type { DegreeOfSuccessString } from "@system/degree-of-success.ts";
+import type { BaseRollContext } from "@system/rolls.ts";
+import type { DamageRoll } from "./roll.ts";
+import type { DAMAGE_CATEGORIES_UNIQUE, DAMAGE_DICE_FACES, DAMAGE_DIE_SIZES, DAMAGE_TYPES } from "./values.ts";
+
 type DamageCategoryUnique = SetElement<typeof DAMAGE_CATEGORIES_UNIQUE>;
 type DamageCategory = keyof typeof CONFIG.PF2E.damageCategories;
-type DamageDieSize = SetElement<typeof DAMAGE_DIE_FACES>;
+type DamageDiceFaces = (typeof DAMAGE_DICE_FACES)[number];
+type DamageDieSize = (typeof DAMAGE_DIE_SIZES)[number];
 type DamageType = SetElement<typeof DAMAGE_TYPES>;
 type DamageKind = "damage" | "healing";
 type MaterialDamageEffect = keyof typeof CONFIG.PF2E.materialDamageEffects;
@@ -34,11 +37,11 @@ interface DamageTypeRenderData {
 interface DamageRollRenderData {
     damageTypes: Record<string, DamageTypeRenderData>;
 }
-interface DamageRollContext extends BaseRollContext {
+interface DamageDamageContext extends BaseRollContext {
     type: "damage-roll";
     sourceType: "attack" | "check" | "save";
     outcome?: DegreeOfSuccessString | null;
-    self?: StrikeSelf | null;
+    self?: RollOrigin | null;
     target?: RollTarget | null;
     options: Set<string>;
     secret?: boolean;
@@ -53,11 +56,39 @@ interface DamageFormulaData {
     modifiers: ModifierPF2e[];
     /** Maximum number of die increases. Weapons should be set to 1 */
     maxIncreases?: number;
-    ignoredResistances: {
-        type: ResistanceType;
-        max: number | null;
-    }[];
+    bypass?: DamageIRBypassData;
     kinds?: Set<DamageKind>;
+}
+/** Data detailing whether and how a damaging effect can reduce or ignore a target's immunities or resistances */
+interface DamageIRBypassData {
+    immunity: {
+        ignore: ImmunityType[];
+        downgrade: DowngradedImmunity[];
+        redirect: RedirectedImmunity[];
+    };
+    resistance: {
+        ignore: IgnoredResistance[];
+        redirect: RedirectedResistance[];
+    };
+}
+interface DowngradedImmunity {
+    type: ImmunityType;
+    resistence: number;
+}
+/** A resistance type to ignore up to a maximum (possibly `Infinity`) */
+interface IgnoredResistance {
+    type: ResistanceType;
+    max: number;
+}
+/** A damage type to check against instead if the target would resist the actual damage type */
+interface RedirectedImmunity {
+    from: ImmunityType;
+    to: ImmunityType;
+}
+/** A damage type to check against instead if the target would resist the actual damage type */
+interface RedirectedResistance {
+    from: ResistanceType;
+    to: ResistanceType;
 }
 interface ResolvedDamageFormulaData extends DamageFormulaData {
     roll?: never;
@@ -70,7 +101,7 @@ interface DamagePartialTerm {
     /** Maps the die face ("d4", "d6", "d8", "d10", "d12") to the number of dice of that type. */
     dice: {
         number: number;
-        faces: number;
+        faces: DamageDiceFaces;
     } | null;
 }
 interface BaseDamageData {
@@ -102,4 +133,4 @@ interface SpellDamageTemplate extends BaseDamageTemplate {
 type AfflictionDamageTemplate = SpellDamageTemplate;
 type SimpleDamageTemplate = SpellDamageTemplate;
 type DamageTemplate = WeaponDamageTemplate | SpellDamageTemplate | AfflictionDamageTemplate | SimpleDamageTemplate;
-export type { AfflictionDamageTemplate, BaseDamageData, CriticalInclusion, DamageCategory, DamageCategoryRenderData, DamageCategoryUnique, DamageDieSize, DamageFormulaData, DamageKind, DamagePartialTerm, DamageRollContext, DamageRollRenderData, DamageTemplate, DamageType, DamageTypeRenderData, MaterialDamageEffect, SimpleDamageTemplate, SpellDamageTemplate, WeaponBaseDamageData, WeaponDamageTemplate, };
+export type { AfflictionDamageTemplate, BaseDamageData, CriticalInclusion, DamageCategory, DamageCategoryRenderData, DamageCategoryUnique, DamageDamageContext, DamageDiceFaces, DamageDieSize, DamageFormulaData, DamageIRBypassData, DamageKind, DamagePartialTerm, DamageRollRenderData, DamageTemplate, DamageType, DamageTypeRenderData, MaterialDamageEffect, RedirectedImmunity, RedirectedResistance, SimpleDamageTemplate, SpellDamageTemplate, WeaponBaseDamageData, WeaponDamageTemplate, };

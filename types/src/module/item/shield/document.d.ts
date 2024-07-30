@@ -2,7 +2,7 @@ import type { ActorPF2e } from "@actor";
 import { type WeaponPF2e } from "@item";
 import { RawItemChatData } from "@item/base/data/index.ts";
 import { PhysicalItemPF2e } from "@item/physical/index.ts";
-import { UserPF2e } from "@module/user/document.ts";
+import type { UserPF2e } from "@module/user/document.ts";
 import { ShieldSource, ShieldSystemData } from "./data.ts";
 import { BaseShieldType, ShieldTrait } from "./types.ts";
 declare class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
@@ -18,7 +18,9 @@ declare class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> ex
     isStackableWith(item: PhysicalItemPF2e<TParent>): boolean;
     acceptsSubitem(candidate: PhysicalItemPF2e): boolean;
     /** Generate a list of strings for use in predication */
-    getRollOptions(prefix?: string): string[];
+    getRollOptions(prefix?: string, options?: {
+        includeGranter?: boolean;
+    }): string[];
     prepareBaseData(): void;
     prepareDerivedData(): void;
     prepareActorData(this: ShieldPF2e<ActorPF2e>): void;
@@ -29,7 +31,7 @@ declare class ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> ex
     }): string;
     /** Generate a shield bash or other weapon(-like) item from this shield */
     generateWeapon(): WeaponPF2e<TParent> | null;
-    protected _preUpdate(changed: DeepPartial<this["_source"]>, options: DocumentUpdateContext<TParent>, user: UserPF2e): Promise<boolean | void>;
+    protected _preUpdate(changed: DeepPartial<this["_source"]>, operation: DatabaseUpdateOperation<TParent>, user: UserPF2e): Promise<boolean | void>;
 }
 interface ShieldPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends PhysicalItemPF2e<TParent> {
     readonly _source: ShieldSource;

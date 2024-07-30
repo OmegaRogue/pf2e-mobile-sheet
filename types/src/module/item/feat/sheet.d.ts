@@ -18,6 +18,7 @@ declare class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
 interface FeatSheetData extends ItemSheetDataPF2e<FeatPF2e> {
     actionsNumber: typeof CONFIG.PF2E.actionsNumber;
     actionTypes: typeof CONFIG.PF2E.actionTypes;
+    acuityOptions: typeof CONFIG.PF2E.senseAcuities;
     attributes: typeof CONFIG.PF2E.abilities;
     canHaveKeyOptions: boolean;
     categories: typeof CONFIG.PF2E.featCategories;
@@ -28,7 +29,9 @@ interface FeatSheetData extends ItemSheetDataPF2e<FeatPF2e> {
     hasSenses: boolean;
     languages: LanguageOptions;
     mandatoryTakeOnce: boolean;
+    maxTakableOptions: FormSelectOption[];
     proficiencies: ProficiencyOptions;
+    proficiencyRankOptions: Record<string, string>;
     selfEffect: SelfEffectReference | null;
     senses: SenseOption[];
     showPrerequisites: boolean;

@@ -14,7 +14,7 @@ import type { UserPF2e } from "@module/user/index.ts";
 import type { TokenDocumentPF2e } from "@scene";
 import { CheckRoll } from "@system/check/index.ts";
 import { DamageRoll } from "@system/damage/roll.ts";
-import { DamageKind, DamageRollContext, SpellDamageTemplate } from "@system/damage/types.ts";
+import { DamageDamageContext, DamageKind, SpellDamageTemplate } from "@system/damage/types.ts";
 import { StatisticRollParameters } from "@system/statistic/index.ts";
 import { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
 import { SpellArea, SpellHeightenLayer, SpellOverlayType, SpellSource, SpellSystemData } from "./data.ts";
@@ -59,8 +59,6 @@ declare class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> ext
     get isFocusSpell(): boolean;
     get isRitual(): boolean;
     get attribute(): AttributeString;
-    /** @deprecated */
-    get ability(): AttributeString;
     /** Whether this spell has unlimited uses */
     get atWill(): boolean;
     get isVariant(): boolean;
@@ -98,6 +96,7 @@ declare class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> ext
     prepareActorData(): void;
     onPrepareSynthetics(this: SpellPF2e<ActorPF2e>): void;
     getRollOptions(prefix?: string, options?: {
+        includeGranter?: boolean;
         includeVariants?: boolean;
     }): string[];
     toMessage(event?: Maybe<MouseEvent | JQuery.TriggeredEvent>, { create, data, rollMode }?: SpellToMessageOptions): Promise<ChatMessagePF2e | undefined>;
@@ -110,9 +109,9 @@ declare class SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> ext
     /** Roll counteract check */
     rollCounteract(event?: MouseEvent | JQuery.ClickEvent): Promise<Rolled<CheckRoll> | null>;
     getOriginData(): ItemOriginFlag;
-    update(data: Record<string, unknown>, options?: DocumentUpdateContext<TParent>): Promise<this | undefined>;
-    protected _preCreate(data: this["_source"], options: DocumentModificationContext<TParent>, user: UserPF2e): Promise<boolean | void>;
-    protected _preUpdate(changed: DeepPartial<SpellSource>, options: DocumentUpdateContext<TParent>, user: UserPF2e): Promise<boolean | void>;
+    update(data: Record<string, unknown>, operation?: Partial<DatabaseUpdateOperation<TParent>>): Promise<this | undefined>;
+    protected _preCreate(data: this["_source"], operation: DatabaseCreateOperation<TParent>, user: UserPF2e): Promise<boolean | void>;
+    protected _preUpdate(changed: DeepPartial<SpellSource>, operation: DatabaseUpdateOperation<TParent>, user: UserPF2e): Promise<boolean | void>;
 }
 interface SpellPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     readonly _source: SpellSource;
@@ -123,7 +122,7 @@ interface SpellConstructionContext<TParent extends ActorPF2e | null> extends Doc
 }
 interface SpellDamage {
     template: SpellDamageTemplate;
-    context: DamageRollContext;
+    context: DamageDamageContext;
 }
 interface SpellToMessageOptions {
     create?: boolean;

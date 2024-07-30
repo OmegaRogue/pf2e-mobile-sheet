@@ -1,19 +1,22 @@
-import type GSAP from "gsap";
-import type HANDLEBARS from "handlebars";
+import "gsap";
+import "handlebars";
+import SHOWDOWN from "showdown";
+import "./apps/index.d.ts";
+import "./config.d.ts";
+import "./core/index.d.ts";
+import "./data/index.d.ts";
+import * as Foundry from "./foundry/index.ts";
+import "./game.d.ts";
+import "./keyboard/index.d.ts";
+import "./pixi/index.d.ts";
+import "./roll.d.ts";
+import "./ui/index.d.ts";
 
 declare global {
-    const CONST: typeof Constants;
     namespace globalThis {
-        export import Color = Utils.Color;
-        export import gsap = GSAP;
-        export import Handlebars = HANDLEBARS;
-
-        namespace foundry {
-            export import CONST = Constants;
-            export import abstract = Abstract;
-            export import data = Data;
-            export import documents = Documents;
-            export import utils = Utils;
-        }
+        export import CONST = Foundry.CONST;
+        export import Color = Foundry.utils.Color;
+        export import foundry = Foundry;
+        const showdown: typeof SHOWDOWN;
     }
 }

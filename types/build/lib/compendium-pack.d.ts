@@ -51,5 +51,5 @@ interface ConvertUUIDOptions {
     to: "id" | "name";
     map: Map<string, Map<string, string>>;
 }
-export { CompendiumPack, isActorSource, isItemSource, PackError };
+export { CompendiumPack, PackError, isActorSource, isItemSource };
 export type { PackMetadata, REMaybeWithUUIDs };

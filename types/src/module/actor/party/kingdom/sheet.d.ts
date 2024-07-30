@@ -25,6 +25,9 @@ declare class KingdomSheetPF2e extends ActorSheetPF2e<PartyPF2e> {
     static get defaultOptions(): ActorSheetOptions;
     protected _getHeaderButtons(): ApplicationHeaderButton[];
     getData(options?: ActorSheetOptions): Promise<KingdomSheetData>;
+    protected _configureProseMirrorPlugins(name: string, options: {
+        remove?: boolean;
+    }): Record<string, ProseMirror.Plugin>;
     activateListeners($html: JQuery<HTMLElement>): void;
     protected activateClickListener(html: HTMLElement): SheetClickActionHandlers;
     protected filterActions(trait: string | null, options?: {
@@ -66,6 +69,7 @@ interface KingdomSheetData extends ActorSheetDataPF2e<PartyPF2e> {
     settlementTypes: Record<string, string>;
     abilityLabels: Record<string, string>;
     skillLabels: Record<string, string>;
+    proficiencyOptions: FormSelectOption[];
 }
 interface ArmySheetData {
     link: string;

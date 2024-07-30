@@ -6,7 +6,6 @@ export declare class ClassSheetPF2e extends ABCSheetPF2e<ClassPF2e> {
     getData(options?: Partial<ItemSheetOptions>): Promise<ClassSheetData>;
 }
 interface ClassSheetData extends ABCSheetData<ClassPF2e> {
-    skills: typeof CONFIG.PF2E.skills;
     proficiencyChoices: typeof CONFIG.PF2E.proficiencyLevels;
     selectedKeyAbility: Record<string, string>;
     trainedSkills: SheetOptions;

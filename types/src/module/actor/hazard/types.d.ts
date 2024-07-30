@@ -5,6 +5,8 @@ import { SaveType } from "@actor/types.ts";
 import type { AbilityItemPF2e } from "@item";
 interface HazardSheetData extends ActorSheetDataPF2e<HazardPF2e> {
     actions: HazardActionSheetData;
+    complexityOptions: FormSelectOption[];
+    emitsSoundOptions: FormSelectOption[];
     editing: boolean;
     actorTraits: TraitViewData[];
     rarity: Record<string, string>;

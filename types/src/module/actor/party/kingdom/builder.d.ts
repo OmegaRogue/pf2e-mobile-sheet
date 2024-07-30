@@ -30,7 +30,7 @@ declare class KingdomBuilder extends FormApplication<Kingdom> {
     protected _render(force?: boolean, options?: KingdomBuilderRenderOptions): Promise<void>;
 }
 interface KingdomBuilder extends FormApplication<Kingdom> {
-    render(force?: boolean, options?: KingdomBuilderRenderOptions): this | Promise<this>;
+    render(force?: boolean, options?: KingdomBuilderRenderOptions): this;
 }
 interface KingdomBuilderRenderOptions extends RenderOptions {
     tab?: string | null;
@@ -46,6 +46,7 @@ interface KingdomBuilderSheetData {
     skillLabels: Record<string, string>;
     build: KingdomAbilityBuilderData;
     finished: boolean;
+    aspirationOptions: FormSelectOption[];
 }
 interface CategorySheetData {
     /** The active build entry slug (the one that's been saved) */

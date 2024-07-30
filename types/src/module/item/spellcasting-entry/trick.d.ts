@@ -1,5 +1,5 @@
 import { ActorPF2e } from "@actor";
-import { AttributeString, SkillLongForm } from "@actor/types.ts";
+import { AttributeString, SkillSlug } from "@actor/types.ts";
 import { SpellPF2e } from "@item";
 import { MagicTradition } from "@item/spell/types.ts";
 import { Statistic } from "@system/statistic/index.ts";
@@ -16,11 +16,10 @@ declare const traditionSkills: {
 declare class TrickMagicItemEntry<TActor extends ActorPF2e = ActorPF2e> implements SpellcastingEntry<TActor> {
     readonly id: string;
     actor: TActor;
-    skill: SkillLongForm;
+    skill: SkillSlug;
     statistic: Statistic;
+    get counteraction(): Statistic;
     attribute: AttributeString;
-    /** @deprecated */
-    get ability(): AttributeString;
     tradition: MagicTradition;
     constructor(actor: TActor, skill: TrickMagicItemSkill);
     get name(): string;

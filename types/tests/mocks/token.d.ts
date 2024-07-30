@@ -11,5 +11,5 @@ export declare class MockToken {
     get id(): string;
     get name(): string;
     get scene(): this["parent"];
-    update(changes: EmbeddedDocumentUpdateData, context?: SceneEmbeddedModificationContext<NonNullable<this["parent"]>>): void;
+    update(changes: EmbeddedDocumentUpdateData, context?: Partial<DatabaseUpdateOperation<NonNullable<this["parent"]>>>): void;
 }

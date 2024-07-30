@@ -95,6 +95,8 @@ declare global {
         /** The global document index. */
         documentIndex: DocumentIndex;
 
+        documentTypes: Record<string, string[]>;
+
         /** Whether the Game is running in debug mode */
         debug: boolean;
 
@@ -202,6 +204,9 @@ declare global {
 
         /** A convenient reference to the currently active canvas tool */
         get activeTool(): string;
+
+        /** An alias for the structured data model organized by document class and type. */
+        get model(): Record<"Actor" | "Card" | "Cards" | "Item" | "JournalEntryPage", object>;
 
         /**
          * Toggle the pause state of the game

@@ -9,8 +9,15 @@ import type { ItemSourcePF2e } from "@item/base/data/index.ts";
 import type { Coins } from "@item/physical/data.ts";
 import { DropCanvasItemDataPF2e } from "@module/canvas/drop-canvas-data.ts";
 import { BasicConstructorOptions, TagSelectorOptions, TagSelectorType } from "@system/tag-selector/index.ts";
-import type { ActorSheetDataPF2e, ActorSheetRenderOptionsPF2e, CoinageSummary, InventoryItem, SheetInventory } from "./data-types.ts";
+import type {
+    ActorSheetDataPF2e,
+    ActorSheetRenderOptionsPF2e,
+    CoinageSummary,
+    InventoryItem,
+    SheetInventory,
+} from "./data-types.ts";
 import { ItemSummaryRenderer } from "./item-summary-renderer.ts";
+
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
  * This sheet is an Abstract layer which is not used.
@@ -37,8 +44,7 @@ declare abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShe
     protected _canDragDrop(selector: string): boolean;
     /** Add support for dropping actions and toggles */
     protected _onDragStart(event: DragEvent): void;
-    /** Emulate a sheet item drop from the canvas */
-    emulateItemDrop(data: DropCanvasItemDataPF2e): Promise<ItemPF2e<ActorPF2e | null>[]>;
+    _onDrop(event: DragEvent): Promise<boolean | void>;
     protected _onDropItem(event: DragEvent, data: DropCanvasItemDataPF2e & {
         fromInventory?: boolean;
     }): Promise<ItemPF2e[]>;
@@ -64,7 +70,7 @@ declare abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShe
      * @param targetActorId ID of the actor where the item will be stored.
      * @param itemId           ID of the item to move between the two actors.
      */
-    moveItemBetweenActors(event: DragEvent, sourceActorId: string, sourceTokenId: string | null, targetActorId: string, targetTokenId: string | null, itemId: string): Promise<void>;
+    moveItemBetweenActors(event: DragEvent, item: PhysicalItemPF2e, targetActor: ActorPF2e): Promise<void>;
     protected openTagSelector(anchor: HTMLElement, options?: Partial<TagSelectorOptions>): void;
     /** Construct and render a tag selection menu */
     protected tagSelector(selectorType: Exclude<TagSelectorType, "basic">, options?: Partial<TagSelectorOptions>): void;
@@ -75,13 +81,14 @@ declare abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShe
     protected _renderInner(data: Record<string, unknown>, options: RenderOptions): Promise<JQuery>;
     /** Overriden _render to maintain focus on tagify elements */
     protected _render(force?: boolean, options?: ActorSheetRenderOptionsPF2e): Promise<void>;
-    /** Tagify sets an empty input field to "" instead of "[]", which later causes the JSON parse to throw an error */
-    protected _onSubmit(event: Event, { updateData, preventClose, preventRender }?: OnSubmitFormOptions): Promise<Record<string, unknown> | false>;
     protected _getSubmitData(updateData?: Record<string, unknown>): Record<string, unknown>;
+    protected _configureProseMirrorPlugins(name: string, options: {
+        remove?: boolean;
+    }): Record<string, ProseMirror.Plugin>;
 }
 interface ActorSheetPF2e<TActor extends ActorPF2e> extends ActorSheet<TActor, ItemPF2e> {
     prepareItems?(sheetData: ActorSheetDataPF2e<TActor>): Promise<void>;
-    render(force?: boolean, options?: ActorSheetRenderOptionsPF2e): this | Promise<this>;
+    render(force?: boolean, options?: ActorSheetRenderOptionsPF2e): this;
 }
 type SheetClickActionHandlers = Record<string, ((event: MouseEvent, actionTarget: HTMLElement) => Promise<void | unknown> | void | unknown) | undefined>;
 export { ActorSheetPF2e, type SheetClickActionHandlers };

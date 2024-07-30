@@ -14,7 +14,7 @@ export declare class MockItem {
     get traits(): Set<string>;
     get isMagical(): boolean;
     get isAlchemical(): boolean;
-    static updateDocuments(updates?: Record<string, unknown>[], _context?: DocumentModificationContext<ActorPF2e | null>): Promise<ItemPF2e<ActorPF2e | null>[]>;
+    static updateDocuments(updates?: Record<string, unknown>[], _operation?: Partial<DatabaseUpdateOperation<ActorPF2e | null>>): Promise<ItemPF2e<ActorPF2e | null>[]>;
     update(changes: object): void;
     toObject(): ItemSourcePF2e;
 }

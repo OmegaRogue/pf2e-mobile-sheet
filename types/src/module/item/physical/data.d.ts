@@ -129,12 +129,12 @@ interface PhysicalItemHPSource {
 interface PhysicalItemHitPoints extends PhysicalItemHPSource {
     brokenThreshold: number;
 }
-interface Coins {
+type Coins = {
     pp?: number;
     gp?: number;
     sp?: number;
     cp?: number;
-}
+};
 interface PartialPrice {
     value: Coins;
     per?: number;

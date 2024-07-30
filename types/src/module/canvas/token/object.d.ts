@@ -1,23 +1,27 @@
 import type { UserPF2e } from "@module/user/document.ts";
 import type { TokenDocumentPF2e } from "@scene";
-import { type TokenLayerPF2e } from "../index.ts";
-import { HearingSource } from "../perception/hearing-source.ts";
+import type { TokenLayerPF2e } from "../index.ts";
 import { AuraRenderers } from "./aura/index.ts";
 import { FlankingHighlightRenderer } from "./flanking-highlight/renderer.ts";
+
 declare class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends Token<TDocument> {
+    #private;
     /** Visual representation and proximity-detection facilities for auras */
     readonly auras: AuraRenderers;
     /** Visual rendering of lines from token to flanking buddy tokens on highlight */
     readonly flankingHighlight: FlankingHighlightRenderer;
-    /** The token's line hearing source */
-    hearing: HearingSource<this>;
     constructor(document: TDocument);
+    get isTiny(): boolean;
+    /** This token's shape at its canvas position */
+    get localShape(): TokenShape;
+    /** The grid offsets representing this token's shape */
+    get footprint(): GridOffset[];
     /** Increase center-to-center point tolerance to be more compliant with 2e rules */
     get isVisible(): boolean;
+    /** A reference to an animation that is currently in progress for this Token, if any */
+    get animation(): Promise<boolean> | null;
     /** Is this token currently animating? */
     get isAnimating(): boolean;
-    /** Is this token emitting light with a negative value */
-    get emitsDarkness(): boolean;
     /** Is rules-based vision enabled, and does this token's actor have low-light vision (inclusive of darkvision)? */
     get hasLowLightVision(): boolean;
     /** Is rules-based vision enabled, and does this token's actor have darkvision vision? */
@@ -28,9 +32,9 @@ declare class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e>
     get highlightId(): string;
     /** Bounds used for mechanics, such as flanking and drawing auras */
     get mechanicalBounds(): PIXI.Rectangle;
-    /** Short-circuit calculation for long sight ranges */
-    get sightRange(): number;
     isAdjacentTo(token: TokenPF2e): boolean;
+    /** Publicly expose `Token#_canControl` for use in `TokenLayerPF2e`. */
+    canControl(user: UserPF2e, event: PIXI.FederatedPointerEvent): boolean;
     /**
      * Determine whether this token can flank another—given that they have a flanking buddy on the opposite side
      * @param flankee                  The potentially flanked token
@@ -70,17 +74,10 @@ declare class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e>
     protected _applyRenderFlags(flags: Record<string, boolean>): void;
     /** Draw auras and flanking highlight lines if certain conditions are met */
     protected _refreshVisibility(): void;
-    /**
-     * Use border color corresponding with disposition even when the token's actor is player-owned.
-     * @see https://github.com/foundryvtt/foundryvtt/issues/9993
-     */
-    protected _getBorderColor(options?: {
-        hover?: boolean;
-    }): number | null;
     /** Overrides _drawBar(k) to also draw pf2e variants of normal resource bars (such as temp health) */
     protected _drawBar(number: number, bar: PIXI.Graphics, data: TokenResourceData): void;
     /** Draw auras along with effect icons */
-    drawEffects(): Promise<void>;
+    _drawEffects(): Promise<void>;
     /** Emulate a pointer hover ("pointerover") event */
     emitHoverIn(nativeEvent: MouseEvent | PointerEvent): void;
     /** Emulate a pointer hover ("pointerout") event */
@@ -92,24 +89,22 @@ declare class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e>
     /** Emit floaty text from this tokens */
     showFloatyText(params: ShowFloatyEffectParams): Promise<void>;
     /**
-     * Measure the distance between this token and another object, in grid distance. We measure between the
+     * Measure the distance between this token and another object or point, in grid distance. We measure between the
      * centre of squares, and if either covers more than one square, we want the minimum distance between
      * any two of the squares.
      */
-    distanceTo(target: TokenPF2e, { reach }?: {
+    distanceTo(target: TokenOrPoint, { reach }?: {
         reach?: number | null;
     }): number;
-    animate(updateData: Record<string, unknown>, options?: TokenAnimationOptionsPF2e<this>): Promise<void>;
-    /** Hearing should be updated whenever vision is */
-    updateVisionSource({ defer, deleted }?: {
-        defer?: boolean | undefined;
-        deleted?: boolean | undefined;
-    }): void;
+    animate(updateData: Record<string, unknown>, options?: TokenAnimationOptionsPF2e): Promise<void>;
     /** Obscure the token's sprite if a hearing or tremorsense detection filter is applied to it */
     render(renderer: PIXI.Renderer): void;
     protected _destroy(): void;
     /** Players can view an actor's sheet if the actor is lootable. */
     protected _canView(user: UserPF2e, event: PIXI.FederatedPointerEvent): boolean;
+    protected _canDrag(user: UserPF2e, event?: TokenPointerEvent<this>): boolean;
+    /** Prevent players from controlling an NPC when it's lootable */
+    protected _canControl(user: UserPF2e, event?: PIXI.FederatedPointerEvent): boolean;
     /** Refresh vision and the `EffectsPanel` */
     protected _onControl(options?: {
         releaseOthers?: boolean;
@@ -117,10 +112,15 @@ declare class TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e>
     }): void;
     /** Refresh vision and the `EffectsPanel` */
     protected _onRelease(options?: Record<string, unknown>): void;
+    /** Initiate token drag measurement unless using the ruler tool. */
+    protected _onDragLeftStart(event: TokenPointerEvent<this>): void;
+    protected _onDragLeftMove(event: TokenPointerEvent<this>): void;
+    protected _onDragLeftDrop(event: TokenPointerEvent<this>): Promise<void | TDocument[]>;
+    protected _onDragLeftCancel(event: TokenPointerEvent<this>): void;
     /** Handle system-specific status effects (upstream handles invisible and blinded) */
     _onApplyStatusEffect(statusId: string, active: boolean): void;
     /** Reset aura renders when token size changes. */
-    _onUpdate(changed: DeepPartial<TDocument["_source"]>, options: DocumentModificationContext<TDocument["parent"]>, userId: string): void;
+    _onUpdate(changed: DeepPartial<TDocument["_source"]>, operation: TokenUpdateOperation<TDocument["parent"]>, userId: string): void;
 }
 interface TokenPF2e<TDocument extends TokenDocumentPF2e = TokenDocumentPF2e> extends Token<TDocument> {
     get layer(): TokenLayerPF2e<this>;
@@ -136,8 +136,13 @@ type ShowFloatyEffectParams = number | {
 } | {
     delete: NumericFloatyEffect;
 };
-interface TokenAnimationOptionsPF2e<TObject extends TokenPF2e = TokenPF2e> extends TokenAnimationOptions<TObject> {
+interface TokenAnimationOptionsPF2e extends TokenAnimationOptions {
     spin?: boolean;
 }
+type TokenOrPoint = TokenPF2e | (Point & {
+    actor?: never;
+    document?: never;
+    bounds?: never;
+});
 export { TokenPF2e };
 export type { ShowFloatyEffectParams, TokenAnimationOptionsPF2e };

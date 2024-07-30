@@ -1,9 +1,9 @@
-import { ActorPF2e } from "@actor";
-import { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
-import { ItemSourcePF2e, ItemType, RawItemChatData } from "./base/data/index.ts";
-import { ItemPF2e } from "./base/document.ts";
-import { PhysicalItemPF2e } from "./physical/document.ts";
-import { ItemInstances } from "./types.ts";
+import type { ActorPF2e } from "@actor";
+import type { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
+import type { ItemSourcePF2e, ItemType, RawItemChatData } from "./base/data/index.ts";
+import type { ItemPF2e } from "./base/document.ts";
+import type { PhysicalItemPF2e } from "./physical/document.ts";
+import type { ItemInstances } from "./types.ts";
 type ItemOrSource = PreCreate<ItemSourcePF2e> | ItemPF2e;
 /** Determine in a type-safe way whether an `ItemPF2e` or `ItemSourcePF2e` is among certain types */
 declare function itemIsOfType<TParent extends ActorPF2e | null, TType extends ItemType>(item: ItemOrSource, ...types: TType[]): item is ItemInstances<TParent>[TType] | ItemInstances<TParent>[TType]["_source"];
@@ -18,6 +18,8 @@ declare class ItemChatData {
     data: RawItemChatData;
     htmlOptions: EnrichmentOptionsPF2e;
     constructor({ item, data, htmlOptions }: ItemChatDataConstructorOptions);
+    /** Sanitized and convert stringy markdown into stringy HTML, with any initial HTML content stripped */
+    static markdownToHTML(markdown: string): string;
     process(): Promise<RawItemChatData>;
 }
 interface ItemChatDataConstructorOptions {

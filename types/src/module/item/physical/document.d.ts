@@ -1,11 +1,23 @@
-import { type ActorPF2e } from "@actor";
-import { ItemPF2e, type ContainerPF2e } from "@item";
-import { ItemSourcePF2e, PhysicalItemSource, RawItemChatData, TraitChatData } from "@item/base/data/index.ts";
-import { Rarity, Size, ZeroToTwo } from "@module/data.ts";
+import type { ActorPF2e } from "@actor";
+import { type ContainerPF2e, ItemPF2e } from "@item";
+import type { ItemSourcePF2e, PhysicalItemSource, RawItemChatData, TraitChatData } from "@item/base/data/index.ts";
+import type { Rarity, Size, ZeroToTwo } from "@module/data.ts";
+import type { EffectSpinoff } from "@module/rules/rule-element/effect-spinoff/spinoff.ts";
 import type { UserPF2e } from "@module/user/document.ts";
 import { Bulk } from "./bulk.ts";
-import { IdentificationStatus, ItemActivation, ItemCarryType, ItemMaterialData, MystifiedData, PhysicalItemHitPoints, PhysicalItemTrait, PhysicalSystemData, Price } from "./data.ts";
+import type {
+    IdentificationStatus,
+    ItemActivation,
+    ItemCarryType,
+    ItemMaterialData,
+    MystifiedData,
+    PhysicalItemHitPoints,
+    PhysicalItemTrait,
+    PhysicalSystemData,
+    Price,
+} from "./data.ts";
 import { CoinsPF2e } from "./helpers.ts";
+
 declare abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     /** The item in which this item is embedded */
     parentItem: PhysicalItemPF2e | null;
@@ -13,9 +25,11 @@ declare abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = Actor
      * The cached container of this item, if in a container, or null
      * @ignore
      */
-    private _container;
+    private _container?;
     /** Doubly-embedded adjustments, attachments, talismans etc. */
     subitems: Collection<PhysicalItemPF2e<TParent>>;
+    /** A map of effect spinoff objects, which can be used to create new effects from using certain items */
+    effectSpinoffs: Map<string, EffectSpinoff>;
     constructor(data: PreCreate<ItemSourcePF2e>, context?: PhysicalItemConstructionContext<TParent>);
     get level(): number;
     get rarity(): Rarity;
@@ -52,6 +66,7 @@ declare abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = Actor
     /** Whether this is a specific magic item: applicable to armor, shields, and weapons */
     get isSpecific(): boolean;
     get isInContainer(): boolean;
+    /** Returns true if any of this item's containers is a stowing container */
     get isStowed(): boolean;
     /** Get this item's container, returning null if it is not in a container */
     get container(): ContainerPF2e<ActorPF2e> | null;
@@ -60,10 +75,13 @@ declare abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = Actor
     get activations(): (ItemActivation & {
         componentsLabel: string;
     })[];
+    get uuid(): ItemUUID;
     /** Whether other items can be attached (or affixed, applied, etc.) to this item */
     acceptsSubitem(candidate: PhysicalItemPF2e): boolean;
     /** Generate a list of strings for use in predication */
-    getRollOptions(prefix?: string): string[];
+    getRollOptions(prefix: string, options?: {
+        includeGranter?: boolean;
+    }): string[];
     protected _initialize(options?: Record<string, unknown>): void;
     prepareBaseData(): void;
     /** Refresh certain derived properties in case of special data preparation from subclasses */
@@ -72,6 +90,15 @@ declare abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = Actor
     /** After item alterations have occurred, ensure that this item's hit points are no higher than its maximum */
     onPrepareSynthetics(): void;
     prepareActorData(): void;
+    getEmbeddedDocument(embeddedName: string, id: string, { strict }: {
+        strict: true;
+    }): foundry.abstract.Document;
+    getEmbeddedDocument(embeddedName: string, id: string, { strict }: {
+        strict: false;
+    }): foundry.abstract.Document | undefined;
+    getEmbeddedDocument(embeddedName: string, id: string, options?: {
+        strict?: boolean;
+    }): foundry.abstract.Document | undefined;
     /** Can the provided item stack with this item? */
     isStackableWith(item: PhysicalItemPF2e): boolean;
     /** Combine this item with a target item if possible */
@@ -99,15 +126,17 @@ declare abstract class PhysicalItemPF2e<TParent extends ActorPF2e | null = Actor
     generateUnidentifiedName({ typeOnly }?: {
         typeOnly?: boolean;
     }): string;
+    /** Updates this container's cache while also resolving cyclical references. Skips if already cached */
+    protected updateContainerCache(seen?: string[]): void;
     /** Include mystification-related rendering instructions for views that will display this data. */
     protected traitChatData(dictionary: Record<string, string>): TraitChatData[];
     /** Redirect subitem updates to the parent item */
-    update(data: Record<string, unknown>, context?: DocumentModificationContext<TParent>): Promise<this | undefined>;
+    update(data: Record<string, unknown>, operation?: Partial<DatabaseUpdateOperation<TParent>>): Promise<this | undefined>;
     /** Redirect subitem deletes to parent-item updates */
-    delete(context?: DocumentModificationContext<TParent>): Promise<this | undefined>;
+    delete(operation?: Partial<DatabaseDeleteOperation<TParent>>): Promise<this | undefined>;
     /** Set to unequipped upon acquiring */
-    protected _preCreate(data: this["_source"], options: DocumentModificationContext<TParent>, user: UserPF2e): Promise<boolean | void>;
-    protected _preUpdate(changed: DeepPartial<this["_source"]>, options: PhysicalItemUpdateContext<TParent>, user: UserPF2e): Promise<boolean | void>;
+    protected _preCreate(data: this["_source"], options: DatabaseCreateOperation<TParent>, user: UserPF2e): Promise<boolean | void>;
+    protected _preUpdate(changed: DeepPartial<this["_source"]>, operation: PhysicalItemUpdateOperation<TParent>, user: UserPF2e): Promise<boolean | void>;
 }
 interface PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> extends ItemPF2e<TParent> {
     readonly _source: PhysicalItemSource;
@@ -116,7 +145,7 @@ interface PhysicalItemPF2e<TParent extends ActorPF2e | null = ActorPF2e | null> 
 interface PhysicalItemConstructionContext<TParent extends ActorPF2e | null> extends DocumentConstructionContext<TParent> {
     parentItem?: PhysicalItemPF2e<TParent>;
 }
-interface PhysicalItemUpdateContext<TParent extends ActorPF2e | null> extends DocumentUpdateContext<TParent> {
+interface PhysicalItemUpdateOperation<TParent extends ActorPF2e | null> extends DatabaseUpdateOperation<TParent> {
     checkHP?: boolean;
 }
 export { PhysicalItemPF2e, type PhysicalItemConstructionContext };

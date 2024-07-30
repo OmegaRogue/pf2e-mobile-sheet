@@ -21,6 +21,7 @@ interface AfflictionSheetData extends ItemSheetDataPF2e<AfflictionPF2e> {
     onsetUnits: Omit<ConfigPF2e["PF2E"]["timeUnits"], "unlimited" | "encounter">;
     saves: ConfigPF2e["PF2E"]["saves"];
     stages: Record<string, AfflictionStageSheetData>;
+    stageOptions: Record<string, string>;
 }
 interface AfflictionStageSheetData extends AfflictionStageData {
     stage: number;

@@ -3,13 +3,24 @@
 /// <reference types="tooltipster" />
 import "@yaireo/tagify/src/tagify.scss";
 import { PartialSettingsData, SettingsMenuPF2e } from "../menu.ts";
-import { CustomDamageData, HomebrewElementsSheetData, HomebrewKey, HomebrewTag, HomebrewTraitKey, LanguageNotCommon, LanguageRaritiesData, LanguageRaritiesSheetData } from "./data.ts";
+import {
+    CustomDamageData,
+    HomebrewElementsSheetData,
+    HomebrewKey,
+    HomebrewTag,
+    HomebrewTraitKey,
+    LanguageSettings,
+    ModuleHomebrewData,
+} from "./data.ts";
 import { ReservedTermsRecord } from "./helpers.ts";
+import { LanguagesManager } from "./languages.ts";
+
 declare class HomebrewElements extends SettingsMenuPF2e {
     #private;
     static readonly namespace = "homebrew";
     languagesManager: LanguagesManager;
     static get reservedTerms(): ReservedTermsRecord;
+    static get moduleData(): ModuleHomebrewData;
     static get SETTINGS(): string[];
     static get defaultOptions(): FormApplicationOptions;
     protected static campaignSettings: {
@@ -39,24 +50,10 @@ declare class HomebrewElements extends SettingsMenuPF2e {
     protected _updateObject(event: Event, data: Record<HomebrewTraitKey, HomebrewTag[]>): Promise<void>;
     onInit(): void;
 }
-/** A helper class for managing languages and their rarities */
-declare class LanguagesManager {
-    #private;
-    /** The parent settings menu */
-    menu: HomebrewElements;
-    /** A separate list of module-provided languages */
-    moduleLanguages: LanguageNotCommon[];
-    constructor(menu: HomebrewElements);
-    get data(): LanguageRaritiesData;
-    getSheetData(): LanguageRaritiesSheetData;
-    activateListeners(html: HTMLElement): void;
-    /** Update the language rarities cache, adding and deleting from sets as necessary. */
-    onChangeHomebrewLanguages(languages: HomebrewTag<"languages">[]): void;
-}
 type HomebrewSubmitData = {
     damageTypes: CustomDamageData[];
     languages: HomebrewTag<"languages">[];
-    languageRarities: LanguageRaritiesData;
+    languageRarities: LanguageSettings;
 } & Record<string, unknown> & {
     clear(): void;
 };

@@ -7,6 +7,7 @@ declare class TokenConfigPF2e<TDocument extends TokenDocumentPF2e> extends Token
     static get defaultOptions(): DocumentSheetOptions;
     /** Get this token's dimensions were they linked to its actor's size */
     get dimensionsFromActorSize(): number;
+    get rulesBasedVision(): boolean;
     getData(options?: DocumentSheetOptions): Promise<TokenConfigDataPF2e<TDocument>>;
     protected _getFilePickerOptions(event: PointerEvent): FilePickerOptions;
     /** Hide token-sight settings when rules-based vision is enabled */

@@ -1,6 +1,6 @@
 import type { CharacterPF2e } from "@actor";
 import type { ItemPF2e } from "@item";
-import { PredicatePF2e, RawPredicate } from "@system/predication.ts";
+import { Predicate, RawPredicate } from "@system/predication.ts";
 import { CraftingFormula } from "./formula.ts";
 declare class CraftingEntry implements CraftingEntryData {
     #private;
@@ -16,13 +16,13 @@ declare class CraftingEntry implements CraftingEntryData {
     isAlchemical: boolean;
     isDailyPrep: boolean;
     isPrepared: boolean;
-    craftableItems: PredicatePF2e;
+    craftableItems: Predicate;
     maxSlots: number;
-    fieldDiscovery: PredicatePF2e | null;
+    fieldDiscovery: Predicate | null;
     batchSizes: {
         default: number;
         other: {
-            definition: PredicatePF2e;
+            definition: Predicate;
             quantity: number;
         }[];
     };
@@ -39,8 +39,6 @@ declare class CraftingEntry implements CraftingEntryData {
         warn?: boolean | undefined;
     }): boolean;
     unprepareFormula(index: number, itemUUID: string): Promise<void>;
-    increaseFormulaQuantity(index: number, itemUUID: string): Promise<void>;
-    decreaseFormulaQuantity(index: number, itemUUID: string): Promise<void>;
     setFormulaQuantity(index: number, itemUUID: string, value: "increase" | "decrease" | number): Promise<void>;
     toggleFormulaExpended(index: number, itemUUID: string): Promise<void>;
     toggleSignatureItem(itemUUID: string): Promise<void>;

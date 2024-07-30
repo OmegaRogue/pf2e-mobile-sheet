@@ -12,5 +12,6 @@ interface AncestrySheetData extends ABCSheetData<AncestryPF2e> {
     sizes: SheetOptions;
     languages: SheetOptions;
     additionalLanguages: SheetOptions;
+    visionTypeOptions: FormSelectOption[];
 }
 export { AncestrySheetPF2e };

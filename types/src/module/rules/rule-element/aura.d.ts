@@ -68,7 +68,7 @@ type AuraAppearanceSchema = {
         color: "user-color" | HexColorString;
         alpha: number;
     }, {
-        color: "user-color" | HexColorString;
+        color: "user-color" | Color;
         alpha: number;
     }, false, true, true>;
     /** Configuration of the highlight's color and alpha */
@@ -79,7 +79,7 @@ type AuraAppearanceSchema = {
         color: "user-color" | HexColorString;
         alpha: number;
     }, {
-        color: "user-color" | HexColorString;
+        color: "user-color" | Color;
         alpha: number;
     }, false, false, true>;
     /** Configuration for a texture (image or video) drawn as part of the aura */

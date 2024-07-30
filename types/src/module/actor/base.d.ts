@@ -1,10 +1,18 @@
-import { ActorAlliance, ActorDimensions, ActorInstances, ApplyDamageParams, AuraData, CheckContext, CheckContextParams, DamageRollContextParams, EmbeddedItemInstances, RollContext, RollContextParams, SaveType } from "@actor/types.ts";
+import {
+    ActorAlliance,
+    ActorDimensions,
+    ActorInstances,
+    ApplyDamageParams,
+    AuraData,
+    EmbeddedItemInstances,
+    SaveType,
+} from "@actor/types.ts";
 import type { AbstractEffectPF2e, ConditionPF2e, ContainerPF2e, PhysicalItemPF2e, ShieldPF2e } from "@item";
 import { ItemPF2e } from "@item";
 import type { ItemSourcePF2e, ItemType, PhysicalItemSource } from "@item/base/data/index.ts";
 import type { ConditionKey, ConditionSlug, ConditionSource } from "@item/condition/index.ts";
 import type { EffectSource } from "@item/effect/data.ts";
-import type { ActiveEffectPF2e } from "@module/active-effect.ts";
+import { ActiveEffectPF2e } from "@module/active-effect.ts";
 import type { TokenPF2e } from "@module/canvas/index.ts";
 import type { AppliedDamageFlag } from "@module/chat-message/index.ts";
 import type { Size } from "@module/data.ts";
@@ -15,18 +23,24 @@ import type { UserPF2e } from "@module/user/document.ts";
 import type { ScenePF2e } from "@scene/document.ts";
 import { TokenDocumentPF2e } from "@scene/token-document/document.ts";
 import type { DamageType } from "@system/damage/types.ts";
-import type { ArmorStatistic, PerceptionStatistic, Statistic, StatisticCheck, StatisticDifficultyClass } from "@system/statistic/index.ts";
+import type {
+    ArmorStatistic,
+    PerceptionStatistic,
+    Statistic,
+    StatisticDifficultyClass,
+} from "@system/statistic/index.ts";
 import { EnrichmentOptionsPF2e } from "@system/text-editor.ts";
 import { ActorConditions } from "./conditions.ts";
-import { Abilities, CreatureSkills, VisionLevel } from "./creature/data.ts";
+import { Abilities, VisionLevel } from "./creature/data.ts";
 import { GetReachParameters, ModeOfBeing } from "./creature/types.ts";
-import { ActorFlagsPF2e, ActorSystemData, PrototypeTokenPF2e, RollOptionFlags, StrikeData } from "./data/base.ts";
+import { ActorFlagsPF2e, ActorSystemData, PrototypeTokenPF2e, RollOptionFlags } from "./data/base.ts";
 import type { ActorSourcePF2e } from "./data/index.ts";
 import type { ActorInitiative } from "./initiative.ts";
 import { ActorInventory } from "./inventory/index.ts";
 import type { ActorSheetPF2e } from "./sheet/base.ts";
 import type { ActorSpellcasting } from "./spellcasting.ts";
 import type { ActorType } from "./types.ts";
+
 /**
  * Extend the base Actor class to implement additional logic specialized for PF2e.
  * @category Actor
@@ -45,7 +59,7 @@ declare class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocument
     spellcasting: ActorSpellcasting<this> | null;
     /** Rule elements drawn from owned items */
     rules: RuleElementPF2e[];
-    synthetics: RuleElementSynthetics;
+    synthetics: RuleElementSynthetics<this>;
     /** Saving throw statistics */
     saves?: {
         [K in SaveType]?: Statistic;
@@ -56,7 +70,7 @@ declare class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocument
     conditions: ActorConditions<this>;
     perception?: PerceptionStatistic;
     /** Skill checks for the actor if supported by the actor type */
-    skills?: Partial<CreatureSkills>;
+    skills?: Record<string, Statistic<this>>;
     /** A cached copy of `Actor#itemTypes`, lazily regenerated every data preparation cycle */
     private _itemTypes;
     constructor(data: PreCreate<ActorSourcePF2e>, context?: DocumentConstructionContext<TParent>);
@@ -69,6 +83,8 @@ declare class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocument
     /** Cache the return data before passing it to the caller */
     get itemTypes(): EmbeddedItemInstances<this>;
     get allowedItemTypes(): (ItemType | "physical")[];
+    /** Returns true if this actor allows synthetic tokens to be created */
+    get allowSynthetics(): boolean;
     /** The compendium source ID of the actor **/
     get sourceId(): ActorUUID | null;
     /** The recorded schema version of this actor, updated after each data migration */
@@ -111,7 +127,7 @@ declare class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocument
     get alliance(): ActorAlliance;
     get combatant(): CombatantPF2e<EncounterPF2e> | null;
     /** Add effect icons from effect items and rule elements */
-    get temporaryEffects(): TemporaryEffect[];
+    get temporaryEffects(): ActiveEffect<this>[];
     /** A means of checking this actor's type without risk of circular import references */
     isOfType<T extends "creature" | ActorType>(...types: T[]): this is ActorInstances<TParent>[T];
     /** Whether this actor is an ally of the provided actor */
@@ -125,7 +141,7 @@ declare class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocument
     /** Checks if the item can be added to this actor by checking the valid item types. */
     checkItemValidity(source: PreCreate<ItemSourcePF2e>): boolean;
     /** Get (almost) any statistic by slug: handling expands in `ActorPF2e` subclasses */
-    getStatistic(slug: string): Statistic | null;
+    getStatistic(slug: string): Statistic<this> | null;
     /** Get roll options from this actor's effects, traits, and other properties */
     getSelfRollOptions(prefix?: "self" | "target" | "origin"): string[];
     /** The actor's reach: a meaningful implementation is found in `CreaturePF2e` and `HazardPF2e`. */
@@ -137,18 +153,18 @@ declare class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocument
         actor: ActorPF2e;
         token: TokenDocumentPF2e;
     }): Promise<void>;
-    /** Don't allow the user to create in development actor types. */
+    /** Don't allow the user to create in-development actor types. */
     static createDialog<TDocument extends foundry.abstract.Document>(this: ConstructorOf<TDocument>, data?: Record<string, unknown>, context?: {
         parent?: TDocument["parent"];
         pack?: Collection<TDocument> | null;
-        types?: (ActorType | "creature")[];
+        types?: ActorType[];
     } & Partial<FormApplicationOptions>): Promise<TDocument | null>;
     /**
      * As of Foundry 0.8: All subclasses of ActorPF2e need to use this factory method rather than having their own
      * overrides, since Foundry itself will call `ActorPF2e.create` when a new actor is created from the sidebar.
      */
-    static createDocuments<TDocument extends foundry.abstract.Document>(this: ConstructorOf<TDocument>, data?: (TDocument | PreCreate<TDocument["_source"]>)[], context?: DocumentModificationContext<TDocument["parent"]>): Promise<TDocument[]>;
-    static updateDocuments<TDocument extends foundry.abstract.Document>(this: ConstructorOf<TDocument>, updates?: Record<string, unknown>[], context?: DocumentUpdateContext<TDocument["parent"]>): Promise<TDocument[]>;
+    static createDocuments<TDocument extends foundry.abstract.Document>(this: ConstructorOf<TDocument>, data?: (TDocument | PreCreate<TDocument["_source"]>)[], operation?: Partial<DatabaseCreateOperation<TDocument["parent"]>>): Promise<TDocument[]>;
+    static updateDocuments<TDocument extends foundry.abstract.Document>(this: ConstructorOf<TDocument>, updates?: Record<string, unknown>[], operation?: Partial<DatabaseUpdateOperation<TDocument["parent"]>>): Promise<TDocument[]>;
     /** Set module art if available */
     protected _initializeSource(source: Record<string, unknown>, options?: DocumentConstructionContext<TParent>): this["_source"];
     protected _initialize(options?: Record<string, unknown>): void;
@@ -170,11 +186,6 @@ declare class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocument
     prepareDerivedData(): void;
     /** Set defaults for this actor's prototype token */
     private preparePrototypeToken;
-    protected getRollContext<TStatistic extends StatisticCheck | StrikeData | null, TItem extends ItemPF2e<ActorPF2e> | null>(params: RollContextParams<TStatistic, TItem>): Promise<RollContext<this, TStatistic, TItem>>;
-    /** Calculate attack roll targeting data, including the target's DC. */
-    getCheckContext<TStatistic extends StatisticCheck | StrikeData, TItem extends ItemPF2e<ActorPF2e> | null>(params: CheckContextParams<TStatistic, TItem>): Promise<CheckContext<this, TStatistic, TItem>>;
-    /** Acquire additional data for a damage roll. */
-    getDamageRollContext<TStatistic extends StatisticCheck | StrikeData | null, TItem extends ItemPF2e<ActorPF2e> | null>(params: DamageRollContextParams<TStatistic, TItem>): Promise<RollContext<this, TStatistic, TItem>>;
     /** Toggle the provided roll option (swapping it from true to false or vice versa). */
     toggleRollOption(domain: string, option: string, value?: boolean): Promise<boolean | null>;
     toggleRollOption(domain: string, option: string, itemId?: string | null, value?: boolean, suboption?: string | null): Promise<boolean | null>;
@@ -196,7 +207,7 @@ declare class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocument
      * @param token The applicable token for this actor
      * @param shieldBlockRequest Whether the user has toggled the Shield Block button
      */
-    applyDamage({ damage, token, item, rollOptions, skipIWR, shieldBlockRequest, breakdown, notes, }: ApplyDamageParams): Promise<this>;
+    applyDamage({ damage, token, item, rollOptions, skipIWR, shieldBlockRequest, breakdown, notes, outcome, final, }: ApplyDamageParams): Promise<this>;
     /** Revert applied actor damage based on the AppliedDamageFlag stored in a damage chat message */
     undoDamage(appliedDamage: AppliedDamageFlag): Promise<void>;
     /** Can a user loot this actor? Same as update modification permission but overridable by subclasses */
@@ -209,7 +220,7 @@ declare class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocument
      * @param containerId Id of the container that will contain the item.
      * @return The target item, if the transfer is successful, or otherwise `null`.
      */
-    transferItemToActor(targetActor: ActorPF2e, item: ItemPF2e<ActorPF2e>, quantity: number, containerId?: string, newStack?: boolean): Promise<PhysicalItemPF2e<ActorPF2e> | null>;
+    transferItemToActor(targetActor: ActorPF2e, item: ItemPF2e<ActorPF2e>, quantity: number, containerId?: string, newStack?: boolean, isPurchase?: boolean | null): Promise<PhysicalItemPF2e<ActorPF2e> | null>;
     addToInventory(itemSource: PhysicalItemSource, container?: ContainerPF2e<this>, newStack?: boolean): Promise<PhysicalItemPF2e<this> | null>;
     /** Move an item into the inventory into or out of a container */
     stowOrUnstow(item: PhysicalItemPF2e<this>, container?: ContainerPF2e<this>): Promise<void>;
@@ -248,17 +259,23 @@ declare class ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocument
         value?: number | null;
     }): Promise<ConditionPF2e<this> | null>;
     /** Toggle a condition as present or absent. If a valued condition is toggled on, it will be set to a value of 1. */
-    toggleCondition(conditionSlug: ConditionSlug): Promise<void>;
+    toggleCondition(conditionSlug: ConditionSlug, options?: {
+        active?: boolean;
+    }): Promise<boolean | void>;
+    /** Redirect to `toggleCondition` if possible. */
+    toggleStatusEffect(statusId: string, options?: {
+        active?: boolean;
+        overlay?: boolean;
+    }): Promise<boolean | void | ActiveEffect<this>>;
     /** Assess and pre-process this JSON data, ensuring it's importable and fully migrated */
     importFromJSON(json: string): Promise<this>;
     protected _applyDefaultTokenSettings(data: this["_source"], options?: {
         fromCompendium?: boolean;
     }): DeepPartial<this["_source"]>;
-    protected _preUpdate(changed: DeepPartial<this["_source"]>, options: ActorUpdateContext<TParent>, user: UserPF2e): Promise<boolean | void>;
-    protected _onUpdate(changed: DeepPartial<this["_source"]>, options: ActorUpdateContext<TParent>, userId: string): void;
+    protected _preUpdate(changed: DeepPartial<ActorSourcePF2e>, operation: ActorUpdateOperation<TParent>, user: UserPF2e): Promise<boolean | void>;
+    protected _onUpdate(changed: DeepPartial<this["_source"]>, operation: ActorUpdateOperation<TParent>, userId: string): void;
     /** Unregister all effects possessed by this actor */
-    protected _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
-    protected _onEmbeddedDocumentChange(): void;
+    protected _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void;
 }
 interface ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e | null> extends Actor<TParent> {
     flags: ActorFlagsPF2e;
@@ -268,18 +285,18 @@ interface ActorPF2e<TParent extends TokenDocumentPF2e | null = TokenDocumentPF2e
     system: ActorSystemData;
     prototypeToken: PrototypeTokenPF2e<this>;
     get sheet(): ActorSheetPF2e<ActorPF2e>;
-    update(data: Record<string, unknown>, options?: ActorUpdateContext<TParent>): Promise<this | undefined>;
+    update(data: Record<string, unknown>, operation?: Partial<ActorUpdateOperation<TParent>>): Promise<this | undefined>;
     getActiveTokens(linked: boolean | undefined, document: true): TokenDocumentPF2e<ScenePF2e>[];
     getActiveTokens(linked?: boolean | undefined, document?: false): TokenPF2e<TokenDocumentPF2e<ScenePF2e>>[];
     getActiveTokens(linked?: boolean, document?: boolean): TokenDocumentPF2e<ScenePF2e>[] | TokenPF2e<TokenDocumentPF2e<ScenePF2e>>[];
     /** See implementation in class */
-    createEmbeddedDocuments(embeddedName: "ActiveEffect", data: PreCreate<foundry.documents.ActiveEffectSource>[], context?: DocumentModificationContext<this>): Promise<ActiveEffectPF2e<this>[]>;
-    createEmbeddedDocuments(embeddedName: "Item", data: PreCreate<ItemSourcePF2e>[], context?: DocumentModificationContext<this>): Promise<ItemPF2e<this>[]>;
-    createEmbeddedDocuments(embeddedName: "ActiveEffect" | "Item", data: PreCreate<foundry.documents.ActiveEffectSource>[] | PreCreate<ItemSourcePF2e>[], context?: DocumentModificationContext<this>): Promise<ActiveEffectPF2e<this>[] | ItemPF2e<this>[]>;
+    createEmbeddedDocuments(embeddedName: "ActiveEffect", data: PreCreate<foundry.documents.ActiveEffectSource>[], operation?: Partial<DatabaseCreateOperation<this>>): Promise<ActiveEffectPF2e<this>[]>;
+    createEmbeddedDocuments(embeddedName: "Item", data: PreCreate<ItemSourcePF2e>[], operation?: Partial<DatabaseCreateOperation<this>>): Promise<ItemPF2e<this>[]>;
+    createEmbeddedDocuments(embeddedName: "ActiveEffect" | "Item", data: PreCreate<foundry.documents.ActiveEffectSource>[] | PreCreate<ItemSourcePF2e>[], operation?: Partial<DatabaseCreateOperation<this>>): Promise<ActiveEffectPF2e<this>[] | ItemPF2e<this>[]>;
     /** See implementation in class */
-    updateEmbeddedDocuments(embeddedName: "ActiveEffect", updateData: EmbeddedDocumentUpdateData[], options?: DocumentUpdateContext<this>): Promise<ActiveEffectPF2e<this>[]>;
-    updateEmbeddedDocuments(embeddedName: "Item", updateData: EmbeddedDocumentUpdateData[], options?: EmbeddedItemUpdateContext<this>): Promise<ItemPF2e<this>[]>;
-    updateEmbeddedDocuments(embeddedName: "ActiveEffect" | "Item", updateData: EmbeddedDocumentUpdateData[], options?: DocumentUpdateContext<this>): Promise<ActiveEffectPF2e<this>[] | ItemPF2e<this>[]>;
+    updateEmbeddedDocuments(embeddedName: "ActiveEffect", updateData: EmbeddedDocumentUpdateData[], operation?: Partial<DatabaseUpdateOperation<this>>): Promise<ActiveEffectPF2e<this>[]>;
+    updateEmbeddedDocuments(embeddedName: "Item", updateData: EmbeddedDocumentUpdateData[], operation?: Partial<EmbeddedItemUpdateOperation<this>>): Promise<ItemPF2e<this>[]>;
+    updateEmbeddedDocuments(embeddedName: "ActiveEffect" | "Item", updateData: EmbeddedDocumentUpdateData[], operation?: Partial<DatabaseUpdateOperation<this>>): Promise<ActiveEffectPF2e<this>[] | ItemPF2e<this>[]>;
     /** Added as debounced method */
     checkAreaEffects(): void;
 }
@@ -290,15 +307,15 @@ interface HitPointsSummary {
     unrecoverable: number;
     negativeHealing: boolean;
 }
-interface ActorUpdateContext<TParent extends TokenDocumentPF2e | null> extends DocumentUpdateContext<TParent> {
+interface ActorUpdateOperation<TParent extends TokenDocumentPF2e | null> extends DatabaseUpdateOperation<TParent> {
     damageTaken?: number;
     finePowder?: boolean;
     damageUndo?: boolean;
 }
-interface EmbeddedItemUpdateContext<TParent extends ActorPF2e> extends DocumentUpdateContext<TParent> {
+interface EmbeddedItemUpdateOperation<TParent extends ActorPF2e> extends DatabaseUpdateOperation<TParent> {
     checkHP?: boolean;
 }
 /** A `Proxy` to to get Foundry to construct `ActorPF2e` subclasses */
 declare const ActorProxyPF2e: typeof ActorPF2e;
 export { ActorPF2e, ActorProxyPF2e };
-export type { ActorUpdateContext, HitPointsSummary };
+export type { ActorUpdateOperation, HitPointsSummary };
