@@ -62,9 +62,9 @@ export class Window {
 			// @ts-expect-error
 			this.app.tabName ||
 			// @ts-expect-error
-			this.app?.object?.data?.type ||
+			this.app?.object?.type ||
 			// @ts-expect-error
-			this.app?.object?.data?.entity ||
+			this.app?.object?.entity ||
 			// @ts-expect-error
 			(this.app.metadata ? "compendium" : "") ||
 			"";

@@ -63,7 +63,7 @@ export class MobileUI extends Application {
 		setBodyData("windows-open", false);
 	}
 
-	override render(force?: boolean, options?: RenderOptions): this | Promise<this> {
+	override render(force?: boolean, options?: RenderOptions): this {
 		this.noCanvas = game.settings.get(MODULE_ID, "disable-canvas") as boolean;
 		if (this.state === ViewState.Unloaded) this.state = this.noCanvas ? ViewState.App : ViewState.Map;
 		const r = super.render(force, options);

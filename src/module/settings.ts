@@ -2,9 +2,9 @@ import { ShareTargetSettings, ShareTargetSettingsOptions } from "./types.js";
 import { MODULE_ID, setBodyData, toggleRender } from "./utils.js";
 
 type OverrideSettings = {
-	off: `pf2e-mobile-sheet.settings.toggle.off`;
-	on: `pf2e-mobile-sheet.settings.toggle.on`;
-	auto: `pf2e-mobile-sheet.settings.toggle.auto`;
+	off: `${typeof MODULE_ID}.settings.toggle.off`;
+	on: `${typeof MODULE_ID}.settings.toggle.on`;
+	auto: `${typeof MODULE_ID}.settings.toggle.auto`;
 };
 
 export function registerSettings() {

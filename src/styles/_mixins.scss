@@ -186,11 +186,13 @@ $invalid-selector: selector.parse(".fgarhzjgfklaherlkjghaerlkghalekrjfgliurae");
 
 
 @mixin glass {
-	border: none;
-	border-radius: var(--border-radius);
-	background: none;
-	background-color: var(--glass-bg);
-	box-shadow: var(--glassy);
+	& {
+		border: none;
+		border-radius: var(--border-radius);
+		background: none;
+		background-color: var(--glass-bg);
+		box-shadow: var(--glassy);
+	}
 }
 
 @mixin quick-transition {
@@ -279,15 +281,17 @@ $invalid-selector: selector.parse(".fgarhzjgfklaherlkjghaerlkghalekrjfgliurae");
 @mixin dui-button-bright {
 	@include dui-button;
 
-	transition: background 0.1s ease-in-out;
+	& {
+		transition: background 0.1s ease-in-out;
 
-	--button-background: var(--accent-color);
-	--button-border-color: var(--accent-color-dark);
-	--button-text-color: var(--accent-text-color);
-	--app-text-shadow: none;
-	--button-hover-background: var(--accent-color-light);
-	--button-hover-border-color: var(--accent-color);
-	--button-hover-text-color: var(--accent-text-color);
+		--button-background: var(--accent-color);
+		--button-border-color: var(--accent-color-dark);
+		--button-text-color: var(--accent-text-color);
+		--app-text-shadow: none;
+		--button-hover-background: var(--accent-color-light);
+		--button-hover-border-color: var(--accent-color);
+		--button-hover-text-color: var(--accent-text-color);
+	}
 
 	&:disabled {
 		--button-background: color-mix(in srgb, var(--button-background) 50%, transparent 50%);
@@ -299,13 +303,15 @@ $invalid-selector: selector.parse(".fgarhzjgfklaherlkjghaerlkghalekrjfgliurae");
 @mixin dui-button-toggle {
 	@include dui-button;
 
-	transition: background 0.1s ease-in-out;
+	& {
+		transition: background 0.1s ease-in-out;
 
-	--button-background: var(--button-toggle-background);
-	--button-border-color: var(--button-toggle-border-color);
-	--button-focus-outline-color: var(--button-toggle-focus-outline-color);
-	--button-hover-background: var(--button-toggle-hover-background);
-	--button-hover-border-color: var(--button-toggle-hover-border-color);
+		--button-background: var(--button-toggle-background);
+		--button-border-color: var(--button-toggle-border-color);
+		--button-focus-outline-color: var(--button-toggle-focus-outline-color);
+		--button-hover-background: var(--button-toggle-hover-background);
+		--button-hover-border-color: var(--button-toggle-hover-border-color);
+	}
 
 	&:disabled {
 		--button-background: color-mix(in srgb, var(--button-background) 50%, transparent 50%);

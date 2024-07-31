@@ -15,8 +15,8 @@
 	"readme": "https://github.com/OmegaRogue/pf2e-mobile-sheet",
 	"version": "This is auto replaced",
 	"compatibility": {
-		"minimum": "11",
-		"verified": "11"
+		"minimum": "12",
+		"verified": "12"
 	},
 	"scripts": [],
 	"esmodules": ["vendor.mjs", "pf2e-mobile-sheet.mjs"],

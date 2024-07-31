@@ -11,16 +11,16 @@ declare class Sidebar extends Application {
      */
     get popouts(): Application[];
 
-	/**
-	 * Return the name of the active Sidebar tab
-	 */
-	get activeTab(): string;
+    /**
+     * Return the name of the active Sidebar tab
+     */
+    get activeTab(): string;
 
-	/**
-	 * Activate a Sidebar tab by it's name
-	 * @param tabName   The tab name corresponding to it's "data-tab" attribute
-	 */
-	activateTab(tabName: string): void;
+    /**
+     * Activate a Sidebar tab by it's name
+     * @param tabName   The tab name corresponding to it's "data-tab" attribute
+     */
+    activateTab(tabName: string): void;
 
     /**
      * Expand the Sidebar container from a collapsed state.

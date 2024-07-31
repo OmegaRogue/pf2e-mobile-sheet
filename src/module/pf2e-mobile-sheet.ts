@@ -7,10 +7,10 @@ import "./combatTracker.ts";
 import "styles/pf2e-mobile-sheet.scss";
 import "./resizeObservers.ts";
 import { MobileUI, ViewState } from "./apps/MobileUI.ts";
-import { EventSystem } from "@pixi/events";
-import { PixiTouch } from "pixi.js";
+// import { EventSystem } from "@pixi/events";
+// import { PixiTouch } from "pixi.js";
 
-import { TouchInput } from "./apps/touchInput.js";
+// import { TouchInput } from "./apps/touchInput.js";
 import { MobileMode } from "./mobileMode.js";
 
 export { ResponsiveObserver } from "./resizeObservers.js";
@@ -186,58 +186,58 @@ Hooks.once("ready", async () => {
 	// 	});
 	// }
 
-	libWrapper.register<Canvas, typeof Canvas.prototype._onDragSelect>(
-		MODULE_ID,
-		"Canvas.prototype._onDragSelect",
-		function (wrapped, event) {
-			if (!ui.controls?.control?.tools.find((a) => a.name === "touch-pan")?.active) return wrapped(event);
-			// @ts-expect-error
-			// Extract event data
-			const cursorTime = event.interactionData.cursorTime;
-			// @ts-expect-error
-			const { origin, destination } = event.interactionData;
-			const dx = destination.x - origin.x;
-			const dy = destination.y - origin.y;
+	// libWrapper.register<Canvas, typeof Canvas.prototype._onDragSelect>(
+	// 	MODULE_ID,
+	// 	"Canvas.prototype._onDragSelect",
+	// 	function (wrapped, event) {
+	// 		if (!ui.controls?.control?.tools.find((a) => a.name === "touch-pan")?.active) return wrapped(event);
+	// 		// @ts-expect-error
+	// 		// Extract event data
+	// 		const cursorTime = event.interactionData.cursorTime;
+	// 		// @ts-expect-error
+	// 		const { origin, destination } = event.interactionData;
+	// 		const dx = destination.x - origin.x;
+	// 		const dy = destination.y - origin.y;
+	//
+	// 		// Update the client's cursor position every 100ms
+	// 		const now = Date.now();
+	// 		if (now - (cursorTime || 0) > 100) {
+	// 			// @ts-expect-error
+	// 			if (this.controls) this.controls._onMouseMove(event, destination);
+	// 			// @ts-expect-error
+	// 			event.interactionData.cursorTime = now;
+	// 		}
+	//
+	// 		// Pan the canvas
+	// 		this.pan({
+	// 			x: canvas.stage.pivot.x - dx * CONFIG.Canvas.dragSpeedModifier,
+	// 			y: canvas.stage.pivot.y - dy * CONFIG.Canvas.dragSpeedModifier,
+	// 		});
+	//
+	// 		// Reset Token tab cycling
+	// 		// @ts-expect-error
+	// 		this.tokens._tabIndex = null;
+	// 	},
+	// 	libWrapper.MIXED,
+	// );
+	// // @ts-ignore
+	// const PixiNormalizePointer = `PIXI.extensions._queue["renderer-canvas-system"].["${PIXI.extensions._queue["renderer-canvas-system"].findIndex((b) => b.name === "events")}"].ref.prototype.normalizeToPointerData`;
 
-			// Update the client's cursor position every 100ms
-			const now = Date.now();
-			if (now - (cursorTime || 0) > 100) {
-				// @ts-expect-error
-				if (this.controls) this.controls._onMouseMove(event, destination);
-				// @ts-expect-error
-				event.interactionData.cursorTime = now;
-			}
-
-			// Pan the canvas
-			this.pan({
-				x: canvas.stage.pivot.x - dx * CONFIG.Canvas.dragSpeedModifier,
-				y: canvas.stage.pivot.y - dy * CONFIG.Canvas.dragSpeedModifier,
-			});
-
-			// Reset Token tab cycling
-			// @ts-expect-error
-			this.tokens._tabIndex = null;
-		},
-		libWrapper.MIXED,
-	);
-	// @ts-ignore
-	const PixiNormalizePointer = `PIXI.extensions._queue["renderer-canvas-system"].["${PIXI.extensions._queue["renderer-canvas-system"].findIndex((b) => b.name === "events")}"].ref.prototype.normalizeToPointerData`;
-
-	libWrapper.register<EventSystem, (event: TouchEvent | MouseEvent | PointerEvent) => PointerEvent[]>(
-		MODULE_ID,
-		PixiNormalizePointer,
-		function (wrapped, event) {
-			if (typeof TouchEvent !== "undefined" && event instanceof TouchEvent) {
-				const normalizedEvents: (PixiTouch & PointerEvent)[] = wrapped(event) as (PixiTouch & PointerEvent)[];
-				const normalizedEvent = normalizedEvents[0];
-				normalizedEvent.touches = event.touches;
-				normalizedEvent.targetTouches = event.targetTouches;
-				normalizedEvent.changedTouches = event.changedTouches;
-				return [normalizedEvent];
-			}
-			return wrapped(event);
-		},
-	);
+	// libWrapper.register<EventSystem, (event: TouchEvent | MouseEvent | PointerEvent) => PointerEvent[]>(
+	// 	MODULE_ID,
+	// 	PixiNormalizePointer,
+	// 	function (wrapped, event) {
+	// 		if (typeof TouchEvent !== "undefined" && event instanceof TouchEvent) {
+	// 			const normalizedEvents: (PixiTouch & PointerEvent)[] = wrapped(event) as (PixiTouch & PointerEvent)[];
+	// 			const normalizedEvent = normalizedEvents[0];
+	// 			normalizedEvent.touches = event.touches;
+	// 			normalizedEvent.targetTouches = event.targetTouches;
+	// 			normalizedEvent.changedTouches = event.changedTouches;
+	// 			return [normalizedEvent];
+	// 		}
+	// 		return wrapped(event);
+	// 	},
+	// );
 
 	libWrapper.register<typeof console, typeof console.debug>(
 		MODULE_ID,
@@ -367,12 +367,12 @@ Hooks.on("queuedNotification", (notif: (typeof Notifications.prototype.queue)[0]
 	return true;
 });
 
-const touchInput = new TouchInput();
+// const touchInput = new TouchInput();
 // Hooks.on("canvasReady", () => touchInput.hook());
 
 globalThis.MobileMode = MobileMode;
 // @ts-ignore
-globalThis.touchInput = touchInput;
+// globalThis.touchInput = touchInput;
 
 function rerenderApps(_path: string): void {
 	const apps = [
@@ -408,7 +408,7 @@ if (import.meta.hot) {
 
 	import.meta.hot.on("template-update", async ({ path }: { path: string }): Promise<void> => {
 		const apply = async (): Promise<void> => {
-			delete _templateCache[path];
+			delete Handlebars.partials[path];
 			await getTemplate(path);
 			rerenderApps(path);
 		};

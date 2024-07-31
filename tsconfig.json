@@ -60,5 +60,6 @@
 	},
 	"watchOptions": {
 		"excludeDirectories": ["packs/data/", "static/packs/"]
-	}
+	},
+	"exclude": ["types/types/foundry/**/*"]
 }

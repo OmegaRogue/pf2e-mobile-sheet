@@ -3,8 +3,6 @@ export {};
 declare global {
     /** A CanvasLayer responsible for drawing a square grid */
     class GridLayer extends CanvasLayer {
-        grid: BaseGrid;
-
         highlight: PIXI.Container;
 
         highlightLayers: Record<string, PIXI.Graphics>;
@@ -22,9 +20,6 @@ declare global {
 
         /** Get grid unit height */
         get h(): number;
-
-        /** A boolean flag for whether the current grid is hexagonal */
-        get isHex(): boolean;
 
         /**
          * Draw the grid
@@ -45,31 +40,6 @@ declare global {
          * @return An Array [x, y] of the top-left coordinate of the square which contains (x, y)
          */
         getTopLeft(x: number, y: number): PointArray;
-
-        /**
-         * Given a pair of coordinates (x, y), return the center of the grid square which contains that point
-         * @return An Array [x, y] of the central point of the square which contains (x, y)
-         */
-        getCenter(x: number, y: number): PointArray;
-
-        /**
-         * Measure the grid-wise distance between two point coordinates.
-         * @param origin The origin point
-         * @param target The target point
-         * @param [options] Additional options which modify the measurement
-         * @return The measured distance between these points
-         *
-         * @example
-         * let distance = canvas.grid.measureDistance({x: 1000, y: 1000}, {x: 2000, y: 2000});
-         */
-        measureDistance(origin: Point, target: Point, options?: MeasureDistancesOptions): number;
-
-        /**
-         * Measure the distance traveled over an array of distance segments.
-         * @param segments  An array of measured segments
-         * @param [options] Additional options which modify the measurement
-         */
-        measureDistances(segments: Segment[], options?: MeasureDistancesOptions): number[];
 
         /* -------------------------------------------- */
         /*  Grid Highlighting Methods                   */
@@ -102,10 +72,26 @@ declare global {
 
         /**
          * Add highlighting for a specific grid position to a named highlight graphic
-         * @param name    The name for the referenced highlight layer
+         * @param name      The name for the referenced highlight layer
          * @param options Options for the grid position that should be highlighted
+         * @param options.x                The x-coordinate of the highlighted position
+         * @param options.y                The y-coordinate of the highlighted position
+         * @param [options.color=0x33BBFF] The fill color of the highlight
+         * @param [options.border=null]    The border color of the highlight
+         * @param [options.alpha=0.25]     The opacity of the highlight
+         * @param [options.shape=null]     A predefined shape to highlight
          */
-        highlightPosition(name: string, options: Record<string, unknown>): void;
+        highlightPosition(
+            name: string,
+            options: {
+                x: number;
+                y: number;
+                color?: Maybe<number | Color>;
+                border?: PIXI.ColorSource | null;
+                alpha?: number;
+                shape?: PIXI.Polygon | null;
+            },
+        ): void;
 
         /**
          * Test if a specific row and column position is a neighboring location to another row and column coordinate
