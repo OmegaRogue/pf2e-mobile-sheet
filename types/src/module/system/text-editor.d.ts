@@ -1,4 +1,4 @@
-import { ActorPF2e } from "@actor";
+import type { ActorPF2e } from "@actor";
 import { ItemPF2e } from "@item";
 import { UserVisibility } from "@scripts/ui/user-visibility.ts";
 /** Censor enriched HTML according to metagame knowledge settings */
@@ -11,12 +11,6 @@ declare class TextEditorPF2e extends TextEditor {
         async: false;
     }): string;
     static enrichHTML(content: string | null, options: EnrichmentOptionsPF2e): string | Promise<string>;
-    /**
-     * Upstream retrieves documents from UUID links sequentially, which has a noticable load time with text containing
-     * many links: retrieve every linked document at once beforehand with the faster `UUIDUtils.fromUUIDs` system helper
-     * so that subsequent calls to `fromUuid` finds all documents in caches.
-     */
-    static _enrichContentLinks(text: Text[], options?: EnrichmentOptions): boolean | Promise<boolean>;
     /** Replace core static method to conditionally handle parsing of inline damage rolls */
     static _createInlineRoll(match: RegExpMatchArray, rollData: Record<string, unknown>, options?: EvaluateRollParams): Promise<HTMLAnchorElement | null>;
     /** Replace core static method to conditionally handle inline damage roll clicks */
@@ -54,7 +48,7 @@ interface ConvertXMLNodeOptions {
      * Whether this piece of data belongs to the "self" actor or the target: used by UserVisibilityPF2e to
      * determine which actor's ownership to check
      */
-    whose?: "self" | "target" | null;
+    whose?: "self" | "opposer" | null;
     /** Any additional classes to add to the span element */
     classes?: string[];
     /** An optional tooltip to apply to the converted node */

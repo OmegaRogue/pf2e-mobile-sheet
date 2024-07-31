@@ -1,12 +1,20 @@
 import type { ActorType, CharacterPF2e, NPCPF2e } from "@actor";
-import { AttributeString } from "@actor/types.ts";
 import type { NPCAttackTrait } from "@item/melee/types.ts";
-import { BaseWeaponType, OtherWeaponTag, WeaponCategory, WeaponGroup } from "@item/weapon/types.ts";
-import { DamageDieSize, DamageType } from "@system/damage/index.ts";
+import { BaseShieldType } from "@item/shield/types.ts";
+import type { BaseWeaponType, OtherWeaponTag, WeaponCategory, WeaponGroup } from "@item/weapon/types.ts";
+import type { DamageDieSize, DamageType } from "@system/damage/index.ts";
 import { StrictBooleanField } from "@system/schema-data-fields.ts";
-import type { ArrayField, BooleanField, FilePathField, NumberField, SchemaField, StringField } from "types/foundry/common/data/fields.d.ts";
+import type {
+    ArrayField,
+    BooleanField,
+    FilePathField,
+    NumberField,
+    SchemaField,
+    StringField,
+} from "types/foundry/common/data/fields.d.ts";
 import { RuleElementOptions, RuleElementPF2e } from "./base.ts";
 import { ModelPropsFromRESchema, ResolvableValueField, RuleElementSchema, RuleElementSource } from "./data.ts";
+
 /**
  * Create an ephemeral strike on an actor
  * @category RuleElement
@@ -17,23 +25,12 @@ declare class StrikeRuleElement extends RuleElementPF2e<StrikeSchema> {
     graspingAppendage: boolean;
     constructor(source: StrikeSource, options: RuleElementOptions);
     static defineSchema(): StrikeSchema;
-    /** Allow shorthand `fist` StrikeRuleElement data to pass `DataModel` validation */
-    validate(options?: {
-        changes?: Record<string, unknown>;
-        clean?: boolean;
-        fallback?: boolean;
-        strict?: boolean;
-        fields?: boolean;
-        joint?: boolean;
-    }): boolean;
-    /** Keep shorthand `fist` source data to its minimum form */
-    protected _initializeSource(source: object, options: RuleElementOptions): this["_source"];
     protected _initialize(options?: Record<string, unknown>): void;
     beforePrepareData(): void;
     /** Exclude other strikes if this rule element specifies that its strike replaces all others */
     afterPrepareData(): void;
     /** Toggle the modular or versatile trait of this strike's weapon */
-    toggleTrait({ trait, selection }: UpdateToggleParams): Promise<void>;
+    toggleTrait({ trait, selected }: UpdateToggleParams): Promise<void>;
 }
 interface StrikeRuleElement extends RuleElementPF2e<StrikeSchema>, ModelPropsFromRESchema<StrikeSchema> {
     slug: string;
@@ -41,13 +38,14 @@ interface StrikeRuleElement extends RuleElementPF2e<StrikeSchema>, ModelPropsFro
     options: string[];
     get actor(): CharacterPF2e | NPCPF2e;
 }
+type NonShieldWeaponType = Exclude<BaseWeaponType, BaseShieldType>;
 type StrikeSchema = RuleElementSchema & {
     /** A weapon category */
     category: StringField<WeaponCategory, WeaponCategory, true, false, true>;
     /** A weapon group */
     group: StringField<WeaponGroup, WeaponGroup, true, true, true>;
     /** A weapon base type */
-    baseType: StringField<BaseWeaponType, BaseWeaponType, true, true, true>;
+    baseType: StringField<NonShieldWeaponType, NonShieldWeaponType, true, true, true>;
     /** Permit NPC attack traits to sneak in for battle forms */
     traits: ArrayField<StringField<NPCAttackTrait, NPCAttackTrait, true, false, false>>;
     traitToggles: SchemaField<{
@@ -75,7 +73,7 @@ type StrikeSchema = RuleElementSchema & {
     }, {
         increment: number | null;
         max: number | null;
-    } | null, false, true, true>;
+    }, false, true, true>;
     damage: SchemaField<{
         base: SchemaField<{
             damageType: StringField<string, string, true, false, true>;
@@ -84,7 +82,7 @@ type StrikeSchema = RuleElementSchema & {
             modifier: NumberField<number, number, false, false, true>;
         }>;
     }>;
-    ability: StringField<AttributeString, AttributeString, false, true, true>;
+    ability: StringField<string, string, false, true, true>;
     /** A representative icon for the strike */
     img: FilePathField<ImageFilePath, ImageFilePath, true, false, true>;
     /** Whether to replace all other strike actions */
@@ -95,7 +93,7 @@ type StrikeSchema = RuleElementSchema & {
     battleForm: BooleanField<boolean, boolean, false, false, true>;
     options: ArrayField<StringField<string, string, true, false, false>, string[], string[], false, false, false>;
     /** Whether this was a request for a standard fist attack */
-    fist: BooleanField<boolean, boolean, false, false, false>;
+    fist: BooleanField<boolean, boolean, false, false, true>;
     /** Whether the unarmed attack is a grasping appendage */
     graspingAppendage: StrictBooleanField<false, false, false>;
 };
@@ -117,6 +115,6 @@ interface StrikeSource extends RuleElementSource {
 }
 interface UpdateToggleParams {
     trait: "modular" | "versatile";
-    selection: DamageType | null;
+    selected: DamageType | null;
 }
 export { StrikeRuleElement };

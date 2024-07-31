@@ -3,10 +3,11 @@ import { ItemType, SpellSource } from "@item/base/data/index.ts";
 import { MagicTradition } from "@item/spell/types.ts";
 import { ZeroToTwo } from "@module/data.ts";
 import { RollNoteSource } from "@module/notes.ts";
-import { CheckRollContext } from "@system/check/index.ts";
-import { DamageRollContext } from "@system/damage/types.ts";
+import { CheckCheckContext } from "@system/check/index.ts";
+import { DamageDamageContext } from "@system/damage/types.ts";
 import { DegreeAdjustmentsRecord, DegreeOfSuccessString } from "@system/degree-of-success.ts";
 import type { ChatMessageFlags } from "types/foundry/common/documents/chat-message.d.ts";
+
 type ChatMessageSourcePF2e = foundry.documents.ChatMessageSource & {
     flags: ChatMessageFlagsPF2e;
 };
@@ -36,11 +37,14 @@ type ChatMessageFlagsPF2e = ChatMessageFlags & {
         preformatted?: "flavor" | "content" | "both";
         journalEntry?: DocumentUUID;
         appliedDamage?: AppliedDamageFlag | null;
+        treatWoundsMacroFlag?: {
+            bonus: number;
+        };
         [key: string]: unknown;
     };
     core: NonNullable<ChatMessageFlags["core"]>;
 };
-type ChatContextFlag = CheckRollContextFlag | DamageRollContextFlag | SpellCastContextFlag | SelfEffectContextFlag;
+type ChatContextFlag = CheckContextChatFlag | DamageDamageContextFlag | SpellCastContextFlag | SelfEffectContextFlag | DamageTakenContextFlag;
 interface DamageRollFlag {
     outcome: DegreeOfSuccessString;
     total: number;
@@ -53,27 +57,29 @@ interface DieResult {
     faces: number;
     result: number;
 }
-interface TargetFlag {
+interface ActorTokenFlag {
     actor: ActorUUID | TokenDocumentUUID;
     token?: TokenDocumentUUID;
 }
-type ContextFlagOmission = "actor" | "action" | "altUsage" | "createMessage" | "damaging" | "dosAdjustments" | "item" | "mapIncreases" | "notes" | "options" | "range" | "target" | "token";
-interface CheckRollContextFlag extends Required<Omit<CheckRollContext, ContextFlagOmission>> {
+type ContextFlagOmission = "actor" | "action" | "altUsage" | "createMessage" | "damaging" | "dosAdjustments" | "item" | "mapIncreases" | "notes" | "options" | "origin" | "range" | "target" | "token";
+interface CheckContextChatFlag extends Required<Omit<CheckCheckContext, ContextFlagOmission>> {
     actor: string | null;
     token: string | null;
     item?: string;
     dosAdjustments?: DegreeAdjustmentsRecord;
-    target: TargetFlag | null;
+    roller?: "origin" | "target";
+    origin: ActorTokenFlag | null;
+    target: ActorTokenFlag | null;
     altUsage?: "thrown" | "melee" | null;
     notes: RollNoteSource[];
     options: string[];
 }
-interface DamageRollContextFlag extends Required<Omit<DamageRollContext, ContextFlagOmission | "self">> {
+interface DamageDamageContextFlag extends Required<Omit<DamageDamageContext, ContextFlagOmission | "self">> {
     actor: string | null;
     token: string | null;
     item?: string;
     mapIncreases?: ZeroToTwo;
-    target: TargetFlag | null;
+    target: ActorTokenFlag | null;
     notes: RollNoteSource[];
     options: string[];
 }
@@ -92,6 +98,12 @@ interface SelfEffectContextFlag {
     options?: never;
     outcome?: never;
 }
+interface DamageTakenContextFlag {
+    type: "damage-taken";
+    domains?: never;
+    options?: string[];
+    outcome?: never;
+}
 interface AppliedDamageFlag {
     uuid: ActorUUID;
     isHealing: boolean;
@@ -106,4 +118,4 @@ interface AppliedDamageFlag {
         value: number;
     }[];
 }
-export type { AppliedDamageFlag, ChatContextFlag, ChatMessageFlagsPF2e, ChatMessageSourcePF2e, CheckRollContextFlag, DamageRollContextFlag, DamageRollFlag, TargetFlag, };
+export type { ActorTokenFlag, AppliedDamageFlag, ChatContextFlag, ChatMessageFlagsPF2e, ChatMessageSourcePF2e, CheckContextChatFlag, DamageDamageContextFlag, DamageRollFlag, };

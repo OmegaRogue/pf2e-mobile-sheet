@@ -23,6 +23,8 @@ interface SpellcastingCreateAndEditDialogSheetData extends FormApplicationData<S
     attributes: typeof CONFIG.PF2E.abilities;
     isAttributeConfigurable: boolean;
     selectedAttribute: AttributeString;
+    autoHeightenLevels: Record<string, string>;
+    validItemTypes: Record<string, string>;
 }
 declare function createSpellcastingDialog(object: CreaturePF2e | SpellcastingEntryPF2e<CreaturePF2e>): Promise<SpellcastingCreateAndEditDialog>;
 export { createSpellcastingDialog };

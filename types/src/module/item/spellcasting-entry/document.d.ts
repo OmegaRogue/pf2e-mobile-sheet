@@ -13,8 +13,7 @@ declare class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e
     /** Spellcasting attack and dc data created during actor preparation */
     statistic: Statistic;
     get attribute(): AttributeString;
-    /** @deprecated */
-    get ability(): AttributeString;
+    get counteraction(): Statistic;
     /** This entry's magic tradition, null if the spell's tradition should be used instead */
     get tradition(): MagicTradition | null;
     get category(): SpellcastingCategory;
@@ -46,7 +45,7 @@ declare class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e
     }): boolean;
     /** Cast the given spell as if it was part of this spellcasting entry. */
     cast(spell: SpellPF2e<ActorPF2e>, options?: CastOptions): Promise<void>;
-    consume(spell: SpellPF2e<ActorPF2e>, rank: number, slotId?: number): Promise<boolean>;
+    consume(spell: SpellPF2e<ActorPF2e>, rank: number, slotIndex?: number): Promise<boolean>;
     /**
      * Adds a spell to this spellcasting entry, either moving it from another one if its the same actor,
      * or creating a new spell if its not.
@@ -65,7 +64,7 @@ declare class SpellcastingEntryPF2e<TParent extends ActorPF2e | null = ActorPF2e
         prepList?: boolean | undefined;
     }): Promise<SpellcastingSheetData>;
     getRollOptions(prefix?: string): string[];
-    protected _preUpdate(changed: DeepPartial<this["_source"]>, options: DocumentModificationContext<TParent>, user: UserPF2e): Promise<boolean | void>;
+    protected _preUpdate(changed: DeepPartial<this["_source"]>, options: DatabaseUpdateOperation<TParent>, user: UserPF2e): Promise<boolean | void>;
     /**
      * To prevent (or delay) console spam, will send out a deprecation notice in a later release
      * @deprecated

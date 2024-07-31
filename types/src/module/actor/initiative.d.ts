@@ -25,8 +25,6 @@ declare class ActorInitiative {
     });
     get attribute(): AttributeString | null;
     get mod(): number;
-    /** @deprecated */
-    get ability(): AttributeString | null;
     roll(args?: InitiativeRollParams): Promise<InitiativeRollResult | null>;
     getTraceData(): InitiativeTraceData;
 }

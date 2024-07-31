@@ -11,8 +11,6 @@ declare class CoinsPF2e implements Coins {
     get copperValue(): number;
     get goldValue(): number;
     plus(coins: Coins): CoinsPF2e;
-    /** @deprecated */
-    add(coins: Coins): CoinsPF2e;
     /** Multiply by a number and clean up result */
     scale(factor: number): CoinsPF2e;
     /** Increase a price for larger physical-item sizes */

@@ -11,7 +11,7 @@ declare class UserPF2e extends User<ActorPF2e<null>> {
     getActiveTokens(): TokenDocumentPF2e[];
     /** Alternative to calling `#updateTokenTargets()` with no argument or an empty array */
     clearTargets(): void;
-    protected _onUpdate(changed: DeepPartial<this["_source"]>, options: DocumentUpdateContext<null>, userId: string): void;
+    protected _onUpdate(changed: DeepPartial<this["_source"]>, operation: DatabaseUpdateOperation<null>, userId: string): void;
 }
 interface UserPF2e extends User<ActorPF2e<null>> {
     targets: Set<TokenPF2e<TokenDocumentPF2e<ScenePF2e>>>;

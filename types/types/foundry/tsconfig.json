@@ -11,8 +11,9 @@
         "noImplicitOverride": true,
         "noEmit": true,
         "esModuleInterop": true,
-        "allowImportingTsExtensions": true
-    },
+        "allowImportingTsExtensions": true,
+		"skipLibCheck": true
+	},
     "files": [
         "index.d.ts",
         "util.d.ts"

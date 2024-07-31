@@ -22,7 +22,7 @@ async function updateCombatTracker(
 		let dist = 0;
 		const target = scene.tokens.get(combatant.tokenId ?? "");
 		if (!target) return;
-		dist = canvas.grid.measureDistance(origin.center, target.center, { gridSpaces: true });
+		dist = canvas.grid.measurePath([origin.center, target.center]).distance;
 		const combatantDisplay = $(`#combat-tracker li[data-combatant-id=${combatant.id}]`);
 		// let targetIndicator = combatantDisplay.find(".users-targeting");
 

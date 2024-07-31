@@ -2,25 +2,19 @@ import { ActorPF2e } from "@actor";
 import type { PrototypeTokenPF2e } from "@actor/data/base.ts";
 import type { TokenPF2e } from "@module/canvas/index.ts";
 import type { CombatantPF2e, EncounterPF2e } from "@module/encounter/index.ts";
+import { DifficultTerrainGrade, RegionDocumentPF2e } from "@scene";
 import type { ScenePF2e } from "../document.ts";
 import { TokenAura } from "./aura/index.ts";
 import { TokenFlagsPF2e } from "./data.ts";
 import type { TokenConfigPF2e } from "./sheet.ts";
+
 declare class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> extends TokenDocument<TParent> {
+    #private;
     /** Has this document completed `DataModel` initialization? */
     initialized: boolean;
     auras: Map<string, TokenAura>;
     /** Returns if the token is in combat, though some actors have different conditions */
     get inCombat(): boolean;
-    /** Check actor for effects found in `CONFIG.specialStatusEffects` */
-    hasStatusEffect(statusId: string): boolean;
-    /** Filter trackable attributes for relevance and avoidance of circular references */
-    static getTrackedAttributes(data?: Record<string, unknown>, _path?: string[]): TrackedAttributesDescription;
-    static getTrackedAttributeChoices(attributes?: TrackedAttributesDescription): TrackedAttributesDescription;
-    /** Make stamina and resolve editable despite not being present in template.json */
-    getBarAttribute(barName: string, options?: {
-        alternative?: string;
-    }): TokenResourceData | null;
     /** This should be in Foundry core, but ... */
     get scene(): this["parent"];
     /** Is this token emitting light with a negative value */
@@ -41,6 +35,17 @@ declare class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | n
     get mechanicalBounds(): PIXI.Rectangle;
     /** The pixel-coordinate pair constituting this token's center */
     get center(): Point;
+    /** The grade of difficult terrain at this token's position */
+    get difficultTerrain(): DifficultTerrainGrade;
+    /** Check actor for effects found in `CONFIG.specialStatusEffects` */
+    hasStatusEffect(statusId: string): boolean;
+    /** Filter trackable attributes for relevance and avoidance of circular references */
+    static getTrackedAttributes(data?: Record<string, unknown>, _path?: string[]): TrackedAttributesDescription;
+    static getTrackedAttributeChoices(attributes?: TrackedAttributesDescription): TrackedAttributesDescription;
+    /** Make stamina, resolve, and shield HP editable despite not being present in template.json */
+    getBarAttribute(barName: string, options?: {
+        alternative?: string;
+    }): TokenResourceData | null;
     protected _initialize(options?: Record<string, unknown>): void;
     /** If embedded, don't prepare data if the parent's data model hasn't initialized all its properties */
     prepareData(): void;
@@ -48,6 +53,10 @@ declare class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | n
     prepareBaseData(): void;
     /** Set vision and detection modes based on actor data */
     protected _prepareDetectionModes(): void;
+    /** Ensure that actors that don't allow synthetics are linked */
+    protected _preCreate(data: this["_source"], options: DatabaseCreateOperation<TParent>, user: User<Actor<null>>): Promise<boolean | void>;
+    /** Ensure that actors that don't allow synthetics stay linked */
+    protected _preUpdate(data: Record<string, unknown>, options: TokenUpdateOperation<TParent>, user: User<Actor<null>>): Promise<boolean | void>;
     /** Synchronize the token image with the actor image if the token does not currently have an image */
     static assignDefaultImage(token: TokenDocumentPF2e | PrototypeTokenPF2e<ActorPF2e>): void;
     /** Set a TokenData instance's dimensions from actor data. Static so actors can use for their prototypes */
@@ -63,13 +72,14 @@ declare class TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | n
      */
     simulateUpdate(actorUpdates?: Record<string, unknown>): void;
     /** Toggle token hiding if this token's actor is a loot actor */
-    protected _onCreate(data: this["_source"], options: DocumentModificationContext<TParent>, userId: string): void;
-    protected _onUpdate(changed: DeepPartial<this["_source"]>, options: DocumentUpdateContext<TParent>, userId: string): void;
-    protected _onRelatedUpdate(update?: Record<string, unknown>, options?: DocumentModificationContext<null>): void;
-    protected _onDelete(options: DocumentModificationContext<TParent>, userId: string): void;
+    protected _onCreate(data: this["_source"], operation: DatabaseCreateOperation<TParent>, userId: string): void;
+    protected _onUpdate(changed: DeepPartial<this["_source"]>, operation: TokenUpdateOperation<TParent>, userId: string): void;
+    protected _onRelatedUpdate(update: Record<string, unknown> | undefined, operation: DatabaseUpdateOperation<null>): void;
+    protected _onDelete(operation: DatabaseDeleteOperation<TParent>, userId: string): void;
 }
 interface TokenDocumentPF2e<TParent extends ScenePF2e | null = ScenePF2e | null> extends TokenDocument<TParent> {
     flags: TokenFlagsPF2e;
+    regions: Set<RegionDocumentPF2e<TParent>> | null;
     get actor(): ActorPF2e<this | null> | null;
     get combatant(): CombatantPF2e<EncounterPF2e, this> | null;
     get object(): TokenPF2e<this> | null;

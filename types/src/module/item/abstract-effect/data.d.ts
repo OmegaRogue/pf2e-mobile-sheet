@@ -25,6 +25,7 @@ interface EffectBadgeCounterSource extends EffectBadgeBaseSource {
     min?: number;
     max?: number;
     value: number;
+    loop?: boolean;
 }
 interface EffectBadgeCounter extends EffectBadgeCounterSource, EffectBadgeBase {
     min: number;
@@ -37,11 +38,17 @@ interface EffectBadgeValueSource extends EffectBadgeBaseSource {
     type: "value";
     value: number;
     reevaluate?: {
+        /** The type of event that reevaluation should occur */
+        event: BadgeReevaluationEventType;
+        /** The formula of this badge when it was of a "formula" type */
         formula: string;
-        event: "turn-start" | "turn-end";
+        /** The initial value of this badge */
+        initial?: number;
     } | null;
+    min?: never;
+    max?: never;
 }
-interface EffectBadgeValue extends EffectBadgeValueSource, EffectBadgeBase {
+interface EffectBadgeValue extends Omit<EffectBadgeValueSource, "min" | "max">, EffectBadgeBase {
     min: number;
     max: number;
 }
@@ -49,8 +56,11 @@ interface EffectBadgeFormulaSource extends EffectBadgeBaseSource {
     type: "formula";
     value: string;
     evaluate?: boolean;
-    reevaluate?: "turn-start" | "turn-end" | null;
+    reevaluate?: BadgeReevaluationEventType | null;
+    min?: never;
+    max?: never;
 }
+type BadgeReevaluationEventType = "initiative-roll" | "turn-start" | "turn-end";
 interface EffectBadgeFormula extends EffectBadgeFormulaSource, EffectBadgeBase {
 }
 interface EffectContextData {
@@ -88,4 +98,4 @@ interface DurationData {
     unit: TimeUnit | "unlimited" | "encounter";
     expiry: EffectExpiryType | null;
 }
-export type { AbstractEffectSystemData, AbstractEffectSystemSource, DurationData, EffectAuraData, EffectBadge, EffectBadgeCounter, EffectBadgeFormulaSource, EffectBadgeSource, EffectBadgeValueSource, EffectContextData, EffectExpiryType, EffectTraits, TimeUnit, };
+export type { AbstractEffectSystemData, AbstractEffectSystemSource, BadgeReevaluationEventType, DurationData, EffectAuraData, EffectBadge, EffectBadgeCounter, EffectBadgeFormulaSource, EffectBadgeSource, EffectBadgeValueSource, EffectContextData, EffectExpiryType, EffectTraits, TimeUnit, };

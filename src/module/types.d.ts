@@ -8,10 +8,11 @@ import { ChatMessagePF2e } from "@module/chat-message/document.js";
 import { ActorsPF2e } from "@module/collection/actors.js";
 import { WindowManager } from "./apps/windowManager.js";
 import { MODULE_ID } from "./utils.js";
-import { HookParameters } from "../../types/types/foundry/client/core/hooks.js";
-import { FederatedPointerEvent, PixiTouch } from "pixi.js";
+import { HookParameters } from "foundry-types/client/core/hooks.js";
+import { FederatedEvent, FederatedPointerEvent, PixiTouch } from "pixi.js";
 import { TokenPF2e } from "@module/canvas/token/object.js";
 import { MobileMode } from "./mobileMode.js";
+import type { IPointData } from "@pixi/core";
 
 export type ShareTargetSettings = {
 	send: boolean;
@@ -21,7 +22,7 @@ export type ShareTargetSettings = {
 };
 export type ShareTargetSettingsOptions = {} & Partial<FormApplicationOptions>;
 
-export type MODULE_ID = "pf2e-mobile-sheet";
+export type MODULE_ID = "mobile-sheet";
 
 declare module "@pixi/events" {
 	declare interface EventSystem {
@@ -40,11 +41,19 @@ declare module "@pixi/events" {
 		changedTouches: TouchList;
 	}
 }
-
-export type InteractionEvent = FederatedPointerEvent & {
-	interactionData: Record<any, any>;
+export type InteractionData = Partial<{
+	origin: PIXI.Point | IPointData;
+	destination: PIXI.Point | IPointData;
+	object: PIXI.Container;
+}>;
+export type InteractionEvent = FederatedEvent & {
+	interactionData: InteractionData;
 };
-export type TouchInteractionEvent = InteractionEvent & {
+export type InteractionPointerEvent = FederatedEvent &
+	FederatedPointerEvent & {
+		interactionData: InteractionData;
+	};
+export type TouchInteractionEvent = InteractionPointerEvent & {
 	nativeEvent: PixiTouch;
 };
 
@@ -64,31 +73,6 @@ declare global {
 		> {
 		mobilemode: typeof MobileMode;
 		dragTarget: any;
-	}
-
-	interface TokenLayer {
-		/**
-		 * Clear the contents of the preview container, restoring visibility of original (non-preview) objects.
-		 */
-		clearPreviewContainer(): void;
-	}
-
-	interface GridLayer {
-		/**
-		 * Given a pair of coordinates (x1,y1), return the grid coordinates (x2,y2) which represent the snapped position
-		 * Under a "gridless" system, every pixel position is a valid snapping position
-		 *
-		 * @param {number} x                The exact target location x
-		 * @param {number} y                The exact target location y
-		 * @param {number|null} [interval]  An interval of grid spaces at which to snap.
-		 *                                  At interval=1, snapping occurs at pixel intervals defined by the grid size
-		 *                                  At interval=2, snapping would occur at the center-points of each grid size
-		 *                                  At interval=null, no snapping occurs
-		 * @param {object} [options]        Additional options to configure snapping behaviour.
-		 * @param {Token} [options.token]   The token that is being moved.
-		 * @returns {{x, y}}                An object containing the coordinates of the snapped location
-		 */
-		getSnappedPosition(x: number, y: number, interval: number | null, options: { token: TokenPF2e }): Point;
 	}
 
 	namespace Hooks {

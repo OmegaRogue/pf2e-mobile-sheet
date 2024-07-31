@@ -16,6 +16,7 @@ interface ConsumableSheetData extends PhysicalItemSheetData<ConsumablePF2e> {
     canHaveDamageOrHealing: boolean;
     canHaveHealing: boolean;
     categories: Record<ConsumableCategory, string>;
+    damageKindOptions: FormSelectOption[];
     damageTypes: Record<DamageType, string>;
     materialEffects: SheetOptions;
     otherTags: SheetOptions;

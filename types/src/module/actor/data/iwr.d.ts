@@ -1,12 +1,12 @@
 import { ImmunityType, IWRType, ResistanceType, WeaknessType } from "@actor/types.ts";
 import { IWRException } from "@module/rules/rule-element/iwr/base.ts";
-import { PredicatePF2e, PredicateStatement } from "@system/predication.ts";
+import { Predicate, PredicateStatement } from "@system/predication.ts";
 declare abstract class IWR<TType extends IWRType> {
     #private;
     readonly type: TType;
     readonly exceptions: IWRException<TType>[];
     /** A definition for a custom IWR */
-    readonly definition: PredicatePF2e | null;
+    readonly definition: Predicate | null;
     source: string | null;
     protected abstract readonly typeLabels: Record<TType, string>;
     constructor(data: IWRConstructorData<TType>);
@@ -16,7 +16,7 @@ declare abstract class IWR<TType extends IWRType> {
     /** A label consisting of just the type */
     get typeLabel(): string;
     protected describe(iwrType: IWRException<TType>): PredicateStatement[];
-    get predicate(): PredicatePF2e;
+    get predicate(): Predicate;
     toObject(): Readonly<IWRDisplayData<TType>>;
     /** Construct an object argument for Localization#format (see also PF2E.Actor.IWR.CompositeLabel in en.json) */
     protected createFormatData({ list, prefix, }: {
@@ -29,7 +29,7 @@ type IWRConstructorData<TType extends IWRType> = {
     type: TType;
     exceptions?: IWRException<TType>[];
     customLabel?: Maybe<string>;
-    definition?: Maybe<PredicatePF2e>;
+    definition?: Maybe<Predicate>;
     source?: string | null;
 };
 type IWRDisplayData<TType extends IWRType> = Pick<IWR<TType>, "type" | "exceptions" | "source" | "label">;
@@ -37,6 +37,7 @@ declare class Immunity extends IWR<ImmunityType> implements ImmunitySource {
     protected readonly typeLabels: {
         acid: string;
         air: string;
+        alchemical: string;
         "area-damage": string;
         auditory: string;
         bleed: string;
@@ -118,6 +119,10 @@ declare class Immunity extends IWR<ImmunityType> implements ImmunitySource {
         water: string;
         wood: string;
         wounded: string;
+        arcane: string;
+        divine: string;
+        occult: string;
+        primal: string;
         holy: string;
         unholy: string;
         abysium: string;
@@ -144,6 +149,8 @@ declare class Weakness extends IWR<WeaknessType> implements WeaknessSource {
     protected readonly typeLabels: {
         acid: string;
         air: string;
+        alchemical: string;
+        "all-damage": string;
         "area-damage": string;
         "arrow-vulnerability": string;
         "axe-vulnerability": string;
@@ -191,6 +198,10 @@ declare class Weakness extends IWR<WeaknessType> implements WeaknessSource {
         weapons: string;
         "weapons-shedding-bright-light": string;
         wood: string;
+        arcane: string;
+        divine: string;
+        occult: string;
+        primal: string;
         holy: string;
         unholy: string;
         abysium: string;
@@ -220,8 +231,10 @@ declare class Resistance extends IWR<ResistanceType> implements ResistanceSource
     protected readonly typeLabels: {
         acid: string;
         air: string;
+        alchemical: string;
         "all-damage": string;
         "area-damage": string;
+        axes: string;
         bleed: string;
         bludgeoning: string;
         cold: string;
@@ -264,6 +277,10 @@ declare class Resistance extends IWR<ResistanceType> implements ResistanceSource
         weapons: string;
         "weapons-shedding-bright-light": string;
         wood: string;
+        arcane: string;
+        divine: string;
+        occult: string;
+        primal: string;
         holy: string;
         unholy: string;
         abysium: string;

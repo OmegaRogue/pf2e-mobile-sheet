@@ -1,7 +1,7 @@
-import { FederatedEventTarget, PixiTouch } from "pixi.js";
+// import { FederatedEvent, FederatedEventTarget, FederatedPointerEvent, PixiTouch } from "pixi.js";
 import { MODULE_ID as MODULE_ID_TYPE } from "./types.js";
 
-export const MODULE_ID: MODULE_ID_TYPE = "pf2e-mobile-sheet";
+export const MODULE_ID: MODULE_ID_TYPE = "mobile-sheet";
 
 export function getDebug(): boolean | LogLevel {
 	// const devMode: DevModeModule | undefined = game.modules.get("_dev-mode") as DevModeModule | undefined;
@@ -143,15 +143,20 @@ export function toggleRender(value: boolean): void {
 	else canvas.ready && canvas.app.stop();
 }
 
-export function isPixiTouch(obj: MouseEvent | PointerEvent | PixiTouch): obj is PixiTouch {
-	return "tangentialPressure" in obj;
-}
-
-export function isPlaceableObject(obj: FederatedEventTarget): obj is PlaceableObject {
-	return obj instanceof PlaceableObject;
-}
-
-// https://css-tricks.com/the-trick-to-viewport-units-on-mobile/
-export function viewHeight(): void {
-	document.documentElement.style.setProperty("--vh", `${Math.min(window.innerHeight, window.outerHeight) * 0.01}px`);
-}
+// export function isPixiTouch(obj: MouseEvent | PointerEvent | PixiTouch): obj is PixiTouch {
+// 	return "tangentialPressure" in obj;
+// }
+//
+// export function isPlaceableObject(obj: FederatedEventTarget): obj is PlaceableObject {
+// 	return obj instanceof PlaceableObject;
+// }
+//
+// // https://css-tricks.com/the-trick-to-viewport-units-on-mobile/
+// export function viewHeight(): void {
+// 	document.documentElement.style.setProperty("--vh", `${Math.min(window.innerHeight, window.outerHeight) * 0.01}px`);
+// }
+//
+// export function isFederatedPointerEvent(_obj: FederatedEvent | Event): _obj is FederatedPointerEvent {
+// 	// return "button" in obj;
+// 	return true;
+// }

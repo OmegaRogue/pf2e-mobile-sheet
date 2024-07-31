@@ -119,12 +119,12 @@
 			}
 
 			header.char-header .char-level {
+				flex-wrap: wrap !important;
+				justify-content: center !important;
+
 				.exp-data {
 					padding: initial !important;
 				}
-
-				flex-wrap: wrap !important;
-				justify-content: center !important;
 			}
 		}
 
