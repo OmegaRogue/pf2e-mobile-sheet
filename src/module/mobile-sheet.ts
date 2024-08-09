@@ -4,14 +4,16 @@ import { preloadTemplates } from "./preloadTemplates.ts";
 import { checkMobile, debug, getDebug, info, MODULE_ID, setBodyData, toggleRender } from "./utils.ts";
 import * as windowMgr from "./apps/windowManager.ts";
 import "./combatTracker.ts";
-import "styles/pf2e-mobile-sheet.scss";
+import "styles/mobile-sheet.scss";
 import "./resizeObservers.ts";
 import { MobileUI, ViewState } from "./apps/MobileUI.ts";
+// import nipplejs from "nipplejs";
 // import { EventSystem } from "@pixi/events";
 // import { PixiTouch } from "pixi.js";
-
 // import { TouchInput } from "./apps/touchInput.js";
 import { MobileMode } from "./mobileMode.js";
+import "jquery-sortablejs";
+import Sortable from "sortablejs";
 
 export { ResponsiveObserver } from "./resizeObservers.js";
 
@@ -56,7 +58,7 @@ Hooks.on("getSceneControlButtons", (hudButtons: SceneControl[]) => {
 	for (const hud of hudButtons) {
 		const tool: SceneControlTool = {
 			name: "touch-pan",
-			title: "pf2e-mobile-sheet.PanToggle",
+			title: "mobile-sheet.PanToggle",
 			icon: "fa-regular fa-arrows",
 			visible: true,
 			toggle: true,
@@ -80,38 +82,9 @@ Hooks.on("targetToken", (user, token, targeted) => {
 	token.setTarget(targeted, { releaseOthers: currentUser.force });
 });
 
-// export function onDragMove(event: FederatedPointerEvent) {
-// 	// debug(true, event);
-// 	if (game.dragTarget) {
-// 		debug(true, "move", event);
-// 	}
-// }
-// // new PIXI.Point(241, 418)
-//
-// // @ts-ignore
-// export function onDragStart(event: FederatedPointerEvent) {
-// 	// debug(true, event);
-// 	// store a reference to the data
-// 	// the reason for this is because of multitouch
-// 	// we want to track the movement of this particular touch
-// 	// this.data = event.data;
-// 	game.dragTarget = event.target;
-// 	canvas.app.stage.on("touchmove", onDragMove);
-// }
-//
-// // @ts-ignore
-// export function onDragEnd(event: FederatedPointerEvent) {
-// 	// debug(true, event);
-// 	if (game.dragTarget) {
-// 		if (game.dragTarget instanceof Token) {
-// 			const pos = canvas.stage.transform.localTransform.applyInverse(event.global);
-// 			debug(true, "testt", event, pos);
-// 			game.dragTarget.document.update({ x: pos.x, y: pos.y });
-// 		}
-// 		canvas.app.stage.off("touchmove", onDragMove);
-// 		game.dragTarget = null;
-// 	}
-// }
+Hooks.on("drawMeasuredTemplate", async () => {
+	if (!game.joyManager) return;
+});
 
 Hooks.once("ready", async () => {
 	if (!game.modules.get("lib-wrapper")?.active && game.user.isGM)
@@ -138,106 +111,78 @@ Hooks.once("ready", async () => {
 		game.settings.set(MODULE_ID, "mobile-layout", "on");
 	});
 	body.append(button);
-	// canvas.app.stage.on("touchstart", onDragStart);
-	// canvas.app.stage.on("touchend", onDragEnd);
-	// canvas.app.stage.on("touchcancel", onDragEnd);
 
-	// // @ts-ignore
-	// game.touchEvents = [];
-	// game.touchEventMap = {};
+	// const joy = $("<div id='joystick'/>");
+	// body.append(joy);
 	//
-	// canvas.app.stage.on("touchend", (event) => {
-	// 	delete game.touchEventMap[event.nativeEvent.identifier];
-	// });
-	// canvas.app.stage.on("touchcancel", (event) => {
-	// 	delete game.touchEventMap[event.nativeEvent.identifier];
+	// game.joyManager = nipplejs.create({
+	// 	mode: "static",
+	// 	position: { left: "10%", bottom: "10%" },
+	// 	zone: joy[0],
 	// });
 	//
-	// for (const eventName of [
-	// 	"globaltouchmove",
-	// 	"tapcapture",
-	// 	"touchcancel",
-	// 	"touchend",
-	// 	"tap",
-	// 	"touchcancelcapture",
-	// 	"touchendcapture",
-	// 	"touchendoutside",
-	// 	"touchendoutsidecapture",
-	// 	"touchmove",
-	// 	"touchmovecapture",
-	// 	"touchstart",
-	// 	"touchstartcapture",
-	// ]) {
-	// 	// // @ts-ignore
-	// 	// body[0].addEventListener(
-	// 	// 	eventName,
-	// 	// 	(...args) => {
-	// 	// 		console.log(eventName, ...args);
-	// 	// 		// @ts-ignore
-	// 	// 		game.touchEvents.push({ name: eventName, event: args[0] });
-	// 	// 	},
-	// 	// 	false,
-	// 	// );
-	// 	canvas.app.stage.on(eventName, (event) => {
-	// 		console.log(eventName, event.nativeEvent.identifier, event.timeStamp, event);
-	// 		// @ts-ignore
-	// 		// game.touchEvents.push({ name: eventName, event: event });
-	// 		// game.touchEventMap[event.nativeEvent.identifier] = event;
+	// game.joyManager.on("start", async () => {
+	// 	if (canvas.templates.preview.children.length === 0) return;
+	// 	const preview = canvas.templates.preview.children[0];
+	// 	const token = preview?.actor?.token;
+	// 	if (!token) return;
+	// 	game.previousLayer = canvas.activeLayer;
+	// 	// await joystickPreview(token.center, "ray", {});
+	// });
+	// game.joyManager.on("end", () => {
+	// 	if (canvas.templates.preview.children.length === 0) return;
+	// 	const preview = canvas.templates.preview.children[0];
+	// 	const token = preview?.actor?.token;
+	// 	if (!token) return;
+	// 	$("#nipple_0_0 .back").css("background", "white");
+	// 	const pos = preview.position;
+	// 	document.getElementById("board")?.dispatchEvent(
+	// 		new PointerEvent("pointerdown", {
+	// 			pointerType: "mouse",
+	// 			isPrimary: true,
+	// 			clientX: pos.x,
+	// 			clientY: pos.y,
+	// 			button: game.temp > 0.6 ? 0 : 2,
+	// 			buttons: game.temp > 0.6 ? 1 : 2,
+	// 		}),
+	// 	);
+	// 	document.getElementById("board")?.dispatchEvent(
+	// 		new PointerEvent("pointerup", {
+	// 			pointerType: "mouse",
+	// 			isPrimary: true,
+	// 			clientX: pos.x,
+	// 			clientY: pos.y,
+	// 			button: game.temp > 0.6 ? 0 : 2,
+	// 			buttons: game.temp > 0.6 ? 1 : 2,
+	// 		}),
+	// 	);
+	// });
+	// game.joyManager.on("move", (_evt, data) => {
+	// 	if (canvas.templates.preview.children.length === 0) return;
+	// 	const preview = canvas.templates.preview.children[0];
+	// 	const token = preview?.actor?.token;
+	// 	if (!token) return;
+	// 	game.temp = data.force;
+	// 	if (data.force > 0.6) {
+	// 		$("#nipple_0_0 .back").css("background", "lime");
+	// 	} else {
+	// 		$("#nipple_0_0 .back").css("background", "red");
+	// 	}
+	//
+	// 	preview.document.updateSource({
+	// 		...canvas.grid.getSnappedPoint(
+	// 			{
+	// 				x: token.center.x + (canvas.dimensions.size / 2) * Math.cos(-data.angle.radian),
+	// 				y: token.center.y + (canvas.dimensions.size / 2) * Math.sin(-data.angle.radian),
+	// 			},
+	// 			{
+	// 				mode: preview.snappingMode,
+	// 			},
+	// 		),
+	// 		direction: Math.round(-data.angle.degree / 15) * 15,
 	// 	});
-	// }
-
-	// libWrapper.register<Canvas, typeof Canvas.prototype._onDragSelect>(
-	// 	MODULE_ID,
-	// 	"Canvas.prototype._onDragSelect",
-	// 	function (wrapped, event) {
-	// 		if (!ui.controls?.control?.tools.find((a) => a.name === "touch-pan")?.active) return wrapped(event);
-	// 		// @ts-expect-error
-	// 		// Extract event data
-	// 		const cursorTime = event.interactionData.cursorTime;
-	// 		// @ts-expect-error
-	// 		const { origin, destination } = event.interactionData;
-	// 		const dx = destination.x - origin.x;
-	// 		const dy = destination.y - origin.y;
-	//
-	// 		// Update the client's cursor position every 100ms
-	// 		const now = Date.now();
-	// 		if (now - (cursorTime || 0) > 100) {
-	// 			// @ts-expect-error
-	// 			if (this.controls) this.controls._onMouseMove(event, destination);
-	// 			// @ts-expect-error
-	// 			event.interactionData.cursorTime = now;
-	// 		}
-	//
-	// 		// Pan the canvas
-	// 		this.pan({
-	// 			x: canvas.stage.pivot.x - dx * CONFIG.Canvas.dragSpeedModifier,
-	// 			y: canvas.stage.pivot.y - dy * CONFIG.Canvas.dragSpeedModifier,
-	// 		});
-	//
-	// 		// Reset Token tab cycling
-	// 		// @ts-expect-error
-	// 		this.tokens._tabIndex = null;
-	// 	},
-	// 	libWrapper.MIXED,
-	// );
-	// // @ts-ignore
-	// const PixiNormalizePointer = `PIXI.extensions._queue["renderer-canvas-system"].["${PIXI.extensions._queue["renderer-canvas-system"].findIndex((b) => b.name === "events")}"].ref.prototype.normalizeToPointerData`;
-
-	// libWrapper.register<EventSystem, (event: TouchEvent | MouseEvent | PointerEvent) => PointerEvent[]>(
-	// 	MODULE_ID,
-	// 	PixiNormalizePointer,
-	// 	function (wrapped, event) {
-	// 		if (typeof TouchEvent !== "undefined" && event instanceof TouchEvent) {
-	// 			const normalizedEvents: (PixiTouch & PointerEvent)[] = wrapped(event) as (PixiTouch & PointerEvent)[];
-	// 			const normalizedEvent = normalizedEvents[0];
-	// 			normalizedEvent.touches = event.touches;
-	// 			normalizedEvent.targetTouches = event.targetTouches;
-	// 			normalizedEvent.changedTouches = event.changedTouches;
-	// 			return [normalizedEvent];
-	// 		}
-	// 		return wrapped(event);
-	// 	},
-	// );
+	// 	preview.renderFlags.set({ refresh: true });
+	// });
 
 	libWrapper.register<typeof console, typeof console.debug>(
 		MODULE_ID,
@@ -255,6 +200,38 @@ Hooks.once("ready", async () => {
 			() => {},
 			libWrapper.OVERRIDE,
 		);
+	}
+	const SORTABLE_BASE_OPTIONS: Sortable.Options = {
+		animation: 200,
+		direction: "vertical",
+		dragClass: "drag-preview",
+		dragoverBubble: true,
+		easing: "cubic-bezier(1, 0, 0, 1)",
+		fallbackOnBody: true,
+		filter: "div.item-summary",
+		ghostClass: "drag-gap",
+		group: "inventory",
+		preventOnFilter: false,
+		swapThreshold: 0.25,
+
+		// These options are from the Autoscroll plugin and serve as a fallback on mobile/safari/ie/edge
+		// Other browsers use the native implementation
+		scroll: true,
+		scrollSensitivity: 30,
+		scrollSpeed: 15,
+
+		delay: 500,
+		delayOnTouchOnly: true,
+	};
+	for (const directoryElement of $(".directory-list")) {
+		Sortable.create(directoryElement, {
+			...SORTABLE_BASE_OPTIONS,
+			setData: (dataTransfer, dragEl) => {
+				info(true, "dragged", dragEl.dataset, dataTransfer);
+				// const item = this.actor.inventory.get(dragEl.dataset.itemId, { strict: true });
+				// dataTransfer.setData("text/plain", JSON.stringify({ ...item.toDragData(), fromInventory: true }));
+			},
+		});
 	}
 
 	if (!checkMobile()) return;

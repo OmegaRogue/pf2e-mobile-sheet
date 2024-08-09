@@ -19,8 +19,8 @@
 		"verified": "12"
 	},
 	"scripts": [],
-	"esmodules": ["vendor.mjs", "pf2e-mobile-sheet.mjs"],
-	"styles": ["styles/pf2e-mobile-sheet.css"],
+	"esmodules": ["vendor.mjs", "mobile-sheet.mjs"],
+	"styles": ["styles/mobile-sheet.css"],
 	"packs": [],
 	"languages": [
 		{

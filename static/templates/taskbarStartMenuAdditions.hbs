@@ -1,8 +1,8 @@
 {{#*inline "menuElement"}}
 	<div class="start-menu-option{{ifThen (eq name "canvas") " canvas" ""}}"
-		 title="{{localize (concat "pf2e-mobile-sheet.Menu" (capitalize name))}}"
+		 title="{{localize (concat "mobile-sheet.Menu" (capitalize name))}}"
 		 onclick="game.mobilemode.navigation.mobileMenu.selectItem('{{name}}');"><i class="fas {{icon}}"></i> {{localize
-		(concat "pf2e-mobile-sheet.Menu" (capitalize name))}}</div>
+		(concat "mobile-sheet.Menu" (capitalize name))}}</div>
 {{/inline}}
 {{#each this}}
 	{{> menuElement this }}

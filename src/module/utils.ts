@@ -1,11 +1,12 @@
 // import { FederatedEvent, FederatedEventTarget, FederatedPointerEvent, PixiTouch } from "pixi.js";
 import { MODULE_ID as MODULE_ID_TYPE } from "./types.js";
+import { IPoint } from "@pixi/math";
 
 export const MODULE_ID: MODULE_ID_TYPE = "mobile-sheet";
 
 export function getDebug(): boolean | LogLevel {
 	// const devMode: DevModeModule | undefined = game.modules.get("_dev-mode") as DevModeModule | undefined;
-	return (game.modules.get("_dev-mode") as DevModeModule | undefined)?.api?.getPackageDebugValue(MODULE_ID) ?? false;
+	return (game.modules.get("_dev-mode") as DevModeModule | undefined)?.api?.getPackageDebugValue(MODULE_ID) ?? true;
 }
 
 export function log(force: boolean, ...args: any[]): void {
@@ -18,6 +19,19 @@ export function log(force: boolean, ...args: any[]): void {
 	} catch (e) {
 		/* empty */
 	}
+}
+
+export async function joystickPreview(pos: IPoint, type: MeasuredTemplateType, data: Record<string, unknown>) {
+	const dataA: DeepPartial<foundry.documents.MeasuredTemplateSource> = {
+		t: type,
+		distance: 10,
+		width: CONFIG.MeasuredTemplate.defaults.width * (canvas.dimensions?.distance ?? 1),
+		fillColor: game.user.color,
+		...data,
+		...pos,
+	};
+	// @ts-ignore
+	await canvas.templates._createPreview(dataA, { renderSheet: false });
 }
 
 export function warn(force: boolean, ...args: any[]): void {

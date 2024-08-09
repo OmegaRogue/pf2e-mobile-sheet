@@ -1,69 +1,69 @@
 {
-  "pf2e-mobile-sheet": {
-    "settings": {
-      "mobile-layout": {
-        "name": "Diseño móvil",
-        "hint": "Forzar Foundry a usar diseño móvil"
-      },
-      "mobile-windows": {
-        "name": "Ventanas móviles",
-        "hint": "Forzar diseño de ventana a móvil"
-      },
-      "send-button": {
-        "name": "Mostrar botón de \"Enviar\"",
-        "hint": "Permite anular la visibilidad del botón de enviar"
-      },
-      "toggle": {
-        "on": "Activado",
-        "off": "Desactivado",
-        "auto": "Automático"
-      },
-      "header-button-text": {
-        "name": "Omitir texto en botón de encabezado de ventana",
-        "hint": "Omite el texto en botón de encabezado de ventana"
-      },
-      "show-mobile-toggle": {
-        "name": "Mostrar interruptor de modo móvil",
-        "hint": "Muestra un interruptor para modo móvil cuando este está desactivado."
-      },
-      "disable-canvas": {
-        "name": "Desactivar lienzo de juego",
-        "hint": "Desactiva el lienzo de juego"
-      },
-      "mobile-share-targets": {
-        "title": "Ajustes de usuario",
-        "name": "Compartir blancos",
-        "hint": "Comparte tus blancos con los otros jugadores",
-        "send": {
-          "name": "Enviar",
-          "hint": "Envía datos de blanco a los otros jugadores"
-        },
-        "receive": {
-          "name": "Recibir",
-          "hint": "Recibir datos de blanco de otros jugadores"
-        },
-        "force": {
-          "name": "Forzar",
-          "hint": "Borrar blancos existentes, no-compartidos para jugadores recipientes"
-        },
-        "player": {
-          "name": "Jugador"
-        }
-      }
-    },
-    "sidebar-tab": "Barra Lateral",
-    "MenuCanvas": "Activar/Desactivar Lienzo",
-    "MenuPlayers": "Activar/Desactivar Lista de Jugadores",
-    "MenuExit": "Dejar modo móvil",
-    "MenuReload": "Recargar",
-    "MenuFullscreen": "Activar/Desactivar Pantalla Completa",
-    "NavigationStart": "Comenzar",
-    "NavigationMap": "Escena",
-    "NavigationApp": "Aplicación",
-    "NavigationMacros": "Acciones",
-    "NavigationMenu": "Más",
-    "NavigationWindows": "Ventanas",
-    "PanToggle": "Desplazar con click izquierdo",
-    "EnableMobileMode": "Activar Modo Móvil"
-  }
+	"mobile-sheet": {
+		"settings": {
+			"mobile-layout": {
+				"name": "Diseño móvil",
+				"hint": "Forzar Foundry a usar diseño móvil"
+			},
+			"mobile-windows": {
+				"name": "Ventanas móviles",
+				"hint": "Forzar diseño de ventana a móvil"
+			},
+			"send-button": {
+				"name": "Mostrar botón de \"Enviar\"",
+				"hint": "Permite anular la visibilidad del botón de enviar"
+			},
+			"toggle": {
+				"on": "Activado",
+				"off": "Desactivado",
+				"auto": "Automático"
+			},
+			"header-button-text": {
+				"name": "Omitir texto en botón de encabezado de ventana",
+				"hint": "Omite el texto en botón de encabezado de ventana"
+			},
+			"show-mobile-toggle": {
+				"name": "Mostrar interruptor de modo móvil",
+				"hint": "Muestra un interruptor para modo móvil cuando este está desactivado."
+			},
+			"disable-canvas": {
+				"name": "Desactivar lienzo de juego",
+				"hint": "Desactiva el lienzo de juego"
+			},
+			"mobile-share-targets": {
+				"title": "Ajustes de usuario",
+				"name": "Compartir blancos",
+				"hint": "Comparte tus blancos con los otros jugadores",
+				"send": {
+					"name": "Enviar",
+					"hint": "Envía datos de blanco a los otros jugadores"
+				},
+				"receive": {
+					"name": "Recibir",
+					"hint": "Recibir datos de blanco de otros jugadores"
+				},
+				"force": {
+					"name": "Forzar",
+					"hint": "Borrar blancos existentes, no-compartidos para jugadores recipientes"
+				},
+				"player": {
+					"name": "Jugador"
+				}
+			}
+		},
+		"sidebar-tab": "Barra Lateral",
+		"MenuCanvas": "Activar/Desactivar Lienzo",
+		"MenuPlayers": "Activar/Desactivar Lista de Jugadores",
+		"MenuExit": "Dejar modo móvil",
+		"MenuReload": "Recargar",
+		"MenuFullscreen": "Activar/Desactivar Pantalla Completa",
+		"NavigationStart": "Comenzar",
+		"NavigationMap": "Escena",
+		"NavigationApp": "Aplicación",
+		"NavigationMacros": "Acciones",
+		"NavigationMenu": "Más",
+		"NavigationWindows": "Ventanas",
+		"PanToggle": "Desplazar con click izquierdo",
+		"EnableMobileMode": "Activar Modo Móvil"
+	}
 }

@@ -78,7 +78,7 @@ function moveSidebarToTab(html: JQuery) {
 	if (html.find(".sheet-navigation #sidebar-tab").length === 0) {
 		const sidebarTabButton = $(
 			`<a class="item" id="sidebar-tab" data-tab="sidebar" title="${game.i18n.localize(
-				"pf2e-mobile-sheet.sidebar-tab",
+				"mobile-sheet.sidebar-tab",
 			)}"><i class="fa-solid fa-bars"></i></a>`,
 		);
 		const afterButton = html.find(".sheet-navigation .panel-title");
