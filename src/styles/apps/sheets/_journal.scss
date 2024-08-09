@@ -1,5 +1,13 @@
 @mixin mobile {
 	.journal-sheet-container {
 		--sidebar-width-expanded: 100%;
+
+		.journal-entry-content {
+			min-width: unset;
+		}
+	}
+
+	.journal-header input {
+		width: 100% !important;
 	}
 }

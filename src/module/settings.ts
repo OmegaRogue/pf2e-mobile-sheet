@@ -136,7 +136,7 @@ export class EnableShareReceiveTargets extends FormApplication {
 		return fu.mergeObject(super.defaultOptions, {
 			id: "enableShareReceiveTargets",
 			title: "Mobile Share Targets",
-			template: "./modules/pf2e-mobile-sheet/templates/enableShareReceiveTargets.hbs",
+			template: "./modules/mobile-sheet/templates/enableShareReceiveTargets.hbs",
 			resizable: true,
 		});
 	}

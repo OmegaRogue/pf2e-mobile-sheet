@@ -64,7 +64,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
 							context.server.ws.send({
 								type: "custom",
 								event: "lang-update",
-								data: { path: `modules/pf2e-mobile-sheet/${basePath}` },
+								data: { path: `modules/mobile-sheet/${basePath}` },
 							});
 						});
 					} else if (context.file.endsWith(".hbs")) {
@@ -74,7 +74,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
 							context.server.ws.send({
 								type: "custom",
 								event: "template-update",
-								data: { path: `modules/pf2e-mobile-sheet/${basePath}` },
+								data: { path: `modules/mobile-sheet/${basePath}` },
 							});
 						});
 					}  else if (context.file.endsWith(".scss")) {
@@ -84,7 +84,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
 							context.server.ws.send({
 								type: "custom",
 								event: "scss-update",
-								data: { path: `modules/pf2e-mobile-sheet/${basePath}` },
+								data: { path: `modules/mobile-sheet/${basePath}` },
 							});
 						});
 					}
@@ -98,14 +98,14 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
 		const message = "This file is for a running vite dev server and is not copied to a build";
 		fs.writeFileSync("./index.html", `<h1>${message}</h1>\n`);
 		if (!fs.existsSync("./styles")) fs.mkdirSync("./styles");
-		fs.writeFileSync("./styles/pf2e-mobile-sheet.css", `/** ${message} */\n`);
-		fs.writeFileSync("./pf2e-mobile-sheet.mjs", `/** ${message} */\n\nimport "./src/module/pf2e-mobile-sheet.ts";\n`);
+		fs.writeFileSync("./styles/mobile-sheet.css", `/** ${message} */\n`);
+		fs.writeFileSync("./mobile-sheet.mjs", `/** ${message} */\n\nimport "./src/module/mobile-sheet.ts";\n`);
 		fs.writeFileSync("./vendor.mjs", `/** ${message} */\n`);
 	}
 
 	return {
 		root: "./",
-		base: command === "build" ? "./" : "/modules/pf2e-mobile-sheet/",
+		base: command === "build" ? "./" : "/modules/mobile-sheet/",
 		publicDir: "static",
 		define: {
 			BUILD_MODE: JSON.stringify(buildMode),
@@ -118,17 +118,17 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
 			minify: false,
 			sourcemap: true,
 			lib: {
-				name: "pf2e-mobile-sheet",
-				entry: "src/module/pf2e-mobile-sheet.ts",
+				name: "mobile-sheet",
+				entry: "src/module/mobile-sheet.ts",
 				formats: ["es"],
-				fileName: "pf2e-mobile-sheet",
+				fileName: "mobile-sheet",
 			},
 			rollupOptions: {
 				output: {
 					assetFileNames: ({ name }): string =>
-						name === "style.css" ? "styles/pf2e-mobile-sheet.css" : name!,
+						name === "style.css" ? "styles/mobile-sheet.css" : name!,
 					chunkFileNames: "[name].mjs",
-					entryFileNames: "pf2e-mobile-sheet.mjs",
+					entryFileNames: "mobile-sheet.mjs",
 					manualChunks: {
 						vendor: buildMode === "production" ? Object.keys(packageJSON.dependencies) : [],
 					},
@@ -141,7 +141,7 @@ const config = Vite.defineConfig(({ command, mode }): Vite.UserConfig => {
 			port: 30001,
 			open: false,
 			proxy: {
-				"^(?!/modules/pf2e-mobile-sheet/)": "http://localhost:32456/",
+				"^(?!/modules/mobile-sheet/)": "http://localhost:32456/",
 				"/socket.io": {
 					target: "ws://localhost:32456",
 					ws: true,

@@ -11,7 +11,9 @@
 	"dependencies": {
 		"@pixi/math": "^7.4.2",
 		"remeda": "^2.6.0",
-		"sortablejs": "^1.15.2"
+		"sortablejs": "^1.15.2",
+		"nipplejs": "^0.10.2",
+		"jquery-sortablejs": "^1.0.1"
 	},
 	"description": "Make the PF2e Character sheet work on mobile",
 	"devDependencies": {

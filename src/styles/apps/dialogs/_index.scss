@@ -16,3 +16,7 @@
 		}
 	}
 }
+
+.dialog:not(.application) {
+	max-height: var(--view-height) !important;
+}
