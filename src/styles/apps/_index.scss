@@ -6,6 +6,7 @@
 @import "window-selector";
 @import "sidebar";
 @import "dialogs";
+@import "sheets";
 
 @include mixins.global-mobile {
 	.app.minimized {
