@@ -1,5 +1,4 @@
 import { debug, getBodyData } from "./utils.js";
-import { Application } from "pixi.js";
 
 export abstract class ResponsiveObserver {
 	abstract mobileLayout(html: JQuery<HTMLElement>): void;

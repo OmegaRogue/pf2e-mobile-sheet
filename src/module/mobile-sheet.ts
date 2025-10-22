@@ -55,6 +55,11 @@ Hooks.once("init", async () => {
 });
 
 Hooks.on("getSceneControlButtons", (hudButtons: SceneControl[]) => {
+	// Check if hudButtons is actually an array before iterating
+	if (!Array.isArray(hudButtons)) {
+		return;
+	}
+
 	for (const hud of hudButtons) {
 		const tool: SceneControlTool = {
 			name: "touch-pan",
@@ -280,26 +285,36 @@ Hooks.on("renderApplication", async (app: Application) => {
 	}, 500);
 });
 
+// Hook into chat rendering - both the main chat log and the input component
 Hooks.on("renderChatLog", async () => {
-	// if (!checkMobileWithOverride("send-button")) return;
-	const sendButton = $(`<button type="button" class="button send-button"><i class="fas fa-paper-plane"/></button>`);
-	sendButton.on("click", () => {
-		document?.querySelector("#chat-message")?.dispatchEvent(
-			new KeyboardEvent("keydown", {
-				key: "Enter",
-				code: "Enter",
-			}),
-		);
-	});
-	if (game.modules.get("_chatcommands")?.active) {
-		sendButton.appendTo("#chat-form");
-	} else {
-		const chatContainer = $(`<div id="mobile-chat-row" class="flexrow"></div>`);
-		chatContainer.appendTo("#chat-form");
-		$("#chat-message").appendTo(chatContainer);
-		sendButton.appendTo(chatContainer);
-	}
-	debug(false, "Add Send Button");
+	// Add send button after a delay to ensure chat input is rendered
+	setTimeout(() => {
+		// Check if send button already exists to avoid duplicates
+		if ($("#chat-form .send-button").length > 0) return;
+
+		const sendButton = $(`<button type="button" class="button send-button"><i class="fas fa-paper-plane"/></button>`);
+		sendButton.on("click", () => {
+			const chatInput = document.querySelector("#chat-message") || document.querySelector(".chat-input");
+			if (chatInput) {
+				chatInput.dispatchEvent(
+					new KeyboardEvent("keydown", {
+						key: "Enter",
+						code: "Enter",
+						bubbles: true,
+					}),
+				);
+			}
+		});
+
+		// Add to chat form if it exists
+		const chatForm = $("#chat-form");
+		if (chatForm.length > 0) {
+			sendButton.appendTo(chatForm);
+			debug(false, "Added Send Button to chat form");
+		} else {
+			debug(true, "Chat form not found when trying to add send button");
+		}
+	}, 100);
 });
 
 const notificationQueueProxy: ProxyHandler<typeof Notifications.prototype.queue> = {

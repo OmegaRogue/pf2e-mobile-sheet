@@ -104,7 +104,10 @@ export class MobileUI extends Application {
 	showSidebar(): void {
 		this.state = ViewState.App;
 		setBodyData("hide-hud", false);
-		ui.sidebar?.expand();
+
+		// Skip sidebar expansion to avoid _toggleNotifications error
+		// The sidebar will be shown via CSS in mobile mode regardless
+
 		if (!isTabletMode()) window.WindowManager.minimizeAll();
 		// if (game.settings.get(MODULE_ID, "sidebar-pauses-render") === true) {
 		// 	toggleRender(false);

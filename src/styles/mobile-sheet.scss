@@ -48,6 +48,925 @@
 		--carousel-alignment: right;
 	}
 
+
+	// Full-screen sidebar when in mobile app mode
+	&[data-mobile-tab="app"] {
+		#sidebar {
+			position: fixed !important;
+			top: 0 !important;
+			left: 0 !important;
+			width: 100vw !important;
+			height: calc(100vh - 60px) !important; // Fixed 60px for mobile nav
+			z-index: 100 !important;
+			background: var(--sidebar-background, #1a1a1a) !important;
+			display: flex !important;
+			flex-direction: row !important;
+
+			// Sidebar tabs - dedicated column on the left (part of flexbox layout)
+			#sidebar-tabs {
+				position: relative !important; // Not fixed, part of flex layout
+				left: 0 !important;
+				top: 0 !important;
+				z-index: 150 !important;
+				display: flex !important;
+				flex-direction: column !important;
+				background: var(--sidebar-background, rgba(26, 26, 26, 0.9)) !important; // Dark background
+				border-radius: 0 8px 8px 0 !important; // Rounded on right side only
+				padding: 16px 8px 80px 8px !important; // Bottom padding for nav clearance
+				pointer-events: auto !important;
+				visibility: visible !important;
+				opacity: 1 !important;
+				width: 64px !important; // Fixed width for tab column
+				height: 100% !important; // Use full available height within sidebar container
+				flex-shrink: 0 !important; // Don't shrink
+				box-sizing: border-box !important;
+
+				menu {
+					margin: 0 !important;
+					padding: 0 !important;
+					display: flex !important;
+					flex-direction: column !important;
+					list-style: none !important;
+
+					li {
+						margin: 2px 0 !important;
+						display: block !important;
+
+						// Hide the collapse button in mobile mode (not needed when sidebar is always expanded)
+						&:has(button[data-action="toggleState"]),
+						&:has(button.collapse) {
+							display: none !important;
+						}
+
+						button {
+							width: 40px !important;
+							height: 40px !important;
+							background: var(--color-bg-btn, #444) !important; // Grey square background like desktop
+							border: 2px solid transparent !important;
+							border-radius: 4px !important;
+							color: var(--color-text-light-primary, #fff) !important;
+							display: flex !important;
+							align-items: center !important;
+							justify-content: center !important;
+							pointer-events: auto !important;
+							font-size: 16px !important;
+							visibility: visible !important;
+							opacity: 1 !important;
+							transition: all 0.2s ease !important;
+
+							&[aria-pressed="true"] {
+								border-color: var(--color-border-highlight-alt, #ff6400) !important; // Orange border when active
+								background: var(--color-bg-btn, #444) !important; // Keep grey background
+								color: var(--color-text-light-primary, #fff) !important;
+							}
+
+							&:hover {
+								background: var(--color-bg-btn-hover, #555) !important;
+								transform: scale(1.05) !important;
+							}
+
+							i, .fa, .fas {
+								display: block !important;
+								font-size: 16px !important;
+								color: inherit !important;
+							}
+
+							// Also hide collapse button by data-action or class
+							&[data-action="toggleState"],
+							&.collapse {
+								display: none !important;
+							}
+						}
+					}
+				}
+			}
+
+			// Sidebar content - takes remaining flex space
+			&:not(.expanded) #sidebar-content,
+			#sidebar-content {
+				transform: none !important;
+				margin-left: 0 !important; // No margin needed in flex layout
+				width: 100% !important; // Take remaining space
+				height: 100% !important;
+				flex: 1 !important; // Expand to fill remaining space
+				display: flex !important;
+				flex-direction: column !important; // Stack content vertically
+				box-sizing: border-box !important;
+				overflow: hidden !important;
+				position: relative !important;
+				z-index: 100 !important;
+
+				// Prevent fade interaction and ensure proper content sizing
+				* {
+					max-width: 100% !important;
+					box-sizing: border-box !important;
+				}
+			}
+
+		}
+
+		// Ensure chat container has no interference
+		#chat {
+			margin: 0 !important;
+			padding: 0 !important;
+			width: 100% !important;
+			height: 100% !important;
+			display: flex !important;
+			flex-direction: column !important;
+		}
+
+		// Tab switching logic - ensure only active content is visible
+		#sidebar-content {
+			// Use full height and let flex handle the layout
+			height: 100% !important;
+			max-height: 100% !important;
+			padding: 0 !important; // Remove all padding to ensure alignment
+			padding-bottom: 80px !important; // Only keep bottom padding for mobile nav
+			display: flex !important;
+			flex-direction: column !important;
+			margin: 0 !important; // Ensure no margin differences
+
+			// FORCE hide all content first, then selectively show only the intended active content
+			#chat,
+			#combat,
+			#scenes,
+			#actors,
+			#items,
+			#journal,
+			#tables,
+			#cards,
+			#macros,
+			#playlists,
+			#compendium,
+			#settings {
+				display: none !important;
+			}
+
+			// Show ONLY chat when it's the active tab (and hide everything else)
+			&:has(#chat.active) {
+				#chat {
+					display: flex !important;
+					flex: 1 !important;
+					flex-direction: column !important;
+				}
+
+				#combat,
+				#scenes,
+				#actors,
+				#items,
+				#journal,
+				#tables,
+				#cards,
+				#macros,
+				#playlists,
+				#compendium,
+				#settings {
+					display: none !important;
+				}
+			}
+
+			// Show ONLY combat when it's the active tab (and hide everything else)
+			&:has(#combat.active) {
+				#combat {
+					display: flex !important;
+					flex: 1 !important;
+					flex-direction: column !important;
+					padding: 16px !important;
+					box-sizing: border-box !important;
+				}
+
+				#chat,
+				#scenes,
+				#actors,
+				#items,
+				#journal,
+				#tables,
+				#cards,
+				#macros,
+				#playlists,
+				#compendium,
+				#settings {
+					display: none !important;
+				}
+			}
+
+			// Show ONLY other tabs when they're active (and hide everything else)
+			&:has(#scenes.active) {
+				#scenes {
+					display: flex !important;
+					flex: 1 !important;
+					flex-direction: column !important;
+					padding: 4px !important;
+					margin: 0 !important;
+					width: 100% !important;
+					box-sizing: border-box !important;
+				}
+
+				#chat,
+				#combat,
+				#actors,
+				#items,
+				#journal,
+				#tables,
+				#cards,
+				#macros,
+				#playlists,
+				#compendium,
+				#settings {
+					display: none !important;
+				}
+			}
+
+			&:has(#actors.active) {
+				#actors {
+					display: flex !important;
+					flex: 1 !important;
+					flex-direction: column !important;
+					padding: 4px !important;
+					margin: 0 !important;
+					width: 100% !important;
+					box-sizing: border-box !important;
+				}
+
+				#chat,
+				#combat,
+				#scenes,
+				#items,
+				#journal,
+				#tables,
+				#cards,
+				#macros,
+				#playlists,
+				#compendium,
+				#settings {
+					display: none !important;
+				}
+			}
+
+			&:has(#items.active) {
+				#items {
+					display: flex !important;
+					flex: 1 !important;
+					flex-direction: column !important;
+					padding: 4px !important;
+					margin: 0 !important;
+					width: 100% !important;
+					box-sizing: border-box !important;
+				}
+
+				#chat,
+				#combat,
+				#scenes,
+				#actors,
+				#journal,
+				#tables,
+				#cards,
+				#macros,
+				#playlists,
+				#compendium,
+				#settings {
+					display: none !important;
+				}
+			}
+
+			&:has(#journal.active) {
+				#journal {
+					display: flex !important;
+					flex: 1 !important;
+					flex-direction: column !important;
+					padding: 4px !important;
+					margin: 0 !important;
+					width: 100% !important;
+					box-sizing: border-box !important;
+				}
+
+				#chat,
+				#combat,
+				#scenes,
+				#actors,
+				#items,
+				#tables,
+				#playlists,
+				#compendium,
+				#settings {
+					display: none !important;
+				}
+			}
+
+			&:has(#tables.active) {
+				#tables {
+					display: flex !important;
+					flex: 1 !important;
+					flex-direction: column !important;
+					padding: 4px !important;
+					margin: 0 !important;
+					width: 100% !important;
+					box-sizing: border-box !important;
+				}
+
+				#chat,
+				#combat,
+				#scenes,
+				#actors,
+				#items,
+				#journal,
+				#playlists,
+				#compendium,
+				#settings {
+					display: none !important;
+				}
+			}
+
+			&:has(#playlists.active) {
+				#playlists {
+					display: flex !important;
+					flex: 1 !important;
+					flex-direction: column !important;
+					padding: 4px !important;
+					margin: 0 !important;
+					width: 100% !important;
+					box-sizing: border-box !important;
+				}
+
+				#chat,
+				#combat,
+				#scenes,
+				#actors,
+				#items,
+				#journal,
+				#tables,
+				#compendium,
+				#settings {
+					display: none !important;
+				}
+			}
+
+			&:has(#compendium.active) {
+				#compendium {
+					display: flex !important;
+					flex: 1 !important;
+					flex-direction: column !important;
+					padding: 4px !important; // Reduced padding for more content space
+					margin: 0 !important;
+					width: 100% !important;
+					box-sizing: border-box !important;
+				}
+
+				#chat,
+				#combat,
+				#scenes,
+				#actors,
+				#items,
+				#journal,
+				#tables,
+				#playlists,
+				#settings {
+					display: none !important;
+				}
+			}
+
+			&:has(#cards.active) {
+				#cards {
+					display: flex !important;
+					flex: 1 !important;
+					flex-direction: column !important;
+					padding: 4px !important;
+					margin: 0 !important;
+					width: 100% !important;
+					box-sizing: border-box !important;
+				}
+
+				#chat,
+				#combat,
+				#scenes,
+				#actors,
+				#items,
+				#journal,
+				#tables,
+				#macros,
+				#playlists,
+				#compendium,
+				#settings {
+					display: none !important;
+				}
+			}
+
+			&:has(#macros.active) {
+				#macros {
+					display: flex !important;
+					flex: 1 !important;
+					flex-direction: column !important;
+					padding: 4px !important;
+					margin: 0 !important;
+					width: 100% !important;
+					box-sizing: border-box !important;
+				}
+
+				#chat,
+				#combat,
+				#scenes,
+				#actors,
+				#items,
+				#journal,
+				#tables,
+				#cards,
+				#playlists,
+				#compendium,
+				#settings {
+					display: none !important;
+				}
+			}
+
+			&:has(#settings.active) {
+				#settings {
+					display: flex !important;
+					flex: 1 !important;
+					flex-direction: column !important;
+					padding: 16px !important;
+					box-sizing: border-box !important;
+				}
+
+				#chat,
+				#combat,
+				#scenes,
+				#actors,
+				#items,
+				#journal,
+				#tables,
+				#cards,
+				#macros,
+				#playlists,
+				#compendium {
+					display: none !important;
+				}
+			}
+
+			// Fallback: if no active tab detected, show chat
+			&:not(:has(.active)) #chat {
+				display: flex !important;
+				flex: 1 !important;
+				flex-direction: column !important;
+			}
+
+			// Chat log takes most of the space and is scrollable - extend to use empty space
+			#chat-log {
+				flex: 1 !important; // Take all available space
+				margin: 0 !important;
+				width: 100% !important;
+				overflow-y: auto !important;
+				padding: 8px 12px !important; // Consistent padding
+				box-sizing: border-box !important;
+				min-height: 0 !important; // Allow flex shrinking
+			}
+
+			// Chat form container - EXACTLY match chat-log positioning
+			#chat-form {
+				width: 100% !important; // Exact width match
+				margin: 0 0 8px 0 !important; // Add small bottom margin to clear nav bar
+				padding: 4px 12px !important; // Reduced top/bottom padding to save vertical space
+				box-sizing: border-box !important; // Exact box-sizing match
+				flex-shrink: 0 !important; // Don't shrink
+				display: flex !important;
+				flex-direction: column !important;
+				gap: 4px !important; // Reduced gap between controls and input to save space
+
+				// Force exact alignment - override any inherited styles
+				position: relative !important;
+				left: 0 !important;
+				right: 0 !important;
+				transform: none !important;
+
+				// Ensure no float or other positioning interference
+				float: none !important;
+				clear: both !important;
+
+				// Chat controls within the form
+				#chat-controls {
+					position: relative !important;
+					width: 100% !important; // Take full form width
+					display: flex !important;
+					justify-content: space-around !important; // Spread buttons evenly
+					visibility: visible !important;
+					opacity: 1 !important;
+					background: rgba(0, 0, 0, 0.85) !important;
+					border-radius: 10px !important;
+					padding: 8px 4px !important; // Compact padding
+					margin: 0 !important; // No margin, controlled by form gap
+					z-index: 110 !important;
+					flex-shrink: 0 !important;
+					min-height: 44px !important;
+
+					// Make buttons touch-friendly
+					button, a {
+						min-width: 40px !important;
+						min-height: 40px !important;
+						padding: 6px !important;
+						border-radius: 6px !important;
+						background: rgba(255, 255, 255, 0.1) !important;
+						border: 1px solid rgba(255, 255, 255, 0.2) !important;
+						color: white !important;
+
+						&:hover, &:active {
+							background: rgba(255, 255, 255, 0.2) !important;
+						}
+					}
+				}
+
+				// Ensure chat input is visible and properly styled
+				#chat-message,
+				.chat-input {
+					display: block !important;
+					visibility: visible !important;
+					opacity: 1 !important;
+					width: 100% !important;
+					box-sizing: border-box !important;
+					min-height: 60px !important;
+					padding: 12px 16px !important;
+					border-radius: 8px !important;
+					background: var(--color-bg-light, rgba(26, 26, 26, 0.95)) !important;
+					border: 2px solid var(--color-border-dark, #666) !important;
+					color: white !important;
+					font-size: 16px !important;
+					line-height: 1.4 !important;
+					resize: vertical !important;
+					margin: 8px 0 !important;
+				}
+			}
+
+			// Directory content - optimize for full width usage
+			.directory-list {
+				margin: 0 !important;
+				width: 100% !important;
+				padding: 4px !important; // Further reduced padding for maximum content space
+				box-sizing: border-box !important;
+				overflow-y: auto !important;
+
+				// Ensure directory items use full width with tight spacing
+				.directory-item,
+				.compendium-pack,
+				.folder {
+					width: 100% !important;
+					max-width: none !important;
+					margin: 0 !important; // Remove all margins for tighter spacing
+					padding: 6px 8px !important; // Reduced padding for more content space
+					box-sizing: border-box !important;
+					display: flex !important;
+					align-items: center !important;
+
+					// Text content should expand to fill space
+					.entry-name,
+					.document-name,
+					h3,
+					h4 {
+						flex: 1 !important;
+						margin: 0 !important;
+						padding: 0 8px 0 0 !important;
+						white-space: nowrap !important;
+						overflow: hidden !important;
+						text-overflow: ellipsis !important;
+					}
+
+					// Icons and controls stay compact
+					i, .fa, .fas,
+					.control-icon,
+					button {
+						flex-shrink: 0 !important;
+						margin-left: auto !important;
+					}
+				}
+
+				// Override any default Foundry spacing that might create gaps
+				li, ol > li {
+					margin: 0 !important;
+					margin-bottom: 0 !important;
+					margin-top: 0 !important;
+				}
+
+				// Specific override for actors directory structure
+				&.actors {
+					.directory-item,
+					.folder {
+						border-top: none !important; // Remove any border separators that create visual gaps
+						line-height: 1 !important; // Ensure tight line height
+					}
+
+					ol.parties > li {
+						margin: 0 !important;
+						padding: 0 !important;
+
+						header {
+							gap: 0 !important; // Remove PF2e system gap
+							margin: 0 !important;
+							padding: 6px 8px !important;
+						}
+					}
+				}
+			}
+
+			// Compendium browser specific optimizations
+			.compendium-browser {
+				width: 100% !important;
+				height: 100% !important;
+				display: flex !important;
+				flex-direction: column !important;
+
+				// Browser navigation/filters
+				.compendium-browser-nav,
+				.compendium-browser-filters {
+					width: 100% !important;
+					flex-shrink: 0 !important;
+					padding: 8px !important;
+					box-sizing: border-box !important;
+				}
+
+				// Browser content area
+				.compendium-browser-list,
+				.compendium-browser-content {
+					flex: 1 !important;
+					width: 100% !important;
+					overflow-y: auto !important;
+					padding: 8px !important;
+					box-sizing: border-box !important;
+
+					// Browser items
+					.compendium-browser-item {
+						width: 100% !important;
+						display: flex !important;
+						align-items: center !important;
+						padding: 8px !important;
+						margin: 2px 0 !important;
+						border-radius: 4px !important;
+						box-sizing: border-box !important;
+
+						.item-name {
+							flex: 1 !important;
+							margin-right: 8px !important;
+							text-overflow: ellipsis !important;
+							overflow: hidden !important;
+							white-space: nowrap !important;
+						}
+
+						.item-controls {
+							flex-shrink: 0 !important;
+							display: flex !important;
+							gap: 4px !important;
+						}
+					}
+				}
+			}
+
+			// General optimization for all tab content containers
+			.tab-content,
+			.tab.active {
+				width: 100% !important;
+				height: 100% !important;
+				padding: 0 !important;
+				margin: 0 !important;
+				box-sizing: border-box !important;
+			}
+
+			// Search and filter controls optimization
+			.search-controls,
+			.filter-controls {
+				width: 100% !important;
+				padding: 8px !important;
+				box-sizing: border-box !important;
+				display: flex !important;
+				flex-wrap: wrap !important;
+				gap: 8px !important;
+
+				input[type="text"],
+				input[type="search"] {
+					flex: 1 !important;
+					min-width: 200px !important;
+					padding: 8px 12px !important;
+					box-sizing: border-box !important;
+					border-radius: 4px !important;
+					font-size: 14px !important;
+				}
+
+				select {
+					flex-shrink: 0 !important;
+					padding: 8px 12px !important;
+					box-sizing: border-box !important;
+					border-radius: 4px !important;
+					font-size: 14px !important;
+				}
+			}
+
+			// Optimize folder structures within directories - target with higher specificity
+			.directory-list .folder {
+				margin: 0 !important; // Ensure no margin on folders
+				position: relative !important; // Override any absolute positioning
+
+				.folder-header {
+					position: static !important; // Override absolute positioning that may cause gaps
+					width: 100% !important;
+					display: flex !important;
+					align-items: center !important;
+					padding: 6px 8px !important; // Reduced padding to match directory items
+					margin: 0 !important; // No margin on headers
+					top: unset !important; // Remove any top positioning
+					z-index: unset !important; // Remove z-index that might cause issues
+					box-sizing: border-box !important;
+
+					.folder-name {
+						flex: 1 !important;
+						margin: 0 8px 0 0 !important;
+						font-weight: bold !important;
+						text-overflow: ellipsis !important;
+						overflow: hidden !important;
+						white-space: nowrap !important;
+					}
+
+					.folder-controls {
+						flex-shrink: 0 !important;
+						display: flex !important;
+						gap: 4px !important;
+					}
+				}
+
+				.folder-contents {
+					width: 100% !important;
+					padding-left: 16px !important;
+					box-sizing: border-box !important;
+
+					.directory-item {
+						width: calc(100% - 16px) !important;
+					}
+				}
+			}
+
+			// Directory header should also use full width
+			.directory-header {
+				width: 100% !important;
+				padding: 4px !important; // Reduced padding for more content space
+				margin: 0 !important;
+				box-sizing: border-box !important;
+
+				.header-search,
+				.search-input {
+					width: 100% !important;
+					max-width: none !important;
+					margin: 4px 0 !important;
+					box-sizing: border-box !important;
+				}
+
+				.header-actions {
+					width: 100% !important;
+					display: flex !important;
+					flex-wrap: wrap !important;
+					gap: 8px !important;
+					margin: 8px 0 !important;
+
+					button {
+						flex: 1 !important;
+						min-width: 120px !important;
+						padding: 8px 12px !important;
+						box-sizing: border-box !important;
+					}
+				}
+			}
+
+			// Directory footer should use full width
+			.directory-footer {
+				width: 100% !important;
+				padding: 8px !important;
+				margin: 0 !important;
+				box-sizing: border-box !important;
+			}
+
+			// Compendium browser specific optimizations
+			.compendium-browser,
+			.compendium-sidebar {
+				width: 100% !important;
+				padding: 8px !important;
+				box-sizing: border-box !important;
+
+				// Search bars and filters
+				.search-container,
+				.filter-container {
+					width: 100% !important;
+					margin: 8px 0 !important;
+					box-sizing: border-box !important;
+
+					input[type="text"],
+					select,
+					.search-input {
+						width: 100% !important;
+						padding: 8px 12px !important;
+						box-sizing: border-box !important;
+						margin: 4px 0 !important;
+					}
+				}
+
+				// Browser controls
+				.compendium-controls {
+					width: 100% !important;
+					display: flex !important;
+					flex-wrap: wrap !important;
+					gap: 8px !important;
+					margin: 8px 0 !important;
+
+					button {
+						flex: 1 !important;
+						min-width: 100px !important;
+						padding: 8px 12px !important;
+						font-size: 14px !important;
+					}
+				}
+			}
+
+			// Ensure tabs that contain apps use full width
+			.app,
+			.window-app {
+				width: 100% !important;
+				margin: 0 !important;
+				padding: 8px !important;
+				box-sizing: border-box !important;
+
+				.window-content {
+					width: 100% !important;
+					padding: 0 !important;
+					margin: 0 !important;
+					box-sizing: border-box !important;
+				}
+			}
+
+			// Combat tracker specific styling - ensure it takes full height
+			&:has(#combat),
+			&:has(.combat-tracker) {
+				> #combat,
+				> .combat-tracker {
+					flex: 1 !important; // Take all available space
+					margin: 0 !important;
+					padding: 16px !important;
+					width: 100% !important;
+					height: 100% !important;
+					overflow-y: auto !important;
+					box-sizing: border-box !important;
+					display: flex !important;
+					flex-direction: column !important;
+
+					.directory-list {
+						flex: 1 !important;
+						height: auto !important; // Let flex handle the height
+						margin: 0 !important;
+						padding: 0 !important;
+					}
+
+					.directory-header,
+					.directory-footer {
+						flex-shrink: 0 !important;
+					}
+				}
+			}
+
+			// Fallback for combat tracker if :has() isn't supported
+			#combat {
+				flex: 1 !important;
+				margin: 0 !important;
+				padding: 16px !important;
+				width: 100% !important;
+				overflow-y: auto !important;
+				box-sizing: border-box !important;
+				display: flex !important;
+				flex-direction: column !important;
+
+				.directory-list {
+					flex: 1 !important;
+					height: auto !important;
+					margin: 0 !important;
+					padding: 0 !important;
+				}
+			}
+		}
+
+		// Hide the expand/collapse button in mobile mode
+		#sidebar-expand {
+			display: none !important;
+		}
+
+		// Hide canvas completely when in app mode
+		#board {
+			display: none !important;
+		}
+
+		// Hide UI elements that shouldn't be visible in app mode
+		#ui-left, #ui-center, #ui-middle {
+			display: none !important;
+		}
+
+		// Ensure mobile navigation stays at bottom
+		#mobile-ui {
+			position: fixed !important;
+			bottom: 0 !important;
+			left: 0 !important;
+			right: 0 !important;
+			z-index: 110 !important;
+		}
+	}
+
 	#ui-top {
 		left: 50%;
 		margin: 0 auto;
@@ -175,6 +1094,26 @@
 		display: none;
 		transform: translateX(-110%);
 	}
+
+}
+
+// Override Foundry's .chat-sidebar .chat-form width constraint with high specificity
+@include mixins.global-mobile {
+	&[data-mobile-tab=app] #sidebar #sidebar-content .chat-sidebar .chat-form {
+		width: 100% !important;
+		max-width: none !important; // Override Foundry's max-width: 100% constraint
+	}
+
+	// Ensure chat form and input are visible
+	#chat-form {
+		display: block !important;
+
+		textarea {
+			display: block !important;
+			visibility: visible !important;
+			width: 100% !important;
+		}
+	}
 }
 
 @include mixins.global-tablet {
@@ -184,7 +1123,7 @@
 	}
 
 	div.app.window-app.app.window-app {
-		width: calc(100% - var(--sidebar-width)) !important;
+		width: 100% !important; // Use full width on mobile, not constrained by sidebar-width
 		box-shadow: none;
 	}
 }
