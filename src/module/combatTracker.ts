@@ -1,10 +1,7 @@
-import { CombatantPF2e } from "@module/encounter/combatant.js";
-import { EncounterPF2e } from "@module/encounter/document.js";
-import { TokenDocumentPF2e } from "@scene/token-document/document.js";
-import { ScenePF2e } from "@scene/document.js";
+import { CombatantPF2e, EncounterPF2e, TokenDocumentPF2e, ScenePF2e, EncounterTracker } from "foundry-pf2e";
 import * as math from "@pixi/math";
-import { EncounterTrackerPF2e } from "@module/apps/sidebar/encounter-tracker.js";
-
+// import { Ray } from "foundry-pf2e/foundry/client/canvas/geometry/";
+// import { Ray } from "./types.js";
 const headings = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
 
 async function updateCombatTracker(
@@ -40,7 +37,7 @@ async function updateCombatTracker(
 
 Hooks.on("changeSidebarTab", async (tab: SidebarTab) => {
 	if (tab.id !== "combat") return;
-	await updateCombatTracker((tab as EncounterTrackerPF2e<EncounterPF2e>).viewed?.turns);
+	await updateCombatTracker((tab as EncounterTracker<EncounterPF2e>).viewed?.turns);
 });
 
 Hooks.on("refreshToken", async () => {

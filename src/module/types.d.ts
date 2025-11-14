@@ -1,16 +1,21 @@
-import { ActorPF2e } from "@actor/index.js";
-import { ItemPF2e } from "@item/index.js";
-import { ScenePF2e } from "@scene/index.js";
-import { MacroPF2e } from "@module/macro.js";
-import { UserPF2e } from "@module/user/document.js";
-import { EncounterPF2e } from "@module/encounter/document.js";
-import { ChatMessagePF2e } from "@module/chat-message/document.js";
-import { ActorsPF2e } from "@module/collection/actors.js";
+import {
+	ItemPF2e,
+	ScenePF2e,
+	MacroPF2e,
+	UserPF2e,
+	EncounterPF2e,
+	ChatMessagePF2e,
+	ActorsPF2e,
+	TokenPF2e,
+} from "foundry-pf2e";
+
+import { Ray } from "foundry-pf2e/foundry/client/canvas/geometry/_module.d.mts";
+export type Ray = Ray;
+
 import { WindowManager } from "./apps/windowManager.js";
 import { MODULE_ID } from "./utils.js";
 import { HookParameters } from "foundry-types/client/core/hooks.js";
 import { FederatedEvent, FederatedPointerEvent, PixiTouch } from "pixi.js";
-import { TokenPF2e } from "@module/canvas/token/object.js";
 import { MobileMode } from "./mobileMode.js";
 import type { IPointData } from "@pixi/core";
 import nipplejs, { JoystickManager } from "nipplejs";
