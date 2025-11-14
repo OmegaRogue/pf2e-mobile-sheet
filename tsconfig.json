@@ -46,10 +46,17 @@
 		"strictNullChecks": true,
 		"strictPropertyInitialization": true,
 		"target": "ESNext",
-		"typeRoots": ["node_modules/foundry-pf2e/types", "node_modules/@types"],
-		"types": ["jquery", "node", "tooltipster"],
 		"useDefineForClassFields": true,
-		"noErrorTruncation": true
+		"noErrorTruncation": true,
+		"types": [
+			"node",
+			"vite/client",
+			"jquery",
+			"foundry-pf2e",
+			"foundry-pf2e/lib-wrapper",
+			"foundry-pf2e/socketlib",
+			"tooltipster"
+		]
 		//		"allowJs": true
 	},
 	"watchOptions": {
